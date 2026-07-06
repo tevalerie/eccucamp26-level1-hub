@@ -9,8 +9,7 @@ Landing page, curriculum hub, and resource repository for the
 
 | File | What it is |
 |---|---|
-| `index.html` | Landing page: 4-week journey, Day 1 Vision-Cast, curriculum, case studies, safety, facilitator room, **two-shelf resource repository** (camper / facilitator), past camps. |
-| `wiki.html` | "The Studio" camp wiki: bulletin board, camper room, curriculum quick-reference, gallery, free intro course, facilitator room, parents room. |
+| `index.html` | Single-page site: 4-week journey, Day 1 Vision-Cast, curriculum, case studies, safety, facilitator room, **two-shelf resource repository** (camper / facilitator), past camps. |
 
 ## Facts
 
