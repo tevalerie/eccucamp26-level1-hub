@@ -447,6 +447,58 @@
   .clip .ct .cm{font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-muted);font-variant-numeric:tabular-nums;}
   .clip .ct .cm .d{color:var(--coral);}
 
+  /* ─── CLIENT BOARD ─── */
+  .cb-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:22px;}
+  .cb-row .fl{
+    font-family:var(--mono);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--ink-muted);margin-right:6px;
+  }
+  .clients{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:start;}
+  .client{
+    background:var(--white);border:1px solid var(--bone-line);border-radius:2px;
+    transition:transform 0.15s;
+  }
+  .client:hover{transform:translateY(-2px);}
+  .client .chead{
+    display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:baseline;
+    width:100%;padding:18px 20px 6px;text-align:left;
+  }
+  .client .cnum{font-family:var(--mono);font-size:11px;color:var(--coral);font-weight:600;}
+  .client .cname{font-family:var(--serif);font-weight:900;font-size:17.5px;letter-spacing:-0.01em;line-height:1.2;}
+  .client .cmeta{
+    font-family:var(--mono);font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--ink-muted);margin-top:5px;
+  }
+  .client .caret{font-family:var(--mono);font-size:13px;color:var(--coral);transition:transform 0.15s;}
+  .client .chead[aria-expanded="true"] .caret{transform:rotate(90deg);}
+  .client .mission{
+    padding:8px 20px 16px;font-family:var(--serif);font-style:italic;
+    font-size:15.5px;line-height:1.45;letter-spacing:-0.005em;
+  }
+  .client .cpanel{border-top:1px solid var(--bone-line);padding:16px 20px 20px;background:var(--bone);}
+  .client .cpanel .bt{
+    font-family:var(--mono);font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--coral);margin:12px 0 8px;font-weight:600;
+  }
+  .client .cpanel .bt:first-child{margin-top:0;}
+  .client .cpanel ul{list-style:none;margin:0;padding:0;display:grid;gap:6px;}
+  .client .cpanel li{font-size:13px;color:var(--ink-muted);padding-left:15px;position:relative;line-height:1.5;}
+  .client .cpanel li::before{content:"—";position:absolute;left:0;color:var(--coral);}
+  .client .zone{display:flex;flex-wrap:wrap;gap:6px;}
+  .client .zone span{
+    font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;
+    padding:4px 8px;background:var(--white);border:1px solid var(--bone-line);border-radius:2px;color:var(--ink);
+  }
+  .mm-strip{
+    margin-top:26px;background:var(--ink);color:var(--bone);border-radius:2px;
+    padding:22px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;
+  }
+  .mm-strip .mt{font-family:var(--serif);font-style:italic;font-weight:900;font-size:19px;}
+  .mm-strip .ms{color:rgba(245,239,228,0.65);font-size:13.5px;margin-top:4px;}
+  .mm-strip a{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--ink);background:var(--gold);padding:11px 16px;border-radius:2px;text-decoration:none;font-weight:600;white-space:nowrap;
+  }
   /* ─── REPOSITORY ─── */
   .repo-tabs{
     display:flex;gap:0;margin-bottom:26px;border:1.5px solid var(--ink);border-radius:2px;
@@ -600,6 +652,7 @@
     <a href="#curriculum">Curriculum</a>
     <a href="#levels">Levels</a>
     <a href="#day1">Day 1</a>
+    <a href="#clients">Clients 2026</a>
     <a href="#facilitator">Facilitator Room</a>
     <a href="#repository">Repository</a>
   </div>
@@ -1056,11 +1109,206 @@
 </section>
 </main>
 
+<!-- CLIENT BOARD -->
+<main class="wrap">
+<section class="frame" id="clients">
+  <div class="sec-head">
+    <div class="n"><b>§ 06</b> · The Client Board</div>
+    <div class="h">
+      <h2 class="t">Nine real enterprises. Nine real briefs. Your pod signs one.</h2>
+      <p class="d">These aren't invented scenarios. Nine Caribbean organisations filed chatbot discovery briefs for 2026 — banks, utilities, tax offices, social security. Open a card to read the problem your pod could be pitching against by Day 20.</p>
+    </div>
+  </div>
+
+  <div class="cb-row" role="group" aria-label="Filter clients by sector">
+    <span class="fl">Sector</span>
+    <button class="fchip" data-cb="all" aria-pressed="true">All nine</button>
+    <button class="fchip" data-cb="fin" aria-pressed="false">Banks &amp; finance</button>
+    <button class="fchip" data-cb="util" aria-pressed="false">Utilities</button>
+    <button class="fchip" data-cb="gov" aria-pressed="false">Public sector</button>
+  </div>
+
+  <div class="clients">
+    <article class="client" data-sector="util">
+      <button class="chead" aria-expanded="false">
+        <span class="cnum">01</span>
+        <span><span class="cname">NAWASA</span><br/><span class="cmeta">Water Authority · Grenada</span></span>
+        <span class="caret" aria-hidden="true">›</span>
+      </button>
+      <p class="mission">They want a bot that can read a water meter with its eyes.</p>
+      <div class="cpanel" hidden>
+        <p class="bt">The brief</p>
+        <ul>
+          <li>Field teams need tank levels and meter readings read and logged — computer-vision territory</li>
+          <li>The same billing questions arrive on WhatsApp, Facebook, and the website every day</li>
+          <li>Around-the-clock answers without adding staff</li>
+        </ul>
+        <p class="bt">Impact zones</p>
+        <div class="zone"><span>Customer Service</span><span>Data</span><span>Communication</span></div>
+      </div>
+    </article>
+    <article class="client" data-sector="fin">
+      <button class="chead" aria-expanded="false">
+        <span class="cnum">02</span>
+        <span><span class="cname">Sagicor Finance</span><br/><span class="cmeta">Non-bank Financial · Saint Lucia</span></span>
+        <span class="caret" aria-hidden="true">›</span>
+      </button>
+      <p class="mission">One branch. A whole island asking about loans, leases, and deposits.</p>
+      <div class="cpanel" hidden>
+        <p class="bt">The brief</p>
+        <ul>
+          <li>First-line answers on loans, commercial leases, and fixed deposits — 24/7</li>
+          <li>Turn after-hours questions into qualified leads for a single-branch team</li>
+          <li>Filed by Risk &amp; Compliance — guardrails are in the brief, not an afterthought</li>
+        </ul>
+        <p class="bt">Impact zones</p>
+        <div class="zone"><span>Service</span><span>Sales</span><span>Education</span></div>
+      </div>
+    </article>
+    <article class="client" data-sector="gov">
+      <button class="chead" aria-expanded="false">
+        <span class="cnum">03</span>
+        <span><span class="cname">Inland Revenue Division</span><br/><span class="cmeta">Tax Authority · Grenada</span></span>
+        <span class="caret" aria-hidden="true">›</span>
+      </button>
+      <p class="mission">The tax office answers the same twenty questions all day, every day.</p>
+      <div class="cpanel" hidden>
+        <p class="bt">The brief</p>
+        <ul>
+          <li>High inquiry volume, long waits, inconsistent answers across channels</li>
+          <li>Walk taxpayers through registering, filing, and paying — without the queue</li>
+          <li>Data sits in silos while staff drown in manual paperwork</li>
+        </ul>
+        <p class="bt">Impact zones</p>
+        <div class="zone"><span>Service</span><span>Administration</span><span>Education</span></div>
+      </div>
+    </article>
+    <article class="client" data-sector="fin">
+      <button class="chead" aria-expanded="false">
+        <span class="cnum">04</span>
+        <span><span class="cname">Bank of Saint Lucia</span><br/><span class="cmeta">Banking &amp; Finance · Saint Lucia</span></span>
+        <span class="caret" aria-hidden="true">›</span>
+      </button>
+      <p class="mission">Digital-banking help that clocks out at 4 p.m. They want it awake at 3 a.m.</p>
+      <div class="cpanel" hidden>
+        <p class="bt">The brief</p>
+        <ul>
+          <li>Guided troubleshooting for common digital-banking issues</li>
+          <li>Customers don't know the products — education is a sales problem too</li>
+          <li>Self-service tutorials that never sleep; admin, data, and tech support all rated high-impact</li>
+        </ul>
+        <p class="bt">Impact zones</p>
+        <div class="zone"><span>Tech Support</span><span>Administration</span><span>Data</span></div>
+      </div>
+    </article>
+    <article class="client" data-sector="util">
+      <button class="chead" aria-expanded="false">
+        <span class="cnum">05</span>
+        <span><span class="cname">LUCELEC</span><br/><span class="cmeta">Electricity Utility · Saint Lucia</span></span>
+        <span class="caret" aria-hidden="true">›</span>
+      </button>
+      <p class="mission">Which fridge is cheaper to run? They want a bot that does the math.</p>
+      <div class="cpanel" hidden>
+        <p class="bt">The brief</p>
+        <ul>
+          <li>Estimate an appliance's long-term electricity cost from energy ratings, usage, and live tariffs — right at the point of purchase</li>
+          <li>Explain tariff structures in language a customer actually understands</li>
+          <li>Deflect the daily flood of basic usage-and-billing questions</li>
+        </ul>
+        <p class="bt">Impact zones</p>
+        <div class="zone"><span>Education</span><span>Service</span><span>Data</span></div>
+      </div>
+    </article>
+    <article class="client" data-sector="fin">
+      <button class="chead" aria-expanded="false">
+        <span class="cnum">06</span>
+        <span><span class="cname">ACB Caribbean</span><br/><span class="cmeta">Banking · Antigua &amp; Grenada</span></span>
+        <span class="caret" aria-hidden="true">›</span>
+      </button>
+      <p class="mission">Seventy years old, EC$2 billion strong — and the contact centre needs a brain.</p>
+      <div class="cpanel" hidden>
+        <p class="bt">The brief</p>
+        <ul>
+          <li>First-line triage for a contact centre spanning two countries</li>
+          <li>A product catalogue from youth savings to trade finance — the bot has to know it all</li>
+          <li>Salesforce CRM just landed; the bot joins a live digital-transformation programme</li>
+        </ul>
+        <p class="bt">Impact zones</p>
+        <div class="zone"><span>Service</span><span>Operations</span><span>Data</span></div>
+      </div>
+    </article>
+    <article class="client" data-sector="fin">
+      <button class="chead" aria-expanded="false">
+        <span class="cnum">07</span>
+        <span><span class="cname">Caribbean Union Bank</span><br/><span class="cmeta">Banking · Antigua &amp; Barbuda</span></span>
+        <span class="caret" aria-hidden="true">›</span>
+      </button>
+      <p class="mission">Every channel, every hour — and in more languages than one.</p>
+      <div class="cpanel" hidden>
+        <p class="bt">The brief</p>
+        <ul>
+          <li>24/7 answers with human-agent escalation when it matters</li>
+          <li>Multilingual support plus social-media feedback analysis</li>
+          <li>Distribute customer training information on a schedule</li>
+        </ul>
+        <p class="bt">Impact zones</p>
+        <div class="zone"><span>Service</span><span>Data</span><span>Training</span></div>
+      </div>
+    </article>
+    <article class="client" data-sector="gov">
+      <button class="chead" aria-expanded="false">
+        <span class="cnum">08</span>
+        <span><span class="cname">NIS Grenada</span><br/><span class="cmeta">Social Security · Grenada</span></span>
+        <span class="caret" aria-hidden="true">›</span>
+      </button>
+      <p class="mission">Nineteen benefits. One bot to explain them all.</p>
+      <div class="cpanel" hidden>
+        <p class="bt">The brief</p>
+        <ul>
+          <li>From sickness and maternity to survivors' pensions — route citizens to the right benefit</li>
+          <li>Replace manual, repetitive replies in the benefits office</li>
+          <li>Lives on SharePoint, .NET, and Azure — a real enterprise stack to respect</li>
+        </ul>
+        <p class="bt">Impact zones</p>
+        <div class="zone"><span>Service</span><span>Operations</span><span>Education</span></div>
+      </div>
+    </article>
+    <article class="client" data-sector="gov">
+      <button class="chead" aria-expanded="false">
+        <span class="cnum">09</span>
+        <span><span class="cname">Inland Revenue Department</span><br/><span class="cmeta">Government of Anguilla · Anguilla</span></span>
+        <span class="caret" aria-hidden="true">›</span>
+      </button>
+      <p class="mission">When the only tax officer is busy, who picks up?</p>
+      <div class="cpanel" hidden>
+        <p class="bt">The brief</p>
+        <ul>
+          <li>A tax officer isn't always available — the bot becomes the first responder</li>
+          <li>Push announcements and deadlines beyond the newspaper and the Gazette</li>
+          <li>Serve residents, businesses, and tourists alike — service, comms, and tech rated high-impact</li>
+        </ul>
+        <p class="bt">Impact zones</p>
+        <div class="zone"><span>Service</span><span>Communication</span><span>Tech Support</span></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="mm-strip">
+    <div>
+      <p class="mt">Plus four multimedia clients.</p>
+      <p class="ms">Four more enterprises briefed the Level 2 · Multimedia track — their board lives on the masterhub.</p>
+    </div>
+    <a href="https://enoete.github.io/eccucamp26_masterhub" target="_blank" rel="noopener">Level 2 masterhub ↗</a>
+  </div>
+</section>
+</main>
+
+
 <!-- SAFETY BAND -->
 <section class="safety">
   <div class="wrap">
     <div class="sec-head">
-      <div class="n"><b>§ 06</b> · Safety &amp; Judgement</div>
+      <div class="n"><b>§ 07</b> · Safety &amp; Judgement</div>
       <div class="h">
         <h2 class="t">The bot suggests. A human decides.</h2>
         <p class="d">Care-first is a design principle, not a slogan. We name where it lives in the pipeline so pods know when to slow down.</p>
@@ -1104,7 +1352,7 @@
   <div class="wrap">
     <div class="fac-grid">
       <div>
-        <div class="eyebrow" style="color:#B8934A;"><span class="dot" style="background:#B8934A;"></span>§ 07 · Facilitator Room</div>
+        <div class="eyebrow" style="color:#B8934A;"><span class="dot" style="background:#B8934A;"></span>§ 08 · Facilitator Room</div>
         <h2 style="margin-top:22px;">Everything a lead needs, one door in.</h2>
         <p class="lede">
           The Facilitator Room holds every lesson plan, timetable, code artefact, image manifest, and safety brief in one place — kept in step with the curriculum so a facilitator never opens a stale slide by accident. <strong>Open access. No login.</strong>
@@ -1149,7 +1397,7 @@
 <main class="wrap">
 <section class="frame" id="repository">
   <div class="sec-head">
-    <div class="n"><b>§ 08</b> · Repository</div>
+    <div class="n"><b>§ 09</b> · Repository</div>
     <div class="h">
       <h2 class="t">Every lesson, template, and file. Two shelves.</h2>
       <p class="d">Campers get the decks, workbooks, templates, and code skeletons. Facilitators get everything — including the Kahoots, cheat-cards, and game kits that make the magic look effortless. No logins, no paywalls; files live on Google Drive and this page is the index.</p>
@@ -1200,7 +1448,7 @@
 <main class="wrap">
 <section class="pastcamps" id="past-camps">
   <div class="sec-head">
-    <div class="n"><b>§ 09</b> · Past Camps</div>
+    <div class="n"><b>§ 10</b> · Past Camps</div>
     <div class="h">
       <h2 class="t">Two cohorts in. The receipts are on YouTube.</h2>
       <p class="d">The 2024 chatbot showcase, the 2025 regional showcase — nearly 400 campers across seven member countries — and the first episode of the 2026 season, already on air.</p>
@@ -1306,6 +1554,7 @@
           <li><a href="#day1">Day 1 Vision-Cast</a></li>
           <li><a href="#curriculum">Curriculum</a></li>
           <li><a href="#levels">Levels 1 &amp; 2</a></li>
+          <li><a href="#clients">The Client Board</a></li>
           <li><a href="#repository">Repository</a></li>
           <li><a href="#past-camps">Past Camps</a></li>
         </ul>
@@ -1505,5 +1754,30 @@
   });
 
   render();
+})();
+</script>
+
+<script>
+(function(){
+  document.querySelectorAll(".client .chead").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var panel = btn.closest(".client").querySelector(".cpanel");
+      var open = panel.hidden;
+      panel.hidden = !open;
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  });
+  var row = document.querySelector(".cb-row");
+  if(row){
+    row.addEventListener("click", function(e){
+      var chip = e.target.closest(".fchip");
+      if(!chip) return;
+      var v = chip.getAttribute("data-cb");
+      row.querySelectorAll(".fchip").forEach(function(c){ c.setAttribute("aria-pressed", c === chip ? "true" : "false"); });
+      document.querySelectorAll(".client").forEach(function(card){
+        card.style.display = (v === "all" || card.getAttribute("data-sector") === v) ? "" : "none";
+      });
+    });
+  }
 })();
 </script>
