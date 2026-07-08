@@ -537,6 +537,29 @@
     border:1.5px solid var(--aqua);color:var(--aqua);border-radius:2px;padding:3px 7px;white-space:nowrap;
   }
   .tbadge.tier{border-color:var(--gold);color:#8A6A2F;}
+  .tcat.sov{grid-column:1/-1;border-top:3px solid var(--aqua);}
+  .sov-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:4px;}
+  .sov-col .sc-tag{
+    font-family:var(--mono);font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--coral);margin-bottom:10px;font-weight:600;
+  }
+  .mchips{display:flex;flex-wrap:wrap;gap:6px;}
+  .mchips span{
+    font-family:var(--mono);font-size:10px;letter-spacing:0.08em;
+    padding:5px 9px;border:1px solid var(--bone-line);border-radius:2px;background:var(--bone);
+  }
+  .sov-arc{
+    margin-top:20px;padding-top:16px;border-top:1px solid var(--bone-line);
+    display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:baseline;
+  }
+  .sov-arc .arc{
+    font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-muted);
+    line-height:1.9;
+  }
+  .sov-arc .arc b{color:var(--coral);font-weight:600;}
+  .sov-quote{
+    font-family:var(--serif);font-style:italic;font-size:15px;line-height:1.5;max-width:340px;
+  }
   .curtain{
     margin-top:28px;background:var(--ink);color:var(--bone);border-radius:2px;
     border-top:3px solid var(--gold);padding:32px 34px;
@@ -697,6 +720,7 @@
     .clips{grid-template-columns:1fr;}
     .bench{grid-template-columns:1fr;}
     .tgrid{grid-template-columns:1fr;}
+    .sov-grid{grid-template-columns:1fr;}
     .curtain-grid{grid-template-columns:1fr;}
     .repo-tools{grid-template-columns:1fr;}
     .rrow{grid-template-columns:56px 1fr;gap:10px 20px;}
@@ -1528,6 +1552,57 @@
         </div>
         </div>
       </div>
+      <div class="tcat sov">
+        <div class="th"><h3>Open &amp; self-hosted — the sovereignty tier</h3><span class="tw">Wk 4 stretch · advanced pods</span></div>
+        <div class="sov-grid">
+          <div class="sov-col">
+            <p class="sc-tag">Runners · the software</p>
+            <div class="trows">
+              <div class="trow">
+                <span><span class="tn">Ollama</span><br/><span class="td">One-command local LLMs — works with the internet off.</span></span>
+                <span class="tbadge">OPEN</span>
+              </div>
+              <div class="trow">
+                <span><span class="tn">LM Studio</span><br/><span class="td">The GUI runner — model marketplace, no command line needed.</span></span>
+                <span class="tbadge">OPEN</span>
+              </div>
+              <div class="trow">
+                <span><span class="tn">llama.cpp</span><br/><span class="td">Bare-metal inference — the Raspberry Pi showcase trick.</span></span>
+                <span class="tbadge">OPEN</span>
+              </div>
+            </div>
+          </div>
+          <div class="sov-col">
+            <p class="sc-tag">Open-weight model families</p>
+            <div class="mchips">
+              <span>Meta Llama 3.x / 4</span>
+              <span>Mistral · Mixtral</span>
+              <span>Google Gemma 2 / 3</span>
+              <span>Qwen 2.5 / 3</span>
+              <span>Microsoft Phi 3 / 4</span>
+              <span>DeepSeek R1 / V3</span>
+            </div>
+            <p class="td" style="margin-top:12px;">Gemma runs free inside Google AI Studio — same family as Gemini, so Day 17 can switch between them live. Phi's 3.8B fits on a plain CPU: the model-constraints lesson in one download.</p>
+          </div>
+          <div class="sov-col">
+            <p class="sc-tag">Hosted open inference</p>
+            <div class="trows">
+              <div class="trow">
+                <span><span class="tn">Groq</span><br/><span class="td">Sub-second Llama and Mixtral — generous free tier.</span></span>
+                <span class="tbadge tier">FREE TIER</span>
+              </div>
+              <div class="trow">
+                <span><span class="tn">Together AI</span><br/><span class="td">100+ open models behind one API — facilitator fallback.</span></span>
+                <span class="tbadge tier">PAY/USE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sov-arc">
+          <p class="arc"><b>Day 8</b> · the concept — open weights exist &nbsp;→&nbsp; <b>Day 17</b> · same prompt, Gemini ↔ Gemma, live &nbsp;→&nbsp; <b>Day 18 stretch</b> · Ollama offline: no key, no internet, still answering</p>
+          <p class="sov-quote">"No one else owns your bot's brain when you self-host — and when hurricane season takes the internet, the bot still answers."</p>
+        </div>
+      </div>
   </div>
 
   <div class="curtain">
@@ -1974,7 +2049,15 @@
     {fmt:"WEB", typ:"tool", wk:"W4", aud:"facilitator", n:"HuggingFace Inference + Spaces", d:"Open-model fallback and alternate public hosting.", url:"https://huggingface.co"},
     {fmt:"WEB", typ:"tool", wk:"W4", aud:"facilitator", n:"OpenRouter", d:"One key, many providers — the Week 4 resilience lesson.", url:"https://openrouter.ai"},
     {fmt:"WEB", typ:"tool", wk:"W3", aud:"facilitator", n:"Neural voice chain — OpenAI TTS · ElevenLabs · Play.ht", d:"The premium voice upgrade path; a client-budget decision, not a default. Campers never handle keys — every skeleton routes through safe_call().", url:"https://drive.google.com/drive/folders/1hZghGhE9Uhm-Fz6IkTL50q_s44CeJve0"},
-    {fmt:"GDOC", typ:"tool", wk:"X", aud:"facilitator", n:"AI-Tools Inventory — Weeks 1–4", d:"The full free-first ordering, day-by-day usage matrix, and fallback chains. In Playbooks & Supplements.", url:"https://drive.google.com/drive/folders/1hZghGhE9Uhm-Fz6IkTL50q_s44CeJve0"}
+    {fmt:"GDOC", typ:"tool", wk:"X", aud:"facilitator", n:"AI-Tools Inventory — Weeks 1–4", d:"The full free-first ordering, day-by-day usage matrix, and fallback chains. In Playbooks & Supplements.", url:"https://drive.google.com/drive/folders/1hZghGhE9Uhm-Fz6IkTL50q_s44CeJve0"},
+
+    /* ── Open / self-hosted · the sovereignty tier ── */
+    {fmt:"OPEN", typ:"tool", wk:"W4", aud:"camper", n:"Ollama", d:"One-command local LLMs — pull Llama 3.2 and run with the internet off. No API key, no rate limits.", url:"https://ollama.com"},
+    {fmt:"OPEN", typ:"tool", wk:"W4", aud:"camper", n:"LM Studio", d:"GUI runner for open-weight models — marketplace included, no command line needed.", url:"https://lmstudio.ai"},
+    {fmt:"OPEN", typ:"tool", wk:"W4", aud:"camper", n:"llama.cpp", d:"Bare-metal inference for edge devices — the Raspberry Pi showcase trick.", url:"https://github.com/ggml-org/llama.cpp"},
+    {fmt:"OPEN", typ:"tool", wk:"W4", aud:"camper", n:"Open-weight model families", d:"Llama · Mistral · Gemma · Qwen · Phi · DeepSeek — the models you can own. Browse them all on HuggingFace.", url:"https://huggingface.co/models"},
+    {fmt:"WEB", typ:"tool", wk:"W4", aud:"facilitator", n:"Groq", d:"Ultra-fast hosted inference of open-weight models — generous free tier; the L2 cinematic-script engine.", url:"https://groq.com"},
+    {fmt:"WEB", typ:"tool", wk:"W4", aud:"facilitator", n:"Together AI", d:"Hosted inference across 100+ open models — pay-per-use fallback.", url:"https://www.together.ai"}
   ];
 
   var state = {shelf:"camper", wk:"all", typ:"all", q:""};
