@@ -560,6 +560,7 @@
   .sov-quote{
     font-family:var(--serif);font-style:italic;font-size:15px;line-height:1.5;max-width:340px;
   }
+  .tcat.sec{grid-column:1/-1;border-top:3px solid var(--coral);}
   .curtain{
     margin-top:28px;background:var(--ink);color:var(--bone);border-radius:2px;
     border-top:3px solid var(--gold);padding:32px 34px;
@@ -1603,6 +1604,67 @@
           <p class="sov-quote">"No one else owns your bot's brain when you self-host — and when hurricane season takes the internet, the bot still answers."</p>
         </div>
       </div>
+      <div class="tcat sec">
+        <div class="th"><h3>Security, guardrails &amp; PII</h3><span class="tw">Days 8–19 · the security lane</span></div>
+        <div class="sov-grid">
+          <div class="sov-col">
+            <p class="sc-tag">Protect the person</p>
+            <div class="trows">
+              <div class="trow">
+                <span><span class="tn">Presidio (Microsoft)</span><br/><span class="td">PII detection and anonymisation — the Day 11 redaction pipeline.</span></span>
+                <span class="tbadge">OPEN</span>
+              </div>
+              <div class="trow">
+                <span><span class="tn">Guardrails AI</span><br/><span class="td">Output validation and PII scrubbing — how the Day 14 Guardrails Wall gets implemented.</span></span>
+                <span class="tbadge tier">FREE TIER</span>
+              </div>
+              <div class="trow">
+                <span><span class="tn">Llama Guard / prompt-guard</span><br/><span class="td">Jailbreak and prompt-injection detection — an open-weights safety model.</span></span>
+                <span class="tbadge">OPEN</span>
+              </div>
+              <div class="trow">
+                <span><span class="tn">OpenAI Moderation API</span><br/><span class="td">Content-safety classifier for the Day 9 adversarial QA round.</span></span>
+                <span class="tbadge">FREE</span>
+              </div>
+            </div>
+          </div>
+          <div class="sov-col">
+            <p class="sc-tag">Protect the keys</p>
+            <div class="trows">
+              <div class="trow">
+                <span><span class="tn">detect-secrets (Yelp)</span><br/><span class="td">Pre-commit hook that catches leaked API keys before they ship — every commit, Days 8+.</span></span>
+                <span class="tbadge">OPEN</span>
+              </div>
+              <div class="trow">
+                <span><span class="tn">GitGuardian</span><br/><span class="td">Continuous repo-level secret scanning across the pod repos.</span></span>
+                <span class="tbadge tier">FREE TIER</span>
+              </div>
+            </div>
+            <p class="td" style="margin-top:12px;">The key rule's enforcement arm: safe_call() keeps keys out of camper hands, and these two catch the accidents.</p>
+          </div>
+          <div class="sov-col">
+            <p class="sc-tag">Protect the code</p>
+            <div class="trows">
+              <div class="trow">
+                <span><span class="tn">Bandit</span><br/><span class="td">Python security linter — Day 18 hardening sweep.</span></span>
+                <span class="tbadge">OPEN</span>
+              </div>
+              <div class="trow">
+                <span><span class="tn">Snyk</span><br/><span class="td">CVE scanning on requirements.txt — the dependencies get audited too.</span></span>
+                <span class="tbadge tier">FREE TIER</span>
+              </div>
+              <div class="trow">
+                <span><span class="tn">OWASP LLM Top 10</span><br/><span class="td">The reference framework — prompt injection, data poisoning, and friends. Cited in the Day 19 handover.</span></span>
+                <span class="tbadge">FREE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sov-arc">
+          <p class="arc"><b>Day 8–9</b> · API security + adversarial QA &nbsp;→&nbsp; <b>Day 11</b> · redaction pipeline &nbsp;→&nbsp; <b>Day 14</b> · Guardrails Wall, six checks &nbsp;→&nbsp; <b>Day 17</b> · Confirmation Register &nbsp;→&nbsp; <b>Day 18</b> · harden + weakness log &nbsp;→&nbsp; <b>Day 19</b> · handover security section</p>
+          <p class="sov-quote">"All ten are free at camp scale. Security is the strongest free-first story in the whole stack."</p>
+        </div>
+      </div>
   </div>
 
   <div class="curtain">
@@ -2057,7 +2119,19 @@
     {fmt:"OPEN", typ:"tool", wk:"W4", aud:"camper", n:"llama.cpp", d:"Bare-metal inference for edge devices — the Raspberry Pi showcase trick.", url:"https://github.com/ggml-org/llama.cpp"},
     {fmt:"OPEN", typ:"tool", wk:"W4", aud:"camper", n:"Open-weight model families", d:"Llama · Mistral · Gemma · Qwen · Phi · DeepSeek — the models you can own. Browse them all on HuggingFace.", url:"https://huggingface.co/models"},
     {fmt:"WEB", typ:"tool", wk:"W4", aud:"facilitator", n:"Groq", d:"Ultra-fast hosted inference of open-weight models — generous free tier; the L2 cinematic-script engine.", url:"https://groq.com"},
-    {fmt:"WEB", typ:"tool", wk:"W4", aud:"facilitator", n:"Together AI", d:"Hosted inference across 100+ open models — pay-per-use fallback.", url:"https://www.together.ai"}
+    {fmt:"WEB", typ:"tool", wk:"W4", aud:"facilitator", n:"Together AI", d:"Hosted inference across 100+ open models — pay-per-use fallback.", url:"https://www.together.ai"},
+
+    /* ── Security, guardrails & PII · Category 12 ── */
+    {fmt:"OPEN", typ:"tool", wk:"W3", aud:"camper", n:"Presidio (Microsoft)", d:"PII detection and anonymisation — the Day 11 redact_pii pipeline's engine.", url:"https://microsoft.github.io/presidio/"},
+    {fmt:"WEB", typ:"tool", wk:"W3", aud:"camper", n:"Guardrails AI", d:"LLM output validation, schema enforcement, PII scrubbing — implements the Day 14 Guardrails Wall.", url:"https://www.guardrailsai.com"},
+    {fmt:"OPEN", typ:"tool", wk:"W3", aud:"camper", n:"Llama Guard / prompt-guard", d:"Jailbreak and prompt-injection detection — an open-weights safety model, via HuggingFace or self-hosted.", url:"https://huggingface.co/meta-llama"},
+    {fmt:"OPEN", typ:"tool", wk:"W3", aud:"facilitator", n:"NeMo Guardrails (NVIDIA)", d:"Conversational safeguards, topic rails, fact-checking — the Day 14 stretch fallback.", url:"https://github.com/NVIDIA/NeMo-Guardrails"},
+    {fmt:"WEB", typ:"tool", wk:"W2", aud:"facilitator", n:"OpenAI Moderation API", d:"Content-safety classifier for Day 9 QA and Day 14 — bundled free with the camp's OpenAI account.", url:"https://platform.openai.com/docs/guides/moderation"},
+    {fmt:"OPEN", typ:"tool", wk:"W2", aud:"camper", n:"detect-secrets (Yelp)", d:"Pre-commit hook that catches leaked API keys — runs on every pod commit from Day 8.", url:"https://github.com/Yelp/detect-secrets"},
+    {fmt:"WEB", typ:"tool", wk:"W2", aud:"facilitator", n:"GitGuardian", d:"Continuous repo-level secret scanning across all pod repos — free for public repos.", url:"https://www.gitguardian.com"},
+    {fmt:"OPEN", typ:"tool", wk:"W4", aud:"camper", n:"Bandit", d:"Python security linter — finds common vulnerabilities in the Day 18 hardening sweep.", url:"https://bandit.readthedocs.io"},
+    {fmt:"WEB", typ:"tool", wk:"W4", aud:"facilitator", n:"Snyk", d:"Dependency vulnerability scanning — CVEs in requirements.txt get audited too.", url:"https://snyk.io"},
+    {fmt:"REF", typ:"tool", wk:"W3", aud:"camper", n:"OWASP LLM Top 10", d:"The reference framework: prompt injection, training-data poisoning, and friends — cited in the Day 19 handover.", url:"https://owasp.org/www-project-top-10-for-large-language-model-applications/"}
   ];
 
   var state = {shelf:"camper", wk:"all", typ:"all", q:""};
