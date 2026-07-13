@@ -1074,6 +1074,7 @@
           <h4>Miss Khalifa AI</h4>
           <p>Winner of the 2024 Chatbot Showcase — a camper-built sexual-health education chatbot on Python and LangChain. First specimen on the bench.</p>
           <div class="links">
+            <a href="https://misskhalifa.eccugenai.app/chat" target="_blank" rel="noopener">Chat live ↗</a>
             <a href="https://github.com/fraimerdev/Miss-Khalifa-AI" target="_blank" rel="noopener">GitHub ↗</a>
             <a href="https://drive.google.com/drive/search?q=Miss%20Khalifa%20AI" target="_blank" rel="noopener">Drive files ↗</a>
           </div>
@@ -1083,6 +1084,7 @@
           <h4>Ancestra and The Guardian</h4>
           <p>3rd runner-up, 2025 Chatbot Showcase — the second specimen. A placing bot and a winning bot fail in different places; pods find out where.</p>
           <div class="links">
+            <a href="https://ancestra.eccugenai.app/" target="_blank" rel="noopener">Chat live ↗</a>
             <a href="https://github.com/fraimerdev/ancestra" target="_blank" rel="noopener">GitHub ↗</a>
           </div>
         </div>
@@ -1193,13 +1195,13 @@
       <div class="medal">🏆 Winner · 2024 Chatbot Showcase</div>
       <h3>Miss Khalifa AI</h3>
       <p>The 2024 cohort's winning build — a sexual-health education chatbot on Python, LangChain, and React — comes back as this year's specimen. Day 1 pods probe it, map what works and what fails, and take its anatomy apart.</p>
-      <div class="bfoot"><span class="use"><a href="https://github.com/fraimerdev/Miss-Khalifa-AI" target="_blank" rel="noopener" style="color:inherit;">GitHub ↗</a> · <a href="https://drive.google.com/drive/search?q=Miss%20Khalifa%20AI" target="_blank" rel="noopener" style="color:inherit;">Drive ↗</a></span><span class="yrline">Camper-built · 2024</span></div>
+      <div class="bfoot"><span class="use"><a href="https://misskhalifa.eccugenai.app/chat" target="_blank" rel="noopener" style="color:inherit;">Chat live ↗</a> · <a href="https://github.com/fraimerdev/Miss-Khalifa-AI" target="_blank" rel="noopener" style="color:inherit;">GitHub ↗</a> · <a href="https://drive.google.com/drive/search?q=Miss%20Khalifa%20AI" target="_blank" rel="noopener" style="color:inherit;">Drive ↗</a></span><span class="yrline">Camper-built · 2024</span></div>
     </article>
     <article class="bench-card">
       <div class="medal">3rd runner-up · 2025 Chatbot Showcase</div>
       <h3>Ancestra and The Guardian</h3>
       <p>A 2025 showcase build on the bench beside the champion — proof that a placing bot and a winning bot fail in different places. Pods compare where each one holds and where each one breaks.</p>
-      <div class="bfoot"><span class="use"><a href="https://github.com/fraimerdev/ancestra" target="_blank" rel="noopener" style="color:inherit;">GitHub ↗</a></span><span class="yrline">Camper-built · 2025</span></div>
+      <div class="bfoot"><span class="use"><a href="https://ancestra.eccugenai.app/" target="_blank" rel="noopener" style="color:inherit;">Chat live ↗</a> · <a href="https://github.com/fraimerdev/ancestra" target="_blank" rel="noopener" style="color:inherit;">GitHub ↗</a></span><span class="yrline">Camper-built · 2025</span></div>
     </article>
   </div>
 </section>
@@ -2097,6 +2099,9 @@
     {fmt:"MD", typ:"code", wk:"X", aud:"facilitator", n:"README.md", d:"Start here — how the curriculum repo fits together.", url:"https://drive.google.com/file/d/1IyKtef68B-bgzp6AOdAHdVK3zy1Q2FbI/view"},
     {fmt:"MD", typ:"code", wk:"X", aud:"facilitator", n:"deploy.md", d:"Deployment notes for the camp tooling.", url:"https://drive.google.com/file/d/1aPfLBEU88MgIOkt8-A2vPUbeJXCPFxvM/view"},
     {fmt:"TXT", typ:"code", wk:"X", aud:"facilitator", n:"requirements.txt", d:"Python dependencies, pinned.", url:"https://drive.google.com/file/d/1aPmoU6Wh8cYBkx7FPuAtLadN0zqPA8em/view"},
+    {fmt:"BOT", typ:"code", wk:"W1", aud:"camper", n:"Miss Khalifa AI — live bot", d:"The 2024 winner, running. Probe it before you dissect it.", url:"https://misskhalifa.eccugenai.app/chat"},
+    {fmt:"BOT", typ:"code", wk:"W1", aud:"camper", n:"Ancestra and The Guardian — live bot", d:"The 2025 bench specimen, running. Where does it hold, where does it break?", url:"https://ancestra.eccugenai.app/"},
+    {fmt:"WEB", typ:"template", wk:"W1", aud:"facilitator", n:"Day 1 Energiser Kahoot", d:"Ready-to-run energiser quiz — preview and launch on Kahoot.", url:"https://create.kahoot.it/details/5442bdf3-6db6-4970-bed3-581bf080b245"},
     {fmt:"GH", typ:"code", wk:"W1", aud:"camper", n:"Miss Khalifa AI — repo", d:"2024 showcase winner · Python, LangChain, React · the first bench specimen.", url:"https://github.com/fraimerdev/Miss-Khalifa-AI"},
     {fmt:"GH", typ:"code", wk:"W1", aud:"camper", n:"Ancestra and The Guardian — repo", d:"2025 3rd runner-up · the second bench specimen.", url:"https://github.com/fraimerdev/ancestra"},
     {fmt:"VID", typ:"video", wk:"X", aud:"parent", n:"2024 Health Care & Disaster Mgmt Chatbot Showcase", d:"ECCB Connects · 1 h 33 — watch where four weeks of work lands.", url:"https://www.youtube.com/watch?v=7Xoskym-IXk"},
@@ -2166,6 +2171,7 @@
   }
   function goLabel(r){
     if(r.url==="#") return "Pending";
+    if(r.fmt==="BOT") return "Chat ↗";
     if(r.fmt==="WEB") return "Visit ↗";
     if(r.fmt==="GH") return "GitHub ↗";
     if(r.fmt==="VID") return "YouTube ↗";
