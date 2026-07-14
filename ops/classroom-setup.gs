@@ -167,4 +167,24 @@ function setupAllCohorts() {
   Logger.log('Done. Join codes are above — share each with its territory.');
 }
 
+/**
+ * Run AFTER setupAllCohorts. Prints a ready-to-send join message per cohort —
+ * copy each block straight into WhatsApp / email.
+ */
+function printJoinMessages() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  (res.courses || []).forEach(function (c) {
+    if (c.name.indexOf(COURSE_NAME_PREFIX) !== 0) return;
+    var cohort = c.name.replace(COURSE_NAME_PREFIX, '');
+    Logger.log('──────── %s ────────\n' +
+      'Welcome to the ECCU GenAI & Python Summer Camp 2026 (%s)!\n' +
+      '1. Go to https://classroom.google.com (sign in with your Google account)\n' +
+      '2. Click the +  →  Join class\n' +
+      '3. Enter this class code:  %s\n' +
+      'All 20 days of materials are inside. See you in the Studio!\n' +
+      'Camp hub: %s',
+      cohort, cohort, c.enrollmentCode, HUB);
+  });
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
