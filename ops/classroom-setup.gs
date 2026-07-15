@@ -277,6 +277,33 @@ function printJoinMessages() {
 
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
+/**
+ * Health check — run any time. Prints, for each cohort's class:
+ * topics, day materials, studio material, announcements, teachers.
+ * Paste the log output back to Claude to confirm everything landed.
+ */
+function verifySetup() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) { Logger.log('%s: NO MATCHING CLASS', cohort); return; }
+    var topics = (Classroom.Courses.Topics.list(course.id).topic || []).map(function (t) { return t.name; });
+    var mats = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
+    var titles = ((mats && mats.courseWorkMaterial) || []).map(function (m) { return m.title; });
+    var days = titles.filter(function (t) { return t.indexOf('Day ') === 0; }).length;
+    var studio = titles.some(function (t) { return t.indexOf('Your AI Studio workspace') === 0; });
+    var anns = Classroom.Courses.Announcements.list(course.id, { pageSize: 10 });
+    var annCount = ((anns && anns.announcements) || []).length;
+    var teachers = (Classroom.Courses.Teachers.list(course.id).teachers || []).length;
+    var invites = (Classroom.Invitations.list({ courseId: course.id }).invitations || []).length;
+    Logger.log('%s → "%s"\n  topics: %s\n  day materials: %s / 20 · studio material: %s\n  announcements: %s · teachers joined: %s · invites pending: %s\n  join code: %s',
+      cohort, course.name, topics.join(' · ') || 'NONE', days, studio ? 'YES' : 'MISSING',
+      annCount, teachers, invites, course.enrollmentCode);
+  });
+  Logger.log('verify done.');
+}
+
 // ── POD ROSTERS (generated from Pod_Assignments_ALL_Studios.xlsx) ──────────
 var POD_ROSTERS = {
   "SKN": [
