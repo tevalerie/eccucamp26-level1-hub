@@ -140,14 +140,18 @@ var DAYS = [
 
 function setupAllCohorts() {
   COHORTS.forEach(function (cohort) {
+    // Personal accounts cannot create courses directly as ACTIVE
+    // (@CourseStateDenied) — create PROVISIONED, then flip to ACTIVE.
     var course = Classroom.Courses.create({
       name: COURSE_NAME_PREFIX + cohort,
       section: SECTION,
       descriptionHeading: 'The Bot is the GPS. The Human is the Driver.',
       description: 'Four weeks · 20 days · Deconstruct → Design → Build → Pitch. Hub: ' + HUB,
       ownerId: 'me',
-      courseState: 'ACTIVE'
+      courseState: 'PROVISIONED'
     });
+    course = Classroom.Courses.patch(
+      { courseState: 'ACTIVE' }, course.id, { updateMask: 'courseState' });
     Logger.log('COURSE  %s  →  id %s  ·  join code %s', course.name, course.id, course.enrollmentCode);
 
     // Week topics (created in reverse so Week 1 lands on top)
