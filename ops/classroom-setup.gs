@@ -150,7 +150,7 @@ var COHORT_KEYWORDS = {
   'SKN': ['skn', 'kitts', 'nevis'],
   'SVG': ['svg', 'vincent', 'grenadines'],
   'Anguilla & Montserrat': ['anguilla', 'montserrat', 'ang ', 'ang&', 'ang &', 'mont'],
-  'Dominica': ['dominica', 'dom ', 'dom&']
+  'Dominica': ['dominica', 'dom ', 'dom-', 'dom&']
 };
 
 function populateAllCohorts() {
