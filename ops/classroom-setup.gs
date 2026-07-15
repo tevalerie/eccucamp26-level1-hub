@@ -36,6 +36,31 @@ var CO_TEACHERS = {
   'Dominica': ['tvpyke@gmail.com', 'notefromgolda@gmail.com', 'nicolejohnson967@gmail.com', 'Shaeed.Cabey@igmail.com']
 };
 
+// AI Studio workspace folders (Drive) + client discovery briefs, per cohort.
+// Posted as a pinned 'Your Studio & Client' material in each class.
+var STUDIO_LINKS = {
+  'SKN': [
+    {t:'Sub-Studio A — SCASPA · pod folders', u:'https://drive.google.com/drive/folders/1oBT6L7HoQ7X9xSj31ZGFqHHkvPG47iob'},
+    {t:'SCASPA — client discovery brief', u:'https://drive.google.com/file/d/1NDJSnjdaxLjPntbu0tZEj6J-a-KUgsVw/view'},
+    {t:'Sub-Studio B — Sagicor Finance · pod folders', u:'https://drive.google.com/drive/folders/18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku'},
+    {t:'Sagicor Finance — client discovery brief', u:'https://drive.google.com/file/d/1He5d-bxyKRadWJLWk7fic1wZxb6bF9u4/view'}
+  ],
+  'SVG': [
+    {t:'Sub-Studio A — NAWASA · pod folders', u:'https://drive.google.com/drive/folders/1Yy3bFfX8uJNDbYsUothPlRHTDHBlzncJ'},
+    {t:'NAWASA — client discovery brief', u:'https://drive.google.com/file/d/155nWhXp0APLqlce2Fop7nzSG0NKCE7yn/view'},
+    {t:'Sub-Studio B — IRD Grenada · pod folders', u:'https://drive.google.com/drive/folders/13GpIf64NsniH4bFlHNvgOSvMuaqed409'},
+    {t:'IRD Grenada — client discovery brief', u:'https://drive.google.com/file/d/1GDAmvok28TEDtGVJffXSb_3Ipvc1iqZt/view'}
+  ],
+  'Anguilla & Montserrat': [
+    {t:'Studio — IRD Anguilla · pod folders', u:'https://drive.google.com/drive/folders/1ri7TP-b-nW_AbQJBVWWWy3eWg-9mRvY-'},
+    {t:'IRD Anguilla — client discovery brief', u:'https://drive.google.com/file/d/1RkbYG9zfnqbc8t6PID0Eq2Gfrn9FbHy5/view'}
+  ],
+  'Dominica': [
+    {t:'Studio — CUB · pod folders', u:'https://drive.google.com/drive/folders/1GV_iceJuq0Blu62ZT-Sw3PVBqC82TFTx'},
+    {t:'CUB — client discovery brief', u:'https://drive.google.com/file/d/1Hrxh9MqnaiLeBOStbh32ZFwgercsf5R_/view'}
+  ]
+};
+
 var COURSE_NAME_PREFIX = 'ECCU GenAI & Python Summer Camp 2026 — ';
 var SECTION = 'Level 1 · Chat-bot Edition · Jul 13 – Aug 9 · 9:00am–4:00pm';
 
@@ -153,6 +178,19 @@ function setupAllCohorts() {
       }, course.id);
       Utilities.sleep(200);
     });
+
+    // 'Your Studio & Client' — created last so it sits above Week 1 in Classwork
+    var studioTopic = Classroom.Courses.Topics.create({ name: 'Your Studio & Client' }, course.id);
+    var studioLinks = (STUDIO_LINKS[cohort] || []).map(function (x) { return { link: { url: x.u, title: x.t } }; });
+    studioLinks.push({ link: { url: HUB + '/#clients', title: 'The Client Board — all ten briefs' } });
+    Classroom.Courses.CourseWorkMaterials.create({
+      title: 'Your AI Studio workspace & client brief',
+      description: 'Save every Google AI Studio prompt into YOUR pod folder — that folder is your studio. Read your client\'s discovery brief before the Day 3 client interview. Roles rotate Mondays; the pod folder stays.',
+      materials: studioLinks,
+      topicId: studioTopic.topicId,
+      state: 'PUBLISHED'
+    }, course.id);
+    Utilities.sleep(200);
 
     // Optional co-teacher invitations
     (CO_TEACHERS[cohort] || []).forEach(function (email) {
