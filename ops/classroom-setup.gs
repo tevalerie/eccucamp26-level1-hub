@@ -149,8 +149,8 @@ var DAYS = [
 var COHORT_KEYWORDS = {
   'SKN': ['skn', 'kitts', 'nevis'],
   'SVG': ['svg', 'vincent', 'grenadines'],
-  'Anguilla & Montserrat': ['anguilla', 'montserrat'],
-  'Dominica': ['dominica']
+  'Anguilla & Montserrat': ['anguilla', 'montserrat', 'ang ', 'ang&', 'ang &', 'mont'],
+  'Dominica': ['dominica', 'dom ', 'dom&']
 };
 
 function populateAllCohorts() {
