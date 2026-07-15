@@ -1,19 +1,28 @@
 /**
  * ECCU Generative AI & Python Summer Camp 2026 — Google Classroom bootstrap
  * ---------------------------------------------------------------------------
- * Creates one Classroom course per cohort, four week topics per course, and
- * twenty published course-work materials (one per camp day) with links to the
- * hub site, the week's Drive folder, skeleton code, and day-specific extras.
+ * Personal Gmail accounts cannot create/activate courses via the API
+ * (@CourseStateDenied), so the flow is:
  *
- * HOW TO RUN (once, ~2 minutes):
- *   1. Sign in to the Google account that will OWN the classes.
- *   2. Open https://script.new  →  paste this whole file over the editor.
- *   3. Left sidebar → Services (+) → add "Google Classroom API" (Classroom).
- *   4. Pick setupAllCohorts in the toolbar dropdown → Run → authorize.
- *   5. Watch the execution log — it prints each course + join code.
+ *   STEP A (you, in the Classroom UI · ~4 minutes):
+ *     Go to https://classroom.google.com → "+" → Create class → accept the
+ *     terms prompt if shown. Create FOUR classes with these names
+ *     (any close spelling works — matching is by keyword):
+ *       ECCU GenAI & Python Summer Camp 2026 — SKN
+ *       ECCU GenAI & Python Summer Camp 2026 — SVG
+ *       ECCU GenAI & Python Summer Camp 2026 — Anguilla & Montserrat
+ *       ECCU GenAI & Python Summer Camp 2026 — Dominica
  *
- * Re-running is safe-ish but NOT idempotent: it creates new courses each time.
- * Run once; tweak individual classes in the Classroom UI afterwards.
+ *   STEP B (here, once):
+ *     Run  populateAllCohorts  → it finds each class by name keyword and
+ *     fills it: Week 1–4 topics, all 20 day materials, the pinned
+ *     'Your Studio & Client' material, section/description, co-teacher
+ *     invitations. Safe to re-run: already-populated classes are skipped.
+ *
+ *   STEP C: Run  printJoinMessages  → copy the send-ready join blocks.
+ *
+ *   Optional: Run  deleteStrayProvisioned  once to remove the invisible
+ *   half-created 'SKN' course left over from the earlier failed attempts.
  */
 
 // ── CONFIG ──────────────────────────────────────────────────────────────────
@@ -28,12 +37,10 @@ var COHORTS = [
 // Optional: co-teachers to invite per cohort. Leave arrays empty to skip.
 var CO_TEACHERS = {
   // Owner (tellyonu@gmail.com) creates the courses — no self-invite needed.
-  // NOTE: 'Shaeed.Cabey@igmail.com' was supplied with domain 'igmail.com' —
-  // if that invite fails in the log, correct to gmail.com and re-run invites.
-  'SKN': ['tvpyke@gmail.com', 'notefromgolda@gmail.com', 'nicolejohnson967@gmail.com', 'Shaeed.Cabey@igmail.com'],
-  'SVG': ['tvpyke@gmail.com', 'notefromgolda@gmail.com', 'nicolejohnson967@gmail.com', 'Shaeed.Cabey@igmail.com', 'kelvin.pompey@gmail.com'],
-  'Anguilla & Montserrat': ['tvpyke@gmail.com', 'notefromgolda@gmail.com', 'nicolejohnson967@gmail.com', 'Shaeed.Cabey@igmail.com', 'the.maxwell.22@gmail.com'],
-  'Dominica': ['tvpyke@gmail.com', 'notefromgolda@gmail.com', 'nicolejohnson967@gmail.com', 'Shaeed.Cabey@igmail.com']
+  'SKN': ['tvpyke@gmail.com', 'notefromgolda@gmail.com', 'nicolejohnson967@gmail.com', 'Shaeed.Cabey@gmail.com'],
+  'SVG': ['tvpyke@gmail.com', 'notefromgolda@gmail.com', 'nicolejohnson967@gmail.com', 'Shaeed.Cabey@gmail.com', 'kelvin.pompey@gmail.com'],
+  'Anguilla & Montserrat': ['tvpyke@gmail.com', 'notefromgolda@gmail.com', 'nicolejohnson967@gmail.com', 'Shaeed.Cabey@gmail.com', 'the.maxwell.22@gmail.com'],
+  'Dominica': ['tvpyke@gmail.com', 'notefromgolda@gmail.com', 'nicolejohnson967@gmail.com', 'Shaeed.Cabey@gmail.com']
 };
 
 // AI Studio workspace folders (Drive) + client discovery briefs, per cohort.
@@ -138,23 +145,37 @@ var DAYS = [
 
 // ── SCRIPT ──────────────────────────────────────────────────────────────────
 
-function setupAllCohorts() {
+// Keywords used to match your hand-created classes to cohorts (lowercased).
+var COHORT_KEYWORDS = {
+  'SKN': ['skn', 'kitts', 'nevis'],
+  'SVG': ['svg', 'vincent', 'grenadines'],
+  'Anguilla & Montserrat': ['anguilla', 'montserrat'],
+  'Dominica': ['dominica']
+};
+
+function populateAllCohorts() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+  if (!courses.length) { Logger.log('No ACTIVE classes found — do STEP A first.'); return; }
+
   COHORTS.forEach(function (cohort) {
-    // Personal accounts cannot create courses directly as ACTIVE
-    // (@CourseStateDenied) — create PROVISIONED, then flip to ACTIVE.
-    var course = Classroom.Courses.create({
-      name: COURSE_NAME_PREFIX + cohort,
+    var course = findCourse(courses, cohort);
+    if (!course) { Logger.log('SKIP %s — no class name matched its keywords.', cohort); return; }
+    Logger.log('COURSE  %s  →  "%s"  (id %s · join code %s)', cohort, course.name, course.id, course.enrollmentCode);
+
+    // guard: already populated?
+    var existing = Classroom.Courses.Topics.list(course.id);
+    var names = ((existing && existing.topic) || []).map(function (t) { return t.name; });
+    if (names.indexOf('Week 1') !== -1) { Logger.log('  already populated — skipping.'); return; }
+
+    // section + description
+    Classroom.Courses.patch({
       section: SECTION,
       descriptionHeading: 'The Bot is the GPS. The Human is the Driver.',
-      description: 'Four weeks · 20 days · Deconstruct → Design → Build → Pitch. Hub: ' + HUB,
-      ownerId: 'me',
-      courseState: 'PROVISIONED'
-    });
-    course = Classroom.Courses.patch(
-      { courseState: 'ACTIVE' }, course.id, { updateMask: 'courseState' });
-    Logger.log('COURSE  %s  →  id %s  ·  join code %s', course.name, course.id, course.enrollmentCode);
+      description: 'Four weeks · 20 days · Deconstruct → Design → Build → Pitch. Hub: ' + HUB
+    }, course.id, { updateMask: 'section,descriptionHeading,description' });
 
-    // Week topics (created in reverse so Week 1 lands on top)
+    // week topics (reverse so Week 1 lands on top)
     var topicIds = {};
     [4, 3, 2, 1].forEach(function (w) {
       var topic = Classroom.Courses.Topics.create({ name: 'Week ' + w }, course.id);
@@ -162,7 +183,7 @@ function setupAllCohorts() {
       Utilities.sleep(150);
     });
 
-    // Day materials (reverse so Day 1 appears first within each topic)
+    // day materials (reverse so Day 1 appears first within each topic)
     DAYS.slice().reverse().forEach(function (d) {
       var links = [
         { link: { url: HUB + '/#curriculum', title: 'Camp hub — curriculum' } },
@@ -172,7 +193,6 @@ function setupAllCohorts() {
         { link: { url: COLAB_FALLBACK,      title: 'Google Colab version (if Deepnote misbehaves)' } }
       ];
       (d.extra || []).forEach(function (x) { links.push({ link: { url: x.u, title: x.t } }); });
-
       Classroom.Courses.CourseWorkMaterials.create({
         title: 'Day ' + pad2(d.n) + ' · ' + d.title,
         description: d.desc,
@@ -196,7 +216,7 @@ function setupAllCohorts() {
     }, course.id);
     Utilities.sleep(200);
 
-    // Optional co-teacher invitations
+    // co-teacher invitations
     (CO_TEACHERS[cohort] || []).forEach(function (email) {
       try {
         Classroom.Invitations.create({ courseId: course.id, role: 'TEACHER', userId: email });
@@ -206,21 +226,47 @@ function setupAllCohorts() {
       }
     });
   });
-  Logger.log('Done. Join codes are above — share each with its territory.');
+  Logger.log('Done. Now run printJoinMessages for the send-ready blocks.');
+}
+
+function findCourse(courses, cohort) {
+  var kws = COHORT_KEYWORDS[cohort];
+  for (var i = 0; i < courses.length; i++) {
+    var name = courses[i].name.toLowerCase();
+    for (var k = 0; k < kws.length; k++) {
+      if (name.indexOf(kws[k]) !== -1) return courses[i];
+    }
+  }
+  return null;
+}
+
+/** Removes invisible PROVISIONED leftovers from the earlier failed runs. */
+function deleteStrayProvisioned() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['PROVISIONED'] });
+  ((res && res.courses) || []).forEach(function (c) {
+    if (c.name.indexOf(COURSE_NAME_PREFIX) === 0) {
+      Classroom.Courses.remove(c.id);
+      Logger.log('deleted stray provisioned course: %s (%s)', c.name, c.id);
+    }
+  });
+  Logger.log('stray cleanup done.');
 }
 
 /**
- * Run AFTER setupAllCohorts. Prints a ready-to-send join message per cohort —
- * copy each block straight into WhatsApp / email.
+ * Run AFTER populateAllCohorts. Prints a ready-to-send join message per
+ * cohort — copy each block straight into WhatsApp / email.
  */
 function printJoinMessages() {
   var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
   (res.courses || []).forEach(function (c) {
-    if (c.name.indexOf(COURSE_NAME_PREFIX) !== 0) return;
-    var cohort = c.name.replace(COURSE_NAME_PREFIX, '');
+    var cohort = null;
+    Object.keys(COHORT_KEYWORDS).forEach(function (co) {
+      if (findCourse([c], co)) cohort = cohort || co;
+    });
+    if (!cohort) return;
     Logger.log('──────── %s ────────\n' +
       'Welcome to the ECCU GenAI & Python Summer Camp 2026 (%s)!\n' +
-      '1. Go to https://classroom.google.com (sign in with your Google account)\n' +
+      '1. Go to https://classroom.google.com (sign in with your personal Google account)\n' +
       '2. Click the +  →  Join class\n' +
       '3. Enter this class code:  %s\n' +
       'All 20 days of materials are inside. See you in the Studio!\n' +
