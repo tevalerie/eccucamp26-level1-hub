@@ -47,15 +47,15 @@ var CO_TEACHERS = {
 // Posted as a pinned 'Your Studio & Client' material in each class.
 var STUDIO_LINKS = {
   'SKN': [
-    {t:'Sub-Studio A — SCASPA · pod folders', u:'https://drive.google.com/drive/folders/1oBT6L7HoQ7X9xSj31ZGFqHHkvPG47iob'},
+    {t:'Sub-Studio A — SCASPA · Pods 1–4 · pod folders', u:'https://drive.google.com/drive/folders/1oBT6L7HoQ7X9xSj31ZGFqHHkvPG47iob'},
     {t:'SCASPA — client discovery brief', u:'https://drive.google.com/file/d/1NDJSnjdaxLjPntbu0tZEj6J-a-KUgsVw/view'},
-    {t:'Sub-Studio B — Sagicor Finance · pod folders', u:'https://drive.google.com/drive/folders/18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku'},
+    {t:'Sub-Studio B — Sagicor Finance · Pods 5–8 · pod folders', u:'https://drive.google.com/drive/folders/18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku'},
     {t:'Sagicor Finance — client discovery brief', u:'https://drive.google.com/file/d/1He5d-bxyKRadWJLWk7fic1wZxb6bF9u4/view'}
   ],
   'SVG': [
-    {t:'Sub-Studio A — NAWASA · pod folders', u:'https://drive.google.com/drive/folders/1Yy3bFfX8uJNDbYsUothPlRHTDHBlzncJ'},
+    {t:'Sub-Studio A — NAWASA · Pods 1–6 · pod folders', u:'https://drive.google.com/drive/folders/1Yy3bFfX8uJNDbYsUothPlRHTDHBlzncJ'},
     {t:'NAWASA — client discovery brief', u:'https://drive.google.com/file/d/155nWhXp0APLqlce2Fop7nzSG0NKCE7yn/view'},
-    {t:'Sub-Studio B — IRD Grenada · pod folders', u:'https://drive.google.com/drive/folders/13GpIf64NsniH4bFlHNvgOSvMuaqed409'},
+    {t:'Sub-Studio B — IRD Grenada · Pods 7–12 · pod folders', u:'https://drive.google.com/drive/folders/13GpIf64NsniH4bFlHNvgOSvMuaqed409'},
     {t:'IRD Grenada — client discovery brief', u:'https://drive.google.com/file/d/1GDAmvok28TEDtGVJffXSb_3Ipvc1iqZt/view'}
   ],
   'Anguilla & Montserrat': [
@@ -276,3 +276,71 @@ function printJoinMessages() {
 }
 
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
+
+// ── POD ROSTERS (generated from Pod_Assignments_ALL_Studios.xlsx) ──────────
+var POD_ROSTERS = {
+  "SKN": [
+    {pod:"Pod 1", client:"Sub-Studio A \u00b7 SCASPA", names:"Ivoniyah Nisbett, Hallie-Jahz Harris, Nyare' Clarke, Kaija Delpleche"},
+    {pod:"Pod 2", client:"Sub-Studio A \u00b7 SCASPA", names:"Chéanna Browne, Jernyah Mills, Kylie Richards, Josiah Benjamin"},
+    {pod:"Pod 3", client:"Sub-Studio A \u00b7 SCASPA", names:"Nahamani Carey, Dejunique Stapleton, Zenahj Harris, Ahjanique Hodge"},
+    {pod:"Pod 4", client:"Sub-Studio A \u00b7 SCASPA", names:"Xiomara Titre, SHAMA WALTERS, Jayden Warner, Dré Martin"},
+    {pod:"Pod 5", client:"Sub-Studio B \u00b7 SAGICOR FINANCE", names:"Chanardo Evans, Emma Morris, Nya Jack, Veronique Mardenborough"},
+    {pod:"Pod 6", client:"Sub-Studio B \u00b7 SAGICOR FINANCE", names:"Amarni Moore, Ashaun Moore, Cayden Williams, Addijah Daniel"},
+    {pod:"Pod 7", client:"Sub-Studio B \u00b7 SAGICOR FINANCE", names:"Antwan Daniel, Rhae-Jae Williams, Ke'Tashee Ward, Christian Corbie"},
+    {pod:"Pod 8", client:"Sub-Studio B \u00b7 SAGICOR FINANCE", names:"Arianna Blanchard, Yendri Nisbett, (name pending)"},
+  ],
+  "SVG": [
+    {pod:"Pod 1", client:"Sub-Studio A \u00b7 NAWASA", names:"Jomel Gellizeau, Sydelle Campbell, Jeriah Diamond, Isaiah Williams"},
+    {pod:"Pod 2", client:"Sub-Studio A \u00b7 NAWASA", names:"Simlet Pierre, Kyla Fraser, Gabrielle Charles, Jadon Hamilton"},
+    {pod:"Pod 3", client:"Sub-Studio A \u00b7 NAWASA", names:"Luke Simon, Sadieann Robertson, Safiya Solomon, Anessia Patterson"},
+    {pod:"Pod 4", client:"Sub-Studio A \u00b7 NAWASA", names:"Zephan Knights, Gabrielle Phillips, Maalik Adams, Cornel London"},
+    {pod:"Pod 5", client:"Sub-Studio A \u00b7 NAWASA", names:"Leanna Bailey, Zaafir Bascombe, Kaveisha Simmons, Keleisha Simmons"},
+    {pod:"Pod 6", client:"Sub-Studio A \u00b7 NAWASA", names:"Azaray Defreitas, Rachel Lawrence, Alysson Ambrose, Céronique Mitchell"},
+    {pod:"Pod 7", client:"Sub-Studio B \u00b7 IRD Grenada", names:"Kyron Quashie, McLoren Jr. Burke, Maxwell John, Jarell Charles"},
+    {pod:"Pod 8", client:"Sub-Studio B \u00b7 IRD Grenada", names:"Nasir Antoine, Faith Charles, Dilonzo Texeira, Nylah Mattis-Barker"},
+    {pod:"Pod 9", client:"Sub-Studio B \u00b7 IRD Grenada", names:"Kyle Williams, Arianna Peters, Aren Ollivierre, Carla Bennette"},
+    {pod:"Pod 10", client:"Sub-Studio B \u00b7 IRD Grenada", names:"Kendre Findlay, Leah Archibald, Malia Guy, Tahir Primus"},
+    {pod:"Pod 11", client:"Sub-Studio B \u00b7 IRD Grenada", names:"Zakeel Pompey, Vialene RICHARDS, J'Nae Edwards, Shanon Ralph"},
+    {pod:"Pod 12", client:"Sub-Studio B \u00b7 IRD Grenada", names:"Treece Oliver, Chloe Taylor [PLACEHOLDER — details pending]"},
+  ],
+  "Anguilla & Montserrat": [
+    {pod:"Pod 1", client:"Inland Revenue Anguilla", names:"Michaela Connor, Kevin E.A Irish Lively, Michaela Shanee Raina Connor, Camia Gumbs"},
+    {pod:"Pod 2", client:"Inland Revenue Anguilla", names:"Zenia Francis, Hadassah Williams, Kai Gray, Khan Gray (virtual)"},
+  ],
+  "Dominica": [
+    {pod:"Pod 1", client:"CUB", names:"Minran Isaac, Anyella Birmingham (virtual), Anayah Anselm, Sarafina Charles"},
+    {pod:"Pod 2", client:"CUB", names:"Jeanelle Hypolite (virtual), Rasheed Augustine (virtual), Samuel Stoddard (virtual), Kiera Langford (virtual)"},
+    {pod:"Pod 3", client:"CUB", names:"Colin Grant, Mosi Timothy (virtual), Teri Davis, Shaneska Auguiste"},
+    {pod:"Pod 4", client:"CUB", names:"An-Suani Prosper"},
+  ],
+};
+
+/**
+ * Posts a pinned-style announcement to each class Stream telling every camper
+ * which pod and which client they belong to. Run once (re-running posts again).
+ */
+function announcePodAssignments() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) { Logger.log('SKIP %s — no matching class.', cohort); return; }
+    var pods = POD_ROSTERS[cohort] || [];
+    var text = 'WHICH STUDIO AM I IN?\n' +
+               'Find your name below — that is your Pod, and your Pod\'s client.\n' +
+               'Roles rotate every Monday; your Pod stays the same.\n\n';
+    var lastClient = '';
+    pods.forEach(function (p) {
+      if (p.client !== lastClient) {
+        text += '━━━ ' + p.client + ' ━━━\n';
+        lastClient = p.client;
+      }
+      text += p.pod + ':  ' + p.names + '\n';
+    });
+    text += '\nYour pod\'s AI Studio folder is linked under \'Your Studio & Client\' in Classwork.';
+    Classroom.Courses.Announcements.create({ text: text, state: 'PUBLISHED' }, course.id);
+    Logger.log('announced pods in %s (%s pods)', course.name, pods.length);
+  });
+  Logger.log('Pod announcements done.');
+}
+
