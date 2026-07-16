@@ -440,15 +440,15 @@ function announcePodAssignments() {
 
 // ── CLIENT EXPLAINER DECKS (Gamma · teen edition) ───────────────────────────
 var EXPLAINER_DECKS = {
-  "scaspa": {client:"SCASPA", gammaUrl:"https://gamma.app/docs/thclmcngm4iryzo", exportUrl:"https://assets.api.gamma.app/export/pdf/thclmcngm4iryzo/95244f625f162be59d07326e49f5a845/SCASPA-Explained-Your-Client-in-9-Cards.pdf", folderId:"1oBT6L7HoQ7X9xSj31ZGFqHHkvPG47iob"},
-  "sagicor": {client:"Sagicor Finance", gammaUrl:"https://gamma.app/docs/nhs8rcvweo7mx6w", exportUrl:"https://assets.api.gamma.app/export/pdf/nhs8rcvweo7mx6w/f4ab73c99e1ca2b74446f5b4fd1aad33/Sagicor-Finance-Explained-Your-Client-in-9-Cards.pdf", folderId:"18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku"},
-  "ird_grenada": {client:"IRD Grenada", gammaUrl:"https://gamma.app/docs/qoihr3sttd4ioos", exportUrl:"https://assets.api.gamma.app/export/pdf/qoihr3sttd4ioos/37b593a16e524d8dcd542138f110b90a/IRD-Grenada-Explained-Your-Client-in-9-Cards.pdf", folderId:"13GpIf64NsniH4bFlHNvgOSvMuaqed409"},
-  "lucelec": {client:"LUCELEC", gammaUrl:"https://gamma.app/docs/zftbqzlcvm4d8yb", exportUrl:"https://assets.api.gamma.app/export/pdf/zftbqzlcvm4d8yb/ae29ac5033e265b51f88533803ca83b0/LUCELEC-Explained-Your-Client-in-9-Cards.pdf", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"},
-  "acb": {client:"ACB Caribbean", gammaUrl:"https://gamma.app/docs/0ak3elrclbo5nb9", exportUrl:"https://assets.api.gamma.app/export/pdf/0ak3elrclbo5nb9/2636410282b0010163a00cd31aca7df8/ACB-Caribbean-Explained-Your-Client-in-9-Cards.pdf", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"},
-  "cub": {client:"CUB", gammaUrl:"https://gamma.app/docs/esj91ph94orgjdm", exportUrl:"https://assets.api.gamma.app/export/pdf/esj91ph94orgjdm/904a09eb1fe90d40ca545e48f6233c61/Caribbean-Union-Bank-Explained-Your-Client-in-9-Cards.pdf", folderId:"1GV_iceJuq0Blu62ZT-Sw3PVBqC82TFTx"},
-  "nis_grenada": {client:"NIS Grenada", gammaUrl:"https://gamma.app/docs/tsrpbdcim793uxx", exportUrl:"https://assets.api.gamma.app/export/pdf/tsrpbdcim793uxx/4d0f3b42f5ff0e65e94f0bec35d6e1e6/NIS-Grenada-Explained-Your-Client-in-9-Cards.pdf", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"},
-  "ird_anguilla": {client:"IRD Anguilla", gammaUrl:"https://gamma.app/docs/jsxglvc0bprsi5u", exportUrl:"https://assets.api.gamma.app/export/pdf/jsxglvc0bprsi5u/6bad9600ca8744f1d581e3c2383a3251/IRD-Anguilla-Explained-Your-Client-in-9-Cards.pdf", folderId:"1ri7TP-b-nW_AbQJBVWWWy3eWg-9mRvY-"},
-  "nawasa": {client:"NAWASA", gammaUrl:"https://gamma.app/docs/3lcua5uyqp75uyn", exportUrl:"https://assets.api.gamma.app/export/pdf/3lcua5uyqp75uyn/f1e297074f32df7dee8004af85611b18/NAWASA-Explained-Your-Client-in-9-Cards.pdf", folderId:"1Yy3bFfX8uJNDbYsUothPlRHTDHBlzncJ"},
+  "scaspa": {client:"SCASPA", gammaUrl:"https://gamma.app/docs/thclmcngm4iryzo", exportUrl:"https://assets.api.gamma.app/export/pdf/thclmcngm4iryzo/95244f625f162be59d07326e49f5a845/SCASPA-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/thclmcngm4iryzo/b3353a17caaa26a98a21992185a43536/SCASPA-Explained-Your-Client-in-9-Cards.pptx", folderId:"1oBT6L7HoQ7X9xSj31ZGFqHHkvPG47iob"},
+  "sagicor": {client:"Sagicor Finance", gammaUrl:"https://gamma.app/docs/nhs8rcvweo7mx6w", exportUrl:"https://assets.api.gamma.app/export/pdf/nhs8rcvweo7mx6w/f4ab73c99e1ca2b74446f5b4fd1aad33/Sagicor-Finance-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/nhs8rcvweo7mx6w/c66d052646c506c6ccee9236d76b4872/Sagicor-Finance-Explained-Your-Client-in-9-Cards.pptx", folderId:"18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku"},
+  "ird_grenada": {client:"IRD Grenada", gammaUrl:"https://gamma.app/docs/qoihr3sttd4ioos", exportUrl:"https://assets.api.gamma.app/export/pdf/qoihr3sttd4ioos/37b593a16e524d8dcd542138f110b90a/IRD-Grenada-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/qoihr3sttd4ioos/7a85681d943c0b852ffa08b64051e23c/IRD-Grenada-Explained-Your-Client-in-9-Cards.pptx", folderId:"13GpIf64NsniH4bFlHNvgOSvMuaqed409"},
+  "lucelec": {client:"LUCELEC", gammaUrl:"https://gamma.app/docs/zftbqzlcvm4d8yb", exportUrl:"https://assets.api.gamma.app/export/pdf/zftbqzlcvm4d8yb/ae29ac5033e265b51f88533803ca83b0/LUCELEC-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/zftbqzlcvm4d8yb/89a5f0ad2bf8e794b417d6384d1c9d02/LUCELEC-Explained-Your-Client-in-9-Cards.pptx", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"},
+  "acb": {client:"ACB Caribbean", gammaUrl:"https://gamma.app/docs/0ak3elrclbo5nb9", exportUrl:"https://assets.api.gamma.app/export/pdf/0ak3elrclbo5nb9/2636410282b0010163a00cd31aca7df8/ACB-Caribbean-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/0ak3elrclbo5nb9/bbf7b0673a120618fe35db5ac71a3368/ACB-Caribbean-Explained-Your-Client-in-9-Cards.pptx", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"},
+  "cub": {client:"CUB", gammaUrl:"https://gamma.app/docs/esj91ph94orgjdm", exportUrl:"https://assets.api.gamma.app/export/pdf/esj91ph94orgjdm/904a09eb1fe90d40ca545e48f6233c61/Caribbean-Union-Bank-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/esj91ph94orgjdm/01376de1532bf2e44b11a6ae1219af3c/Caribbean-Union-Bank-Explained-Your-Client-in-9-Cards.pptx", folderId:"1GV_iceJuq0Blu62ZT-Sw3PVBqC82TFTx"},
+  "nis_grenada": {client:"NIS Grenada", gammaUrl:"https://gamma.app/docs/tsrpbdcim793uxx", exportUrl:"https://assets.api.gamma.app/export/pdf/tsrpbdcim793uxx/4d0f3b42f5ff0e65e94f0bec35d6e1e6/NIS-Grenada-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/tsrpbdcim793uxx/60d02487f1ffad3e595599f26e9284b8/NIS-Grenada-Explained-Your-Client-in-9-Cards.pptx", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"},
+  "ird_anguilla": {client:"IRD Anguilla", gammaUrl:"https://gamma.app/docs/jsxglvc0bprsi5u", exportUrl:"https://assets.api.gamma.app/export/pdf/jsxglvc0bprsi5u/6bad9600ca8744f1d581e3c2383a3251/IRD-Anguilla-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/jsxglvc0bprsi5u/ba28dd652a7547da64e19103173220ab/IRD-Anguilla-Explained-Your-Client-in-9-Cards.pptx", folderId:"1ri7TP-b-nW_AbQJBVWWWy3eWg-9mRvY-"},
+  "nawasa": {client:"NAWASA", gammaUrl:"https://gamma.app/docs/3lcua5uyqp75uyn", exportUrl:"https://assets.api.gamma.app/export/pdf/3lcua5uyqp75uyn/f1e297074f32df7dee8004af85611b18/NAWASA-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/3lcua5uyqp75uyn/3ca4944b9e0f5556e5e8db17f7f7c1f9/NAWASA-Explained-Your-Client-in-9-Cards.pptx", folderId:"1Yy3bFfX8uJNDbYsUothPlRHTDHBlzncJ"},
 };
 var COHORT_DECKS = {
   "SKN": [
@@ -476,15 +476,19 @@ var COHORT_DECKS = {
 function postExplainerDecks() {
   Object.keys(EXPLAINER_DECKS).forEach(function (slug) {
     var d = EXPLAINER_DECKS[slug];
-    if (!d.exportUrl) { Logger.log('%s: no export url — skipping PDF', slug); return; }
-    try {
-      var blob = UrlFetchApp.fetch(d.exportUrl).getBlob()
-        .setName(d.client + ' — Explained (teen edition).pdf');
-      DriveApp.getFolderById(d.folderId).createFile(blob);
-      Logger.log('%s: PDF saved to Drive folder', slug);
-    } catch (e) {
-      Logger.log('%s: PDF save FAILED — %s', slug, (e.message || '').slice(0, 90));
-    }
+    var folder = DriveApp.getFolderById(d.folderId);
+    [['exportUrl', '.pdf'], ['pptxUrl', '.pptx']].forEach(function (fmt) {
+      var url = d[fmt[0]];
+      if (!url) { Logger.log('%s: no %s url — skipping', slug, fmt[1]); return; }
+      try {
+        var blob = UrlFetchApp.fetch(url).getBlob()
+          .setName(d.client + ' — Explained (teen edition)' + fmt[1]);
+        folder.createFile(blob);
+        Logger.log('%s: %s saved to Drive folder', slug, fmt[1]);
+      } catch (e) {
+        Logger.log('%s: %s save FAILED — %s', slug, fmt[1], (e.message || '').slice(0, 90));
+      }
+    });
   });
 
   var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
