@@ -73,18 +73,34 @@ var SECTION = 'Level 1 · Chat-bot Edition · Jul 13 – Aug 9 · 9:00am–4:00p
 
 var HUB = 'https://eccuaicamp2026.netlify.app';
 
-var WEEK_FOLDERS = {
-  1: 'https://drive.google.com/drive/folders/1hGfzv9xLoGpqOQwdjODA9s1pYRydiCNF',
-  2: 'https://drive.google.com/drive/folders/102qKO6degcEyI_ewwkm3Aj5lIUzAzIPD',
-  3: 'https://drive.google.com/drive/folders/1zzxHKtG3xJlv9-8PA99LI3EJ-p9e6jL4',
-  4: 'https://drive.google.com/drive/folders/19qmUa2xEuuUxVhYt-TJwGVve71D_Yo-Y'
-};
-
-var SKELETONS = {
-  1: 'https://drive.google.com/drive/folders/1xsLT-_WykPkKMEZETmmM1AU7eEvjs67Y',
-  2: 'https://drive.google.com/drive/folders/1Juu-pLKqAVMIMlF3jRoeNu16Ej1F7dFb',
-  3: 'https://drive.google.com/drive/folders/1bd35cfooFYJxn-N2Ink0JxJocqj5p-fH',
-  4: 'https://drive.google.com/drive/folders/1OppBXPw2kqGgv0RZMufxeMYTFiVfsaVX'
+// Camper-facing materials per week — workbook, deck, special template,
+// skeleton code. Facilitator guides/cheat-cards/kits are NOT linked here;
+// those live in the Facilitator Room on the hub.
+var CAMPER_WEEK = {
+  1: [
+    {t:'Week 1 Participant Workbook', u:'https://drive.google.com/file/d/1KajAL2nDEEagnOXiWxgxZdAhWjrlBN91/view'},
+    {t:'Week 1 Deck (Days 1\u20135)', u:'https://drive.google.com/file/d/15CjpKRmmvyRAsC0A59yKql0KmGjy6lwg/view'},
+    {t:'Chatbot Blueprint Template', u:'https://drive.google.com/file/d/1gzuoncAoATA7pxg9Acsbvx-hBOU4u2O-/view'},
+    {t:'Skeleton code \u2014 Days 1\u20135', u:'https://drive.google.com/drive/folders/1xsLT-_WykPkKMEZETmmM1AU7eEvjs67Y'}
+  ],
+  2: [
+    {t:'Week 2 Participant Workbook', u:'https://drive.google.com/file/d/1NE_umOE8iSWeF6xo2NimB91QfJqCBsAd/view'},
+    {t:'Week 2 Deck (Days 6\u201310)', u:'https://drive.google.com/file/d/18EXy5MxvEpy7e2VAV6YhYiyBvpeehepr/view'},
+    {t:'Documentation Package Template', u:'https://drive.google.com/file/d/1pzUmonJfH4kjSBovVOhSLOG9C4B3g1Wp/view'},
+    {t:'Skeleton code \u2014 Days 6\u201310', u:'https://drive.google.com/drive/folders/1Juu-pLKqAVMIMlF3jRoeNu16Ej1F7dFb'}
+  ],
+  3: [
+    {t:'Week 3 Participant Workbook', u:'https://drive.google.com/file/d/1fNsPdvJ2qr4kT4s49tHuJTUV-Pd74xHt/view'},
+    {t:'Week 3 Deck (Days 11\u201315)', u:'https://drive.google.com/file/d/11oNBsP82aYtv_ZhZdbJWCflWdz9yDu6e/view'},
+    {t:'Multi-Modal Feature Card', u:'https://drive.google.com/file/d/1eBXEWpd617dLJcimq2o3KiUSDarOaOhY/view'},
+    {t:'Skeleton code \u2014 Days 11\u201315', u:'https://drive.google.com/drive/folders/1bd35cfooFYJxn-N2Ink0JxJocqj5p-fH'}
+  ],
+  4: [
+    {t:'Week 4 Participant Workbook', u:'https://drive.google.com/file/d/1pEzLpZLvkecoK3DgsvTYmyreGDq9_ieU/view'},
+    {t:'Week 4 Deck (Days 16\u201320)', u:'https://drive.google.com/file/d/1A3Ykryt4ZmFj26CJh2WQSjlywVk2rzTz/view'},
+    {t:'Handover Package Template', u:'https://drive.google.com/file/d/1ducTt9rVkjguFJ-ySRcQLBoEG7KrERdf/view'},
+    {t:'Skeleton code \u2014 Days 16\u201320', u:'https://drive.google.com/drive/folders/1OppBXPw2kqGgv0RZMufxeMYTFiVfsaVX'}
+  ]
 };
 
 var DEEPNOTE = 'https://deepnote.com/workspace/2026-GENAI-34873e1f-ad18-4ecb-a7b3-41af1b9e6c12/project/GEN-AI-NoteBook-905d918f-9083-4b41-a913-406bd9c53b88/notebook/Certification-Notes-ab83a0f8a1fd44599f29941d4373cf1a';
@@ -96,14 +112,15 @@ var DAYS = [
     desc:"Six components. One central rule. First lines of Python. Vision-Cast opens the day; pods probe the two bench bots.",
     extra:[
       {t:'Miss Khalifa AI — chat live', u:'https://misskhalifa.eccugenai.app/chat'},
-      {t:'Ancestra & The Guardian — chat live', u:'https://ancestra.eccugenai.app/'},
-      {t:'Bot-Demo Question Kit', u:'https://drive.google.com/drive/folders/1r2xhTW2GwdOrDQyJlM1YdOFlLxl688l_'},
-      {t:'Day 1 Energiser Kahoot', u:'https://create.kahoot.it/details/5442bdf3-6db6-4970-bed3-581bf080b245'}
+      {t:'Ancestra & The Guardian — chat live', u:'https://ancestra.eccugenai.app/'}
     ]},
   {n:2, wk:1, title:"Design \u2014 Designing for People Before Programming",
     desc:"Persona \u2192 Empathy Map \u2192 Wardrobe. First conditionals in code.",
     extra:[
-      {t:'Day 2 Notebook — Deepnote', u:'https://deepnote.com/workspace/2026-GEN-AI-CAMP-74429897-e60c-42c1-ace8-95e21e316d45/project/GEN-AI-WEEK-1-bd0f5f6e-7e59-4084-af2c-be18d22b537a/notebook/DAY2-ef87950d4b1243cfa28a0578773231ae'}
+      {t:'Day 2 Notebook — Deepnote', u:'https://deepnote.com/workspace/2026-GEN-AI-CAMP-74429897-e60c-42c1-ace8-95e21e316d45/project/GEN-AI-WEEK-1-bd0f5f6e-7e59-4084-af2c-be18d22b537a/notebook/DAY2-ef87950d4b1243cfa28a0578773231ae'},
+      {t:'Day 2 · Interview Masterclass (deck)', u:'https://docs.google.com/presentation/d/1Dx9LCwVOhLG0FR7Fw-wP1sP8XDhJMnLKy4ubo7tDaGI/edit'},
+      {t:'Day 2 · Pod Interview Prep Deck', u:'https://docs.google.com/presentation/d/1FFxNfz_dTAyQnSZE-E4d8nNN7epmUZ4gZ9xbrc4eq7A/edit'},
+      {t:'Day 2 · Video Response Deck', u:'https://docs.google.com/presentation/d/1YQZVoOXgcNBwyJfFy7wnF-ECYFo3y1aSuoD8FNpluhA/edit'}
     ]},
   {n:3, wk:1, title:"Prototype \u2014 From Assumptions to Understanding",
     desc:"Scavenger Hunt. Facts + Tone. Functions in code."},
@@ -192,13 +209,10 @@ function populateAllCohorts() {
     DAYS.slice().reverse().forEach(function (d) {
       var title = 'Day ' + pad2(d.n) + ' · ' + d.title;
       if (existing[title]) { skipped++; return; }
-      var links = [
-        { link: { url: HUB + '/#curriculum', title: 'Camp hub — curriculum' } },
-        { link: { url: WEEK_FOLDERS[d.wk],  title: 'Week ' + d.wk + ' — all materials (Drive)' } },
-        { link: { url: SKELETONS[d.wk],     title: 'Week ' + d.wk + ' — skeleton code' } },
-        { link: { url: DEEPNOTE,            title: 'Deepnote — camp notebook' } },
-        { link: { url: COLAB_FALLBACK,      title: 'Google Colab version (if Deepnote misbehaves)' } }
-      ];
+      var links = [{ link: { url: HUB + '/#curriculum', title: 'Camp hub — curriculum' } }];
+      (CAMPER_WEEK[d.wk] || []).forEach(function (x) { links.push({ link: { url: x.u, title: x.t } }); });
+      links.push({ link: { url: DEEPNOTE, title: 'Deepnote — camp notebook' } });
+      links.push({ link: { url: COLAB_FALLBACK, title: 'Google Colab version (if Deepnote misbehaves)' } });
       (d.extra || []).forEach(function (x) { links.push({ link: { url: x.u, title: x.t } }); });
       if (createMaterialWithRetry({
         title: title, description: d.desc, materials: links,
@@ -236,6 +250,34 @@ function populateAllCohorts() {
     });
   });
   Logger.log('Done. Run verifySetup to confirm, then announcePodAssignments.');
+}
+
+/**
+ * ONE-SHOT FIX: deletes every existing 'Day NN · ...' material in all four
+ * classes (they linked the full week folders, which contain facilitator
+ * material), then repopulates with camper-only links. The 'Your Studio &
+ * Client' material is left untouched. Run this INSTEAD of populateAllCohorts.
+ */
+function rebuildCamperMaterials() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) return;
+    var removed = 0, page = null;
+    do {
+      page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60, pageToken: page ? page.nextPageToken : undefined });
+      ((page && page.courseWorkMaterial) || []).forEach(function (m) {
+        if (m.title.indexOf('Day ') === 0) {
+          Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
+          removed++;
+          Utilities.sleep(150);
+        }
+      });
+    } while (page && page.nextPageToken);
+    Logger.log('%s: removed %s old day materials', cohort, removed);
+  });
+  populateAllCohorts();
 }
 
 /** Creates one material with 3 attempts + backoff. Returns true on success. */
