@@ -47,23 +47,23 @@ var CO_TEACHERS = {
 // Posted as a pinned 'Your Studio & Client' material in each class.
 var STUDIO_LINKS = {
   'SKN': [
-    {t:'Sub-Studio A — SCASPA · Pods 1–4 · pod folders', u:'https://drive.google.com/drive/folders/1oBT6L7HoQ7X9xSj31ZGFqHHkvPG47iob'},
+    {t:'Sub-Studio A — SCASPA · Pods 1–4 · pod folders', u:'https://drive.google.com/drive/folders/1oBT6L7HoQ7X9xSj31ZGFqHHkvPG47iob?v=2'},
     {t:'SCASPA — client discovery brief', u:'https://drive.google.com/file/d/1NDJSnjdaxLjPntbu0tZEj6J-a-KUgsVw/view'},
-    {t:'Sub-Studio B — Sagicor Finance · Pods 5–8 · pod folders', u:'https://drive.google.com/drive/folders/18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku'},
+    {t:'Sub-Studio B — Sagicor Finance · Pods 5–8 · pod folders', u:'https://drive.google.com/drive/folders/18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku?v=2'},
     {t:'Sagicor Finance — client discovery brief', u:'https://drive.google.com/file/d/1He5d-bxyKRadWJLWk7fic1wZxb6bF9u4/view'}
   ],
   'SVG': [
-    {t:'Sub-Studio A — NAWASA · Pods 1–6 · pod folders', u:'https://drive.google.com/drive/folders/1Yy3bFfX8uJNDbYsUothPlRHTDHBlzncJ'},
+    {t:'Sub-Studio A — NAWASA · Pods 1–6 · pod folders', u:'https://drive.google.com/drive/folders/1Yy3bFfX8uJNDbYsUothPlRHTDHBlzncJ?v=2'},
     {t:'NAWASA — client discovery brief', u:'https://drive.google.com/file/d/155nWhXp0APLqlce2Fop7nzSG0NKCE7yn/view'},
-    {t:'Sub-Studio B — IRD Grenada · Pods 7–12 · pod folders', u:'https://drive.google.com/drive/folders/13GpIf64NsniH4bFlHNvgOSvMuaqed409'},
+    {t:'Sub-Studio B — IRD Grenada · Pods 7–12 · pod folders', u:'https://drive.google.com/drive/folders/13GpIf64NsniH4bFlHNvgOSvMuaqed409?v=2'},
     {t:'IRD Grenada — client discovery brief', u:'https://drive.google.com/file/d/1GDAmvok28TEDtGVJffXSb_3Ipvc1iqZt/view'}
   ],
   'Anguilla & Montserrat': [
-    {t:'Studio — IRD Anguilla · pod folders', u:'https://drive.google.com/drive/folders/1ri7TP-b-nW_AbQJBVWWWy3eWg-9mRvY-'},
+    {t:'Studio — IRD Anguilla · pod folders', u:'https://drive.google.com/drive/folders/1ri7TP-b-nW_AbQJBVWWWy3eWg-9mRvY-?v=2'},
     {t:'IRD Anguilla — client discovery brief', u:'https://drive.google.com/file/d/1RkbYG9zfnqbc8t6PID0Eq2Gfrn9FbHy5/view'}
   ],
   'Dominica': [
-    {t:'Studio — CUB · pod folders', u:'https://drive.google.com/drive/folders/1GV_iceJuq0Blu62ZT-Sw3PVBqC82TFTx'},
+    {t:'Studio — CUB · pod folders', u:'https://drive.google.com/drive/folders/1GV_iceJuq0Blu62ZT-Sw3PVBqC82TFTx?v=2'},
     {t:'CUB — client discovery brief', u:'https://drive.google.com/file/d/1Hrxh9MqnaiLeBOStbh32ZFwgercsf5R_/view'}
   ]
 };
@@ -81,29 +81,29 @@ var CAMPER_WEEK = {
     {t:'Week 1 Participant Workbook', u:'https://drive.google.com/file/d/1KajAL2nDEEagnOXiWxgxZdAhWjrlBN91/view'},
     {t:'Week 1 Deck (Days 1\u20135)', u:'https://drive.google.com/file/d/15CjpKRmmvyRAsC0A59yKql0KmGjy6lwg/view'},
     {t:'Chatbot Blueprint Template', u:'https://drive.google.com/file/d/1gzuoncAoATA7pxg9Acsbvx-hBOU4u2O-/view'},
-    {t:'Skeleton code \u2014 Days 1\u20135', u:'https://drive.google.com/drive/folders/1xsLT-_WykPkKMEZETmmM1AU7eEvjs67Y'}
+    {t:'Skeleton code \u2014 Days 1\u20135', u:'https://drive.google.com/drive/folders/1xsLT-_WykPkKMEZETmmM1AU7eEvjs67Y?v=2'}
   ],
   2: [
     {t:'Week 2 Participant Workbook', u:'https://drive.google.com/file/d/1NE_umOE8iSWeF6xo2NimB91QfJqCBsAd/view'},
     {t:'Week 2 Deck (Days 6\u201310)', u:'https://drive.google.com/file/d/18EXy5MxvEpy7e2VAV6YhYiyBvpeehepr/view'},
     {t:'Documentation Package Template', u:'https://drive.google.com/file/d/1pzUmonJfH4kjSBovVOhSLOG9C4B3g1Wp/view'},
-    {t:'Skeleton code \u2014 Days 6\u201310', u:'https://drive.google.com/drive/folders/1Juu-pLKqAVMIMlF3jRoeNu16Ej1F7dFb'}
+    {t:'Skeleton code \u2014 Days 6\u201310', u:'https://drive.google.com/drive/folders/1Juu-pLKqAVMIMlF3jRoeNu16Ej1F7dFb?v=2'}
   ],
   3: [
     {t:'Week 3 Participant Workbook', u:'https://drive.google.com/file/d/1fNsPdvJ2qr4kT4s49tHuJTUV-Pd74xHt/view'},
     {t:'Week 3 Deck (Days 11\u201315)', u:'https://drive.google.com/file/d/11oNBsP82aYtv_ZhZdbJWCflWdz9yDu6e/view'},
     {t:'Multi-Modal Feature Card', u:'https://drive.google.com/file/d/1eBXEWpd617dLJcimq2o3KiUSDarOaOhY/view'},
-    {t:'Skeleton code \u2014 Days 11\u201315', u:'https://drive.google.com/drive/folders/1bd35cfooFYJxn-N2Ink0JxJocqj5p-fH'}
+    {t:'Skeleton code \u2014 Days 11\u201315', u:'https://drive.google.com/drive/folders/1bd35cfooFYJxn-N2Ink0JxJocqj5p-fH?v=2'}
   ],
   4: [
     {t:'Week 4 Participant Workbook', u:'https://drive.google.com/file/d/1pEzLpZLvkecoK3DgsvTYmyreGDq9_ieU/view'},
     {t:'Week 4 Deck (Days 16\u201320)', u:'https://drive.google.com/file/d/1A3Ykryt4ZmFj26CJh2WQSjlywVk2rzTz/view'},
     {t:'Handover Package Template', u:'https://drive.google.com/file/d/1ducTt9rVkjguFJ-ySRcQLBoEG7KrERdf/view'},
-    {t:'Skeleton code \u2014 Days 16\u201320', u:'https://drive.google.com/drive/folders/1OppBXPw2kqGgv0RZMufxeMYTFiVfsaVX'}
+    {t:'Skeleton code \u2014 Days 16\u201320', u:'https://drive.google.com/drive/folders/1OppBXPw2kqGgv0RZMufxeMYTFiVfsaVX?v=2'}
   ]
 };
 
-var DEEPNOTE = 'https://deepnote.com/workspace/2026-GENAI-34873e1f-ad18-4ecb-a7b3-41af1b9e6c12/project/GEN-AI-NoteBook-905d918f-9083-4b41-a913-406bd9c53b88/notebook/Certification-Notes-ab83a0f8a1fd44599f29941d4373cf1a';
+var DEEPNOTE = 'https://eccuaicamp2026.netlify.app/go/deepnote-cert?v=2';
 var COLAB_FALLBACK = 'https://drive.google.com/drive/folders/1cj2u5d__YZDOhU4vrn1RWj_ssWTPKJrE';
 
 // One entry per camp day. `extra` links are appended after the standard set.
@@ -117,7 +117,7 @@ var DAYS = [
   {n:2, wk:1, title:"Design \u2014 Designing for People Before Programming",
     desc:"Persona \u2192 Empathy Map \u2192 Wardrobe. First conditionals in code.",
     extra:[
-      {t:'Day 2 Notebook — Deepnote', u:'https://deepnote.com/workspace/2026-GEN-AI-CAMP-74429897-e60c-42c1-ace8-95e21e316d45/project/GEN-AI-WEEK-1-bd0f5f6e-7e59-4084-af2c-be18d22b537a/notebook/DAY2-ef87950d4b1243cfa28a0578773231ae'},
+      {t:'Day 2 Notebook — Deepnote', u:'https://eccuaicamp2026.netlify.app/go/day2-notebook?v=2'},
       {t:'Day 2 · Interview Masterclass (deck)', u:'https://docs.google.com/presentation/d/1Dx9LCwVOhLG0FR7Fw-wP1sP8XDhJMnLKy4ubo7tDaGI/edit'},
       {t:'Day 2 · Pod Interview Prep Deck', u:'https://docs.google.com/presentation/d/1FFxNfz_dTAyQnSZE-E4d8nNN7epmUZ4gZ9xbrc4eq7A/edit'},
       {t:'Day 2 · Video Response Deck', u:'https://docs.google.com/presentation/d/1YQZVoOXgcNBwyJfFy7wnF-ECYFo3y1aSuoD8FNpluhA/edit'}
