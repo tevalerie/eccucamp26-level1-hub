@@ -458,14 +458,14 @@ function refileMysteryGapsDeck() {
 }
 
 /**
- * Day 3 Pod Homework — GROUP assignment, due Friday 17 Jul 2:30 PM AST.
- * Paste the infographic's Drive file ID into DAY3_IMAGE_ID to attach it;
+ * Day 4 Pod Homework — GROUP assignment, due Friday 17 Jul 2:30 PM AST.
+ * Paste the infographic's Drive file ID into DAY4_IMAGE_ID to attach it;
  * leave '' to post without (attach via UI afterwards). Re-run safe.
  */
-var DAY3_IMAGE_ID = '';   // auto-filled: fetched from the hub into your Drive on first run
-var DAY3_IMAGE_URL = 'https://eccuaicamp2026.netlify.app/assets/day3-homework-infographic.jpeg';
+var DAY4_IMAGE_ID = '';   // auto-filled: fetched from the hub into your Drive on first run
+var DAY4_IMAGE_URL = 'https://eccuaicamp2026.netlify.app/assets/day4-homework-infographic.jpeg';
 
-function postDay3Homework() {
+function postDay4Homework() {
   var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
   var courses = res.courses || [];
   var desc = 'GROUP HOMEWORK — one submission per pod.\n' +
@@ -485,7 +485,7 @@ function postDay3Homework() {
     try {
       var cw = Classroom.Courses.CourseWork.list(course.id, { pageSize: 30 });
       ((cw && cw.courseWork) || []).forEach(function (w) {
-        if (w.title && w.title.indexOf('Day 3 Pod Homework') === 0) {
+        if (w.title && (w.title.indexOf('Day 3 Pod Homework') === 0 || w.title.indexOf('Day 4 Pod Homework') === 0)) {
           Classroom.Courses.CourseWork.remove(course.id, w.id);
         }
       });
@@ -494,14 +494,14 @@ function postDay3Homework() {
     ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
       if (t.name === 'Week 1') topicId = t.topicId;
     });
-    if (!DAY3_IMAGE_ID) {
-      var blob = UrlFetchApp.fetch(DAY3_IMAGE_URL).getBlob().setName('Day 3 Homework — Build · Decide · Connect.jpeg');
-      DAY3_IMAGE_ID = DriveApp.createFile(blob).getId();
-      Logger.log('infographic saved to Drive: %s', DAY3_IMAGE_ID);
+    if (!DAY4_IMAGE_ID) {
+      var blob = UrlFetchApp.fetch(DAY4_IMAGE_URL).getBlob().setName('Day 4 Homework — Build · Decide · Connect.jpeg');
+      DAY4_IMAGE_ID = DriveApp.createFile(blob).getId();
+      Logger.log('infographic saved to Drive: %s', DAY4_IMAGE_ID);
     }
-    var materials = [{ driveFile: { driveFile: { id: DAY3_IMAGE_ID }, shareMode: 'VIEW' } }];
+    var materials = [{ driveFile: { driveFile: { id: DAY4_IMAGE_ID }, shareMode: 'VIEW' } }];
     Classroom.Courses.CourseWork.create({
-      title: 'Day 3 Pod Homework · Build · Decide · Connect',
+      title: 'Day 4 Pod Homework · Build · Decide · Connect',
       description: desc,
       workType: 'ASSIGNMENT',
       materials: materials,
@@ -510,9 +510,9 @@ function postDay3Homework() {
       dueDate: { year: 2026, month: 7, day: 17 },
       dueTime: { hours: 18, minutes: 30 }   // 2:30 PM AST (UTC-4) = 18:30 UTC · Friday 17 Jul
     }, course.id);
-    Logger.log('%s: Day 3 homework posted with infographic', cohort);
+    Logger.log('%s: Day 4 homework posted with infographic', cohort);
   });
-  Logger.log('Day 3 homework done.');
+  Logger.log('Day 4 homework done.');
 }
 
 /** Files each per-client gap deck PDF into its studio folder. Run once. */
