@@ -436,6 +436,27 @@ function renameSwappedStudios() {
   Logger.log('studios renamed · %s explainer files moved to their correct studio', moved);
 }
 
+/**
+ * Replaces the OLD Mystery Gaps PDF/PPTX in the AI Studio root with v2
+ * (final client map). Run once after the deck regeneration.
+ */
+function refileMysteryGapsDeck() {
+  var root = DriveApp.getFolderById('1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd');
+  var files = root.getFiles();
+  var trashed = 0;
+  while (files.hasNext()) {
+    var f = files.next();
+    if (f.getName().indexOf('The Mystery Gaps') === 0) { f.setTrashed(true); trashed++; }
+  }
+  var d = EXPLAINER_DECKS.mystery_gaps;
+  [['exportUrl', '.pdf'], ['pptxUrl', '.pptx']].forEach(function (fmt) {
+    var blob = UrlFetchApp.fetch(d[fmt[0]]).getBlob()
+      .setName('The Mystery Gaps — What the Briefs Didn\'t Say (Day 3 prep)' + fmt[1]);
+    root.createFile(blob);
+  });
+  Logger.log('Mystery Gaps v2 filed (%s old files trashed).', trashed);
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
@@ -608,7 +629,7 @@ var EXPLAINER_DECKS = {
   "nis_grenada": {client:"NIS Grenada", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/nis-grenada?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/tsrpbdcim793uxx/4d0f3b42f5ff0e65e94f0bec35d6e1e6/NIS-Grenada-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/tsrpbdcim793uxx/60d02487f1ffad3e595599f26e9284b8/NIS-Grenada-Explained-Your-Client-in-9-Cards.pptx", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"},
   "ird_anguilla": {client:"IRD Anguilla", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/ird-anguilla?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/jsxglvc0bprsi5u/6bad9600ca8744f1d581e3c2383a3251/IRD-Anguilla-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/jsxglvc0bprsi5u/ba28dd652a7547da64e19103173220ab/IRD-Anguilla-Explained-Your-Client-in-9-Cards.pptx", folderId:"1GV_iceJuq0Blu62ZT-Sw3PVBqC82TFTx"},
   "nawasa": {client:"NAWASA", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/nawasa?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/3lcua5uyqp75uyn/f1e297074f32df7dee8004af85611b18/NAWASA-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/3lcua5uyqp75uyn/3ca4944b9e0f5556e5e8db17f7f7c1f9/NAWASA-Explained-Your-Client-in-9-Cards.pptx", folderId:"1Yy3bFfX8uJNDbYsUothPlRHTDHBlzncJ"},
-  "mystery_gaps": {client:"The Mystery Gaps", fileName:"The Mystery Gaps — What the Briefs Didn't Say (Day 3 prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/mystery-gaps?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/csjfxufrm2c0ukk/d15c14ce4e5982f6f81083de312d5229/The-Mystery-Gaps-What-the-Briefs-Didnt-Say.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/csjfxufrm2c0ukk/4d9b4b13fea73fc0b6c05f63cf49b4a1/The-Mystery-Gaps-What-the-Briefs-Didnt-Say.pptx", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"}
+  "mystery_gaps": {client:"The Mystery Gaps", fileName:"The Mystery Gaps — What the Briefs Didn't Say (Day 3 prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/mystery-gaps?v=3", exportUrl:"https://assets.api.gamma.app/export/pdf/anz6aj4umevia2u/d3ab787048c9e6c4b280345e1c5a7268/The-Mystery-Gaps-What-the-Briefs-Didnt-Say-v2.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/anz6aj4umevia2u/8f1a0756c214eefd0dc7aa7462bd0096/The-Mystery-Gaps-What-the-Briefs-Didnt-Say-v2.pptx", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"}
 };
 var COHORT_DECKS = {
   "SKN": [
