@@ -449,6 +449,7 @@ var EXPLAINER_DECKS = {
   "nis_grenada": {client:"NIS Grenada", gammaUrl:"https://gamma.app/docs/tsrpbdcim793uxx", exportUrl:"https://assets.api.gamma.app/export/pdf/tsrpbdcim793uxx/4d0f3b42f5ff0e65e94f0bec35d6e1e6/NIS-Grenada-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/tsrpbdcim793uxx/60d02487f1ffad3e595599f26e9284b8/NIS-Grenada-Explained-Your-Client-in-9-Cards.pptx", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"},
   "ird_anguilla": {client:"IRD Anguilla", gammaUrl:"https://gamma.app/docs/jsxglvc0bprsi5u", exportUrl:"https://assets.api.gamma.app/export/pdf/jsxglvc0bprsi5u/6bad9600ca8744f1d581e3c2383a3251/IRD-Anguilla-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/jsxglvc0bprsi5u/ba28dd652a7547da64e19103173220ab/IRD-Anguilla-Explained-Your-Client-in-9-Cards.pptx", folderId:"1ri7TP-b-nW_AbQJBVWWWy3eWg-9mRvY-"},
   "nawasa": {client:"NAWASA", gammaUrl:"https://gamma.app/docs/3lcua5uyqp75uyn", exportUrl:"https://assets.api.gamma.app/export/pdf/3lcua5uyqp75uyn/f1e297074f32df7dee8004af85611b18/NAWASA-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/3lcua5uyqp75uyn/3ca4944b9e0f5556e5e8db17f7f7c1f9/NAWASA-Explained-Your-Client-in-9-Cards.pptx", folderId:"1Yy3bFfX8uJNDbYsUothPlRHTDHBlzncJ"},
+  "mystery_gaps": {client:"The Mystery Gaps", fileName:"The Mystery Gaps — What the Briefs Didn't Say (Day 3 prep)", gammaUrl:"https://gamma.app/docs/csjfxufrm2c0ukk", exportUrl:"https://assets.api.gamma.app/export/pdf/csjfxufrm2c0ukk/d15c14ce4e5982f6f81083de312d5229/The-Mystery-Gaps-What-the-Briefs-Didnt-Say.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/csjfxufrm2c0ukk/4d9b4b13fea73fc0b6c05f63cf49b4a1/The-Mystery-Gaps-What-the-Briefs-Didnt-Say.pptx", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"}
 };
 var COHORT_DECKS = {
   "SKN": [
@@ -482,7 +483,7 @@ function postExplainerDecks() {
       if (!url) { Logger.log('%s: no %s url — skipping', slug, fmt[1]); return; }
       try {
         var blob = UrlFetchApp.fetch(url).getBlob()
-          .setName(d.client + ' — Explained (teen edition)' + fmt[1]);
+          .setName((d.fileName || (d.client + ' — Explained (teen edition)')) + fmt[1]);
         folder.createFile(blob);
         Logger.log('%s: %s saved to Drive folder', slug, fmt[1]);
       } catch (e) {
@@ -514,6 +515,8 @@ function postExplainerDecks() {
           ? 'Read YOUR pod\'s client — check the pod announcement in the Stream if unsure. '
           : '')
       + 'Read it before the Day 3 client interview. The PDF copy also lives in your Studio folder.';
+    links.push({ link: { url: EXPLAINER_DECKS.mystery_gaps.gammaUrl,
+      title: 'The Mystery Gaps — what the briefs didn\'t say (read before Day 3)' } });
     Classroom.Courses.CourseWorkMaterials.create({
       title: matTitle,
       description: matDesc,
