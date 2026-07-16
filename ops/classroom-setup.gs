@@ -50,7 +50,9 @@ var STUDIO_LINKS = {
     {t:'Sub-Studio A — SCASPA · Pods 1–4 · pod folders', u:'https://drive.google.com/drive/folders/1oBT6L7HoQ7X9xSj31ZGFqHHkvPG47iob?v=2'},
     {t:'SCASPA — client discovery brief', u:'https://drive.google.com/file/d/1NDJSnjdaxLjPntbu0tZEj6J-a-KUgsVw/view'},
     {t:'Sub-Studio B — Sagicor Finance · Pods 5–8 · pod folders', u:'https://drive.google.com/drive/folders/18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku?v=2'},
-    {t:'Sagicor Finance — client discovery brief', u:'https://drive.google.com/file/d/1He5d-bxyKRadWJLWk7fic1wZxb6bF9u4/view'}
+    {t:'Sagicor Finance — client discovery brief', u:'https://drive.google.com/file/d/1He5d-bxyKRadWJLWk7fic1wZxb6bF9u4/view'},
+    {t:'Sub-Studio C — ACB Caribbean · pod folders', u:'https://drive.google.com/drive/folders/1dbnLShHxdyTLIpg-K6KII1mH8hKBMykB'},
+    {t:'ACB Caribbean — client discovery brief', u:'https://drive.google.com/file/d/10ocqnYqHAP5xerQAxIGO6nCPWU0KZI9v/view'}
   ],
   'SVG': [
     {t:'Sub-Studio A — NAWASA · Pods 1–6 · pod folders', u:'https://drive.google.com/drive/folders/1Yy3bFfX8uJNDbYsUothPlRHTDHBlzncJ?v=2'},
@@ -415,6 +417,13 @@ function renameSwappedStudios() {
       if (f.getName().indexOf(job[2]) === 0) { f.moveTo(job[1]); moved++; }
     }
   });
+  var root = DriveApp.getFolderById('1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd');
+  var acbFolder = DriveApp.getFolderById('1dbnLShHxdyTLIpg-K6KII1mH8hKBMykB');
+  var rootFiles = root.getFiles();
+  while (rootFiles.hasNext()) {
+    var rf = rootFiles.next();
+    if (rf.getName().indexOf('ACB Caribbean') === 0) { rf.moveTo(acbFolder); moved++; }
+  }
   Logger.log('studios renamed · %s explainer files moved to their correct studio', moved);
 }
 
@@ -585,7 +594,7 @@ var EXPLAINER_DECKS = {
   "sagicor": {client:"Sagicor Finance", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/sagicor?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/nhs8rcvweo7mx6w/f4ab73c99e1ca2b74446f5b4fd1aad33/Sagicor-Finance-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/nhs8rcvweo7mx6w/c66d052646c506c6ccee9236d76b4872/Sagicor-Finance-Explained-Your-Client-in-9-Cards.pptx", folderId:"18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku"},
   "ird_grenada": {client:"IRD Grenada", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/ird-grenada?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/qoihr3sttd4ioos/37b593a16e524d8dcd542138f110b90a/IRD-Grenada-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/qoihr3sttd4ioos/7a85681d943c0b852ffa08b64051e23c/IRD-Grenada-Explained-Your-Client-in-9-Cards.pptx", folderId:"13GpIf64NsniH4bFlHNvgOSvMuaqed409"},
   "lucelec": {client:"LUCELEC", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/lucelec?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/zftbqzlcvm4d8yb/ae29ac5033e265b51f88533803ca83b0/LUCELEC-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/zftbqzlcvm4d8yb/89a5f0ad2bf8e794b417d6384d1c9d02/LUCELEC-Explained-Your-Client-in-9-Cards.pptx", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"},
-  "acb": {client:"ACB Caribbean", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/acb?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/0ak3elrclbo5nb9/2636410282b0010163a00cd31aca7df8/ACB-Caribbean-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/0ak3elrclbo5nb9/bbf7b0673a120618fe35db5ac71a3368/ACB-Caribbean-Explained-Your-Client-in-9-Cards.pptx", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"},
+  "acb": {client:"ACB Caribbean", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/acb?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/0ak3elrclbo5nb9/2636410282b0010163a00cd31aca7df8/ACB-Caribbean-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/0ak3elrclbo5nb9/bbf7b0673a120618fe35db5ac71a3368/ACB-Caribbean-Explained-Your-Client-in-9-Cards.pptx", folderId:"1dbnLShHxdyTLIpg-K6KII1mH8hKBMykB"},
   "cub": {client:"CUB", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/cub?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/esj91ph94orgjdm/904a09eb1fe90d40ca545e48f6233c61/Caribbean-Union-Bank-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/esj91ph94orgjdm/01376de1532bf2e44b11a6ae1219af3c/Caribbean-Union-Bank-Explained-Your-Client-in-9-Cards.pptx", folderId:"1ri7TP-b-nW_AbQJBVWWWy3eWg-9mRvY-"},
   "nis_grenada": {client:"NIS Grenada", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/nis-grenada?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/tsrpbdcim793uxx/4d0f3b42f5ff0e65e94f0bec35d6e1e6/NIS-Grenada-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/tsrpbdcim793uxx/60d02487f1ffad3e595599f26e9284b8/NIS-Grenada-Explained-Your-Client-in-9-Cards.pptx", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"},
   "ird_anguilla": {client:"IRD Anguilla", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/ird-anguilla?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/jsxglvc0bprsi5u/6bad9600ca8744f1d581e3c2383a3251/IRD-Anguilla-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/jsxglvc0bprsi5u/ba28dd652a7547da64e19103173220ab/IRD-Anguilla-Explained-Your-Client-in-9-Cards.pptx", folderId:"1GV_iceJuq0Blu62ZT-Sw3PVBqC82TFTx"},
@@ -595,7 +604,7 @@ var EXPLAINER_DECKS = {
 var COHORT_DECKS = {
   "SKN": [
     "scaspa",
-    "sagicor"
+    "sagicor", "acb"
   ],
   "SVG": [
     "nawasa",
