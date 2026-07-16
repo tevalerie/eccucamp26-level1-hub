@@ -413,16 +413,25 @@ function verifySetup() {
     var course = findCourse(courses, cohort);
     if (!course) { Logger.log('%s: NO MATCHING CLASS', cohort); return; }
     var topics = (Classroom.Courses.Topics.list(course.id).topic || []).map(function (t) { return t.name; });
-    var mats = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
-    var titles = ((mats && mats.courseWorkMaterial) || []).map(function (m) { return m.title; });
+    var titles = [];
+    var page = null;
+    do {
+      page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60, pageToken: page ? page.nextPageToken : undefined });
+      ((page && page.courseWorkMaterial) || []).forEach(function (m) { titles.push(m.title); });
+    } while (page && page.nextPageToken);
     var days = titles.filter(function (t) { return t.indexOf('Day ') === 0; }).length;
+    var missing = [];
+    DAYS.forEach(function (dd) {
+      var want = 'Day ' + pad2(dd.n) + ' · ';
+      if (!titles.some(function (t) { return t.indexOf(want) === 0; })) missing.push(pad2(dd.n));
+    });
     var studio = titles.some(function (t) { return t.indexOf('Your AI Studio workspace') === 0; });
     var anns = Classroom.Courses.Announcements.list(course.id, { pageSize: 10 });
     var annCount = ((anns && anns.announcements) || []).length;
     var teachers = (Classroom.Courses.Teachers.list(course.id).teachers || []).length;
     var invites = (Classroom.Invitations.list({ courseId: course.id }).invitations || []).length;
-    Logger.log('%s → "%s"\n  topics: %s\n  day materials: %s / 20 · studio material: %s\n  announcements: %s · teachers joined: %s · invites pending: %s\n  join code: %s',
-      cohort, course.name, topics.join(' · ') || 'NONE', days, studio ? 'YES' : 'MISSING',
+    Logger.log('%s → "%s"\n  topics: %s\n  day materials: %s / 20 · studio material: %s · MISSING DAYS: %s\n  announcements: %s · teachers joined: %s · invites pending: %s\n  join code: %s',
+      cohort, course.name, topics.join(' · ') || 'NONE', days, studio ? 'YES' : 'MISSING', missing.length ? missing.join(', ') : 'none',
       annCount, teachers, invites, course.enrollmentCode);
   });
   Logger.log('verify done.');
