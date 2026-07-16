@@ -572,6 +572,25 @@ function fixDay1Links() {
   Logger.log('fixDay1Links done.');
 }
 
+/**
+ * Finds a deck's PDF in its studio folder by name; if absent, fetches the
+ * export and files it. Returns the Drive file ID (or null).
+ */
+function deckPdfId(deck, pdfName) {
+  try {
+    var folder = DriveApp.getFolderById(deck.folderId);
+    var files = folder.getFilesByName(pdfName);
+    if (files.hasNext()) return files.next().getId();
+    if (deck.exportUrl) {
+      var blob = UrlFetchApp.fetch(deck.exportUrl).getBlob().setName(pdfName);
+      return folder.createFile(blob).getId();
+    }
+  } catch (e) {
+    Logger.log('deckPdfId(%s): %s', pdfName, (e.message || '').slice(0, 80));
+  }
+  return null;
+}
+
 function toMaterial(url, title) {
   var m = url.match(/(?:drive|docs)\.google\.com\/(?:file\/d\/|document\/d\/|presentation\/d\/|spreadsheets\/d\/)([-\w]{20,})/);
   if (m) {
@@ -790,9 +809,13 @@ function repostExplainerMaterials() {
       if (t.name === 'Your Studio & Client') topicId = t.topicId;
     });
     var names = slugs.map(function (s) { return EXPLAINER_DECKS[s].client; });
-    var links = slugs.map(function (s) {
+    var links = [];
+    slugs.forEach(function (s) {
       var d = EXPLAINER_DECKS[s];
-      return { link: { url: d.gammaUrl, title: d.client + ' — Explained (teen edition)' } };
+      var pdfName = (d.fileName || (d.client + ' — Explained (teen edition)')) + '.pdf';
+      var fid = deckPdfId(d, pdfName);
+      if (fid) links.push({ driveFile: { driveFile: { id: fid }, shareMode: 'VIEW' } });
+      else links.push({ link: { url: d.gammaUrl, title: d.client + ' — Explained (teen edition)' } });
     });
     var matTitle = (names.length > 1 ? 'Your clients, explained — ' : 'Your client, explained — ')
       + names.join(' & ') + ' (teen edition)';
@@ -803,7 +826,10 @@ function repostExplainerMaterials() {
       + 'Read it before the Day 3 client interview. The PDF copy also lives in your Studio folder.';
     (COHORT_GAPS[cohort] || []).forEach(function (gslug) {
       var gd = GAP_DECKS[gslug];
-      links.push({ link: { url: gd.gammaUrl, title: 'The Mystery Gaps — ' + gd.client + ' Edition (your interview prep)' } });
+      var pdfName = gd.fileName + '.pdf';
+      var fid = deckPdfId(gd, pdfName);
+      if (fid) links.push({ driveFile: { driveFile: { id: fid }, shareMode: 'VIEW' } });
+      else links.push({ link: { url: gd.gammaUrl, title: 'The Mystery Gaps — ' + gd.client + ' Edition' } });
     });
     Classroom.Courses.CourseWorkMaterials.create({
       title: matTitle,
