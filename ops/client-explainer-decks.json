@@ -38,5 +38,33 @@
   "mystery_gaps": {
     "title": "The Mystery Gaps \u2014 What the Briefs Didn't Say",
     "gammaUrl": "https://gamma.app/docs/anz6aj4umevia2u"
+  },
+  "gaps_scaspa": {
+    "title": "The Mystery Gaps \u2014 SCASPA Edition",
+    "gammaUrl": "https://gamma.app/docs/buvksh7ltmuwxuk"
+  },
+  "gaps_sagicor": {
+    "title": "The Mystery Gaps \u2014 Sagicor Finance Edition",
+    "gammaUrl": "https://gamma.app/docs/hbh0qrdl1ykq15q"
+  },
+  "gaps_acb": {
+    "title": "The Mystery Gaps \u2014 ACB Caribbean Edition",
+    "gammaUrl": "https://gamma.app/docs/90oz2z7rd6lcimj"
+  },
+  "gaps_nawasa": {
+    "title": "The Mystery Gaps \u2014 NAWASA Edition",
+    "gammaUrl": "https://gamma.app/docs/va23zo73so1rxer"
+  },
+  "gaps_ird_grenada": {
+    "title": "The Mystery Gaps \u2014 IRD Grenada Edition",
+    "gammaUrl": "https://gamma.app/docs/eac61g5lz8vfnwj"
+  },
+  "gaps_cub": {
+    "title": "The Mystery Gaps \u2014 CUB Edition",
+    "gammaUrl": "https://gamma.app/docs/ttoxogrhprsxkg6"
+  },
+  "gaps_ird_anguilla": {
+    "title": "The Mystery Gaps \u2014 IRD Anguilla Edition",
+    "gammaUrl": "https://gamma.app/docs/b9u2wq83w6vxhm5"
   }
 }

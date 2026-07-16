@@ -510,6 +510,22 @@ function postDay3Homework() {
   Logger.log('Day 3 homework done.');
 }
 
+/** Files each per-client gap deck PDF into its studio folder. Run once. */
+function fileGapDecks() {
+  Object.keys(GAP_DECKS).forEach(function (slug) {
+    var d = GAP_DECKS[slug];
+    if (!d.exportUrl) return;
+    try {
+      var blob = UrlFetchApp.fetch(d.exportUrl).getBlob().setName(d.fileName + '.pdf');
+      DriveApp.getFolderById(d.folderId).createFile(blob);
+      Logger.log('%s: filed to studio folder', slug);
+    } catch (e) {
+      Logger.log('%s: FAILED — %s', slug, (e.message || '').slice(0, 80));
+    }
+  });
+  Logger.log('gap decks filed.');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
@@ -684,6 +700,22 @@ var EXPLAINER_DECKS = {
   "nawasa": {client:"NAWASA", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/nawasa?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/3lcua5uyqp75uyn/f1e297074f32df7dee8004af85611b18/NAWASA-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/3lcua5uyqp75uyn/3ca4944b9e0f5556e5e8db17f7f7c1f9/NAWASA-Explained-Your-Client-in-9-Cards.pptx", folderId:"1Yy3bFfX8uJNDbYsUothPlRHTDHBlzncJ"},
   "mystery_gaps": {client:"The Mystery Gaps", fileName:"The Mystery Gaps — What the Briefs Didn't Say (Day 3 prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/mystery-gaps?v=3", exportUrl:"https://assets.api.gamma.app/export/pdf/anz6aj4umevia2u/d3ab787048c9e6c4b280345e1c5a7268/The-Mystery-Gaps-What-the-Briefs-Didnt-Say-v2.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/anz6aj4umevia2u/8f1a0756c214eefd0dc7aa7462bd0096/The-Mystery-Gaps-What-the-Briefs-Didnt-Say-v2.pptx", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"}
 };
+var GAP_DECKS = {
+  "gaps_scaspa": {client:"SCASPA", fileName:"The Mystery Gaps \u2014 SCASPA Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-scaspa", exportUrl:"https://assets.api.gamma.app/export/pdf/buvksh7ltmuwxuk/2a04f88a756b7eadd996fc99849994fc/The-Mystery-Gaps-SCASPA-Edition.pdf", folderId:"1oBT6L7HoQ7X9xSj31ZGFqHHkvPG47iob"},
+  "gaps_sagicor": {client:"Sagicor Finance", fileName:"The Mystery Gaps \u2014 Sagicor Finance Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-sagicor", exportUrl:"https://assets.api.gamma.app/export/pdf/hbh0qrdl1ykq15q/12d5ce47ada745ff92f29a2887861935/The-Mystery-Gaps-Sagicor-Finance-Edition.pdf", folderId:"18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku"},
+  "gaps_acb": {client:"ACB Caribbean", fileName:"The Mystery Gaps \u2014 ACB Caribbean Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-acb", exportUrl:"https://assets.api.gamma.app/export/pdf/90oz2z7rd6lcimj/179f58ce31e5d8ed51112320be200c84/The-Mystery-Gaps-ACB-Caribbean-Edition.pdf", folderId:"1dbnLShHxdyTLIpg-K6KII1mH8hKBMykB"},
+  "gaps_nawasa": {client:"NAWASA", fileName:"The Mystery Gaps \u2014 NAWASA Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-nawasa", exportUrl:"https://assets.api.gamma.app/export/pdf/va23zo73so1rxer/6fda8874941efe3baae65ad44d431c14/The-Mystery-Gaps-NAWASA-Edition.pdf", folderId:"1Yy3bFfX8uJNDbYsUothPlRHTDHBlzncJ"},
+  "gaps_ird_grenada": {client:"IRD Grenada", fileName:"The Mystery Gaps \u2014 IRD Grenada Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-ird-grenada", exportUrl:"https://assets.api.gamma.app/export/pdf/eac61g5lz8vfnwj/6d7944fa773e24fb833f9cf177b50dd5/The-Mystery-Gaps-IRD-Grenada-Edition.pdf", folderId:"13GpIf64NsniH4bFlHNvgOSvMuaqed409"},
+  "gaps_cub": {client:"CUB", fileName:"The Mystery Gaps \u2014 CUB Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-cub", exportUrl:"https://assets.api.gamma.app/export/pdf/ttoxogrhprsxkg6/1d086633d13f8cbec93c2c3127d4efeb/The-Mystery-Gaps-CUB-Edition.pdf", folderId:"1ri7TP-b-nW_AbQJBVWWWy3eWg-9mRvY-"},
+  "gaps_ird_anguilla": {client:"IRD Anguilla", fileName:"The Mystery Gaps \u2014 IRD Anguilla Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-ird-anguilla", exportUrl:"https://assets.api.gamma.app/export/pdf/b9u2wq83w6vxhm5/ec6780d73ae6c2d2d96ec916e4ae41bf/The-Mystery-Gaps-IRD-Anguilla-Edition.pdf", folderId:"1GV_iceJuq0Blu62ZT-Sw3PVBqC82TFTx"},
+};
+var COHORT_GAPS = {
+  "SKN": ["gaps_scaspa", "gaps_sagicor", "gaps_acb"],
+  "SVG": ["gaps_nawasa", "gaps_ird_grenada"],
+  "Anguilla & Montserrat": ["gaps_cub"],
+  "Dominica": ["gaps_ird_anguilla"]
+};
+
 var COHORT_DECKS = {
   "SKN": [
     "scaspa",
@@ -764,8 +796,10 @@ function repostExplainerMaterials() {
           ? 'Read YOUR pod\'s client — check the pod announcement in the Stream if unsure. '
           : '')
       + 'Read it before the Day 3 client interview. The PDF copy also lives in your Studio folder.';
-    links.push({ link: { url: EXPLAINER_DECKS.mystery_gaps.gammaUrl,
-      title: 'The Mystery Gaps — what the briefs didn\'t say (read before Day 3)' } });
+    (COHORT_GAPS[cohort] || []).forEach(function (gslug) {
+      var gd = GAP_DECKS[gslug];
+      links.push({ link: { url: gd.gammaUrl, title: 'The Mystery Gaps — ' + gd.client + ' Edition (your interview prep)' } });
+    });
     Classroom.Courses.CourseWorkMaterials.create({
       title: matTitle,
       description: matDesc,
