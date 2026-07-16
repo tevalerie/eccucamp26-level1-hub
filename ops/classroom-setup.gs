@@ -352,6 +352,51 @@ function fixExternalLinks() {
   repostExplainerMaterials();
 }
 
+/**
+ * Posts a multiple-choice Question in each class: campers SELECT their client.
+ * Teachers see the live tally per student — a self-built studio roster.
+ * Re-run safe: replaces any previous copy of the question.
+ */
+var CLIENT_CHOICES = {
+  'SKN': ['SCASPA (Sub-Studio A)', 'Sagicor Finance (Sub-Studio B)'],
+  'SVG': ['NAWASA (Sub-Studio A)', 'IRD Grenada (Sub-Studio B)'],
+  'Anguilla & Montserrat': ['IRD Anguilla — that\'s my client!'],
+  'Dominica': ['CUB (Caribbean Union Bank) — that\'s my client!']
+};
+
+function postClientQuestion() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) return;
+    // sweep previous copies (re-run safe)
+    try {
+      var cw = Classroom.Courses.CourseWork.list(course.id, { pageSize: 30 });
+      ((cw && cw.courseWork) || []).forEach(function (w) {
+        if (w.title && w.title.indexOf('Which client are you building for?') === 0) {
+          Classroom.Courses.CourseWork.remove(course.id, w.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: sweep note — %s', cohort, (e.message || '').slice(0, 70)); }
+    var topicId = null;
+    ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
+      if (t.name === 'Your Studio & Client') topicId = t.topicId;
+    });
+    var choices = (CLIENT_CHOICES[cohort] || []).concat(['Not sure yet — ask a facilitator']);
+    Classroom.Courses.CourseWork.create({
+      title: 'Which client are you building for?',
+      description: 'Pick your Studio\'s client. If you\'re not sure, ask a facilitator before choosing — then read your client\'s explainer deck and brief under \'Your Studio & Client\'.',
+      workType: 'MULTIPLE_CHOICE_QUESTION',
+      multipleChoiceQuestion: { choices: choices },
+      topicId: topicId || undefined,
+      state: 'PUBLISHED'
+    }, course.id);
+    Logger.log('%s: client question posted (%s choices)', cohort, choices.length);
+  });
+  Logger.log('Client questions done.');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
