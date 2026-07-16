@@ -210,10 +210,10 @@ function populateAllCohorts() {
       var title = 'Day ' + pad2(d.n) + ' · ' + d.title;
       if (existing[title]) { skipped++; return; }
       var links = [{ link: { url: HUB + '/#curriculum', title: 'Camp hub — curriculum' } }];
-      (CAMPER_WEEK[d.wk] || []).forEach(function (x) { links.push({ link: { url: x.u, title: x.t } }); });
+      (CAMPER_WEEK[d.wk] || []).forEach(function (x) { links.push(toMaterial(x.u, x.t)); });
       links.push({ link: { url: DEEPNOTE, title: 'Deepnote — camp notebook' } });
       links.push({ link: { url: COLAB_FALLBACK, title: 'Google Colab version (if Deepnote misbehaves)' } });
-      (d.extra || []).forEach(function (x) { links.push({ link: { url: x.u, title: x.t } }); });
+      (d.extra || []).forEach(function (x) { links.push(toMaterial(x.u, x.t)); });
       if (createMaterialWithRetry({
         title: title, description: d.desc, materials: links,
         topicId: topicByName['Week ' + d.wk], state: 'PUBLISHED'
@@ -226,7 +226,7 @@ function populateAllCohorts() {
       if (!topicByName['Your Studio & Client']) {
         topicByName['Your Studio & Client'] = Classroom.Courses.Topics.create({ name: 'Your Studio & Client' }, course.id).topicId;
       }
-      var studioLinks = (STUDIO_LINKS[cohort] || []).map(function (x) { return { link: { url: x.u, title: x.t } }; });
+      var studioLinks = (STUDIO_LINKS[cohort] || []).map(function (x) { return toMaterial(x.u, x.t); });
       studioLinks.push({ link: { url: HUB + '/#clients', title: 'The Client Board — all ten briefs' } });
       if (createMaterialWithRetry({
         title: studioTitle,
@@ -268,7 +268,7 @@ function rebuildCamperMaterials() {
     do {
       page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60, pageToken: page ? page.nextPageToken : undefined });
       ((page && page.courseWorkMaterial) || []).forEach(function (m) {
-        if (m.title.indexOf('Day ') === 0) {
+        if (m.title.indexOf('Day ') === 0 || m.title.indexOf('Your ') === 0) {
           Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
           removed++;
           Utilities.sleep(150);
@@ -343,6 +343,18 @@ function printJoinMessages() {
 }
 
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
+
+/**
+ * Drive files attach natively (real name, icon, preview, auto view-permission
+ * for the class). Folders and external links stay links.
+ */
+function toMaterial(url, title) {
+  var m = url.match(/(?:drive|docs)\.google\.com\/(?:file\/d\/|document\/d\/|presentation\/d\/|spreadsheets\/d\/)([-\w]{20,})/);
+  if (m) {
+    return { driveFile: { driveFile: { id: m[1] }, shareMode: 'VIEW' } };
+  }
+  return { link: { url: url, title: title } };
+}
 
 /**
  * Health check — run any time. Prints, for each cohort's class:
@@ -492,6 +504,15 @@ function postExplainerDecks() {
     });
   });
 
+  repostExplainerMaterials();
+}
+
+/**
+ * Posts ONLY the 'Your client(s), explained' classroom materials — use this
+ * when the Drive PDFs are already filed and you just need the materials back
+ * (e.g. after rebuildCamperMaterials sweeps them).
+ */
+function repostExplainerMaterials() {
   var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
   var courses = res.courses || [];
   COHORTS.forEach(function (cohort) {
