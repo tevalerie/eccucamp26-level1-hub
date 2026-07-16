@@ -111,8 +111,8 @@ var DAYS = [
   {n:1, wk:1, title:"Deconstruct \u2014 Inside the Bot: Deconstruct Before You Construct",
     desc:"Six components. One central rule. First lines of Python. Vision-Cast opens the day; pods probe the two bench bots.",
     extra:[
-      {t:'Miss Khalifa AI — chat live', u:'https://misskhalifa.eccugenai.app/chat'},
-      {t:'Ancestra & The Guardian — chat live', u:'https://ancestra.eccugenai.app/'}
+      {t:'Miss Khalifa AI — chat live', u:'https://eccuaicamp2026.netlify.app/bots/misskhalifa'},
+      {t:'Ancestra & The Guardian — chat live', u:'https://eccuaicamp2026.netlify.app/bots/ancestra'}
     ]},
   {n:2, wk:1, title:"Design \u2014 Designing for People Before Programming",
     desc:"Persona \u2192 Empathy Map \u2192 Wardrobe. First conditionals in code.",
@@ -348,6 +348,41 @@ function pad2(n) { return (n < 10 ? '0' : '') + n; }
  * Drive files attach natively (real name, icon, preview, auto view-permission
  * for the class). Folders and external links stay links.
  */
+/**
+ * Re-posts ONLY the Day 01 material (deletes + recreates) — used after the
+ * live-bot links moved behind hub redirect pages so titles scrape properly.
+ */
+function fixDay1Links() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+  var d = DAYS[0];
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) return;
+    var topicId = null;
+    ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
+      if (t.name === 'Week 1') topicId = t.topicId;
+    });
+    var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
+    ((page && page.courseWorkMaterial) || []).forEach(function (m) {
+      if (m.title.indexOf('Day 01 ·') === 0) {
+        Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
+      }
+    });
+    var links = [{ link: { url: HUB + '/#curriculum', title: 'Camp hub — curriculum' } }];
+    (CAMPER_WEEK[1] || []).forEach(function (x) { links.push(toMaterial(x.u, x.t)); });
+    links.push({ link: { url: DEEPNOTE, title: 'Deepnote — camp notebook' } });
+    links.push({ link: { url: COLAB_FALLBACK, title: 'Google Colab version (if Deepnote misbehaves)' } });
+    (d.extra || []).forEach(function (x) { links.push(toMaterial(x.u, x.t)); });
+    createMaterialWithRetry({
+      title: 'Day ' + pad2(d.n) + ' · ' + d.title,
+      description: d.desc, materials: links, topicId: topicId, state: 'PUBLISHED'
+    }, course.id, 'Day 01 rebuild');
+    Logger.log('%s: Day 01 reposted with hub bot links', cohort);
+  });
+  Logger.log('fixDay1Links done.');
+}
+
 function toMaterial(url, title) {
   var m = url.match(/(?:drive|docs)\.google\.com\/(?:file\/d\/|document\/d\/|presentation\/d\/|spreadsheets\/d\/)([-\w]{20,})/);
   if (m) {
