@@ -38,7 +38,7 @@ var COHORTS = [
 var CO_TEACHERS = {
   // Owner (tellyonu@gmail.com) creates the courses — no self-invite needed.
   'SKN': ['tvpyke@gmail.com', 'notefromgolda@gmail.com', 'nicolejohnson967@gmail.com', 'Shaeed.Cabey@gmail.com'],
-  'SVG': ['tvpyke@gmail.com', 'notefromgolda@gmail.com', 'nicolejohnson967@gmail.com', 'Shaeed.Cabey@gmail.com', 'kelvin.pompey@gmail.com'],
+  'SVG': ['tvpyke@gmail.com', 'notefromgolda@gmail.com', 'nicolejohnson967@gmail.com', 'Shaeed.Cabey@gmail.com', 'kelvin.pompey@gmail.com', 'vialey2392@gmail.com'],
   'Anguilla & Montserrat': ['tvpyke@gmail.com', 'notefromgolda@gmail.com', 'nicolejohnson967@gmail.com', 'Shaeed.Cabey@gmail.com', 'the.maxwell.22@gmail.com'],
   'Dominica': ['tvpyke@gmail.com', 'notefromgolda@gmail.com', 'nicolejohnson967@gmail.com', 'Shaeed.Cabey@gmail.com']
 };
