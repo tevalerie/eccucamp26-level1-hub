@@ -163,28 +163,35 @@ function populateAllCohorts() {
     if (!course) { Logger.log('SKIP %s — no class name matched its keywords.', cohort); return; }
     Logger.log('COURSE  %s  →  "%s"  (id %s · join code %s)', cohort, course.name, course.id, course.enrollmentCode);
 
-    // guard: already populated?
-    var existing = Classroom.Courses.Topics.list(course.id);
-    var names = ((existing && existing.topic) || []).map(function (t) { return t.name; });
-    if (names.indexOf('Week 1') !== -1) { Logger.log('  already populated — skipping.'); return; }
-
-    // section + description
+    // section + description (idempotent)
     Classroom.Courses.patch({
       section: SECTION,
       descriptionHeading: 'The Bot is the GPS. The Human is the Driver.',
       description: 'Four weeks · 20 days · Deconstruct → Design → Build → Pitch. Hub: ' + HUB
     }, course.id, { updateMask: 'section,descriptionHeading,description' });
 
-    // week topics (reverse so Week 1 lands on top)
-    var topicIds = {};
-    [4, 3, 2, 1].forEach(function (w) {
-      var topic = Classroom.Courses.Topics.create({ name: 'Week ' + w }, course.id);
-      topicIds[w] = topic.topicId;
-      Utilities.sleep(150);
+    // topics: reuse existing by name, create missing (reverse so Week 1 tops)
+    var topicByName = {};
+    ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) { topicByName[t.name] = t.topicId; });
+    ['Week 4', 'Week 3', 'Week 2', 'Week 1'].forEach(function (name) {
+      if (!topicByName[name]) {
+        topicByName[name] = Classroom.Courses.Topics.create({ name: name }, course.id).topicId;
+        Utilities.sleep(150);
+      }
     });
 
-    // day materials (reverse so Day 1 appears first within each topic)
+    // existing materials by title → only create what's missing
+    var existing = {};
+    var page = null;
+    do {
+      page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60, pageToken: page ? page.nextPageToken : undefined });
+      ((page && page.courseWorkMaterial) || []).forEach(function (m) { existing[m.title] = true; });
+    } while (page && page.nextPageToken);
+
+    var made = 0, skipped = 0;
     DAYS.slice().reverse().forEach(function (d) {
+      var title = 'Day ' + pad2(d.n) + ' · ' + d.title;
+      if (existing[title]) { skipped++; return; }
       var links = [
         { link: { url: HUB + '/#curriculum', title: 'Camp hub — curriculum' } },
         { link: { url: WEEK_FOLDERS[d.wk],  title: 'Week ' + d.wk + ' — all materials (Drive)' } },
@@ -193,40 +200,58 @@ function populateAllCohorts() {
         { link: { url: COLAB_FALLBACK,      title: 'Google Colab version (if Deepnote misbehaves)' } }
       ];
       (d.extra || []).forEach(function (x) { links.push({ link: { url: x.u, title: x.t } }); });
-      Classroom.Courses.CourseWorkMaterials.create({
-        title: 'Day ' + pad2(d.n) + ' · ' + d.title,
-        description: d.desc,
-        materials: links,
-        topicId: topicIds[d.wk],
-        state: 'PUBLISHED'
-      }, course.id);
-      Utilities.sleep(200);
+      if (createMaterialWithRetry({
+        title: title, description: d.desc, materials: links,
+        topicId: topicByName['Week ' + d.wk], state: 'PUBLISHED'
+      }, course.id, title)) made++;
     });
 
-    // 'Your Studio & Client' — created last so it sits above Week 1 in Classwork
-    var studioTopic = Classroom.Courses.Topics.create({ name: 'Your Studio & Client' }, course.id);
-    var studioLinks = (STUDIO_LINKS[cohort] || []).map(function (x) { return { link: { url: x.u, title: x.t } }; });
-    studioLinks.push({ link: { url: HUB + '/#clients', title: 'The Client Board — all ten briefs' } });
-    Classroom.Courses.CourseWorkMaterials.create({
-      title: 'Your AI Studio workspace & client brief',
-      description: 'Save every Google AI Studio prompt into YOUR pod folder — that folder is your studio. Read your client\'s discovery brief before the Day 3 client interview. Roles rotate Mondays; the pod folder stays.',
-      materials: studioLinks,
-      topicId: studioTopic.topicId,
-      state: 'PUBLISHED'
-    }, course.id);
-    Utilities.sleep(200);
+    // 'Your Studio & Client' pinned topic + material
+    var studioTitle = 'Your AI Studio workspace & client brief';
+    if (!existing[studioTitle]) {
+      if (!topicByName['Your Studio & Client']) {
+        topicByName['Your Studio & Client'] = Classroom.Courses.Topics.create({ name: 'Your Studio & Client' }, course.id).topicId;
+      }
+      var studioLinks = (STUDIO_LINKS[cohort] || []).map(function (x) { return { link: { url: x.u, title: x.t } }; });
+      studioLinks.push({ link: { url: HUB + '/#clients', title: 'The Client Board — all ten briefs' } });
+      if (createMaterialWithRetry({
+        title: studioTitle,
+        description: 'Save every Google AI Studio prompt into YOUR pod folder — that folder is your studio. Read your client\'s discovery brief before the Day 3 client interview. Roles rotate Mondays; the pod folder stays.',
+        materials: studioLinks,
+        topicId: topicByName['Your Studio & Client'],
+        state: 'PUBLISHED'
+      }, course.id, studioTitle)) made++;
+    } else { skipped++; }
 
-    // co-teacher invitations
+    Logger.log('  materials: %s created · %s already there', made, skipped);
+
+    // co-teacher invitations (errors = usually already invited; harmless)
     (CO_TEACHERS[cohort] || []).forEach(function (email) {
       try {
         Classroom.Invitations.create({ courseId: course.id, role: 'TEACHER', userId: email });
         Logger.log('  invited teacher: %s', email);
       } catch (e) {
-        Logger.log('  FAILED inviting %s — %s', email, e.message);
+        Logger.log('  note: %s — %s', email, (e.message || '').slice(0, 80));
       }
     });
   });
-  Logger.log('Done. Now run printJoinMessages for the send-ready blocks.');
+  Logger.log('Done. Run verifySetup to confirm, then announcePodAssignments.');
+}
+
+/** Creates one material with 3 attempts + backoff. Returns true on success. */
+function createMaterialWithRetry(payload, courseId, label) {
+  for (var attempt = 1; attempt <= 3; attempt++) {
+    try {
+      Classroom.Courses.CourseWorkMaterials.create(payload, courseId);
+      Utilities.sleep(250);
+      return true;
+    } catch (e) {
+      Logger.log('  retry %s/3 for "%s" — %s', attempt, label, (e.message || '').slice(0, 90));
+      Utilities.sleep(1200 * attempt);
+    }
+  }
+  Logger.log('  FAILED after 3 tries: "%s" — re-run populateAllCohorts later to fill it.', label);
+  return false;
 }
 
 function findCourse(courses, cohort) {
