@@ -476,6 +476,15 @@ function announcePodAssignments() {
   COHORTS.forEach(function (cohort) {
     var course = findCourse(courses, cohort);
     if (!course) { Logger.log('SKIP %s — no matching class.', cohort); return; }
+    // sweep previous pod announcements (posted by this script) — re-run safe
+    try {
+      var anns = Classroom.Courses.Announcements.list(course.id, { pageSize: 20 });
+      ((anns && anns.announcements) || []).forEach(function (a) {
+        if (a.text && a.text.indexOf('WHICH STUDIO AM I IN?') === 0) {
+          Classroom.Courses.Announcements.remove(course.id, a.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: old announcement sweep note — %s', cohort, (e.message || '').slice(0, 70)); }
     var pods = POD_ROSTERS[cohort] || [];
     var text = 'WHICH STUDIO AM I IN?\n' +
                'Find your name below — that is your Pod, and your Pod\'s client.\n' +
