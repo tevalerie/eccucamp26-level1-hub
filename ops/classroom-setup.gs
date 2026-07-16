@@ -498,13 +498,21 @@ function postExplainerDecks() {
     ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
       if (t.name === 'Your Studio & Client') topicId = t.topicId;
     });
+    var names = slugs.map(function (s) { return EXPLAINER_DECKS[s].client; });
     var links = slugs.map(function (s) {
       var d = EXPLAINER_DECKS[s];
       return { link: { url: d.gammaUrl, title: d.client + ' — Explained (teen edition)' } };
     });
+    var matTitle = (names.length > 1 ? 'Your clients, explained — ' : 'Your client, explained — ')
+      + names.join(' & ') + ' (teen edition)';
+    var matDesc = 'The client brief, retold in plain language with an analogy you can pitch with. '
+      + (names.length > 1
+          ? 'Read YOUR pod\'s client — check the pod announcement in the Stream if unsure. '
+          : '')
+      + 'Read it before the Day 3 client interview. The PDF copy also lives in your Studio folder.';
     Classroom.Courses.CourseWorkMaterials.create({
-      title: 'Your client, explained — teen edition',
-      description: 'Your client\'s brief, retold in plain language with an analogy you can pitch with. Read it before the Day 3 client interview. The PDF copy lives in your Studio folder.',
+      title: matTitle,
+      description: matDesc,
       materials: links,
       topicId: topicId || undefined,
       state: 'PUBLISHED'
