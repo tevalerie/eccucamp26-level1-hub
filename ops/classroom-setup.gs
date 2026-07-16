@@ -271,9 +271,18 @@ function rebuildCamperMaterials() {
       page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60, pageToken: page ? page.nextPageToken : undefined });
       ((page && page.courseWorkMaterial) || []).forEach(function (m) {
         if (m.title.indexOf('Day ') === 0 || m.title.indexOf('Your ') === 0) {
-          Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
-          removed++;
-          Utilities.sleep(150);
+          for (var attempt = 1; attempt <= 3; attempt++) {
+            try {
+              Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
+              removed++;
+              Utilities.sleep(150);
+              break;
+            } catch (e) {
+              Logger.log('  delete retry %s/3 for "%s" — %s', attempt, m.title, (e.message || '').slice(0, 70));
+              Utilities.sleep(1500 * attempt);
+              if (attempt === 3) Logger.log('  could not delete "%s" — re-run rebuild later to replace it.', m.title);
+            }
+          }
         }
       });
     } while (page && page.nextPageToken);
