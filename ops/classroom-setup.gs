@@ -358,7 +358,7 @@ function fixExternalLinks() {
  * Re-run safe: replaces any previous copy of the question.
  */
 var CLIENT_CHOICES = {
-  'SKN': ['SCASPA (Sub-Studio A)', 'Sagicor Finance (Sub-Studio B)', 'ACB Caribbean'],
+  'SKN': ['SCASPA (Sub-Studio A)', 'Sagicor Finance (Sub-Studio B)', 'ACB Caribbean (Sub-Studio C)'],
   'SVG': ['NAWASA (Sub-Studio A)', 'IRD Grenada (Sub-Studio B)'],
   'Anguilla & Montserrat': ['Caribbean Union Bank (CUB) — that\'s my client!'],
   'Dominica': ['IRD Anguilla — that\'s my client!']
