@@ -457,6 +457,59 @@ function refileMysteryGapsDeck() {
   Logger.log('Mystery Gaps v2 filed (%s old files trashed).', trashed);
 }
 
+/**
+ * Day 3 Pod Homework — GROUP assignment, due Friday 17 Jul 2:30 PM AST.
+ * Paste the infographic's Drive file ID into DAY3_IMAGE_ID to attach it;
+ * leave '' to post without (attach via UI afterwards). Re-run safe.
+ */
+var DAY3_IMAGE_ID = '';   // <-- optional: Drive ID of the infographic image
+
+function postDay3Homework() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+  var desc = 'GROUP HOMEWORK — one submission per pod.\n' +
+    'Your pod\'s homework · due Friday 2:30 PM, before the PM Build block.\n\n' +
+    'Each team develops:\n' +
+    '• Three conversation pathways\n' +
+    '• At least five decision points where the chatbot must choose between two or more responses\n' +
+    '• A conversation flow diagram showing how users move through the chatbot\n' +
+    '• A list of situations where the chatbot should transfer the user to a human\n\n' +
+    'Python integration challenge: modify your team\'s Python program to include at least one decision using an if...else statement.\n' +
+    'If your client requires calculations (pricing, totals, grades, attendance, booking costs) also incorporate a simple math operation.\n\n' +
+    'Remember: not every chatbot needs calculations, but EVERY chatbot makes decisions.\n\n' +
+    'Submit: upload your flow diagram (photo or screenshot) + your Python file, OR paste a link to your pod\'s working deck.';
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) return;
+    try {
+      var cw = Classroom.Courses.CourseWork.list(course.id, { pageSize: 30 });
+      ((cw && cw.courseWork) || []).forEach(function (w) {
+        if (w.title && w.title.indexOf('Day 3 Pod Homework') === 0) {
+          Classroom.Courses.CourseWork.remove(course.id, w.id);
+        }
+      });
+    } catch (e) {}
+    var topicId = null;
+    ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
+      if (t.name === 'Week 1') topicId = t.topicId;
+    });
+    var materials = [];
+    if (DAY3_IMAGE_ID) materials.push({ driveFile: { driveFile: { id: DAY3_IMAGE_ID }, shareMode: 'VIEW' } });
+    Classroom.Courses.CourseWork.create({
+      title: 'Day 3 Pod Homework · Build · Decide · Connect',
+      description: desc,
+      workType: 'ASSIGNMENT',
+      materials: materials,
+      topicId: topicId || undefined,
+      state: 'PUBLISHED',
+      dueDate: { year: 2026, month: 7, day: 17 },
+      dueTime: { hours: 18, minutes: 30 }   // 2:30 PM AST (UTC-4) = 18:30 UTC · Friday 17 Jul
+    }, course.id);
+    Logger.log('%s: Day 3 homework posted%s', cohort, DAY3_IMAGE_ID ? ' (with infographic)' : ' (NO image — attach via UI or set DAY3_IMAGE_ID and re-run)');
+  });
+  Logger.log('Day 3 homework done.');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
