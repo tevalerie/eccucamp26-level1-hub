@@ -47,25 +47,25 @@ var CO_TEACHERS = {
 // Posted as a pinned 'Your Studio & Client' material in each class.
 var STUDIO_LINKS = {
   'SKN': [
-    {t:'Sub-Studio A — SCASPA · Pods 1–4 · pod folders', u:'https://drive.google.com/drive/folders/1oBT6L7HoQ7X9xSj31ZGFqHHkvPG47iob?v=2'},
+    {t:'Sub-Studio A — SCASPA · Pods 1–4 · pod folders', u:'https://drive.google.com/drive/folders/1oBT6L7HoQ7X9xSj31ZGFqHHkvPG47iob?v=4'},
     {t:'SCASPA — client discovery brief', u:'https://drive.google.com/file/d/1NDJSnjdaxLjPntbu0tZEj6J-a-KUgsVw/view'},
-    {t:'Sub-Studio B — Sagicor Finance · Pods 5–8 · pod folders', u:'https://drive.google.com/drive/folders/18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku?v=2'},
+    {t:'Sub-Studio B — Sagicor Finance · Pods 5–8 · pod folders', u:'https://drive.google.com/drive/folders/18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku?v=4'},
     {t:'Sagicor Finance — client discovery brief', u:'https://drive.google.com/file/d/1He5d-bxyKRadWJLWk7fic1wZxb6bF9u4/view'},
     {t:'Sub-Studio C — ACB Caribbean · pod folders', u:'https://drive.google.com/drive/folders/1dbnLShHxdyTLIpg-K6KII1mH8hKBMykB'},
     {t:'ACB Caribbean — client discovery brief', u:'https://drive.google.com/file/d/10ocqnYqHAP5xerQAxIGO6nCPWU0KZI9v/view'}
   ],
   'SVG': [
-    {t:'Sub-Studio A — NAWASA · Pods 1–6 · pod folders', u:'https://drive.google.com/drive/folders/1Yy3bFfX8uJNDbYsUothPlRHTDHBlzncJ?v=2'},
+    {t:'Sub-Studio A — NAWASA · Pods 1–6 · pod folders', u:'https://drive.google.com/drive/folders/1Yy3bFfX8uJNDbYsUothPlRHTDHBlzncJ?v=4'},
     {t:'NAWASA — client discovery brief', u:'https://drive.google.com/file/d/155nWhXp0APLqlce2Fop7nzSG0NKCE7yn/view'},
-    {t:'Sub-Studio B — IRD Grenada · Pods 7–12 · pod folders', u:'https://drive.google.com/drive/folders/13GpIf64NsniH4bFlHNvgOSvMuaqed409?v=2'},
+    {t:'Sub-Studio B — IRD Grenada · Pods 7–12 · pod folders', u:'https://drive.google.com/drive/folders/13GpIf64NsniH4bFlHNvgOSvMuaqed409?v=4'},
     {t:'IRD Grenada — client discovery brief', u:'https://drive.google.com/file/d/1GDAmvok28TEDtGVJffXSb_3Ipvc1iqZt/view'}
   ],
   'Anguilla & Montserrat': [
-    {t:'Studio — CUB · pod folders', u:'https://drive.google.com/drive/folders/1ri7TP-b-nW_AbQJBVWWWy3eWg-9mRvY-?v=3'},
+    {t:'Studio — CUB · pod folders', u:'https://drive.google.com/drive/folders/1ri7TP-b-nW_AbQJBVWWWy3eWg-9mRvY-?v=4'},
     {t:'CUB — client discovery brief', u:'https://drive.google.com/file/d/1Hrxh9MqnaiLeBOStbh32ZFwgercsf5R_/view'}
   ],
   'Dominica': [
-    {t:'Studio — IRD Anguilla · pod folders', u:'https://drive.google.com/drive/folders/1GV_iceJuq0Blu62ZT-Sw3PVBqC82TFTx?v=3'},
+    {t:'Studio — IRD Anguilla · pod folders', u:'https://drive.google.com/drive/folders/1GV_iceJuq0Blu62ZT-Sw3PVBqC82TFTx?v=4'},
     {t:'IRD Anguilla — client discovery brief', u:'https://drive.google.com/file/d/1RkbYG9zfnqbc8t6PID0Eq2Gfrn9FbHy5/view'}
   ]
 };
@@ -83,29 +83,29 @@ var CAMPER_WEEK = {
     {t:'Week 1 Participant Workbook', u:'https://drive.google.com/file/d/1KajAL2nDEEagnOXiWxgxZdAhWjrlBN91/view'},
     {t:'Week 1 Deck (Days 1\u20135)', u:'https://drive.google.com/file/d/15CjpKRmmvyRAsC0A59yKql0KmGjy6lwg/view'},
     {t:'Chatbot Blueprint Template', u:'https://drive.google.com/file/d/1gzuoncAoATA7pxg9Acsbvx-hBOU4u2O-/view'},
-    {t:'Skeleton code \u2014 Days 1\u20135', u:'https://drive.google.com/drive/folders/1xsLT-_WykPkKMEZETmmM1AU7eEvjs67Y?v=2'}
+    {t:'Skeleton code \u2014 Days 1\u20135', u:'https://drive.google.com/drive/folders/1xsLT-_WykPkKMEZETmmM1AU7eEvjs67Y?v=4'}
   ],
   2: [
     {t:'Week 2 Participant Workbook', u:'https://drive.google.com/file/d/1NE_umOE8iSWeF6xo2NimB91QfJqCBsAd/view'},
     {t:'Week 2 Deck (Days 6\u201310)', u:'https://drive.google.com/file/d/18EXy5MxvEpy7e2VAV6YhYiyBvpeehepr/view'},
     {t:'Documentation Package Template', u:'https://drive.google.com/file/d/1pzUmonJfH4kjSBovVOhSLOG9C4B3g1Wp/view'},
-    {t:'Skeleton code \u2014 Days 6\u201310', u:'https://drive.google.com/drive/folders/1Juu-pLKqAVMIMlF3jRoeNu16Ej1F7dFb?v=2'}
+    {t:'Skeleton code \u2014 Days 6\u201310', u:'https://drive.google.com/drive/folders/1Juu-pLKqAVMIMlF3jRoeNu16Ej1F7dFb?v=4'}
   ],
   3: [
     {t:'Week 3 Participant Workbook', u:'https://drive.google.com/file/d/1fNsPdvJ2qr4kT4s49tHuJTUV-Pd74xHt/view'},
     {t:'Week 3 Deck (Days 11\u201315)', u:'https://drive.google.com/file/d/11oNBsP82aYtv_ZhZdbJWCflWdz9yDu6e/view'},
     {t:'Multi-Modal Feature Card', u:'https://drive.google.com/file/d/1eBXEWpd617dLJcimq2o3KiUSDarOaOhY/view'},
-    {t:'Skeleton code \u2014 Days 11\u201315', u:'https://drive.google.com/drive/folders/1bd35cfooFYJxn-N2Ink0JxJocqj5p-fH?v=2'}
+    {t:'Skeleton code \u2014 Days 11\u201315', u:'https://drive.google.com/drive/folders/1bd35cfooFYJxn-N2Ink0JxJocqj5p-fH?v=4'}
   ],
   4: [
     {t:'Week 4 Participant Workbook', u:'https://drive.google.com/file/d/1pEzLpZLvkecoK3DgsvTYmyreGDq9_ieU/view'},
     {t:'Week 4 Deck (Days 16\u201320)', u:'https://drive.google.com/file/d/1A3Ykryt4ZmFj26CJh2WQSjlywVk2rzTz/view'},
     {t:'Handover Package Template', u:'https://drive.google.com/file/d/1ducTt9rVkjguFJ-ySRcQLBoEG7KrERdf/view'},
-    {t:'Skeleton code \u2014 Days 16\u201320', u:'https://drive.google.com/drive/folders/1OppBXPw2kqGgv0RZMufxeMYTFiVfsaVX?v=2'}
+    {t:'Skeleton code \u2014 Days 16\u201320', u:'https://drive.google.com/drive/folders/1OppBXPw2kqGgv0RZMufxeMYTFiVfsaVX?v=4'}
   ]
 };
 
-var DEEPNOTE = 'https://eccuaicamp2026.netlify.app/go/deepnote-cert?v=2';
+var DEEPNOTE = 'https://eccuaicamp2026.netlify.app/go/deepnote-cert?v=4';
 var COLAB_FALLBACK = 'https://drive.google.com/drive/folders/1cj2u5d__YZDOhU4vrn1RWj_ssWTPKJrE';
 
 // One entry per camp day. `extra` links are appended after the standard set.
@@ -113,13 +113,13 @@ var DAYS = [
   {n:1, wk:1, title:"Deconstruct \u2014 Inside the Bot: Deconstruct Before You Construct",
     desc:"Six components. One central rule. First lines of Python. Vision-Cast opens the day; pods probe the two bench bots.",
     extra:[
-      {t:'Miss Khalifa AI — chat live', u:'https://eccuaicamp2026.netlify.app/bots/misskhalifa?v=2'},
-      {t:'Ancestra & The Guardian — chat live', u:'https://eccuaicamp2026.netlify.app/bots/ancestra?v=2'}
+      {t:'Miss Khalifa AI — chat live', u:'https://eccuaicamp2026.netlify.app/bots/misskhalifa?v=4'},
+      {t:'Ancestra & The Guardian — chat live', u:'https://eccuaicamp2026.netlify.app/bots/ancestra?v=4'}
     ]},
   {n:2, wk:1, title:"Design \u2014 Designing for People Before Programming",
     desc:"Persona \u2192 Empathy Map \u2192 Wardrobe. First conditionals in code.",
     extra:[
-      {t:'Day 2 Notebook — Deepnote', u:'https://eccuaicamp2026.netlify.app/go/day2-notebook?v=2'},
+      {t:'Day 2 Notebook — Deepnote', u:'https://eccuaicamp2026.netlify.app/go/day2-notebook?v=4'},
       {t:'Day 2 · Interview Masterclass (deck)', u:'https://docs.google.com/presentation/d/1Dx9LCwVOhLG0FR7Fw-wP1sP8XDhJMnLKy4ubo7tDaGI/edit'},
       {t:'Day 2 · Pod Interview Prep Deck', u:'https://docs.google.com/presentation/d/1FFxNfz_dTAyQnSZE-E4d8nNN7epmUZ4gZ9xbrc4eq7A/edit'},
       {t:'Day 2 · Video Response Deck', u:'https://docs.google.com/presentation/d/1YQZVoOXgcNBwyJfFy7wnF-ECYFo3y1aSuoD8FNpluhA/edit'}
@@ -694,25 +694,25 @@ function announcePodAssignments() {
 
 // ── CLIENT EXPLAINER DECKS (Gamma · teen edition) ───────────────────────────
 var EXPLAINER_DECKS = {
-  "scaspa": {client:"SCASPA", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/scaspa?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/thclmcngm4iryzo/95244f625f162be59d07326e49f5a845/SCASPA-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/thclmcngm4iryzo/b3353a17caaa26a98a21992185a43536/SCASPA-Explained-Your-Client-in-9-Cards.pptx", folderId:"1oBT6L7HoQ7X9xSj31ZGFqHHkvPG47iob"},
-  "sagicor": {client:"Sagicor Finance", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/sagicor?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/nhs8rcvweo7mx6w/f4ab73c99e1ca2b74446f5b4fd1aad33/Sagicor-Finance-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/nhs8rcvweo7mx6w/c66d052646c506c6ccee9236d76b4872/Sagicor-Finance-Explained-Your-Client-in-9-Cards.pptx", folderId:"18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku"},
-  "ird_grenada": {client:"IRD Grenada", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/ird-grenada?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/qoihr3sttd4ioos/37b593a16e524d8dcd542138f110b90a/IRD-Grenada-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/qoihr3sttd4ioos/7a85681d943c0b852ffa08b64051e23c/IRD-Grenada-Explained-Your-Client-in-9-Cards.pptx", folderId:"13GpIf64NsniH4bFlHNvgOSvMuaqed409"},
-  "lucelec": {client:"LUCELEC", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/lucelec?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/zftbqzlcvm4d8yb/ae29ac5033e265b51f88533803ca83b0/LUCELEC-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/zftbqzlcvm4d8yb/89a5f0ad2bf8e794b417d6384d1c9d02/LUCELEC-Explained-Your-Client-in-9-Cards.pptx", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"},
-  "acb": {client:"ACB Caribbean", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/acb?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/0ak3elrclbo5nb9/2636410282b0010163a00cd31aca7df8/ACB-Caribbean-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/0ak3elrclbo5nb9/bbf7b0673a120618fe35db5ac71a3368/ACB-Caribbean-Explained-Your-Client-in-9-Cards.pptx", folderId:"1dbnLShHxdyTLIpg-K6KII1mH8hKBMykB"},
-  "cub": {client:"CUB", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/cub?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/esj91ph94orgjdm/904a09eb1fe90d40ca545e48f6233c61/Caribbean-Union-Bank-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/esj91ph94orgjdm/01376de1532bf2e44b11a6ae1219af3c/Caribbean-Union-Bank-Explained-Your-Client-in-9-Cards.pptx", folderId:"1ri7TP-b-nW_AbQJBVWWWy3eWg-9mRvY-"},
-  "nis_grenada": {client:"NIS Grenada", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/nis-grenada?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/tsrpbdcim793uxx/4d0f3b42f5ff0e65e94f0bec35d6e1e6/NIS-Grenada-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/tsrpbdcim793uxx/60d02487f1ffad3e595599f26e9284b8/NIS-Grenada-Explained-Your-Client-in-9-Cards.pptx", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"},
-  "ird_anguilla": {client:"IRD Anguilla", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/ird-anguilla?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/jsxglvc0bprsi5u/6bad9600ca8744f1d581e3c2383a3251/IRD-Anguilla-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/jsxglvc0bprsi5u/ba28dd652a7547da64e19103173220ab/IRD-Anguilla-Explained-Your-Client-in-9-Cards.pptx", folderId:"1GV_iceJuq0Blu62ZT-Sw3PVBqC82TFTx"},
-  "nawasa": {client:"NAWASA", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/nawasa?v=2", exportUrl:"https://assets.api.gamma.app/export/pdf/3lcua5uyqp75uyn/f1e297074f32df7dee8004af85611b18/NAWASA-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/3lcua5uyqp75uyn/3ca4944b9e0f5556e5e8db17f7f7c1f9/NAWASA-Explained-Your-Client-in-9-Cards.pptx", folderId:"1Yy3bFfX8uJNDbYsUothPlRHTDHBlzncJ"},
-  "mystery_gaps": {client:"The Mystery Gaps", fileName:"The Mystery Gaps — What the Briefs Didn't Say (Day 3 prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/mystery-gaps?v=3", exportUrl:"https://assets.api.gamma.app/export/pdf/anz6aj4umevia2u/d3ab787048c9e6c4b280345e1c5a7268/The-Mystery-Gaps-What-the-Briefs-Didnt-Say-v2.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/anz6aj4umevia2u/8f1a0756c214eefd0dc7aa7462bd0096/The-Mystery-Gaps-What-the-Briefs-Didnt-Say-v2.pptx", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"}
+  "scaspa": {client:"SCASPA", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/scaspa?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/thclmcngm4iryzo/95244f625f162be59d07326e49f5a845/SCASPA-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/thclmcngm4iryzo/b3353a17caaa26a98a21992185a43536/SCASPA-Explained-Your-Client-in-9-Cards.pptx", folderId:"1oBT6L7HoQ7X9xSj31ZGFqHHkvPG47iob"},
+  "sagicor": {client:"Sagicor Finance", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/sagicor?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/nhs8rcvweo7mx6w/f4ab73c99e1ca2b74446f5b4fd1aad33/Sagicor-Finance-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/nhs8rcvweo7mx6w/c66d052646c506c6ccee9236d76b4872/Sagicor-Finance-Explained-Your-Client-in-9-Cards.pptx", folderId:"18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku"},
+  "ird_grenada": {client:"IRD Grenada", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/ird-grenada?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/qoihr3sttd4ioos/37b593a16e524d8dcd542138f110b90a/IRD-Grenada-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/qoihr3sttd4ioos/7a85681d943c0b852ffa08b64051e23c/IRD-Grenada-Explained-Your-Client-in-9-Cards.pptx", folderId:"13GpIf64NsniH4bFlHNvgOSvMuaqed409"},
+  "lucelec": {client:"LUCELEC", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/lucelec?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/zftbqzlcvm4d8yb/ae29ac5033e265b51f88533803ca83b0/LUCELEC-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/zftbqzlcvm4d8yb/89a5f0ad2bf8e794b417d6384d1c9d02/LUCELEC-Explained-Your-Client-in-9-Cards.pptx", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"},
+  "acb": {client:"ACB Caribbean", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/acb?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/0ak3elrclbo5nb9/2636410282b0010163a00cd31aca7df8/ACB-Caribbean-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/0ak3elrclbo5nb9/bbf7b0673a120618fe35db5ac71a3368/ACB-Caribbean-Explained-Your-Client-in-9-Cards.pptx", folderId:"1dbnLShHxdyTLIpg-K6KII1mH8hKBMykB"},
+  "cub": {client:"CUB", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/cub?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/esj91ph94orgjdm/904a09eb1fe90d40ca545e48f6233c61/Caribbean-Union-Bank-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/esj91ph94orgjdm/01376de1532bf2e44b11a6ae1219af3c/Caribbean-Union-Bank-Explained-Your-Client-in-9-Cards.pptx", folderId:"1ri7TP-b-nW_AbQJBVWWWy3eWg-9mRvY-"},
+  "nis_grenada": {client:"NIS Grenada", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/nis-grenada?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/tsrpbdcim793uxx/4d0f3b42f5ff0e65e94f0bec35d6e1e6/NIS-Grenada-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/tsrpbdcim793uxx/60d02487f1ffad3e595599f26e9284b8/NIS-Grenada-Explained-Your-Client-in-9-Cards.pptx", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"},
+  "ird_anguilla": {client:"IRD Anguilla", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/ird-anguilla?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/jsxglvc0bprsi5u/6bad9600ca8744f1d581e3c2383a3251/IRD-Anguilla-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/jsxglvc0bprsi5u/ba28dd652a7547da64e19103173220ab/IRD-Anguilla-Explained-Your-Client-in-9-Cards.pptx", folderId:"1GV_iceJuq0Blu62ZT-Sw3PVBqC82TFTx"},
+  "nawasa": {client:"NAWASA", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/nawasa?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/3lcua5uyqp75uyn/f1e297074f32df7dee8004af85611b18/NAWASA-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/3lcua5uyqp75uyn/3ca4944b9e0f5556e5e8db17f7f7c1f9/NAWASA-Explained-Your-Client-in-9-Cards.pptx", folderId:"1Yy3bFfX8uJNDbYsUothPlRHTDHBlzncJ"},
+  "mystery_gaps": {client:"The Mystery Gaps", fileName:"The Mystery Gaps — What the Briefs Didn't Say (Day 3 prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/mystery-gaps?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/anz6aj4umevia2u/d3ab787048c9e6c4b280345e1c5a7268/The-Mystery-Gaps-What-the-Briefs-Didnt-Say-v2.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/anz6aj4umevia2u/8f1a0756c214eefd0dc7aa7462bd0096/The-Mystery-Gaps-What-the-Briefs-Didnt-Say-v2.pptx", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"}
 };
 var GAP_DECKS = {
-  "gaps_scaspa": {client:"SCASPA", fileName:"The Mystery Gaps \u2014 SCASPA Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-scaspa", exportUrl:"https://assets.api.gamma.app/export/pdf/buvksh7ltmuwxuk/2a04f88a756b7eadd996fc99849994fc/The-Mystery-Gaps-SCASPA-Edition.pdf", folderId:"1oBT6L7HoQ7X9xSj31ZGFqHHkvPG47iob"},
-  "gaps_sagicor": {client:"Sagicor Finance", fileName:"The Mystery Gaps \u2014 Sagicor Finance Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-sagicor", exportUrl:"https://assets.api.gamma.app/export/pdf/hbh0qrdl1ykq15q/12d5ce47ada745ff92f29a2887861935/The-Mystery-Gaps-Sagicor-Finance-Edition.pdf", folderId:"18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku"},
-  "gaps_acb": {client:"ACB Caribbean", fileName:"The Mystery Gaps \u2014 ACB Caribbean Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-acb", exportUrl:"https://assets.api.gamma.app/export/pdf/90oz2z7rd6lcimj/179f58ce31e5d8ed51112320be200c84/The-Mystery-Gaps-ACB-Caribbean-Edition.pdf", folderId:"1dbnLShHxdyTLIpg-K6KII1mH8hKBMykB"},
-  "gaps_nawasa": {client:"NAWASA", fileName:"The Mystery Gaps \u2014 NAWASA Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-nawasa", exportUrl:"https://assets.api.gamma.app/export/pdf/va23zo73so1rxer/6fda8874941efe3baae65ad44d431c14/The-Mystery-Gaps-NAWASA-Edition.pdf", folderId:"1Yy3bFfX8uJNDbYsUothPlRHTDHBlzncJ"},
-  "gaps_ird_grenada": {client:"IRD Grenada", fileName:"The Mystery Gaps \u2014 IRD Grenada Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-ird-grenada", exportUrl:"https://assets.api.gamma.app/export/pdf/eac61g5lz8vfnwj/6d7944fa773e24fb833f9cf177b50dd5/The-Mystery-Gaps-IRD-Grenada-Edition.pdf", folderId:"13GpIf64NsniH4bFlHNvgOSvMuaqed409"},
-  "gaps_cub": {client:"CUB", fileName:"The Mystery Gaps \u2014 CUB Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-cub", exportUrl:"https://assets.api.gamma.app/export/pdf/ttoxogrhprsxkg6/1d086633d13f8cbec93c2c3127d4efeb/The-Mystery-Gaps-CUB-Edition.pdf", folderId:"1ri7TP-b-nW_AbQJBVWWWy3eWg-9mRvY-"},
-  "gaps_ird_anguilla": {client:"IRD Anguilla", fileName:"The Mystery Gaps \u2014 IRD Anguilla Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-ird-anguilla", exportUrl:"https://assets.api.gamma.app/export/pdf/b9u2wq83w6vxhm5/ec6780d73ae6c2d2d96ec916e4ae41bf/The-Mystery-Gaps-IRD-Anguilla-Edition.pdf", folderId:"1GV_iceJuq0Blu62ZT-Sw3PVBqC82TFTx"},
+  "gaps_scaspa": {client:"SCASPA", fileName:"The Mystery Gaps \u2014 SCASPA Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-scaspa?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/buvksh7ltmuwxuk/2a04f88a756b7eadd996fc99849994fc/The-Mystery-Gaps-SCASPA-Edition.pdf", folderId:"1oBT6L7HoQ7X9xSj31ZGFqHHkvPG47iob"},
+  "gaps_sagicor": {client:"Sagicor Finance", fileName:"The Mystery Gaps \u2014 Sagicor Finance Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-sagicor?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/hbh0qrdl1ykq15q/12d5ce47ada745ff92f29a2887861935/The-Mystery-Gaps-Sagicor-Finance-Edition.pdf", folderId:"18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku"},
+  "gaps_acb": {client:"ACB Caribbean", fileName:"The Mystery Gaps \u2014 ACB Caribbean Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-acb?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/90oz2z7rd6lcimj/179f58ce31e5d8ed51112320be200c84/The-Mystery-Gaps-ACB-Caribbean-Edition.pdf", folderId:"1dbnLShHxdyTLIpg-K6KII1mH8hKBMykB"},
+  "gaps_nawasa": {client:"NAWASA", fileName:"The Mystery Gaps \u2014 NAWASA Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-nawasa?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/va23zo73so1rxer/6fda8874941efe3baae65ad44d431c14/The-Mystery-Gaps-NAWASA-Edition.pdf", folderId:"1Yy3bFfX8uJNDbYsUothPlRHTDHBlzncJ"},
+  "gaps_ird_grenada": {client:"IRD Grenada", fileName:"The Mystery Gaps \u2014 IRD Grenada Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-ird-grenada?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/eac61g5lz8vfnwj/6d7944fa773e24fb833f9cf177b50dd5/The-Mystery-Gaps-IRD-Grenada-Edition.pdf", folderId:"13GpIf64NsniH4bFlHNvgOSvMuaqed409"},
+  "gaps_cub": {client:"CUB", fileName:"The Mystery Gaps \u2014 CUB Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-cub?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/ttoxogrhprsxkg6/1d086633d13f8cbec93c2c3127d4efeb/The-Mystery-Gaps-CUB-Edition.pdf", folderId:"1ri7TP-b-nW_AbQJBVWWWy3eWg-9mRvY-"},
+  "gaps_ird_anguilla": {client:"IRD Anguilla", fileName:"The Mystery Gaps \u2014 IRD Anguilla Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-ird-anguilla?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/b9u2wq83w6vxhm5/ec6780d73ae6c2d2d96ec916e4ae41bf/The-Mystery-Gaps-IRD-Anguilla-Edition.pdf", folderId:"1GV_iceJuq0Blu62ZT-Sw3PVBqC82TFTx"},
 };
 var COHORT_GAPS = {
   "SKN": ["gaps_scaspa", "gaps_sagicor", "gaps_acb"],
