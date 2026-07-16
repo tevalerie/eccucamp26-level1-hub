@@ -213,8 +213,13 @@ function populateAllCohorts() {
       if (existing[title]) { skipped++; return; }
       var links = [{ link: { url: HUB + '/#curriculum', title: 'Camp hub — curriculum' } }];
       (CAMPER_WEEK[d.wk] || []).forEach(function (x) { links.push(toMaterial(x.u, x.t)); });
-      links.push({ link: { url: DEEPNOTE, title: 'Deepnote — camp notebook' } });
-      links.push({ link: { url: COLAB_FALLBACK, title: 'Google Colab version (if Deepnote misbehaves)' } });
+      if (d.n === 1) {
+        links.push({ link: { url: HUB + '/go/day1-notebook?v=4', title: 'Day 1 Notebook — Deepnote (GenAI Certification Notes)' } });
+        links.push({ link: { url: HUB + '/go/day1-colab?v=4', title: 'Day 1 Notebook — Google Colab version' } });
+      } else {
+        links.push({ link: { url: DEEPNOTE, title: 'Camp Notebook — Deepnote (Certification Notes)' } });
+        links.push({ link: { url: COLAB_FALLBACK, title: 'Camp Notebook — Google Colab version' } });
+      }
       (d.extra || []).forEach(function (x) { links.push(toMaterial(x.u, x.t)); });
       if (createMaterialWithRetry({
         title: title, description: d.desc, materials: links,
@@ -543,6 +548,20 @@ function renameDay4Image() {
   Logger.log(n ? n + ' file(s) renamed to Day 4.' : 'No Day 3-named image found — maybe already renamed?');
 }
 
+/** Renames the three Day 2 Slides in Drive so attachments show friendly names. */
+function renameDay2Decks() {
+  var m = {
+    '1Dx9LCwVOhLG0FR7Fw-wP1sP8XDhJMnLKy4ubo7tDaGI': 'Day 2 · Interview Masterclass',
+    '1FFxNfz_dTAyQnSZE-E4d8nNN7epmUZ4gZ9xbrc4eq7A': 'Day 2 · Pod Interview Prep Deck',
+    '1YQZVoOXgcNBwyJfFy7wnF-ECYFo3y1aSuoD8FNpluhA': 'Day 2 · Video Response Deck'
+  };
+  Object.keys(m).forEach(function (id) {
+    try { DriveApp.getFileById(id).setName(m[id]); Logger.log('renamed: %s', m[id]); }
+    catch (e) { Logger.log('rename failed %s — %s', m[id], (e.message || '').slice(0, 70)); }
+  });
+  Logger.log('Day 2 decks renamed.');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
@@ -572,8 +591,8 @@ function fixDay1Links() {
     });
     var links = [{ link: { url: HUB + '/#curriculum', title: 'Camp hub — curriculum' } }];
     (CAMPER_WEEK[1] || []).forEach(function (x) { links.push(toMaterial(x.u, x.t)); });
-    links.push({ link: { url: DEEPNOTE, title: 'Deepnote — camp notebook' } });
-    links.push({ link: { url: COLAB_FALLBACK, title: 'Google Colab version (if Deepnote misbehaves)' } });
+    links.push({ link: { url: HUB + '/go/day1-notebook?v=4', title: 'Day 1 Notebook — Deepnote (GenAI Certification Notes)' } });
+    links.push({ link: { url: HUB + '/go/day1-colab?v=4', title: 'Day 1 Notebook — Google Colab version' } });
     (d.extra || []).forEach(function (x) { links.push(toMaterial(x.u, x.t)); });
     createMaterialWithRetry({
       title: 'Day ' + pad2(d.n) + ' · ' + d.title,
