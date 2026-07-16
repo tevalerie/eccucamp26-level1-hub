@@ -531,6 +531,18 @@ function fileGapDecks() {
   Logger.log('gap decks filed.');
 }
 
+/** Renames the homework infographic in Drive from Day 3 to Day 4 —
+ *  the attachment name updates in all four classes automatically. */
+function renameDay4Image() {
+  var files = DriveApp.getFilesByName('Day 3 Homework — Build · Decide · Connect.jpeg');
+  var n = 0;
+  while (files.hasNext()) {
+    files.next().setName('Day 4 Homework — Build · Decide · Connect.jpeg');
+    n++;
+  }
+  Logger.log(n ? n + ' file(s) renamed to Day 4.' : 'No Day 3-named image found — maybe already renamed?');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
