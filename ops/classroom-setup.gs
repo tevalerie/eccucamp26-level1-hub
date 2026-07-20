@@ -676,7 +676,7 @@ function postZoomGuide() {
  */
 var PERSONAS_DECK = {
   fileName: 'The People Behind the Messages — Personas & Empathy Maps (FestPass Edition)',
-  exportUrl: "https://assets.api.gamma.app/export/pdf/waftwp52z2w1ryj/1e7ed51b61beb8941c063605d5614e45/The-People-Behind-the-Messages-Personas-and-Empathy-Maps-FestPass-Edition.pdf",
+  exportUrl: "https://assets.api.gamma.app/export/pdf/ilwz6ysqhho7pr3/aff35495921bbf9246dff16c84f725df/The-People-Behind-the-Messages-Personas-and-Empathy-Maps-FestPass-Edition.pdf",
   folderId: '1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd'
 };
 
