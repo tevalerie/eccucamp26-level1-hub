@@ -883,10 +883,18 @@ function verifySetup() {
       if (!titles.some(function (t) { return t.indexOf(want) === 0; })) missing.push(pad2(dd.n));
     });
     var studio = titles.some(function (t) { return t.indexOf('Your AI Studio workspace') === 0; });
-    var anns = Classroom.Courses.Announcements.list(course.id, { pageSize: 10 });
-    var annCount = ((anns && anns.announcements) || []).length;
-    var teachers = (Classroom.Courses.Teachers.list(course.id).teachers || []).length;
-    var invites = (Classroom.Invitations.list({ courseId: course.id }).invitations || []).length;
+    // counts below are diagnostics only — a transient Google 500 shouldn't kill the sweep
+    var annCount = '?', teachers = '?', invites = '?';
+    try {
+      var anns = Classroom.Courses.Announcements.list(course.id, { pageSize: 10 });
+      annCount = ((anns && anns.announcements) || []).length;
+    } catch (e) { Logger.log('%s: announcements count skipped — %s', cohort, (e.message || '').slice(0, 60)); }
+    try {
+      teachers = (Classroom.Courses.Teachers.list(course.id).teachers || []).length;
+    } catch (e) { Logger.log('%s: teacher count skipped — %s', cohort, (e.message || '').slice(0, 60)); }
+    try {
+      invites = (Classroom.Invitations.list({ courseId: course.id }).invitations || []).length;
+    } catch (e) { Logger.log('%s: invite count skipped — %s', cohort, (e.message || '').slice(0, 60)); }
     Logger.log('%s → "%s"\n  topics: %s\n  day materials: %s / 20 · studio material: %s · MISSING DAYS: %s\n  announcements: %s · teachers joined: %s · invites pending: %s\n  join code: %s',
       cohort, course.name, topics.join(' · ') || 'NONE', days, studio ? 'YES' : 'MISSING', missing.length ? missing.join(', ') : 'none',
       annCount, teachers, invites, course.enrollmentCode);
