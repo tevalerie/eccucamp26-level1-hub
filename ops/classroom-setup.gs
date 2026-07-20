@@ -587,7 +587,7 @@ function postZoomGuide() {
     });
     var topicId = null;
     ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
-      if (t.name === 'Your Studio & Client') topicId = t.topicId;
+      if (t.name === 'Week 2') topicId = t.topicId;
     });
     Classroom.Courses.CourseWorkMaterials.create({
       title: 'Zoom Breakout Rooms — In Fast, Out Clean (camper guide)',
