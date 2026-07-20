@@ -49,8 +49,8 @@ var STUDIO_LINKS = {
   'SKN': [
     {t:'Sub-Studio A — SCASPA · Pods 1–4 · pod folders', u:'https://drive.google.com/drive/folders/1oBT6L7HoQ7X9xSj31ZGFqHHkvPG47iob?v=4'},
     {t:'SCASPA — client discovery brief', u:'https://drive.google.com/file/d/1NDJSnjdaxLjPntbu0tZEj6J-a-KUgsVw/view'},
-    {t:'Sub-Studio B — Sagicor Finance · Pods 5–8 · pod folders', u:'https://drive.google.com/drive/folders/18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku?v=4'},
-    {t:'Sagicor Finance — client discovery brief', u:'https://drive.google.com/file/d/1He5d-bxyKRadWJLWk7fic1wZxb6bF9u4/view'},
+    {t:'Sub-Studio B — ASPIRE · Pods 5–8 · pod folders', u:'https://drive.google.com/drive/folders/18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku?v=5'},
+    {t:'ASPIRE — programme website (your client brief)', u:'https://aspire.gov.kn/'},
     {t:'Sub-Studio C — ACB Caribbean · pod folders', u:'https://drive.google.com/drive/folders/1dbnLShHxdyTLIpg-K6KII1mH8hKBMykB'},
     {t:'ACB Caribbean — client discovery brief', u:'https://drive.google.com/file/d/10ocqnYqHAP5xerQAxIGO6nCPWU0KZI9v/view'}
   ],
@@ -374,7 +374,7 @@ function fixExternalLinks() {
  * Re-run safe: replaces any previous copy of the question.
  */
 var CLIENT_CHOICES = {
-  'SKN': ['SCASPA (Sub-Studio A)', 'Sagicor Finance (Sub-Studio B)', 'ACB Caribbean (Sub-Studio C)'],
+  'SKN': ['SCASPA (Sub-Studio A)', 'ASPIRE (Sub-Studio B)', 'ACB Caribbean (Sub-Studio C)'],
   'SVG': ['NAWASA (Sub-Studio A)', 'IRD Grenada (Sub-Studio B)'],
   'Anguilla & Montserrat': ['Caribbean Union Bank (CUB) — that\'s my client!'],
   'Dominica': ['IRD Anguilla — that\'s my client!']
@@ -411,6 +411,73 @@ function postClientQuestion() {
     Logger.log('%s: client question posted (%s choices)', cohort, choices.length);
   });
   Logger.log('Client questions done.');
+}
+
+/**
+ * ONE-SHOT (Jul 20, 2026): SKN Sub-Studio B switches client — Sagicor Finance
+ * out, ASPIRE (aspire.gov.kn) in. Renames the studio Drive folder, trashes the
+ * old Sagicor decks filed there, files the ASPIRE explainer PDF, then reposts
+ * SKN's studio material and SKN's client question with the new choices.
+ * NOTE: reposting the question clears SKN campers' previous answers — they
+ * answer again (Sagicor voters must re-pick anyway). Other cohorts untouched.
+ * AFTER this, run repostExplainerMaterials (rebuilds every class's explainer
+ * material: ASPIRE PDF in, Sagicor out, FestPass attached).
+ */
+function switchSknToAspire() {
+  // 1) Drive: rename folder, trash Sagicor decks, file the ASPIRE PDF
+  var folder = DriveApp.getFolderById('18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku');
+  folder.setName('SKN \u00b7 Sub-Studio B \u2014 ASPIRE');
+  var files = folder.getFiles(), trashed = 0;
+  while (files.hasNext()) {
+    var f = files.next();
+    if (f.getName().indexOf('Sagicor') !== -1) { f.setTrashed(true); trashed++; }
+  }
+  Logger.log('Folder renamed \u00b7 %s Sagicor file(s) trashed', trashed);
+  var pdfId = deckPdfId(EXPLAINER_DECKS.aspire, 'ASPIRE \u2014 Explained (teen edition).pdf');
+  Logger.log(pdfId ? 'ASPIRE explainer PDF filed in the studio folder'
+                   : 'ASPIRE PDF NOT filed \u2014 exportUrl may have expired (~7 days); regenerate');
+
+  // 2) SKN: repost the studio material with the new links
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var course = findCourse(res.courses || [], 'SKN');
+  if (!course) { Logger.log('SKN course not found'); return; }
+  var topicId = null;
+  ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
+    if (t.name === 'Your Studio & Client') topicId = t.topicId;
+  });
+  var studioTitle = 'Your AI Studio workspace & client brief';
+  var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
+  ((page && page.courseWorkMaterial) || []).forEach(function (m) {
+    if (m.title === studioTitle) Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
+  });
+  var studioLinks = (STUDIO_LINKS['SKN'] || []).map(function (x) { return toMaterial(x.u, x.t); });
+  studioLinks.push({ link: { url: HUB + '/#clients', title: 'The Client Board \u2014 all ten briefs' } });
+  createMaterialWithRetry({
+    title: studioTitle,
+    description: 'Save every Google AI Studio prompt into YOUR pod folder \u2014 that folder is your studio. Read your client\'s discovery brief before the client interview. Roles rotate Mondays; the pod folder stays.',
+    materials: studioLinks,
+    topicId: topicId || undefined,
+    state: 'PUBLISHED'
+  }, course.id, studioTitle);
+  Logger.log('SKN studio material reposted');
+
+  // 3) SKN: repost the client question with ASPIRE in the choices
+  var cw = Classroom.Courses.CourseWork.list(course.id, { pageSize: 30 });
+  ((cw && cw.courseWork) || []).forEach(function (w) {
+    if (w.title && w.title.indexOf('Which client are you building for?') === 0) {
+      Classroom.Courses.CourseWork.remove(course.id, w.id);
+    }
+  });
+  var choices = (CLIENT_CHOICES['SKN'] || []).concat(['Not sure yet \u2014 ask a facilitator']);
+  Classroom.Courses.CourseWork.create({
+    title: 'Which client are you building for?',
+    description: 'UPDATE: Sub-Studio B\'s client is now ASPIRE (not Sagicor). Everyone please answer again \u2014 if you picked Sagicor before, choose ASPIRE or another Studio. Read the ASPIRE explainer under \'Your Studio & Client\' first.',
+    workType: 'MULTIPLE_CHOICE_QUESTION',
+    multipleChoiceQuestion: { choices: choices },
+    topicId: topicId || undefined,
+    state: 'PUBLISHED'
+  }, course.id);
+  Logger.log('SKN client question reposted with ASPIRE. NOW RUN repostExplainerMaterials.');
 }
 
 /**
@@ -712,10 +779,10 @@ var POD_ROSTERS = {
     {pod:"Pod 2", client:"Sub-Studio A \u00b7 SCASPA", names:"Chéanna Browne, Jernyah Mills, Kylie Richards, Josiah Benjamin"},
     {pod:"Pod 3", client:"Sub-Studio A \u00b7 SCASPA", names:"Nahamani Carey, Dejunique Stapleton, Zenahj Harris, Ahjanique Hodge"},
     {pod:"Pod 4", client:"Sub-Studio A \u00b7 SCASPA", names:"Xiomara Titre, SHAMA WALTERS, Jayden Warner, Dré Martin"},
-    {pod:"Pod 5", client:"Sub-Studio B \u00b7 SAGICOR FINANCE", names:"Chanardo Evans, Emma Morris, Nya Jack, Veronique Mardenborough"},
-    {pod:"Pod 6", client:"Sub-Studio B \u00b7 SAGICOR FINANCE", names:"Amarni Moore, Ashaun Moore, Cayden Williams, Addijah Daniel"},
-    {pod:"Pod 7", client:"Sub-Studio B \u00b7 SAGICOR FINANCE", names:"Antwan Daniel, Rhae-Jae Williams, Ke'Tashee Ward, Christian Corbie"},
-    {pod:"Pod 8", client:"Sub-Studio B \u00b7 SAGICOR FINANCE", names:"Arianna Blanchard, Yendri Nisbett, (name pending)"},
+    {pod:"Pod 5", client:"Sub-Studio B \u00b7 ASPIRE", names:"Chanardo Evans, Emma Morris, Nya Jack, Veronique Mardenborough"},
+    {pod:"Pod 6", client:"Sub-Studio B \u00b7 ASPIRE", names:"Amarni Moore, Ashaun Moore, Cayden Williams, Addijah Daniel"},
+    {pod:"Pod 7", client:"Sub-Studio B \u00b7 ASPIRE", names:"Antwan Daniel, Rhae-Jae Williams, Ke'Tashee Ward, Christian Corbie"},
+    {pod:"Pod 8", client:"Sub-Studio B \u00b7 ASPIRE", names:"Arianna Blanchard, Yendri Nisbett, (name pending)"},
   ],
   "SVG": [
     {pod:"Pod 1", client:"Sub-Studio A \u00b7 NAWASA", names:"Jomel Gellizeau, Sydelle Campbell, Jeriah Diamond, Isaiah Williams"},
@@ -784,7 +851,7 @@ function announcePodAssignments() {
 // ── CLIENT EXPLAINER DECKS (Gamma · teen edition) ───────────────────────────
 var EXPLAINER_DECKS = {
   "scaspa": {client:"SCASPA", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/scaspa?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/thclmcngm4iryzo/95244f625f162be59d07326e49f5a845/SCASPA-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/thclmcngm4iryzo/b3353a17caaa26a98a21992185a43536/SCASPA-Explained-Your-Client-in-9-Cards.pptx", folderId:"1oBT6L7HoQ7X9xSj31ZGFqHHkvPG47iob"},
-  "sagicor": {client:"Sagicor Finance", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/sagicor?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/nhs8rcvweo7mx6w/f4ab73c99e1ca2b74446f5b4fd1aad33/Sagicor-Finance-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/nhs8rcvweo7mx6w/c66d052646c506c6ccee9236d76b4872/Sagicor-Finance-Explained-Your-Client-in-9-Cards.pptx", folderId:"18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku"},
+  "aspire": {client:"ASPIRE", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/aspire?v=5", exportUrl:"https://assets.api.gamma.app/export/pdf/0gvbqjat50iodtq/578cb0eeb1f33236919b718ecc299a5c/ASPIRE-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/0gvbqjat50iodtq/6b5edaf8f09c687042af55841200f672/ASPIRE-Explained-Your-Client-in-9-Cards.pptx", folderId:"18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku"},
   "ird_grenada": {client:"IRD Grenada", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/ird-grenada?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/qoihr3sttd4ioos/37b593a16e524d8dcd542138f110b90a/IRD-Grenada-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/qoihr3sttd4ioos/7a85681d943c0b852ffa08b64051e23c/IRD-Grenada-Explained-Your-Client-in-9-Cards.pptx", folderId:"13GpIf64NsniH4bFlHNvgOSvMuaqed409"},
   "lucelec": {client:"LUCELEC", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/lucelec?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/zftbqzlcvm4d8yb/ae29ac5033e265b51f88533803ca83b0/LUCELEC-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/zftbqzlcvm4d8yb/89a5f0ad2bf8e794b417d6384d1c9d02/LUCELEC-Explained-Your-Client-in-9-Cards.pptx", folderId:"1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd"},
   "acb": {client:"ACB Caribbean", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/acb?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/0ak3elrclbo5nb9/2636410282b0010163a00cd31aca7df8/ACB-Caribbean-Explained-Your-Client-in-9-Cards.pdf", pptxUrl:"https://assets.api.gamma.app/export/pptx/0ak3elrclbo5nb9/bbf7b0673a120618fe35db5ac71a3368/ACB-Caribbean-Explained-Your-Client-in-9-Cards.pptx", folderId:"1dbnLShHxdyTLIpg-K6KII1mH8hKBMykB"},
@@ -796,7 +863,6 @@ var EXPLAINER_DECKS = {
 };
 var GAP_DECKS = {
   "gaps_scaspa": {client:"SCASPA", fileName:"The Mystery Gaps \u2014 SCASPA Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-scaspa?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/buvksh7ltmuwxuk/2a04f88a756b7eadd996fc99849994fc/The-Mystery-Gaps-SCASPA-Edition.pdf", folderId:"1oBT6L7HoQ7X9xSj31ZGFqHHkvPG47iob"},
-  "gaps_sagicor": {client:"Sagicor Finance", fileName:"The Mystery Gaps \u2014 Sagicor Finance Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-sagicor?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/hbh0qrdl1ykq15q/12d5ce47ada745ff92f29a2887861935/The-Mystery-Gaps-Sagicor-Finance-Edition.pdf", folderId:"18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku"},
   "gaps_acb": {client:"ACB Caribbean", fileName:"The Mystery Gaps \u2014 ACB Caribbean Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-acb?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/90oz2z7rd6lcimj/179f58ce31e5d8ed51112320be200c84/The-Mystery-Gaps-ACB-Caribbean-Edition.pdf", folderId:"1dbnLShHxdyTLIpg-K6KII1mH8hKBMykB"},
   "gaps_nawasa": {client:"NAWASA", fileName:"The Mystery Gaps \u2014 NAWASA Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-nawasa?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/va23zo73so1rxer/6fda8874941efe3baae65ad44d431c14/The-Mystery-Gaps-NAWASA-Edition.pdf", folderId:"1Yy3bFfX8uJNDbYsUothPlRHTDHBlzncJ"},
   "gaps_ird_grenada": {client:"IRD Grenada", fileName:"The Mystery Gaps \u2014 IRD Grenada Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-ird-grenada?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/eac61g5lz8vfnwj/6d7944fa773e24fb833f9cf177b50dd5/The-Mystery-Gaps-IRD-Grenada-Edition.pdf", folderId:"13GpIf64NsniH4bFlHNvgOSvMuaqed409"},
@@ -811,7 +877,7 @@ var FESTPASS_DECK = {
 };
 
 var COHORT_GAPS = {
-  "SKN": ["gaps_scaspa", "gaps_sagicor", "gaps_acb"],
+  "SKN": ["gaps_scaspa", "gaps_acb"],
   "SVG": ["gaps_nawasa", "gaps_ird_grenada"],
   "Anguilla & Montserrat": ["gaps_cub"],
   "Dominica": ["gaps_ird_anguilla"]
@@ -820,7 +886,7 @@ var COHORT_GAPS = {
 var COHORT_DECKS = {
   "SKN": [
     "scaspa",
-    "sagicor", "acb"
+    "aspire", "acb"
   ],
   "SVG": [
     "nawasa",

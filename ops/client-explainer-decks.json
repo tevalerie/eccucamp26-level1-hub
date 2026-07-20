@@ -1,74 +1,80 @@
 {
   "scaspa": {
-    "title": "SCASPA, Explained \u2014 Your Client in 9 Cards",
+    "title": "SCASPA, Explained — Your Client in 9 Cards",
     "gammaUrl": "https://gamma.app/docs/thclmcngm4iryzo"
   },
+  "aspire": {
+    "title": "ASPIRE, Explained — Your Client in 9 Cards",
+    "gammaUrl": "https://gamma.app/docs/0gvbqjat50iodtq"
+  },
   "sagicor": {
-    "title": "Sagicor Finance, Explained \u2014 Your Client in 9 Cards",
-    "gammaUrl": "https://gamma.app/docs/nhs8rcvweo7mx6w"
+    "title": "Sagicor Finance, Explained — Your Client in 9 Cards",
+    "gammaUrl": "https://gamma.app/docs/nhs8rcvweo7mx6w",
+    "retired": "2026-07-20 — SKN Sub-Studio B client replaced by ASPIRE"
   },
   "ird_grenada": {
-    "title": "IRD Grenada, Explained \u2014 Your Client in 9 Cards",
+    "title": "IRD Grenada, Explained — Your Client in 9 Cards",
     "gammaUrl": "https://gamma.app/docs/qoihr3sttd4ioos"
   },
   "lucelec": {
-    "title": "LUCELEC, Explained \u2014 Your Client in 9 Cards",
+    "title": "LUCELEC, Explained — Your Client in 9 Cards",
     "gammaUrl": "https://gamma.app/docs/zftbqzlcvm4d8yb"
   },
   "acb": {
-    "title": "ACB Caribbean, Explained \u2014 Your Client in 9 Cards",
+    "title": "ACB Caribbean, Explained — Your Client in 9 Cards",
     "gammaUrl": "https://gamma.app/docs/0ak3elrclbo5nb9"
   },
   "cub": {
-    "title": "Caribbean Union Bank, Explained \u2014 Your Client in 9 Cards",
+    "title": "Caribbean Union Bank, Explained — Your Client in 9 Cards",
     "gammaUrl": "https://gamma.app/docs/esj91ph94orgjdm"
   },
   "nis_grenada": {
-    "title": "NIS Grenada, Explained \u2014 Your Client in 9 Cards",
+    "title": "NIS Grenada, Explained — Your Client in 9 Cards",
     "gammaUrl": "https://gamma.app/docs/tsrpbdcim793uxx"
   },
   "ird_anguilla": {
-    "title": "IRD Anguilla, Explained \u2014 Your Client in 9 Cards",
+    "title": "IRD Anguilla, Explained — Your Client in 9 Cards",
     "gammaUrl": "https://gamma.app/docs/jsxglvc0bprsi5u"
   },
   "nawasa": {
-    "title": "NAWASA, Explained \u2014 Your Client in 9 Cards",
+    "title": "NAWASA, Explained — Your Client in 9 Cards",
     "gammaUrl": "https://gamma.app/docs/3lcua5uyqp75uyn"
   },
   "mystery_gaps": {
-    "title": "The Mystery Gaps \u2014 What the Briefs Didn't Say",
+    "title": "The Mystery Gaps — What the Briefs Didn't Say",
     "gammaUrl": "https://gamma.app/docs/anz6aj4umevia2u"
   },
   "gaps_scaspa": {
-    "title": "The Mystery Gaps \u2014 SCASPA Edition",
+    "title": "The Mystery Gaps — SCASPA Edition",
     "gammaUrl": "https://gamma.app/docs/buvksh7ltmuwxuk"
   },
   "gaps_sagicor": {
-    "title": "The Mystery Gaps \u2014 Sagicor Finance Edition",
-    "gammaUrl": "https://gamma.app/docs/hbh0qrdl1ykq15q"
+    "title": "The Mystery Gaps — Sagicor Finance Edition",
+    "gammaUrl": "https://gamma.app/docs/hbh0qrdl1ykq15q",
+    "retired": "2026-07-20 — SKN Sub-Studio B client replaced by ASPIRE"
   },
   "gaps_acb": {
-    "title": "The Mystery Gaps \u2014 ACB Caribbean Edition",
+    "title": "The Mystery Gaps — ACB Caribbean Edition",
     "gammaUrl": "https://gamma.app/docs/90oz2z7rd6lcimj"
   },
   "gaps_nawasa": {
-    "title": "The Mystery Gaps \u2014 NAWASA Edition",
+    "title": "The Mystery Gaps — NAWASA Edition",
     "gammaUrl": "https://gamma.app/docs/va23zo73so1rxer"
   },
   "gaps_ird_grenada": {
-    "title": "The Mystery Gaps \u2014 IRD Grenada Edition",
+    "title": "The Mystery Gaps — IRD Grenada Edition",
     "gammaUrl": "https://gamma.app/docs/eac61g5lz8vfnwj"
   },
   "gaps_cub": {
-    "title": "The Mystery Gaps \u2014 CUB Edition",
+    "title": "The Mystery Gaps — CUB Edition",
     "gammaUrl": "https://gamma.app/docs/ttoxogrhprsxkg6"
   },
   "gaps_ird_anguilla": {
-    "title": "The Mystery Gaps \u2014 IRD Anguilla Edition",
+    "title": "The Mystery Gaps — IRD Anguilla Edition",
     "gammaUrl": "https://gamma.app/docs/b9u2wq83w6vxhm5"
   },
   "festpass": {
-    "title": "FestPass, Explained \u2014 Your Practice Client",
+    "title": "FestPass, Explained — Your Practice Client",
     "gammaUrl": "https://gamma.app/docs/3ts0snwiwvdzjn9"
   }
 }
