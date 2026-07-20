@@ -50,7 +50,8 @@ var STUDIO_LINKS = {
     {t:'Sub-Studio A — SCASPA · Pods 1–4 · pod folders', u:'https://drive.google.com/drive/folders/1oBT6L7HoQ7X9xSj31ZGFqHHkvPG47iob?v=4'},
     {t:'SCASPA — client discovery brief', u:'https://drive.google.com/file/d/1NDJSnjdaxLjPntbu0tZEj6J-a-KUgsVw/view'},
     {t:'Sub-Studio B — ASPIRE · Pods 5–8 · pod folders', u:'https://drive.google.com/drive/folders/18I4bkWXZWTrjgpT9IpuJ6l_UimvkHMku?v=5'},
-    {t:'ASPIRE — programme website (your client brief)', u:'https://aspire.gov.kn/'},
+    {t:'ASPIRE — client discovery brief (from your Jul 17 interview)', u:'https://docs.google.com/document/d/17VK5IUDHl2soxOo8OZ2tYwhH138eYfsRjbKgAnNJqLo/view'},
+    {t:'ASPIRE — programme website & official FAQs', u:'https://aspire.gov.kn/'},
     {t:'Sub-Studio C — ACB Caribbean · pod folders', u:'https://drive.google.com/drive/folders/1dbnLShHxdyTLIpg-K6KII1mH8hKBMykB'},
     {t:'ACB Caribbean — client discovery brief', u:'https://drive.google.com/file/d/10ocqnYqHAP5xerQAxIGO6nCPWU0KZI9v/view'}
   ],
