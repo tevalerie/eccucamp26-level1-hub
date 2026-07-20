@@ -709,6 +709,43 @@ function postPersonasDeck() {
   Logger.log('Personas deck done.');
 }
 
+/**
+ * Posts the FestPass AI Master System Prompt handout (the Auntie Cynthia
+ * register — the camp's worked example) under Week 2 in every class, as a
+ * PDF + editable Google Doc pair. Both files are already in Drive, owned by
+ * the script account, so they attach natively. Re-run safe.
+ */
+function postMasterPromptHandout() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) return;
+    var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
+    ((page && page.courseWorkMaterial) || []).forEach(function (m) {
+      if (m.title.indexOf('Master System Prompt') !== -1) {
+        Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
+      }
+    });
+    var topicId = null;
+    ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
+      if (t.name === 'Week 2') topicId = t.topicId;
+    });
+    Classroom.Courses.CourseWorkMaterials.create({
+      title: 'FestPass AI — Master System Prompt (The Auntie Cynthia Register)',
+      description: 'The camp\'s worked example of a master system prompt: one persona, one register, and the Axis 1 red lines written as instructions the bot can follow. Paste it into Google AI Studio \u2192 System Instructions EXACTLY as written, then run the three test messages at the end. Then build your own: copy the skeleton, never the skin \u2014 every line in YOUR Studio\'s prompt must come from YOUR persona, YOUR red lines, YOUR desk. FestPass is fictional \u2014 never type real names or card numbers into a test.',
+      materials: [
+        { driveFile: { driveFile: { id: '1YgRU3v0-sD5kDS3y5AVnEr0fwLYg7IVL' }, shareMode: 'VIEW' } },
+        { driveFile: { driveFile: { id: '1TrTzXPqwlcBlU5141mPwEaP9n_YZvZfpbBq773Vs_30' }, shareMode: 'VIEW' } }
+      ],
+      topicId: topicId || undefined,
+      state: 'PUBLISHED'
+    }, course.id);
+    Logger.log('%s: Master prompt handout posted', cohort);
+  });
+  Logger.log('Master prompt handout done.');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
