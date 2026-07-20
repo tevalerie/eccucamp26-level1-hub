@@ -803,6 +803,13 @@ var GAP_DECKS = {
   "gaps_cub": {client:"CUB", fileName:"The Mystery Gaps \u2014 CUB Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-cub?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/ttoxogrhprsxkg6/1d086633d13f8cbec93c2c3127d4efeb/The-Mystery-Gaps-CUB-Edition.pdf", folderId:"1ri7TP-b-nW_AbQJBVWWWy3eWg-9mRvY-"},
   "gaps_ird_anguilla": {client:"IRD Anguilla", fileName:"The Mystery Gaps \u2014 IRD Anguilla Edition (interview prep)", gammaUrl:"https://eccuaicamp2026.netlify.app/decks/gaps-ird-anguilla?v=4", exportUrl:"https://assets.api.gamma.app/export/pdf/b9u2wq83w6vxhm5/ec6780d73ae6c2d2d96ec916e4ae41bf/The-Mystery-Gaps-IRD-Anguilla-Edition.pdf", folderId:"1GV_iceJuq0Blu62ZT-Sw3PVBqC82TFTx"},
 };
+var FESTPASS_DECK = {
+  client: 'FestPass',
+  fileName: 'FestPass — Your Practice Client (teen edition)',
+  exportUrl: "https://assets.api.gamma.app/export/pdf/3ts0snwiwvdzjn9/d6976fbd396862c9d1e3b02a4ba55e25/FestPass-Explained-Your-Practice-Client.pdf",
+  folderId: '1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd'
+};
+
 var COHORT_GAPS = {
   "SKN": ["gaps_scaspa", "gaps_sagicor", "gaps_acb"],
   "SVG": ["gaps_nawasa", "gaps_ird_grenada"],
@@ -894,6 +901,8 @@ function repostExplainerMaterials() {
           ? 'Read YOUR pod\'s client — check the pod announcement in the Stream if unsure. '
           : '')
       + 'Read it before the Day 3 client interview. The PDF copy also lives in your Studio folder.';
+    var fpId = deckPdfId(FESTPASS_DECK, FESTPASS_DECK.fileName + '.pdf');
+    if (fpId) links.push({ driveFile: { driveFile: { id: fpId }, shareMode: 'VIEW' } });
     (COHORT_GAPS[cohort] || []).forEach(function (gslug) {
       var gd = GAP_DECKS[gslug];
       var pdfName = gd.fileName + '.pdf';
