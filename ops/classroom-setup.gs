@@ -669,6 +669,46 @@ function postZoomGuide() {
   Logger.log('Zoom guide done.');
 }
 
+/**
+ * Posts 'The People Behind the Messages' (Personas & Empathy Maps, FestPass
+ * edition — the refresher lesson before Prompt Engineering) as a PDF material
+ * under Week 2 in every class. Re-run safe.
+ */
+var PERSONAS_DECK = {
+  fileName: 'The People Behind the Messages — Personas & Empathy Maps (FestPass Edition)',
+  exportUrl: "https://assets.api.gamma.app/export/pdf/waftwp52z2w1ryj/1e7ed51b61beb8941c063605d5614e45/The-People-Behind-the-Messages-Personas-and-Empathy-Maps-FestPass-Edition.pdf",
+  folderId: '1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd'
+};
+
+function postPersonasDeck() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+  var fid = deckPdfId(PERSONAS_DECK, PERSONAS_DECK.fileName + '.pdf');
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) return;
+    var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
+    ((page && page.courseWorkMaterial) || []).forEach(function (m) {
+      if (m.title.indexOf('People Behind the Messages') !== -1) {
+        Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
+      }
+    });
+    var topicId = null;
+    ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
+      if (t.name === 'Week 2') topicId = t.topicId;
+    });
+    Classroom.Courses.CourseWorkMaterials.create({
+      title: 'The People Behind the Messages — Personas & Empathy Maps (FestPass edition)',
+      description: 'Meet the seven humans your bot must serve — full empathy maps for every FestPass persona, each ending in the register it demands. Your refresher before Prompt Engineering: persona → arrival states → register → prompt. Then build the same for YOUR client.',
+      materials: fid ? [{ driveFile: { driveFile: { id: fid }, shareMode: 'VIEW' } }] : [],
+      topicId: topicId || undefined,
+      state: 'PUBLISHED'
+    }, course.id);
+    Logger.log('%s: Personas deck posted', cohort);
+  });
+  Logger.log('Personas deck done.');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
