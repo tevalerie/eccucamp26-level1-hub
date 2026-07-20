@@ -746,6 +746,50 @@ function postMasterPromptHandout() {
   Logger.log('Master prompt handout done.');
 }
 
+/**
+ * Posts the Camper Guide to Google AI Studio & System Prompts under Week 2
+ * in every class: the full guide (Google Doc) + the teen deck (PDF, filed to
+ * the AI Studio root via deckPdfId). Re-run safe.
+ */
+var AISTUDIO_DECK = {
+  fileName: "Your Bot's DNA Lab — Google AI Studio & System Prompts (Camper Edition)",
+  exportUrl: "https://assets.api.gamma.app/export/pdf/xmau9nlard2v73u/a300e011e84b31fb5dfe786c61cb8801/Your-Bots-DNA-Lab-Google-AI-Studio-and-System-Prompts-Camper-Edition.pdf",
+  folderId: '1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd'
+};
+
+function postAIStudioGuide() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+  var fid = deckPdfId(AISTUDIO_DECK, AISTUDIO_DECK.fileName + '.pdf');
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) return;
+    var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
+    ((page && page.courseWorkMaterial) || []).forEach(function (m) {
+      if (m.title.indexOf('Google AI Studio') !== -1) {
+        Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
+      }
+    });
+    var topicId = null;
+    ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
+      if (t.name === 'Week 2') topicId = t.topicId;
+    });
+    var mats = [
+      { driveFile: { driveFile: { id: '1ereDuURWguH6xVtXzNJsw4iyhSQteKdXbM1XmZBFH5c' }, shareMode: 'VIEW' } }
+    ];
+    if (fid) mats.push({ driveFile: { driveFile: { id: fid }, shareMode: 'VIEW' } });
+    Classroom.Courses.CourseWorkMaterials.create({
+      title: 'Camper Guide — Google AI Studio & System Prompts (your bot\'s DNA lab)',
+      description: 'Week 2\'s most important skill: one paragraph in the System Instructions box changes every reply — that paragraph is your bot\'s DNA. The full guide plus the teen deck: the Persona Anchor template, DNA on/off, the Wardrobe Switch, and Attack Your Own Red Line. Camp account only \u2014 never real personal information, ever.',
+      materials: mats,
+      topicId: topicId || undefined,
+      state: 'PUBLISHED'
+    }, course.id);
+    Logger.log('%s: AI Studio guide posted', cohort);
+  });
+  Logger.log('AI Studio guide done.');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
