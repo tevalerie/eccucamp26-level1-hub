@@ -562,6 +562,45 @@ function renameDay2Decks() {
   Logger.log('Day 2 decks renamed.');
 }
 
+/**
+ * Posts the Zoom Breakout Rooms camper guide (PDF from Drive) as a material
+ * in every class, under 'Your Studio & Client'. Re-run safe.
+ */
+var ZOOM_GUIDE = {
+  fileName: 'In Fast, Out Clean — Zoom Breakout Rooms (Camper Guide)',
+  exportUrl: "https://assets.api.gamma.app/export/pdf/f4ie04ghiojkiaq/66f74af8e9ec9c24ef744fd91529bb97/In-Fast-Out-Clean-Zoom-Breakout-Rooms-Camper-Guide.pdf",
+  folderId: '1nJzrlDUoWL8t62c-XSTk8Gu6aiwpBRfd'
+};
+
+function postZoomGuide() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+  var fid = deckPdfId(ZOOM_GUIDE, ZOOM_GUIDE.fileName + '.pdf');
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) return;
+    var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
+    ((page && page.courseWorkMaterial) || []).forEach(function (m) {
+      if (m.title.indexOf('Zoom Breakout Rooms') !== -1) {
+        Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
+      }
+    });
+    var topicId = null;
+    ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
+      if (t.name === 'Your Studio & Client') topicId = t.topicId;
+    });
+    Classroom.Courses.CourseWorkMaterials.create({
+      title: 'Zoom Breakout Rooms — In Fast, Out Clean (camper guide)',
+      description: 'How your pod\'s breakout room works: join in 30 seconds, ASK FOR HELP like a professional, and never hit the wrong red button. Two minutes to read — saves you every day.',
+      materials: fid ? [{ driveFile: { driveFile: { id: fid }, shareMode: 'VIEW' } }] : [],
+      topicId: topicId || undefined,
+      state: 'PUBLISHED'
+    }, course.id);
+    Logger.log('%s: Zoom guide posted', cohort);
+  });
+  Logger.log('Zoom guide done.');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
