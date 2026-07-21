@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>The Camp Wiki · ECCU Generative AI &amp; Python Summer Camp 2026</title>
+<meta name="description" content="Every rule, framework and word the camp runs on — the Central Rule, the three axes, TCRDEI, the Persona Anchor, and the glossary. One page, always open."/>
+<meta property="og:title" content="The Camp Wiki · ECCU Camp 2026"/>
+<meta property="og:description" content="Every rule, framework and word the camp runs on. One page, always open."/>
+<style>
+  :root{
+    --ink:#0B1A38; --ink-muted:#4A5A78; --bone:#F5EFE4; --bone-deep:#EBE3D2; --bone-line:#D9CFB9;
+    --coral:#E85A3C; --coral-deep:#B8391F; --aqua:#1F7A85; --gold:#B8934A; --white:#FDFCF8;
+    --serif: Georgia, "Times New Roman", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", system-ui, sans-serif;
+    --mono: "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  html,body{background:var(--bone);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;}
+  body{font-size:16.5px;line-height:1.55;letter-spacing:-0.006em;margin:0;}
+  *{box-sizing:border-box;}
+  a{color:inherit;text-decoration:none;}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:900;text-wrap:balance;letter-spacing:-0.018em;line-height:1.02;margin:0;}
+  h1{font-size:clamp(40px,6.4vw,88px);font-style:italic;}
+  h2{font-size:clamp(26px,3.1vw,44px);}
+  h3{font-size:clamp(19px,1.8vw,25px);letter-spacing:-0.012em;}
+  p{margin:0;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px;}
+  .rule-line{border:0;height:1px;background:var(--bone-line);margin:0;}
+  .eyebrow{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.16em;color:var(--ink-muted);font-weight:500;}
+  .eyebrow .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--coral);vertical-align:middle;margin:0 8px 2px 0;}
+
+  /* NAV */
+  .topnav{display:flex;align-items:center;justify-content:space-between;padding:22px 32px;max-width:1240px;margin:0 auto;}
+  .wordmark{display:flex;align-items:center;gap:12px;}
+  .wordmark .lockup{font-family:var(--serif);font-weight:900;font-size:19px;letter-spacing:-0.01em;}
+  .wordmark .sub{font-family:var(--mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-muted);display:block;margin-top:2px;}
+  .compass{width:34px;height:34px;flex:0 0 34px;}
+  .nav-links{display:flex;gap:26px;font-size:13.5px;color:var(--ink);font-weight:500;}
+  .nav-links a{padding-bottom:4px;border-bottom:1.5px solid transparent;}
+  .nav-links a:hover{border-color:var(--coral);}
+  .nav-links a.here{border-color:var(--coral);}
+  .nav-cta{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--bone);padding:10px 18px;border-radius:2px;font-size:13px;font-weight:600;}
+  .nav-cta:hover{background:var(--coral);}
+
+  /* HERO */
+  .phero{padding:56px 0 40px;display:grid;grid-template-columns:1.25fr 0.75fr;gap:56px;align-items:end;}
+  .phero .lede{font-size:18px;color:var(--ink-muted);line-height:1.6;margin-top:20px;max-width:56ch;}
+  .phero h1{margin-top:14px;}
+  .quickjump{display:grid;gap:8px;padding:22px;background:var(--white);border:1px solid var(--bone-line);border-radius:3px;}
+  .quickjump h5{font-family:var(--mono);font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-muted);margin:0 0 6px;font-weight:500;}
+  .quickjump a{font-size:14px;padding:5px 0;border-bottom:1px solid var(--bone-line);display:flex;justify-content:space-between;gap:12px;}
+  .quickjump a:last-child{border-bottom:0;}
+  .quickjump a:hover{color:var(--coral);}
+  .quickjump a .n{font-family:var(--mono);font-size:10.5px;color:var(--ink-muted);letter-spacing:0.1em;}
+
+  /* SECTIONS */
+  section{padding:56px 0;border-top:1px solid var(--bone-line);}
+  .sec-head{display:grid;grid-template-columns:0.9fr 1.1fr;gap:40px;align-items:end;margin-bottom:36px;}
+  .sec-head .d{color:var(--ink-muted);font-size:16px;line-height:1.6;}
+
+  /* the rule banner */
+  .rule-banner{background:var(--ink);color:var(--bone);padding:46px 40px;border-radius:3px;text-align:center;}
+  .rule-banner .r{font-family:var(--serif);font-style:italic;font-weight:900;font-size:clamp(26px,3.6vw,46px);line-height:1.1;}
+  .rule-banner .r .hl{color:var(--coral);}
+  .rule-banner .sub{color:rgba(245,239,228,0.7);font-size:15px;margin-top:18px;max-width:62ch;margin-left:auto;margin-right:auto;}
+
+  /* cards */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
+  .card{background:var(--white);border:1px solid var(--bone-line);border-radius:3px;padding:26px;}
+  .card .tag{font-family:var(--mono);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--coral);font-weight:600;}
+  .card h3{margin:10px 0 10px;}
+  .card p{color:var(--ink-muted);font-size:14.5px;line-height:1.6;}
+  .card ul{margin:12px 0 0;padding-left:18px;color:var(--ink-muted);font-size:14px;line-height:1.65;}
+  .card ul li{margin-bottom:6px;}
+  .card .ex{margin-top:14px;padding-top:12px;border-top:1px solid var(--bone-line);font-size:13.5px;color:var(--ink);font-style:italic;}
+
+  .axis{border-left:3px solid var(--coral);}
+  .axis.a2{border-left-color:var(--aqua);}
+  .axis.a3{border-left-color:var(--gold);}
+
+  /* framework rows */
+  .frame{background:var(--white);border:1px solid var(--bone-line);border-radius:3px;overflow:hidden;}
+  .frow{display:grid;grid-template-columns:78px 1fr 1.15fr;gap:22px;padding:16px 22px;border-bottom:1px solid var(--bone-line);align-items:start;}
+  .frow:last-child{border-bottom:0;}
+  .frow .let{font-family:var(--serif);font-weight:900;font-size:30px;font-style:italic;color:var(--coral);line-height:1;}
+  .frow .nm{font-weight:700;font-size:15px;}
+  .frow .ds{color:var(--ink-muted);font-size:14px;line-height:1.6;}
+  .frow .ds .q{font-style:italic;color:var(--ink);}
+
+  /* prompt block */
+  .promptbox{background:var(--ink);color:var(--bone);border-radius:3px;padding:28px 30px;font-family:var(--mono);font-size:13.5px;line-height:1.8;white-space:pre-wrap;}
+  .promptbox .fill{color:var(--gold);}
+  .promptbox .kw{color:var(--coral);font-weight:700;}
+
+  /* registers */
+  .regs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .reg{background:var(--white);border:1px solid var(--bone-line);border-radius:3px;padding:18px;}
+  .reg .who{font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-muted);}
+  .reg .nm{font-family:var(--serif);font-weight:900;font-size:17px;margin:6px 0 8px;line-height:1.15;}
+  .reg .st{font-size:13px;color:var(--ink-muted);line-height:1.55;}
+  .reg.safe{background:#FFF6F3;border-color:var(--coral);}
+
+  /* glossary */
+  .glos{display:grid;grid-template-columns:repeat(2,1fr);gap:0 40px;}
+  .gterm{padding:15px 0;border-bottom:1px solid var(--bone-line);}
+  .gterm dt{font-weight:700;font-size:15px;}
+  .gterm dd{margin:5px 0 0;color:var(--ink-muted);font-size:14px;line-height:1.6;}
+  .gterm dd .also{font-family:var(--mono);font-size:11px;letter-spacing:0.06em;color:var(--aqua);display:block;margin-top:4px;}
+  .gsearch{width:100%;padding:13px 16px;border:1px solid var(--bone-line);border-radius:2px;background:var(--white);font-family:var(--sans);font-size:15px;color:var(--ink);margin-bottom:8px;}
+  .gsearch:focus{outline:none;border-color:var(--coral);}
+  .gnone{display:none;padding:22px 0;color:var(--ink-muted);font-style:italic;}
+
+  /* links out */
+  .lgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .lcard{display:block;background:var(--white);border:1px solid var(--bone-line);border-radius:3px;padding:22px;}
+  .lcard:hover{border-color:var(--coral);}
+  .lcard .k{font-family:var(--mono);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-muted);}
+  .lcard .t{font-family:var(--serif);font-weight:900;font-size:18px;margin:8px 0 6px;line-height:1.2;}
+  .lcard .d{color:var(--ink-muted);font-size:13.5px;line-height:1.55;}
+  .lcard .go{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--coral);font-weight:600;margin-top:12px;display:block;}
+
+  /* footer */
+  footer{background:var(--ink);color:var(--bone);padding:56px 0 36px;margin-top:20px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px;padding-bottom:40px;border-bottom:1px solid rgba(184,147,74,0.25);}
+  .foot-grid h5{font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin:0 0 18px;font-weight:500;}
+  .foot-grid .mark{font-family:var(--serif);font-weight:900;font-size:22px;font-style:italic;margin-bottom:14px;}
+  .foot-grid .desc{color:rgba(245,239,228,0.65);font-size:14.5px;line-height:1.55;max-width:340px;}
+  .foot-grid ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;}
+  .foot-grid ul a{color:rgba(245,239,228,0.75);font-size:14px;}
+  .foot-grid ul a:hover{color:var(--coral);}
+  .foot-strip{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-top:26px;font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,239,228,0.5);}
+
+  @media (max-width:960px){
+    .phero{grid-template-columns:1fr;gap:32px;}
+    .sec-head{grid-template-columns:1fr;gap:18px;}
+    .grid3,.grid2,.lgrid,.glos{grid-template-columns:1fr;}
+    .regs{grid-template-columns:1fr 1fr;}
+    .frow{grid-template-columns:54px 1fr;gap:8px 16px;}
+    .frow .ds{grid-column:2;}
+    .nav-links{display:none;}
+    .foot-grid{grid-template-columns:1fr;gap:30px;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="wordmark" href="/">
+    <svg class="compass" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+      <circle cx="20" cy="20" r="18" stroke="#0B1A38" stroke-width="1.5"/>
+      <path d="M20 6 L23 20 L20 34 L17 20 Z" fill="#0B1A38"/>
+      <path d="M6 20 L20 17 L34 20 L20 23 Z" fill="#E85A3C"/>
+      <circle cx="20" cy="20" r="1.6" fill="#F5EFE4"/>
+    </svg>
+    <div>
+      <div class="lockup">ECCU Camp 2026</div>
+      <span class="sub">Generative AI · Python · Levels 1 &amp; 2</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="/#curriculum">Curriculum</a>
+    <a href="/#clients">Clients 2026</a>
+    <a href="/#toolbox">Toolbox</a>
+    <a href="/#repository">Repository</a>
+    <a href="/wiki" class="here">Wiki</a>
+    <a href="/gallery">Gallery</a>
+  </div>
+  <a href="/#past-camps" class="nav-cta">Past camps <span class="arr">→</span></a>
+</nav>
+
+<hr class="rule-line"/>
+
+<main class="wrap">
+
+<section class="phero" style="border-top:0;">
+  <div>
+    <div class="eyebrow"><span class="dot"></span>The Camp Wiki · Level 1 · Chat-bot Edition</div>
+    <h1>Everything the camp runs on.</h1>
+    <p class="lede">One rule, three axes, six letters, and a template you'll write a hundred times. This is the page to keep open in a second tab — the definitions your facilitators use, in the order you meet them. Nothing here is decoration: every framework below shows up in something you build.</p>
+  </div>
+  <div class="quickjump">
+    <h5>Jump to</h5>
+    <a href="#rule"><span>The Central Rule</span><span class="n">01</span></a>
+    <a href="#art"><span>The Three Axes (A.R.T.)</span><span class="n">02</span></a>
+    <a href="#tcrdei"><span>TCRDEI — the prompt frame</span><span class="n">03</span></a>
+    <a href="#anchor"><span>The Persona Anchor</span><span class="n">04</span></a>
+    <a href="#canvas"><span>Empathy → Prompt Canvas</span><span class="n">05</span></a>
+    <a href="#registers"><span>The Register Wardrobe</span><span class="n">06</span></a>
+    <a href="#lines"><span>Red Lines &amp; Green Lines</span><span class="n">07</span></a>
+    <a href="#glossary"><span>Glossary</span><span class="n">08</span></a>
+    <a href="#shelf"><span>Where things live</span><span class="n">09</span></a>
+  </div>
+</section>
+
+<!-- 01 THE RULE -->
+<section id="rule">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow"><span class="dot"></span>01 · The Central Rule</div>
+      <h2>The one sentence everything else hangs from.</h2>
+    </div>
+    <p class="d">Every framework on this page is a way of keeping this sentence true when the code gets complicated. If you remember nothing else from four weeks, remember this — and remember that it is a statement about <em>people</em>, not about technology.</p>
+  </div>
+  <div class="rule-banner">
+    <p class="r">The Bot is the <span class="hl">GPS</span>.<br/>The Human is the <span class="hl">Driver</span>.</p>
+    <p class="sub">A GPS is brilliant: it knows every road, it never gets tired, it answers instantly. It also cannot see the flood on the road ahead, and it is sometimes confidently wrong. It informs. It never drives. Your bot tells people what it knows; humans decide what to do.</p>
+  </div>
+  <div class="grid3" style="margin-top:22px;">
+    <div class="card">
+      <span class="tag">What it permits</span>
+      <h3>Inform brilliantly</h3>
+      <p>Answer the same question at 2 AM as at 2 PM, in plain language, correctly for the island the person is actually on. Look things up. Explain. Guide, step by step.</p>
+    </div>
+    <div class="card">
+      <span class="tag">What it forbids</span>
+      <h3>Decide, promise, approve</h3>
+      <p>The bot may create a case; it may never approve one. It may find the form; it may never grant the permit. It may point to the desk; it may never promise the outcome.</p>
+    </div>
+    <div class="card">
+      <span class="tag">Why it holds</span>
+      <h3>Confidence ≠ correctness</h3>
+      <p>A model can be 100% fluent and 100% wrong, and it will sound exactly the same either way. That is precisely why a human stays in the driver's seat.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 AXES -->
+<section id="art">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow"><span class="dot"></span>02 · The Three Axes</div>
+      <h2>A.R.T. — Authority, Register, Territory.</h2>
+    </div>
+    <p class="d">Three ways a bot fails a real person, and therefore three things every camp bot is tested against. You'll meet Authority on Day 6, Register on Day 7, Territory on Day 8 — and all three get attacked on Day 9.</p>
+  </div>
+  <div class="grid3">
+    <div class="card axis">
+      <span class="tag">Axis 1 · Day 6</span>
+      <h3>Authority</h3>
+      <p>What is this bot <em>allowed</em> to do? The moment a message says <strong>my</strong> ticket, <strong>my</strong> refund, <strong>my</strong> application, <strong>my</strong> child — the bot stops answering and starts escalating.</p>
+      <ul>
+        <li>No personal record lookups</li>
+        <li>No approvals, no promises</li>
+        <li>No collecting payment details</li>
+        <li>Case creation is the ceiling of its power</li>
+      </ul>
+      <p class="ex">Coded as the gate: <strong>is_case_specific()</strong> — the Bouncer at the door.</p>
+    </div>
+    <div class="card axis a2">
+      <span class="tag">Axis 2 · Day 7</span>
+      <h3>Register</h3>
+      <p>The same facts, in the right voice. A hyped teen, an anxious grandmother at midnight, a vex customer and a panicked parent need four different deliveries of identical information.</p>
+      <ul>
+        <li>Arrival state decides the outfit</li>
+        <li>Facts must not change when tone does</li>
+        <li>Cheerfulness at the wrong moment is a failure</li>
+        <li>Derived from your empathy maps, never invented</li>
+      </ul>
+      <p class="ex">Coded as <strong>classify_register()</strong> — the Wardrobe.</p>
+    </div>
+    <div class="card axis a3">
+      <span class="tag">Axis 3 · Day 8</span>
+      <h3>Territory</h3>
+      <p>Eight islands, eight rulebooks. "When does Carnival start?" has eight different true answers. A bot that assumes one island is a bot that sends a family to the wrong event on the wrong week.</p>
+      <ul>
+        <li>Ask <em>where</em> before answering</li>
+        <li>Never fold one island's rules into another's</li>
+        <li>Ambiguity earns a clarifying question</li>
+        <li>Diaspora time zones count as territory too</li>
+      </ul>
+      <p class="ex">The failure that ends up on the radio call-in show.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03 TCRDEI -->
+<section id="tcrdei">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow"><span class="dot"></span>03 · The Prompt Frame</div>
+      <h2>TCRDEI — six letters, one good prompt.</h2>
+    </div>
+    <p class="d">Vibes produce inconsistent bots. This frame produces prompts you can debug. T, C and D live permanently in your system prompt; R usually joins them; E and I are what you do every time you test.</p>
+  </div>
+  <div class="frame">
+    <div class="frow"><span class="let">T</span><div><div class="nm">Thoughtfully framed task</div></div><div class="ds">Give the bot a name, an employer and one specific job. <span class="q">"You are FestPass AI, a support agent for FestPass ECCU Ltd."</span> A bot that knows who it works for stops improvising.</div></div>
+    <div class="frow"><span class="let">C</span><div><div class="nm">Context supplied</div></div><div class="ds">Who is on the other end, and what do they already know? This is where your persona work enters the prompt — the arrival state, the island, the tech comfort.</div></div>
+    <div class="frow"><span class="let">R</span><div><div class="nm">Reference examples</div></div><div class="ds">Two or three In→Out pairs teach your style better than a page of adjectives. Made-up data only — never a real customer, never a real case.</div></div>
+    <div class="frow"><span class="let">D</span><div><div class="nm">Defined deliverables</div></div><div class="ds">Exactly what the bot may hand over — dates, venues, price tiers, payment steps — and the shape of the answer: concise, numbered, text-first.</div></div>
+    <div class="frow"><span class="let">E</span><div><div class="nm">Evaluate the output</div></div><div class="ds">Read what came back like a QA officer, not a proud parent. Did it hold the red line? Did the facts survive the tone change? Did it guess an island?</div></div>
+    <div class="frow"><span class="let">I</span><div><div class="nm">Iterate</div></div><div class="ds">Sharpen one line, run it again. <strong>ABI — Always Be Iterating.</strong> Nobody's first prompt is their best prompt; that's not failure, that's the method.</div></div>
+  </div>
+</section>
+
+<!-- 04 ANCHOR -->
+<section id="anchor">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow"><span class="dot"></span>04 · The Persona Anchor</div>
+      <h2>Your bot's DNA, in four lines.</h2>
+    </div>
+    <p class="d">This is the shape every Studio's master system prompt takes. It goes in Google AI Studio's <strong>System Instructions</strong> box — not the chat box — where the model reads it before every single reply. Copy the skeleton, never the skin: every gold field must come from <em>your</em> client's work.</p>
+  </div>
+  <div class="promptbox">You are <span class="fill">[a very specific role — e.g. a warm, plain-language assistant for the ASPIRE programme in St. Kitts &amp; Nevis]</span>.
+
+Your job is <span class="fill">[the outcome — inform, guide, escalate]</span>.
+
+You <span class="kw">NEVER</span> <span class="fill">[your red lines — answer personal-case questions, reveal anyone's information, invent facts]</span>.
+Instead you <span class="fill">[escalate to a named human desk, with a reference]</span>.
+
+Your tone is <span class="fill">[a register from YOUR wardrobe — warm · patient · practical · urgent]</span>.</div>
+  <div class="grid3" style="margin-top:22px;">
+    <div class="card"><span class="tag">Line 1 &amp; 4 come from</span><h3>Your Bot Persona card</h3><p>Day 6. The role and the voice — who your bot is when it opens its mouth.</p></div>
+    <div class="card"><span class="tag">The NEVER line comes from</span><h3>Your Must-Never-Do list</h3><p>Day 6. Your client's red lines, written as instructions a model can actually follow.</p></div>
+    <div class="card"><span class="tag">The tone comes from</span><h3>Your empathy maps</h3><p>Day 7. Derived from how your users actually arrive — never invented at the keyboard.</p></div>
+  </div>
+</section>
+
+<!-- 05 CANVAS -->
+<section id="canvas">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow"><span class="dot"></span>05 · The Empathy-to-Prompt Canvas</div>
+      <h2>Persona → arrival state → register → prompt.</h2>
+    </div>
+    <p class="d">The whole method, left to right. Every prompt you write should be traceable back to a real observation about a real kind of person. If you can't trace it, you invented it — and invented users produce bots nobody wants to talk to.</p>
+  </div>
+  <div class="frame">
+    <div class="frow"><span class="let">1</span><div><div class="nm">Persona</div></div><div class="ds">A well-drawn character built from patterns of real users — never a real person, never real data. <span class="q">Done when you can hear them type.</span></div></div>
+    <div class="frow"><span class="let">2</span><div><div class="nm">Arrival state</div></div><div class="ds">How they show up: hyped, careful, time-poor, aggrieved, panicked — <em>and</em> the good ones: proud, grateful, loyal. Positive arrivals deserve engineered answers too.</div></div>
+    <div class="frow"><span class="let">3</span><div><div class="nm">Register</div></div><div class="ds">The outfit the bot wears to meet that state. Same facts, different delivery. Your wardrobe is derived from your maps, one register per arrival state.</div></div>
+    <div class="frow"><span class="let">4</span><div><div class="nm">Prompt</div></div><div class="ds">The instructions that make it happen, in TCRDEI shape, anchored by the Persona Anchor. Then evaluate, iterate, attack your own red lines.</div></div>
+  </div>
+  <div class="grid2" style="margin-top:22px;">
+    <div class="card">
+      <span class="tag">The gap that matters most</span>
+      <h3>SAYS vs THINKS</h3>
+      <p>Zari types "how much is j'ouvert" — she's thinking <em>"if this bot lectures me I'm closing it."</em> People almost never say the thing they fear. The empathy map is how you hear the quiet part, and the quiet part is where good bots are designed.</p>
+    </div>
+    <div class="card">
+      <span class="tag">The reward loop</span>
+      <h3>Notice → name → reward</h3>
+      <p>A register can celebrate as deliberately as it de-escalates. Catch the good arrival — a first Carnival, a proud provider, twenty-two years at the same stall — and name it. Recognised, rewarded, returned: a bot that only handles problems teaches people to bring it only problems.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 06 REGISTERS -->
+<section id="registers">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow"><span class="dot"></span>06 · The Wardrobe</div>
+      <h2>The demonstration register set.</h2>
+    </div>
+    <p class="d">Seven arrival states from the FestPass personas, seven voices — one bot. Your Studio derives its own set from its own client's users; this is the worked example, not the answer key.</p>
+  </div>
+  <div class="regs">
+    <div class="reg"><div class="who">Zari · hyped</div><div class="nm">Festival-warm</div><p class="st">Short, energetic, emoji-tolerant. Safety woven in lightly — never preachy.</p></div>
+    <div class="reg"><div class="who">Auntie Cynthia · careful</div><div class="nm">Patient &amp; reassuring</div><p class="st">Numbered steps, plain words, confirmation-oriented, no slang. The night shift.</p></div>
+    <div class="reg"><div class="who">Mr. Providence · time-poor</div><div class="nm">Practical &amp; respectful</div><p class="st">Deadline first, then the checklist. Short sentences, zero fluff.</p></div>
+    <div class="reg safe"><div class="who">Marcia · distress</div><div class="nm">SAFEGUARD</div><p class="st">Overrides everything. Calm, short, directive, warm — human alerted in parallel.</p></div>
+    <div class="reg"><div class="who">Marlon · aggrieved</div><div class="nm">Calm &amp; non-defensive</div><p class="st">Acknowledge first. No excuses, no chirp — sounding happy here is the failure.</p></div>
+    <div class="reg"><div class="who">Ms. Athena · institutional</div><div class="nm">Formal &amp; precise</div><p class="st">Full sentences, sources cited with dates, zero slang.</p></div>
+    <div class="reg"><div class="who">Devon · economical</div><div class="nm">Concise &amp; clear</div><p class="st">Front-load the answer. One message where possible. Text always.</p></div>
+    <div class="reg"><div class="who">Available in TONES</div><div class="nm">Bereaved</div><p class="st">Kept in the wardrobe for the moments no festival plans for.</p></div>
+  </div>
+</section>
+
+<!-- 07 LINES -->
+<section id="lines">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow"><span class="dot"></span>07 · The Lines</div>
+      <h2>Red lines protect trust. Green lines build it.</h2>
+    </div>
+    <p class="d">Every persona has both: a thing your bot must never do, and a promise it keeps every single time. A bot that only knows its nevers is safe. A bot that also keeps its always-promises is loved.</p>
+  </div>
+  <div class="grid2">
+    <div class="card" style="border-left:3px solid var(--coral-deep);">
+      <span class="tag" style="color:var(--coral-deep);">Red lines · NEVER</span>
+      <h3>The hard limits</h3>
+      <ul>
+        <li>Never collect or reveal a minor's personal details</li>
+        <li>Never discuss payment status, balances or account records</li>
+        <li>Never guess a deadline, a fee or a rule — escalate instead</li>
+        <li>Never promise a lost child is found or safe</li>
+        <li>Never argue, and never quote policy at someone like a wall</li>
+        <li>Never speculate beyond the official release</li>
+        <li>Never send an image-only answer to someone who can't load it</li>
+      </ul>
+    </div>
+    <div class="card" style="border-left:3px solid var(--aqua);">
+      <span class="tag" style="color:var(--aqua);">Green lines · ALWAYS</span>
+      <h3>The promises</h3>
+      <ul>
+        <li>Always state age rules kindly, up front, with exact prices</li>
+        <li>Always confirm you're official and number the steps</li>
+        <li>Always lead with the deadline, then the plain checklist</li>
+        <li>Always open with one calm sentence and the exact desk</li>
+        <li>Always acknowledge first, with a case reference in the first exchange</li>
+        <li>Always cite the source, with its date</li>
+        <li>Always answer text-first, front-loaded, bundled</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 08 GLOSSARY -->
+<section id="glossary">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow"><span class="dot"></span>08 · Glossary</div>
+      <h2>The words your facilitators use.</h2>
+    </div>
+    <p class="d">Camp vocabulary and the industry terms behind it. Type to filter — if a word gets said in a stand-up and you don't have it, it belongs here; tell a facilitator and we'll add it.</p>
+  </div>
+  <input class="gsearch" id="gsearch" type="search" placeholder="Filter the glossary — try &ldquo;register&rdquo;, &ldquo;token&rdquo;, &ldquo;escalation&rdquo;…" aria-label="Filter glossary"/>
+  <dl class="glos" id="glos">
+    <div class="gterm"><dt>System prompt</dt><dd>The standing order the model reads before every reply. Your bot's DNA — one paragraph, every answer.<span class="also">Also: system instructions</span></dd></div>
+    <div class="gterm"><dt>Persona Anchor</dt><dd>The camp's system-prompt template: role · job · NEVER · tone. Pinned on top of every call.</dd></div>
+    <div class="gterm"><dt>Register</dt><dd>The voice the bot answers in, chosen by how the user arrived. Same facts, different outfit.<span class="also">Axis 2 · classify_register()</span></dd></div>
+    <div class="gterm"><dt>Arrival state</dt><dd>The emotional state a user shows up in — hyped, anxious, aggrieved, panicked, proud. Registers are derived from these.</dd></div>
+    <div class="gterm"><dt>Empathy map</dt><dd>Four quadrants (says · thinks · feels · does) plus goals, pains, needs and questions — how you observe a user instead of guessing at them.</dd></div>
+    <div class="gterm"><dt>Job to be Done</dt><dd>The one sentence starting "Help me…" that names what a user actually came for. Miss it and a polite answer is still a failed answer.</dd></div>
+    <div class="gterm"><dt>Red line</dt><dd>A thing your bot must never do. Written by you, attacked by you, on purpose.</dd></div>
+    <div class="gterm"><dt>Green line</dt><dd>A promise your bot keeps every time. The positive twin of a red line.</dd></div>
+    <div class="gterm"><dt>Escalation</dt><dd>Handing a person to a named human desk with a reference — never dropping them. Firm rule, warm delivery.</dd></div>
+    <div class="gterm"><dt>The Bouncer</dt><dd>The authority gate at the door of every answer: is this question case-specific? If yes, escalate.<span class="also">Axis 1 · is_case_specific()</span></dd></div>
+    <div class="gterm"><dt>The Wardrobe</dt><dd>Your set of registers, one per arrival state. Kept in a TONES dictionary in Python.</dd></div>
+    <div class="gterm"><dt>Territory</dt><dd>Which island's rules apply. Eight territories, eight rulebooks — ask where before you answer.<span class="also">Axis 3</span></dd></div>
+    <div class="gterm"><dt>TCRDEI</dt><dd>Task · Context · Reference examples · Deliverables · Evaluate · Iterate. The camp's prompt frame.</dd></div>
+    <div class="gterm"><dt>ABI</dt><dd>Always Be Iterating. Your first prompt is a draft, not a verdict.</dd></div>
+    <div class="gterm"><dt>Model</dt><dd>Which AI brain answers you. Different models, different strengths, different costs.</dd></div>
+    <div class="gterm"><dt>Temperature</dt><dd>The creativity dial. Low = focused and predictable; high = creative and unpredictable. Keep it near the middle.</dd></div>
+    <div class="gterm"><dt>Token</dt><dd>The word-pieces a model reads and writes. Long conversations cost more of them — which is why concise is a design choice, not just a style.</dd></div>
+    <div class="gterm"><dt>Hallucination</dt><dd>When the model states something false with total confidence. The reason the human stays in the driver's seat.</dd></div>
+    <div class="gterm"><dt>Grounding</dt><dd>Tying the bot's answers to source material it's allowed to trust, instead of its own memory.</dd></div>
+    <div class="gterm"><dt>Guardrail</dt><dd>Anything that stops the bot doing harm — a prompt rule, a code gate, a filter, a human in the loop.</dd></div>
+    <div class="gterm"><dt>Red team</dt><dd>Attacking your own bot on purpose to find what breaks, before a real user finds it by accident.<span class="also">Day 9 · Crash Test</span></dd></div>
+    <div class="gterm"><dt>Crash Test</dt><dd>The camp's structured red-team session: log what you typed, what it said, and which line broke.</dd></div>
+    <div class="gterm"><dt>PII</dt><dd>Personally identifiable information — real names, addresses, account or card numbers. Never typed into an AI, ever.</dd></div>
+    <div class="gterm"><dt>Studio &amp; Pod</dt><dd>Your Studio is your country team on its client; your Pod is your small build team inside it. Roles rotate Mondays.</dd></div>
+    <div class="gterm"><dt>Demonstration client</dt><dd>FestPass ECCU Ltd. — fictional, shared by every Studio. The flight simulator you learn on before touching the real client's controls.</dd></div>
+    <div class="gterm"><dt>MVP</dt><dd>Minimum viable product — the smallest version that genuinely works. What ships at the end of Week 4.</dd></div>
+  </dl>
+  <p class="gnone" id="gnone">No match — try a shorter word, or ask a facilitator to add the term.</p>
+</section>
+
+<!-- 09 SHELF -->
+<section id="shelf">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow"><span class="dot"></span>09 · Where things live</div>
+      <h2>The rest of the camp, in five doors.</h2>
+    </div>
+    <p class="d">This wiki holds the concepts. Everything with a file attached lives in the Repository, everything with a deadline lives in Classroom, and everything from previous years lives in Past Camps.</p>
+  </div>
+  <div class="lgrid">
+    <a class="lcard" href="/#repository"><span class="k">On this site</span><span class="t">The Repository</span><span class="d">Every deck, workbook, template, notebook and guide — split into a Camper Shelf and a Facilitator Shelf.</span><span class="go">Open the shelves →</span></a>
+    <a class="lcard" href="/#clients"><span class="k">On this site</span><span class="t">The Client Board</span><span class="d">FestPass plus ten real ECCU clients, each with a brief and a teen explainer deck.</span><span class="go">Meet the clients →</span></a>
+    <a class="lcard" href="/#toolbox"><span class="k">On this site</span><span class="t">The Toolbox</span><span class="d">Every tool the camp uses, by week — including the open-model and security tiers.</span><span class="go">Open the toolbox →</span></a>
+    <a class="lcard" href="/gallery"><span class="k">On this site</span><span class="t">The Gallery</span><span class="d">Photos and video from this camp and the showcases that came before it.</span><span class="go">See the camp →</span></a>
+    <a class="lcard" href="https://eccugenai.notion.site/2025?v=487a6324043e4c0686dd043097bd09d5" target="_blank" rel="noopener"><span class="k">External</span><span class="t">2025 Camp Wiki (Notion)</span><span class="d">Last year's wiki, kept as-is for reference and for the alumni who built it.</span><span class="go">Open in Notion ↗</span></a>
+    <a class="lcard" href="https://enoete.github.io/eccucamp26_masterhub" target="_blank" rel="noopener"><span class="k">External</span><span class="t">Level 2 · Multimedia Edition</span><span class="d">The parallel camp for returning 2025 campers, with its own client roster.</span><span class="go">Open Level 2 ↗</span></a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="mark">ECCU Camp 2026</div>
+        <p class="desc">Generative AI &amp; Python Summer Camp. Level 1 · Chat-bot Edition, running alongside Level 2 · Multimedia. Built around one rule: the bot is the GPS, the human is the driver.</p>
+      </div>
+      <div>
+        <h5>Camp</h5>
+        <ul>
+          <li><a href="/#curriculum">Curriculum</a></li>
+          <li><a href="/#clients">The Client Board</a></li>
+          <li><a href="/#toolbox">The Toolbox</a></li>
+          <li><a href="/#repository">Repository</a></li>
+          <li><a href="/#past-camps">Past Camps</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>This page</h5>
+        <ul>
+          <li><a href="#rule">The Central Rule</a></li>
+          <li><a href="#art">The Three Axes</a></li>
+          <li><a href="#tcrdei">TCRDEI</a></li>
+          <li><a href="#glossary">Glossary</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-strip">
+      <div>© 2026 ECCU Generative AI &amp; Python Summer Camp</div>
+      <div>Funded by the ECCB and the Republic of China (Taiwan)</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var input = document.getElementById('gsearch');
+    var terms = Array.prototype.slice.call(document.querySelectorAll('#glos .gterm'));
+    var none = document.getElementById('gnone');
+    input.addEventListener('input', function(){
+      var q = input.value.trim().toLowerCase();
+      var shown = 0;
+      terms.forEach(function(t){
+        var hit = !q || t.textContent.toLowerCase().indexOf(q) !== -1;
+        t.style.display = hit ? '' : 'none';
+        if (hit) shown++;
+      });
+      none.style.display = shown ? 'none' : 'block';
+    });
+  })();
+</script>
+</body>
+</html>
