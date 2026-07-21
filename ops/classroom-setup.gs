@@ -790,6 +790,117 @@ function postAIStudioGuide() {
   Logger.log('AI Studio guide done.');
 }
 
+/**
+ * DAY 7 (Tue 21 Jul) — posts the day's camper materials AND tonight's pod
+ * homework under Week 2 in all four classes.
+ *   Material   : Day 7 Participant Workbook + Day 7 Data Challenge Sheet
+ *   Assignment : 'Give Your Bot a Soul' (HW pack + From Feelings to Voice)
+ *                due Wed 22 Jul, 8:30 AM AST = 12:30 UTC
+ * Both carry the copy-and-rename instruction. Re-run safe.
+ */
+var DAY7 = {
+  workbook:   '1cMaylsVk77ye563i8LTpem8zHIeznjFFUiMqVFNg6bo',
+  challenge:  '1IpdOauf_I8wWdqPDNlvXcWpfk0A3UkqXtCQvtXY9c0E',
+  hwPack:     '1xEmbaGIEQoxfzc83KZ7rKNV2Fb-9-79NXvJGVUttNs4',
+  supplement: '1phsArZTcd-fOaQrI9Rz0d1W0GHD-Hg74da_Ugh8fiR8'
+};
+
+var COPY_RENAME = 'FIRST, BEFORE YOU TYPE ANYTHING: open the file, then File \u2192 Make a copy, '
+  + 'and rename your copy by adding your client and pod \u2014 for example '
+  + '"Day 7 Workbook \u2014 ASPIRE \u2014 Pod 6". Work in YOUR copy, never in the original: '
+  + 'the original is read-only for everyone, and an unnamed copy is a copy nobody can mark.';
+
+function postDay7() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+
+  var matTitle = 'Day 7 \u00b7 Workbook & Data Challenge Sheet';
+  var matDesc = 'Today\'s two write-in files for Prompt Engineering.\n\n'
+    + COPY_RENAME + '\n\n'
+    + '\u2022 Day 7 Participant Workbook \u2014 your write-in companion for the day.\n'
+    + '\u2022 Day 7 Data Challenge Sheet \u2014 the challenge you work through with your pod.';
+
+  var hwTitle = 'Day 7 Pod Homework \u00b7 Give Your Bot a Soul';
+  var hwDesc = 'GROUP HOMEWORK \u2014 one submission per pod. Due 8:30 AM tomorrow, '
+    + 'before the morning block. Quest 7b "Voice Engineer" unlocks when you turn it in.\n\n'
+    + COPY_RENAME + '\n\n'
+    + 'FOUR MISSIONS:\n'
+    + '1. WHO IS OUR BOT \u2014 name, role, three voice words, red lines, catchphrase. '
+    + 'Give it an identity BEFORE you write its prompt.\n'
+    + '2. TWO WORDS YOU NEED TONIGHT \u2014 register (same facts, different voice) and '
+    + 'care-first (one warm sentence BEFORE the information). You do NOT write the '
+    + 'care-first line tonight \u2014 we do that together tomorrow.\n'
+    + '3. YOUR MASTER PROMPT \u2014 fill every blank, set it up in Google AI Studio '
+    + '(or Gemini), test it, save it. You may share the link to your prompt.\n'
+    + '4. THREE REGISTER LINES \u2014 pick the three users who matter most to your '
+    + 'client and write the ONE opening line your bot says to each.\n\n'
+    + 'Cheat sheet: the FestPass AI Master System Prompt handout shows a finished one. '
+    + 'Copy the skeleton, never the skin \u2014 every line must come from YOUR client, '
+    + 'YOUR persona, YOUR red lines.\n\n'
+    + 'Stuck on the three voice words? Open "From Feelings to Voice" \u2014 your bot\'s '
+    + 'voice ANSWERS the user\'s feeling, it doesn\'t mirror it. Anxious user, calm bot.\n\n'
+    + 'SUBMIT: attach your copies (workbook / HW pack) or paste your pod\'s links here. '
+    + 'One submission per pod \u2014 make sure your client and pod are in the file name.';
+
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) return;
+
+    var topicId = null;
+    ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
+      if (t.name === 'Week 2') topicId = t.topicId;
+    });
+
+    // ── material: workbook + challenge sheet (sweep old copies first)
+    try {
+      var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
+      ((page && page.courseWorkMaterial) || []).forEach(function (m) {
+        if (m.title && m.title.indexOf('Day 7 \u00b7 Workbook') === 0) {
+          Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: material sweep note \u2014 %s', cohort, (e.message || '').slice(0, 60)); }
+
+    createMaterialWithRetry({
+      title: matTitle,
+      description: matDesc,
+      materials: [
+        { driveFile: { driveFile: { id: DAY7.workbook }, shareMode: 'VIEW' } },
+        { driveFile: { driveFile: { id: DAY7.challenge }, shareMode: 'VIEW' } }
+      ],
+      topicId: topicId || undefined,
+      state: 'PUBLISHED'
+    }, course.id, matTitle);
+
+    // ── assignment: tonight's homework (sweep old copies first)
+    try {
+      var cw = Classroom.Courses.CourseWork.list(course.id, { pageSize: 30 });
+      ((cw && cw.courseWork) || []).forEach(function (w) {
+        if (w.title && w.title.indexOf('Day 7 Pod Homework') === 0) {
+          Classroom.Courses.CourseWork.remove(course.id, w.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: homework sweep note \u2014 %s', cohort, (e.message || '').slice(0, 60)); }
+
+    Classroom.Courses.CourseWork.create({
+      title: hwTitle,
+      description: hwDesc,
+      workType: 'ASSIGNMENT',
+      materials: [
+        { driveFile: { driveFile: { id: DAY7.hwPack }, shareMode: 'VIEW' } },
+        { driveFile: { driveFile: { id: DAY7.supplement }, shareMode: 'VIEW' } }
+      ],
+      topicId: topicId || undefined,
+      state: 'PUBLISHED',
+      dueDate: { year: 2026, month: 7, day: 22 },
+      dueTime: { hours: 12, minutes: 30 }   // 8:30 AM AST (UTC-4) = 12:30 UTC \u00b7 Wed 22 Jul
+    }, course.id);
+
+    Logger.log('%s: Day 7 materials + homework posted', cohort);
+  });
+  Logger.log('Day 7 done.');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
