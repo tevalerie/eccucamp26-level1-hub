@@ -901,6 +901,153 @@ function postDay7() {
   Logger.log('Day 7 done.');
 }
 
+/**
+ * DAY 8 (Wed 22 Jul) — camper materials + the workbook turn-in.
+ *   Assignment : Day 8 Participant Workbook, due Thu 23 Jul 10:30 AM AST
+ *                (14:30 UTC) — EVERY camper submits their own copy.
+ *   Week 2     : Client Showcase Checklist
+ *   New topic  : 'AI Studio · Chatbot Build' — territory worksheet, the
+ *                data/research supplement, and the JSON sprint lifesaver.
+ * The facilitator lesson plan is NOT posted here (website, facilitator
+ * shelf only). Re-run safe.
+ */
+var DAY8 = {
+  workbook:   '12s4ovuH23OOIqunoBSAqn9Jagl82-T2GS1DUd5O_qmc',
+  checklist:  '1I2QHbepqLWSRd6Xc49_86Zr3BhOGs9IE_U2GxKHowNc',
+  territory:  '1lZ3ZWu4bxinRcYMqj2xna8yYuPPXk5wTxmj55AMt8eI',
+  getData:    '1lzGX9w7H8zlFHXUi1O1-F0Rterl-WXwDp205xvYwiTc',
+  jsonRescue: '1pSIMphMs01T4B8UJ0oHTj5JsgzKVMpurp815ZUrwWpc'
+};
+
+var BUILD_TOPIC = 'AI Studio \u00b7 Chatbot Build';
+
+/** Finds a topic by name in a course, creating it if it isn't there yet. */
+function topicId(courseId, name) {
+  var found = null;
+  ((Classroom.Courses.Topics.list(courseId).topic) || []).forEach(function (t) {
+    if (t.name === name) found = t.topicId;
+  });
+  if (found) return found;
+  try {
+    return Classroom.Courses.Topics.create({ name: name }, courseId).topicId;
+  } catch (e) {
+    Logger.log('topic "%s" create failed — %s', name, (e.message || '').slice(0, 60));
+    return null;
+  }
+}
+
+function postDay8() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+
+  var hwTitle = 'Day 8 \u00b7 Participant Workbook (turn in)';
+  var hwDesc = 'INDIVIDUAL SUBMISSION \u2014 every camper turns in their OWN workbook. '
+    + 'Your answers feed your pod\'s build, but each of you submits separately.\n'
+    + 'Due Thursday 23 July, 10:30 AM.\n\n'
+    + COPY_RENAME.replace('Day 7 Workbook', 'Day 8 Workbook') + '\n\n'
+    + 'Work through it during the day, finish anything outstanding tonight, and '
+    + 'turn it in here before 10:30 AM Thursday \u2014 that is right before the '
+    + 'client showcase, so what you write today is what your pod walks in with.';
+
+  var checklistTitle = 'Day 8 \u00b7 Client Showcase Checklist';
+  var checklistDesc = 'Six things, built across Days 6\u20138 \u2014 tick every one BEFORE you '
+    + 'face the client: the bot running live \u00b7 your data story \u00b7 who your bot is \u00b7 '
+    + 'what it will NEVER do \u00b7 how it adapts to people and places \u00b7 what you need from '
+    + 'THEM.\n\n' + COPY_RENAME.replace('Day 7 Workbook \u2014 ASPIRE \u2014 Pod 6', 'Showcase Checklist \u2014 ASPIRE \u2014 Pod 6') + '\n\n'
+    + 'Plan your questions \u2014 don\'t wing it. The Build Captain drives the live demo; '
+    + 'the Client Voice asks the ONE feedback question and writes the answer down '
+    + 'word-for-word. And remember: "We don\'t know yet \u2014 here\'s how we\'ll find out" '
+    + 'is a great answer.';
+
+  var buildMats = [
+    { id: DAY8.territory,
+      title: 'Territory Parameters Worksheet \u2014 teach your bot the map',
+      desc: 'Different island, different rules. Take it from idea \u2192 to a table \u2192 to a '
+        + 'working Python dictionary (TERRITORY_PARAMS). Fill in what you KNOW; flag what you '
+        + 'don\'t with [Confirm with client] \u2014 every one of those flags is a question for '
+        + 'Thursday\'s interview.\n\nTHE GOLDEN RULE: if the territory is unknown or doesn\'t '
+        + 'match, the bot ASKS. It never guesses someone onto the wrong island.\n\n' + COPY_RENAME },
+    { id: DAY8.getData,
+      title: 'Feed Your Bot \u2014 get more data & research your client',
+      desc: 'A bot is only as good as the data behind it: empty in, nonsense out. Three honest '
+        + 'ways to get data \u2014 ASK the client (a question so specific they can answer it in '
+        + 'one line) \u00b7 FIND it in open/public data (and always cite the source) \u00b7 MAKE '
+        + 'it safely as clearly-labelled [example data] for testing only.\n\nThe forbidden move: '
+        + 'never invent a real rule or a real person. A rule with no source is just a rumour.\n\n'
+        + 'Use it to draft your data-ask before the client check-in.' },
+    { id: DAY8.jsonRescue,
+      title: 'Sprint Lifesaver \u2014 JSON in 60 seconds',
+      desc: 'Stuck in the sprint or the afternoon build? Read this and unblock yourself.\n\n'
+        + 'JSON is a Python dictionary wearing a fake moustache \u2014 it LOOKS like a dict but '
+        + 'it is really text. The only two lines you need: import json, then '
+        + 'data = json.loads(response_text). Plus quick fixes for the three errors you will '
+        + 'actually hit: JSONDecodeError, TypeError, and KeyError.' }
+  ];
+
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) return;
+    var wk2 = topicId(course.id, 'Week 2');
+    var build = topicId(course.id, BUILD_TOPIC);
+
+    // sweep every Day 8 item we own, then repost (safe to re-run)
+    try {
+      var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
+      ((page && page.courseWorkMaterial) || []).forEach(function (m) {
+        if (m.title && (m.title.indexOf('Day 8 \u00b7') === 0
+          || m.title.indexOf('Territory Parameters Worksheet') === 0
+          || m.title.indexOf('Feed Your Bot') === 0
+          || m.title.indexOf('Sprint Lifesaver') === 0)) {
+          Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: sweep note \u2014 %s', cohort, (e.message || '').slice(0, 60)); }
+    try {
+      var cw = Classroom.Courses.CourseWork.list(course.id, { pageSize: 30 });
+      ((cw && cw.courseWork) || []).forEach(function (w) {
+        if (w.title && w.title.indexOf('Day 8 \u00b7 Participant Workbook') === 0) {
+          Classroom.Courses.CourseWork.remove(course.id, w.id);
+        }
+      });
+    } catch (e) {}
+
+    // 1) the workbook, as a turn-in assignment
+    Classroom.Courses.CourseWork.create({
+      title: hwTitle,
+      description: hwDesc,
+      workType: 'ASSIGNMENT',
+      materials: [{ driveFile: { driveFile: { id: DAY8.workbook }, shareMode: 'VIEW' } }],
+      topicId: wk2 || undefined,
+      state: 'PUBLISHED',
+      dueDate: { year: 2026, month: 7, day: 23 },
+      dueTime: { hours: 14, minutes: 30 }   // 10:30 AM AST (UTC-4) = 14:30 UTC \u00b7 Thu 23 Jul
+    }, course.id);
+
+    // 2) showcase checklist under Week 2
+    createMaterialWithRetry({
+      title: checklistTitle,
+      description: checklistDesc,
+      materials: [{ driveFile: { driveFile: { id: DAY8.checklist }, shareMode: 'VIEW' } }],
+      topicId: wk2 || undefined,
+      state: 'PUBLISHED'
+    }, course.id, checklistTitle);
+
+    // 3) the three build tools under 'AI Studio · Chatbot Build'
+    buildMats.forEach(function (m) {
+      createMaterialWithRetry({
+        title: m.title,
+        description: m.desc,
+        materials: [{ driveFile: { driveFile: { id: m.id }, shareMode: 'VIEW' } }],
+        topicId: build || undefined,
+        state: 'PUBLISHED'
+      }, course.id, m.title);
+    });
+
+    Logger.log('%s: Day 8 posted (workbook assignment + checklist + 3 build tools)', cohort);
+  });
+  Logger.log('Day 8 done.');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
