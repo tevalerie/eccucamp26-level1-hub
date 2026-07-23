@@ -1070,8 +1070,9 @@ function postDay8() {
  * Re-run safe.
  */
 var DAY9 = {
-  ipynb: '1FsecRAgu_aEL_cfXVhEw9fQLMTtFbG8a',   // Day9_Interactive_QA_CrashTest.ipynb
-  py:    '1Wx-PluF2DxS-OLAjVV6LVhhwogN8cbVn'    // Day9_Interactive_QA_CrashTest.py
+  ipynb:    '1FsecRAgu_aEL_cfXVhEw9fQLMTtFbG8a',   // Day9_Interactive_QA_CrashTest.ipynb
+  py:       '1Wx-PluF2DxS-OLAjVV6LVhhwogN8cbVn',   // Day9_Interactive_QA_CrashTest.py
+  deepnote: 'https://deepnote.com/workspace/2026-GEN-AI-CAMP-74429897-e60c-42c1-ace8-95e21e316d45/project/WEEK-2GEN-AI-d81ce0d9-122d-4802-b62f-8b0e24c1b301/notebook/Day9InteractiveQACrashTest-d67775dcb2fa41de859c988ff0d5c387'
 };
 
 function postDay9() {
@@ -1079,10 +1080,11 @@ function postDay9() {
   var courses = res.courses || [];
   var matTitle = 'DAY 09 FILES';
   var matDesc = 'Day 9 · Quality Assurance & the Crash Test. Break your own bot on purpose, log every bug, hand the client a paper trail.\n\n'
-    + 'Two files attached:\n'
-    + '  • Day9_Interactive_QA_CrashTest.ipynb — the notebook (import into Deepnote): sortable bug-log table + a widget for logging bugs live during the session.\n'
-    + '  • Day9_Interactive_QA_CrashTest.py — the script version (runs top-to-bottom as-is).\n\n'
-    + 'Both files: File → Make a copy (rename it with YOUR CLIENT and pod), then run the crash test. Your Product Owner exports bug_log_day9.csv for the client showcase on Day 10.\n\n'
+    + 'START HERE — open the live Deepnote notebook (already imported for you): the link below opens straight into the WEEK 2 GEN AI project. Run the cells top to bottom.\n\n'
+    + 'Backups (Drive):\n'
+    + '  • Day9_Interactive_QA_CrashTest.ipynb — same notebook, if you need to re-import\n'
+    + '  • Day9_Interactive_QA_CrashTest.py — script version, runs top-to-bottom as-is\n\n'
+    + 'For the Drive files: File → Make a copy, rename it with YOUR CLIENT and pod, then run the crash test. Your Product Owner exports bug_log_day9.csv for the client showcase on Day 10.\n\n'
     + 'Bug-hunter’s rule: the bugs you find in this room are the bugs your client never sees.';
   COHORTS.forEach(function (cohort) {
     var course = findCourse(courses, cohort);
@@ -1103,6 +1105,7 @@ function postDay9() {
       title: matTitle,
       description: matDesc,
       materials: [
+        { link: { url: DAY9.deepnote, title: 'Day 9 · Crash Test — open in Deepnote (WEEK 2 GEN AI)' } },
         { driveFile: { driveFile: { id: DAY9.ipynb }, shareMode: 'VIEW' } },
         { driveFile: { driveFile: { id: DAY9.py    }, shareMode: 'VIEW' } }
       ],
