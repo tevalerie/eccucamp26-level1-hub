@@ -1078,17 +1078,20 @@ var DAY9 = {
 function postDay9() {
   var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
   var courses = res.courses || [];
-  var matTitle = 'DAY 09 FILES';
-  var matDesc = 'Day 9 · Quality Assurance & the Crash Test. Break your own bot on purpose, log every bug, hand the client a paper trail.\n\n'
-    + 'START HERE — open the live Deepnote notebook (already imported for you): the link below opens straight into the WEEK 2 GEN AI project. Run the cells top to bottom.\n\n'
-    + 'Backups (Drive):\n'
-    + '  • Day9_Interactive_QA_CrashTest.ipynb — same notebook, if you need to re-import\n'
-    + '  • Day9_Interactive_QA_CrashTest.py — script version, runs top-to-bottom as-is\n\n'
-    + 'For the Drive files: File → Make a copy, rename it with YOUR CLIENT and pod, then run the crash test. Your Product Owner exports bug_log_day9.csv for the client showcase on Day 10.\n\n'
+  var asgTitle = 'DAY 09 FILES';
+  var asgDesc = 'Day 9 · Quality Assurance & the Crash Test. Break your own bot on purpose, log every bug, hand the client a paper trail.\n\n'
+    + 'HOW YOUR COPY WORKS\n'
+    + 'Classroom has already made you your OWN copy of the notebook — it is named for you and sitting under the assignment. No copy-and-rename needed. Just open your copy and work in it.\n\n'
+    + 'PRIMARY: open the live Deepnote notebook (link below) — everyone runs the same code, but each of you sees your own execution state. Work through the crash test cell by cell.\n\n'
+    + 'YOUR PERSONAL COPY (attached above): the same notebook, filed to your Drive so you have a private working copy to annotate. Download it if you want to run it offline.\n\n'
+    + 'SCRIPT VERSION (also attached, view-only): runs top-to-bottom as-is if you prefer the .py file.\n\n'
+    + 'TURN IN\n'
+    + 'When your team has caught bugs across all four axes and your Product Owner has bug_log_day9.csv, come back here and Turn In. Attach the CSV, or paste the Deepnote link into a private comment — whichever your facilitator asks for.\n\n'
     + 'Bug-hunter’s rule: the bugs you find in this room are the bugs your client never sees.';
   COHORTS.forEach(function (cohort) {
     var course = findCourse(courses, cohort);
     if (!course) return;
+    // sweep any previous DAY 09 FILES posts (material OR assignment) — safe to re-run
     try {
       var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
       ((page && page.courseWorkMaterial) || []).forEach(function (m) {
@@ -1096,23 +1099,33 @@ function postDay9() {
           Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
         }
       });
-    } catch (e) { Logger.log('%s: Day 9 sweep note — %s', cohort, (e.message || '').slice(0, 60)); }
+    } catch (e) { Logger.log('%s: Day 9 material sweep — %s', cohort, (e.message || '').slice(0, 60)); }
+    try {
+      var cw = Classroom.Courses.CourseWork.list(course.id, { pageSize: 30 });
+      ((cw && cw.courseWork) || []).forEach(function (w) {
+        if (w.title && w.title.indexOf('DAY 09 FILES') === 0) {
+          Classroom.Courses.CourseWork.remove(course.id, w.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: Day 9 assignment sweep — %s', cohort, (e.message || '').slice(0, 60)); }
     var topicId_ = null;
     ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
       if (t.name === 'Week 2') topicId_ = t.topicId;
     });
-    createMaterialWithRetry({
-      title: matTitle,
-      description: matDesc,
+    Classroom.Courses.CourseWork.create({
+      title: asgTitle,
+      description: asgDesc,
+      workType: 'ASSIGNMENT',
       materials: [
-        { link: { url: DAY9.deepnote, title: 'Day 9 · Crash Test — open in Deepnote (WEEK 2 GEN AI)' } },
-        { driveFile: { driveFile: { id: DAY9.ipynb }, shareMode: 'VIEW' } },
+        // per-student auto-named copy: Classroom names it '<Student Name> - Day9_Interactive_QA_CrashTest'
+        { driveFile: { driveFile: { id: DAY9.ipynb }, shareMode: 'STUDENT_COPY' } },
+        { link:      { url: DAY9.deepnote, title: 'Day 9 · Crash Test — open in Deepnote (WEEK 2 GEN AI)' } },
         { driveFile: { driveFile: { id: DAY9.py    }, shareMode: 'VIEW' } }
       ],
       topicId: topicId_ || undefined,
       state: 'PUBLISHED'
-    }, course.id, matTitle);
-    Logger.log('%s: DAY 09 FILES posted', cohort);
+    }, course.id);
+    Logger.log('%s: DAY 09 FILES assignment posted (STUDENT_COPY)', cohort);
   });
   Logger.log('Day 9 done.');
 }
