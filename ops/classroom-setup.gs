@@ -1156,9 +1156,9 @@ function postDay10() {
     + '  • 🏆 THE GOLDEN RECORD (St ...): the FestPass reference — the shape and quality bar to aim for.\n'
     + '  • 🚨 RAW FILE START: SKMF-TXT-DUMP_2026: the raw source material to practice extracting hard facts from.\n\n'
     + 'THE GOLDEN RULE\n'
-    + 'Every fact carries a source link and a last-verified date. No source, no ship. Don\\'t know it → [Confirm with client]. Faked for testing → [example data]. A bot with no real information is just a confident guesser.\n\n'
+    + 'Every fact carries a source link and a last-verified date. No source, no ship. Don\'t know it → [Confirm with client]. Faked for testing → [example data]. A bot with no real information is just a confident guesser.\n\n'
     + 'TURN IN\n'
-    + 'When your pod has completed the workbook and has a build-ready PRD + brand + build prompt, come back here and Turn In your copy. Your Product Owner keeps the Golden Record as the pod\\'s single source of truth into Week 3.';
+    + 'When your pod has completed the workbook and has a build-ready PRD + brand + build prompt, come back here and Turn In your copy. Your Product Owner keeps the Golden Record as the pod\'s single source of truth into Week 3.';
   COHORTS.forEach(function (cohort) {
     var course = findCourse(courses, cohort);
     if (!course) return;
