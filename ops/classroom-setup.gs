@@ -1138,10 +1138,13 @@ function postDay9() {
  * Re-run safe: sweeps any previous DAY 10 FILES material or assignment first.
  */
 var DAY10 = {
-  workbook: '15pggZwe9rbN-jtsNiAqusYb7xZmwPQCSdKyuQUvk3TU',   // Day10_Pod_Workbook_STUDENT
-  examples: '1JWHavG2be4sBg-MOm7iP_g-gTMAT7SxU7hG6TfezMvU',   // Day10_Golden_Record_Worked_Examples_ALL_CLIENTS
-  golden:   '1iR0MKWRGYdDq4k7pSh4BBI0Lr2-dFDl2X4rv6U7CdAo',   // THE GOLDEN RECORD: St ...
-  rawDump:  '17mjA4Q_qPFzzpcvBnoSCdyR2UL7yOxBxzL6hnWSDGBM'    // RAW FILE START: SKMF-TXT-DUMP_2026
+  workbook:      '15pggZwe9rbN-jtsNiAqusYb7xZmwPQCSdKyuQUvk3TU',   // Day10_Pod_Workbook_STUDENT
+  examples:      '1JWHavG2be4sBg-MOm7iP_g-gTMAT7SxU7hG6TfezMvU',   // Day10_Golden_Record_Worked_Examples_ALL_CLIENTS
+  golden:        '1iR0MKWRGYdDq4k7pSh4BBI0Lr2-dFDl2X4rv6U7CdAo',   // THE GOLDEN RECORD: St ...
+  rawDump:       '17mjA4Q_qPFzzpcvBnoSCdyR2UL7yOxBxzL6hnWSDGBM',   // RAW FILE START: SKMF-TXT-DUMP_2026
+  flyer:         '15FSsSvtNSCAS4dK09_JANAuKA2SOP0Xq',              // SKN Music Festival flyer (jpeg)
+  bucketMenu:    '1VU9S_PTgAMsViA-OF0UsEbDjz2gx7rs6',              // Day10_Bucket_Menu_SLIDE.pdf
+  promptLibrary: '1KobXxuyZdEMdG7eYTqvEEMOXd-f53UVNb1GQUrOQGZg'    // Day10_Research_Prompt_Library (GDoc)
 };
 
 function postDay10() {
@@ -1151,10 +1154,13 @@ function postDay10() {
   var asgDesc = 'Day 10 · Feed the Bot with Real Data + Vibe-Code Your Front End.\n\n'
     + 'YOUR OWN COPY OF THE POD WORKBOOK\n'
     + 'Classroom has already made you your OWN copy of the workbook, named for you and sitting under this assignment. No copy-and-rename step. Just open your copy and work in it as your pod moves through the morning: Hit List → Flyer Decoder → Mirror Protocol → Empty-Chair → Golden Record → PRD + brand + build prompt.\n\n'
-    + 'REFERENCE DOCS (view-only, attached below)\n'
+    + 'REFERENCE DOCS (open and view — no copying, no signing in extra times, just tap and read)\n'
     + '  • Golden Record — Worked Examples (ALL CLIENTS): what a good Record looks like for every Studio.\n'
     + '  • 🏆 THE GOLDEN RECORD (St ...): the FestPass reference — the shape and quality bar to aim for.\n'
-    + '  • 🚨 RAW FILE START: SKMF-TXT-DUMP_2026: the raw source material to practice extracting hard facts from.\n\n'
+    + '  • 🚨 RAW FILE START: SKMF-TXT-DUMP_2026: the raw source material to practise extracting hard facts from.\n'
+    + '  • St. Kitts & Nevis Music Festival — Ticket Outlets flyer (jpeg): the messy real-world flyer for the Flyer Decoder exercise.\n'
+    + '  • Day 10 · Bucket Menu SLIDE (pdf): the four Golden Record buckets — Logistics · Money · Rules · Safety — at a glance.\n'
+    + '  • Day 10 · Research Prompt Library: ready-to-run Deep-Research prompt templates. Copy the shape, fill in YOUR client.\n\n'
     + 'THE GOLDEN RULE\n'
     + 'Every fact carries a source link and a last-verified date. No source, no ship. Don\'t know it → [Confirm with client]. Faked for testing → [example data]. A bot with no real information is just a confident guesser.\n\n'
     + 'TURN IN\n'
@@ -1189,10 +1195,13 @@ function postDay10() {
       workType: 'ASSIGNMENT',
       materials: [
         // per-student auto-named copy: Classroom names it '<Student Name> - Day10_Pod_Workbook_STUDENT'
-        { driveFile: { driveFile: { id: DAY10.workbook }, shareMode: 'STUDENT_COPY' } },
-        { driveFile: { driveFile: { id: DAY10.examples }, shareMode: 'VIEW' } },
-        { driveFile: { driveFile: { id: DAY10.golden   }, shareMode: 'VIEW' } },
-        { driveFile: { driveFile: { id: DAY10.rawDump  }, shareMode: 'VIEW' } }
+        { driveFile: { driveFile: { id: DAY10.workbook      }, shareMode: 'STUDENT_COPY' } },
+        { driveFile: { driveFile: { id: DAY10.examples      }, shareMode: 'VIEW' } },
+        { driveFile: { driveFile: { id: DAY10.golden        }, shareMode: 'VIEW' } },
+        { driveFile: { driveFile: { id: DAY10.rawDump       }, shareMode: 'VIEW' } },
+        { driveFile: { driveFile: { id: DAY10.flyer         }, shareMode: 'VIEW' } },
+        { driveFile: { driveFile: { id: DAY10.bucketMenu    }, shareMode: 'VIEW' } },
+        { driveFile: { driveFile: { id: DAY10.promptLibrary }, shareMode: 'VIEW' } }
       ],
       topicId: topicId_ || undefined,
       state: 'PUBLISHED'
