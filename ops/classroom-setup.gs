@@ -1144,7 +1144,8 @@ var DAY10 = {
   rawDump:       '17mjA4Q_qPFzzpcvBnoSCdyR2UL7yOxBxzL6hnWSDGBM',   // RAW FILE START: SKMF-TXT-DUMP_2026
   flyer:         '15FSsSvtNSCAS4dK09_JANAuKA2SOP0Xq',              // SKN Music Festival flyer (jpeg)
   bucketMenu:    '1VU9S_PTgAMsViA-OF0UsEbDjz2gx7rs6',              // Day10_Bucket_Menu_SLIDE.pdf
-  promptLibrary: '1KobXxuyZdEMdG7eYTqvEEMOXd-f53UVNb1GQUrOQGZg'    // Day10_Research_Prompt_Library (GDoc)
+  promptLibrary: '1KobXxuyZdEMdG7eYTqvEEMOXd-f53UVNb1GQUrOQGZg',   // Day10_Research_Prompt_Library (GDoc)
+  drSample:      '1a3ln9qDld8x_wLpV12XmIaENNw69vGb2tR-1cqNWUks'    // FestPass St. Kitts Entry Rules — Gemini Deep-Research sample output
 };
 
 function postDay10() {
@@ -1160,7 +1161,8 @@ function postDay10() {
     + '  • 🚨 RAW FILE START: SKMF-TXT-DUMP_2026: the raw source material to practise extracting hard facts from.\n'
     + '  • St. Kitts & Nevis Music Festival — Ticket Outlets flyer (jpeg): the messy real-world flyer for the Flyer Decoder exercise.\n'
     + '  • Day 10 · Bucket Menu SLIDE (pdf): the four Golden Record buckets — Logistics · Money · Rules · Safety — at a glance.\n'
-    + '  • Day 10 · Research Prompt Library: ready-to-run Deep-Research prompt templates. Copy the shape, fill in YOUR client.\n\n'
+    + '  • Day 10 · Research Prompt Library: ready-to-run Deep-Research prompt templates. Copy the shape, fill in YOUR client.\n'
+    + '  • FestPass · St. Kitts Entry Rules — a real Gemini Deep-Research output. See what a good, sourced answer looks like: cited claims, every fact traceable to a link. Aim for THIS shape.\n\n'
     + 'THE GOLDEN RULE\n'
     + 'Every fact carries a source link and a last-verified date. No source, no ship. Don\'t know it → [Confirm with client]. Faked for testing → [example data]. A bot with no real information is just a confident guesser.\n\n'
     + 'TURN IN\n'
@@ -1201,7 +1203,8 @@ function postDay10() {
         { driveFile: { driveFile: { id: DAY10.rawDump       }, shareMode: 'VIEW' } },
         { driveFile: { driveFile: { id: DAY10.flyer         }, shareMode: 'VIEW' } },
         { driveFile: { driveFile: { id: DAY10.bucketMenu    }, shareMode: 'VIEW' } },
-        { driveFile: { driveFile: { id: DAY10.promptLibrary }, shareMode: 'VIEW' } }
+        { driveFile: { driveFile: { id: DAY10.promptLibrary }, shareMode: 'VIEW' } },
+        { driveFile: { driveFile: { id: DAY10.drSample      }, shareMode: 'VIEW' } }
       ],
       topicId: topicId_ || undefined,
       state: 'PUBLISHED'
