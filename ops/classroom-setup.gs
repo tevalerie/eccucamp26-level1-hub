@@ -1130,6 +1130,78 @@ function postDay9() {
   Logger.log('Day 9 done.');
 }
 
+/**
+ * DAY 10 (Fri 24 Jul) — Feed the Bot / Vibe-Code Day.
+ * Posts 'DAY 10 FILES' under Week 2 in every class, as an assignment with
+ * the Pod Workbook set to STUDENT_COPY (per-camper auto-named copy —
+ * no manual copy-and-rename) plus three view-only reference docs.
+ * Re-run safe: sweeps any previous DAY 10 FILES material or assignment first.
+ */
+var DAY10 = {
+  workbook: '15pggZwe9rbN-jtsNiAqusYb7xZmwPQCSdKyuQUvk3TU',   // Day10_Pod_Workbook_STUDENT
+  examples: '1JWHavG2be4sBg-MOm7iP_g-gTMAT7SxU7hG6TfezMvU',   // Day10_Golden_Record_Worked_Examples_ALL_CLIENTS
+  golden:   '1iR0MKWRGYdDq4k7pSh4BBI0Lr2-dFDl2X4rv6U7CdAo',   // THE GOLDEN RECORD: St ...
+  rawDump:  '17mjA4Q_qPFzzpcvBnoSCdyR2UL7yOxBxzL6hnWSDGBM'    // RAW FILE START: SKMF-TXT-DUMP_2026
+};
+
+function postDay10() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+  var asgTitle = 'DAY 10 FILES';
+  var asgDesc = 'Day 10 · Feed the Bot with Real Data + Vibe-Code Your Front End.\n\n'
+    + 'YOUR OWN COPY OF THE POD WORKBOOK\n'
+    + 'Classroom has already made you your OWN copy of the workbook, named for you and sitting under this assignment. No copy-and-rename step. Just open your copy and work in it as your pod moves through the morning: Hit List → Flyer Decoder → Mirror Protocol → Empty-Chair → Golden Record → PRD + brand + build prompt.\n\n'
+    + 'REFERENCE DOCS (view-only, attached below)\n'
+    + '  • Golden Record — Worked Examples (ALL CLIENTS): what a good Record looks like for every Studio.\n'
+    + '  • 🏆 THE GOLDEN RECORD (St ...): the FestPass reference — the shape and quality bar to aim for.\n'
+    + '  • 🚨 RAW FILE START: SKMF-TXT-DUMP_2026: the raw source material to practice extracting hard facts from.\n\n'
+    + 'THE GOLDEN RULE\n'
+    + 'Every fact carries a source link and a last-verified date. No source, no ship. Don\\'t know it → [Confirm with client]. Faked for testing → [example data]. A bot with no real information is just a confident guesser.\n\n'
+    + 'TURN IN\n'
+    + 'When your pod has completed the workbook and has a build-ready PRD + brand + build prompt, come back here and Turn In your copy. Your Product Owner keeps the Golden Record as the pod\\'s single source of truth into Week 3.';
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) return;
+    // sweep any previous DAY 10 FILES (material OR assignment) — safe to re-run
+    try {
+      var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
+      ((page && page.courseWorkMaterial) || []).forEach(function (m) {
+        if (m.title && m.title.indexOf('DAY 10 FILES') === 0) {
+          Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: Day 10 material sweep — %s', cohort, (e.message || '').slice(0, 60)); }
+    try {
+      var cw = Classroom.Courses.CourseWork.list(course.id, { pageSize: 30 });
+      ((cw && cw.courseWork) || []).forEach(function (w) {
+        if (w.title && w.title.indexOf('DAY 10 FILES') === 0) {
+          Classroom.Courses.CourseWork.remove(course.id, w.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: Day 10 assignment sweep — %s', cohort, (e.message || '').slice(0, 60)); }
+    var topicId_ = null;
+    ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
+      if (t.name === 'Week 2') topicId_ = t.topicId;
+    });
+    Classroom.Courses.CourseWork.create({
+      title: asgTitle,
+      description: asgDesc,
+      workType: 'ASSIGNMENT',
+      materials: [
+        // per-student auto-named copy: Classroom names it '<Student Name> - Day10_Pod_Workbook_STUDENT'
+        { driveFile: { driveFile: { id: DAY10.workbook }, shareMode: 'STUDENT_COPY' } },
+        { driveFile: { driveFile: { id: DAY10.examples }, shareMode: 'VIEW' } },
+        { driveFile: { driveFile: { id: DAY10.golden   }, shareMode: 'VIEW' } },
+        { driveFile: { driveFile: { id: DAY10.rawDump  }, shareMode: 'VIEW' } }
+      ],
+      topicId: topicId_ || undefined,
+      state: 'PUBLISHED'
+    }, course.id);
+    Logger.log('%s: DAY 10 FILES assignment posted (workbook = STUDENT_COPY + 3 reference docs)', cohort);
+  });
+  Logger.log('Day 10 done.');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
