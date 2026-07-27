@@ -1222,7 +1222,11 @@ function postDay10() {
  * Re-run safe.
  */
 var DAY11 = {
-  vibeCheck: '1A2MHn9BPljwN2bmDgJpY3bPt0hMuu2vFLlPOO4I2CFk'   // Codebase_Vibe_Check_SHEET
+  vibeCheck:      '1A2MHn9BPljwN2bmDgJpY3bPt0hMuu2vFLlPOO4I2CFk',   // Codebase_Vibe_Check_SHEET
+  buildPlaybook:  '10_LIMYNb3tqLRe6-yPdHZ8anherNJUdp',              // The_48hr_BUILD_Playbook_Technical.pdf
+  sprintRoles:    '1B8cTAd19kkMEEe1uTFPwjheYG2v4686p',              // 48hr_Sprint_Day1213_Roles.pdf
+  dataPlaybook:   '1Hq6XJEfFS5ta7wjAiQza0erKmIZqIfl-',              // Chatbot_Data_Architecture_PLAYBOOK.pdf
+  dataWorkbook:   '1IH7OMKjn4McOzICPSF53TwynbrL3ahRxhC53cxh8xy8'    // Chatbot Data Architecture & Workbook (GDoc)
 };
 
 function postDay11() {
@@ -1237,6 +1241,11 @@ function postDay11() {
     + '  3. Everyone contributes into the SAME sheet. The other three copies stay untouched — think of them as spares.\n\n'
     + 'FILL IT IN AS A POD\n'
     + 'Work through the sheet together during the block. Every row is a shared decision, not one camper\'s answer.\n\n'
+    + 'REFERENCE PACK (view-only — open and read, no copying needed)\n'
+    + '  • The 48-Hour BUILD Playbook (technical): sprint rules, roles, hour-by-hour tasks for the 48-hour sprint that opens the wire-up week.\n'
+    + '  • 48hr Sprint · Day 12–13 Roles: the roles and Master Amendment for the sprint proper.\n'
+    + '  • Chatbot Data Architecture — PLAYBOOK: the shape of the data your bot will read from and write to.\n'
+    + '  • Chatbot Data Architecture — Workbook: the write-in companion — read it here; when your pod is ready to work through it, your facilitator will tell you where to work.\n\n'
     + 'TURN IN\n'
     + 'The camper whose copy the pod used comes back here and hits Turn In — that submits the pod\'s working sheet. The other three podmates leave their spare copies untouched (facilitators know to expect one filled + three empties per pod).';
   COHORTS.forEach(function (cohort) {
@@ -1277,7 +1286,11 @@ function postDay11() {
       description: asgDesc,
       workType: 'ASSIGNMENT',
       materials: [
-        { driveFile: { driveFile: { id: DAY11.vibeCheck }, shareMode: 'STUDENT_COPY' } }
+        { driveFile: { driveFile: { id: DAY11.vibeCheck     }, shareMode: 'STUDENT_COPY' } },
+        { driveFile: { driveFile: { id: DAY11.buildPlaybook }, shareMode: 'VIEW' } },
+        { driveFile: { driveFile: { id: DAY11.sprintRoles   }, shareMode: 'VIEW' } },
+        { driveFile: { driveFile: { id: DAY11.dataPlaybook  }, shareMode: 'VIEW' } },
+        { driveFile: { driveFile: { id: DAY11.dataWorkbook  }, shareMode: 'VIEW' } }
       ],
       topicId: week3TopicId || undefined,
       state: 'PUBLISHED'
