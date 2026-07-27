@@ -1245,7 +1245,7 @@ function postDay11() {
     + '  • The 48-Hour BUILD Playbook (technical): sprint rules, roles, hour-by-hour tasks for the 48-hour sprint that opens the wire-up week.\n'
     + '  • 48hr Sprint · Day 12–13 Roles: the roles and Master Amendment for the sprint proper.\n'
     + '  • Chatbot Data Architecture — PLAYBOOK: the shape of the data your bot will read from and write to.\n'
-    + '  • Chatbot Data Architecture — Workbook: the write-in companion — read it here; when your pod is ready to work through it, your facilitator will tell you where to work.\n\n'
+    + '  • Chatbot Data Architecture — Workbook: your OWN write-in copy is auto-attached to this assignment (named for you). Work through it individually — your answers feed the pod\'s architecture.\n\n'
     + 'TURN IN\n'
     + 'The camper whose copy the pod used comes back here and hits Turn In — that submits the pod\'s working sheet. The other three podmates leave their spare copies untouched (facilitators know to expect one filled + three empties per pod).';
   COHORTS.forEach(function (cohort) {
@@ -1290,7 +1290,7 @@ function postDay11() {
         { driveFile: { driveFile: { id: DAY11.buildPlaybook }, shareMode: 'VIEW' } },
         { driveFile: { driveFile: { id: DAY11.sprintRoles   }, shareMode: 'VIEW' } },
         { driveFile: { driveFile: { id: DAY11.dataPlaybook  }, shareMode: 'VIEW' } },
-        { driveFile: { driveFile: { id: DAY11.dataWorkbook  }, shareMode: 'VIEW' } }
+        { driveFile: { driveFile: { id: DAY11.dataWorkbook  }, shareMode: 'STUDENT_COPY' } }
       ],
       topicId: week3TopicId || undefined,
       state: 'PUBLISHED'
