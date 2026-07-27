@@ -1214,6 +1214,79 @@ function postDay10() {
   Logger.log('Day 10 done.');
 }
 
+/**
+ * DAY 11 (Mon 27 Jul) — Week 3 opens with the Codebase Vibe Check.
+ * Pod group work: each camper gets an auto-named copy of the sheet; the pod
+ * picks ONE copy as the working sheet and everyone contributes there.
+ * Creates the 'Week 3' topic in each class if it doesn't exist yet.
+ * Re-run safe.
+ */
+var DAY11 = {
+  vibeCheck: '1A2MHn9BPljwN2bmDgJpY3bPt0hMuu2vFLlPOO4I2CFk'   // Codebase_Vibe_Check_SHEET
+};
+
+function postDay11() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+  var asgTitle = 'DAY 11 · Codebase Vibe Check (pod group work)';
+  var asgDesc = 'Week 3 opens with a group Vibe Check on the code you built in Weeks 1–2.\n\n'
+    + 'HOW YOUR COPY WORKS\n'
+    + 'Classroom has already made you your OWN copy of the sheet — named for you and sitting under this assignment. Because this is POD work, you don\'t all fill in your own copies. Instead:\n'
+    + '  1. Pick ONE camper\'s copy to be the pod\'s working sheet.\n'
+    + '  2. That camper shares editing with the rest of the pod (Share → Anyone with the link → Editor, or add each podmate\'s Gmail).\n'
+    + '  3. Everyone contributes into the SAME sheet. The other three copies stay untouched — think of them as spares.\n\n'
+    + 'FILL IT IN AS A POD\n'
+    + 'Work through the sheet together during the block. Every row is a shared decision, not one camper\'s answer.\n\n'
+    + 'TURN IN\n'
+    + 'The camper whose copy the pod used comes back here and hits Turn In — that submits the pod\'s working sheet. The other three podmates leave their spare copies untouched (facilitators know to expect one filled + three empties per pod).';
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) return;
+    // sweep any previous DAY 11 posts (material OR assignment) — safe to re-run
+    try {
+      var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
+      ((page && page.courseWorkMaterial) || []).forEach(function (m) {
+        if (m.title && m.title.indexOf('DAY 11') === 0) {
+          Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: Day 11 material sweep — %s', cohort, (e.message || '').slice(0, 60)); }
+    try {
+      var cw = Classroom.Courses.CourseWork.list(course.id, { pageSize: 30 });
+      ((cw && cw.courseWork) || []).forEach(function (w) {
+        if (w.title && w.title.indexOf('DAY 11') === 0) {
+          Classroom.Courses.CourseWork.remove(course.id, w.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: Day 11 assignment sweep — %s', cohort, (e.message || '').slice(0, 60)); }
+    // find or create the 'Week 3' topic
+    var week3TopicId = null;
+    ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
+      if (t.name === 'Week 3') week3TopicId = t.topicId;
+    });
+    if (!week3TopicId) {
+      try {
+        week3TopicId = Classroom.Courses.Topics.create({ name: 'Week 3' }, course.id).topicId;
+        Logger.log('%s: created \'Week 3\' topic', cohort);
+      } catch (e) {
+        Logger.log('%s: could not create Week 3 topic — %s', cohort, (e.message || '').slice(0, 60));
+      }
+    }
+    Classroom.Courses.CourseWork.create({
+      title: asgTitle,
+      description: asgDesc,
+      workType: 'ASSIGNMENT',
+      materials: [
+        { driveFile: { driveFile: { id: DAY11.vibeCheck }, shareMode: 'STUDENT_COPY' } }
+      ],
+      topicId: week3TopicId || undefined,
+      state: 'PUBLISHED'
+    }, course.id);
+    Logger.log('%s: DAY 11 Vibe Check posted under Week 3 (STUDENT_COPY · pod picks one)', cohort);
+  });
+  Logger.log('Day 11 done.');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
