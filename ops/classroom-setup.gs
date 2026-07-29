@@ -1300,6 +1300,85 @@ function postDay11() {
   Logger.log('Day 11 done.');
 }
 
+/**
+ * DAY 13 (Wed 29 Jul) — client-prep sprint resources.
+ * Posts a single material titled 'DAY 13 RESOURCES' under Week 3 in every
+ * class, carrying:
+ *   - Day13_Student_Playbook.pdf (view)
+ *   - The 24hr Client Prep Sprint Deck (view, Google Slides)
+ *   - FastAPI Backend Architecture — Franchise Your Code (view, PDF)
+ *   - Gemini share link (external URL)
+ * Re-run safe.
+ */
+var DAY13 = {
+  playbook:    '1IQHkNnMsfkj5i-y-r_noliO7z2zXTXGE',   // Day13_Student_Playbook.pdf
+  sprintDeck:  '15_cN1dmqKW6pyIlB7TvoNH4UJ1iROUdN-hMs97_K62U',   // The_24hr_Client_Prep_Sprint_Deck (Slides)
+  fastapiArch: '106MFMcLGOPGZP2e67SppDOqQz18Bif1f',   // FastAPI Backend Architecture — Franchise Your Code (Bakery Edition).pdf
+  geminiUrl:   'https://share.gemini.google/PEanlrHzycc9'
+};
+
+function postDay13() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+  var matTitle = 'DAY 13 RESOURCES';
+  var matDesc = 'The 24-hour Client Prep Sprint — everything you need for the run-up to the client handover.\n\n'
+    + 'ATTACHMENTS (open and read — no copying needed)\n'
+    + '  • Day 13 Student Playbook: your step-by-step guide for the sprint.\n'
+    + '  • The 24hr Client Prep Sprint Deck: the slides your facilitator will walk through.\n'
+    + '  • FastAPI Backend Architecture — Franchise Your Code (Bakery Edition): reference for Week 3 pods scaling their backend. Bakery-metaphor teaching deck showing how to split main.py into routes/services/data/models/core — the pattern every pod should be adopting this week.\n'
+    + '  • Gemini research link: additional context assembled in Gemini — open it in your browser.\n\n'
+    + 'RULE OF THUMB\n'
+    + 'The playbook is your track for the sprint. The deck is the room-wide walk-through. Bring both to the client showcase prep — different views of the same 24 hours.';
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) return;
+    // sweep any previous DAY 13 posts (material OR assignment) — safe to re-run
+    try {
+      var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
+      ((page && page.courseWorkMaterial) || []).forEach(function (m) {
+        if (m.title && m.title.indexOf('DAY 13') === 0) {
+          Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: Day 13 material sweep — %s', cohort, (e.message || '').slice(0, 60)); }
+    try {
+      var cw = Classroom.Courses.CourseWork.list(course.id, { pageSize: 30 });
+      ((cw && cw.courseWork) || []).forEach(function (w) {
+        if (w.title && w.title.indexOf('DAY 13') === 0) {
+          Classroom.Courses.CourseWork.remove(course.id, w.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: Day 13 assignment sweep — %s', cohort, (e.message || '').slice(0, 60)); }
+    // find or create the 'Week 3' topic
+    var week3TopicId = null;
+    ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
+      if (t.name === 'Week 3') week3TopicId = t.topicId;
+    });
+    if (!week3TopicId) {
+      try {
+        week3TopicId = Classroom.Courses.Topics.create({ name: 'Week 3' }, course.id).topicId;
+        Logger.log('%s: created \'Week 3\' topic', cohort);
+      } catch (e) {
+        Logger.log('%s: could not create Week 3 topic — %s', cohort, (e.message || '').slice(0, 60));
+      }
+    }
+    createMaterialWithRetry({
+      title: matTitle,
+      description: matDesc,
+      materials: [
+        { driveFile: { driveFile: { id: DAY13.playbook    }, shareMode: 'VIEW' } },
+        { driveFile: { driveFile: { id: DAY13.sprintDeck  }, shareMode: 'VIEW' } },
+        { driveFile: { driveFile: { id: DAY13.fastapiArch }, shareMode: 'VIEW' } },
+        { link:      { url: DAY13.geminiUrl, title: 'Gemini research — Day 13 client prep sprint' } }
+      ],
+      topicId: week3TopicId || undefined,
+      state: 'PUBLISHED'
+    }, course.id, matTitle);
+    Logger.log('%s: DAY 13 RESOURCES posted under Week 3 (4 attachments)', cohort);
+  });
+  Logger.log('Day 13 done.');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
