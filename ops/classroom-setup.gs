@@ -1379,6 +1379,83 @@ function postDay13() {
   Logger.log('Day 13 done.');
 }
 
+/**
+ * PROMPT LIBRARY — creates a dedicated 'Prompt Library' topic in each class
+ * and posts every prompt we've handed out this camp as its own material.
+ * One prompt per section, numbered so the order in Classroom matches the order
+ * of the doc titles. Re-run safe: sweeps any prior 'Prompt Library ·' material
+ * before reposting.
+ */
+var PROMPT_LIBRARY = [
+  { n: '01', title: 'The Persona Anchor Template — the shape every master prompt follows',
+    fileId: '1mTadOD_eTPcAJM2Lfw21MJdjO3G3c8kaOkvtsKK6sBE',
+    desc: 'The universal SHAPE of every master system prompt: TASK → TONE → DELIVERABLES → RED LINES → ESCALATION. Fill every square-bracket slot with YOUR client, YOUR persona, YOUR red lines. See worked examples in Prompts 02 and 03.' },
+  { n: '02', title: 'FestPass AI Master Prompt — The Auntie Cynthia Register',
+    fileId: '1TrTzXPqwlcBlU5141mPwEaP9n_YZvZfpbBq773Vs_30',
+    desc: 'Worked example #1. Built for the camp\'s FICTIONAL practice client (FestPass) around one persona: Auntie Cynthia, 58, Brooklyn, buying Sugar Mas tickets late at night. Paste into Google AI Studio System Instructions exactly as written; test with the three messages at the end.' },
+  { n: '03', title: 'TaxPal Grenada Master Prompt — The Rondell Register',
+    fileId: '1xGNkEjw8QrrZi91sNQwPDa25V3t6Csmsgh0hT41ATTM',
+    desc: 'Worked example #2. Built for a REAL client (Inland Revenue Division of Grenada) around Rondell Baptiste, 28, back-filing for the first time. Same shape as the FestPass prompt, very different register. Test with the five messages at the end.' },
+  { n: '04', title: 'Deep Research Prompt Template — ask an AI to dig with sources',
+    fileId: '1KobXxuyZdEMdG7eYTqvEEMOXd-f53UVNb1GQUrOQGZg',
+    desc: 'The prompt shape you paste into Gemini Deep Research, ChatGPT Deep Research, or Perplexity to bring back real, cited context for your Golden Record. Rule: no source, no ship.' },
+  { n: '05', title: 'PRD Template — the 6-Line Product Spec',
+    fileId: '1ivNeo4OKfojuIBoGukoTpCYJ2KNp-lrDRNxHodGLKLY',
+    desc: 'The camp\'s Product Requirements Document — six lines that describe your bot BEFORE you build it. Fill it in as a pod, then paste into your vibe-coding tool alongside Prompt 06.' },
+  { n: '06', title: 'Vibe-Code Build Prompt Pattern — spec in, screen out',
+    fileId: '1gfVteuIyM1zqwgx72bH1DEgzYwumkLSNL7EJW_XwmHw',
+    desc: 'The prompt you paste into your vibe-coding tool (AI Studio Build, Stitch, v0, Lovable) together with your filled PRD (Prompt 05). Turns a spec into a working first screen for your bot.' },
+  { n: '07', title: 'Grounded LLM Prompt Pattern — "only from these facts"',
+    fileId: '1t-kjr3l2AKvDJn2WXfOd122S1AgdLgI_qvliFu3dlqI',
+    desc: 'The three-line rule set that keeps your LLM from hallucinating. Wraps every user message with the Golden Record + strict "answer only from these facts" instructions. This is the difference between a bot that CITES and a bot that INVENTS.' }
+];
+
+function postPromptLibrary() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) return;
+    // sweep any previous Prompt Library materials — safe to re-run
+    try {
+      var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
+      ((page && page.courseWorkMaterial) || []).forEach(function (m) {
+        if (m.title && m.title.indexOf('Prompt Library ·') === 0) {
+          Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: Prompt Library sweep — %s', cohort, (e.message || '').slice(0, 60)); }
+    // find or create the 'Prompt Library' topic
+    var topicId_ = null;
+    ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
+      if (t.name === 'Prompt Library') topicId_ = t.topicId;
+    });
+    if (!topicId_) {
+      try {
+        topicId_ = Classroom.Courses.Topics.create({ name: 'Prompt Library' }, course.id).topicId;
+        Logger.log('%s: created \'Prompt Library\' topic', cohort);
+      } catch (e) {
+        Logger.log('%s: could not create Prompt Library topic — %s', cohort, (e.message || '').slice(0, 60));
+      }
+    }
+    // post each prompt as its own material (in reverse so numbered order is preserved
+    // in the Classroom UI, which shows newest-at-top by default)
+    var posted = 0;
+    PROMPT_LIBRARY.slice().reverse().forEach(function (p) {
+      var ok = createMaterialWithRetry({
+        title: 'Prompt Library · ' + p.n + ' · ' + p.title,
+        description: p.desc,
+        materials: [{ driveFile: { driveFile: { id: p.fileId }, shareMode: 'VIEW' } }],
+        topicId: topicId_ || undefined,
+        state: 'PUBLISHED'
+      }, course.id, 'Prompt Library · ' + p.n);
+      if (ok) posted++;
+    });
+    Logger.log('%s: Prompt Library posted (%s/%s prompts)', cohort, posted, PROMPT_LIBRARY.length);
+  });
+  Logger.log('Prompt Library done.');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
