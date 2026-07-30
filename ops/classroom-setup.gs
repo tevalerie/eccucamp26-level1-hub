@@ -1463,22 +1463,26 @@ function postPromptLibrary() {
  * lifted into their own topic so campers can't miss them. Re-run safe.
  */
 var CLIENT_GUIDE = {
-  playbook:   '1IQHkNnMsfkj5i-y-r_noliO7z2zXTXGE',   // Day13_Student_Playbook.pdf (the Client Guide)
-  sprintDeck: '15_cN1dmqKW6pyIlB7TvoNH4UJ1iROUdN-hMs97_K62U'   // The_24hr_Client_Prep_Sprint_Deck (Google Slides)
+  guide:      '1is1reew3LkMMs6NGs8QnSbhu6uAS45xOs3JMn0RaFIo',   // The_Client_Presentation_Guide (Google Doc, per-student)
+  sprintDeck: '15_cN1dmqKW6pyIlB7TvoNH4UJ1iROUdN-hMs97_K62U'    // The_24hr_Client_Prep_Sprint_Deck (Google Slides, reference)
 };
 
 function postClientGuide() {
   var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
   var courses = res.courses || [];
-  var matTitle = 'Client Guide + Sprint Deck — everything you need to face the client';
-  var matDesc = 'Two documents you cannot ship without.\n\n'
-    + '  • Client Guide (Day 13 Student Playbook): the step-by-step playbook for the 24-hour client prep sprint. Read cover-to-cover before your pod’s showcase.\n'
-    + '  • The 24hr Client Prep Sprint Deck: the slides your facilitator walks through with you. Use them to rehearse.\n\n'
-    + 'Both files are also attached to DAY 13 RESOURCES under Week 3 — this topic just lifts them out on their own so nobody misses them.';
+  var asgTitle = 'Client Guide + 24hr Sprint Deck — prep for the client';
+  var asgDesc = 'INDIVIDUAL SUBMISSION — every camper turns in their OWN completed Client Presentation Guide.\n'
+    + 'Due Thursday 30 July, 9:15 AM.\n\n'
+    + 'YOUR OWN COPY OF THE CLIENT GUIDE\n'
+    + 'Classroom has already made you your OWN copy of the Client Presentation Guide — named for you and sitting under this assignment. No copy-and-rename step. Just open your copy and fill it in.\n\n'
+    + 'REFERENCE (view-only, no submission required)\n'
+    + '  • The 24hr Client Prep Sprint Deck — the slides your facilitator walks through with you. Use them to rehearse.\n\n'
+    + 'TURN IN\n'
+    + 'When your Client Presentation Guide is complete, come back here and hit Turn In. Due 9:15 AM Thursday 30 July — the morning of the client showcase.';
   COHORTS.forEach(function (cohort) {
     var course = findCourse(courses, cohort);
     if (!course) return;
-    // sweep any previous Client Guide materials — safe to re-run
+    // sweep any prior Client Guide posts (material OR assignment) — safe to re-run
     try {
       var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
       ((page && page.courseWorkMaterial) || []).forEach(function (m) {
@@ -1486,7 +1490,15 @@ function postClientGuide() {
           Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
         }
       });
-    } catch (e) { Logger.log('%s: Client Guide sweep — %s', cohort, (e.message || '').slice(0, 60)); }
+    } catch (e) { Logger.log('%s: Client Guide material sweep — %s', cohort, (e.message || '').slice(0, 60)); }
+    try {
+      var cw = Classroom.Courses.CourseWork.list(course.id, { pageSize: 30 });
+      ((cw && cw.courseWork) || []).forEach(function (w) {
+        if (w.title && w.title.indexOf('Client Guide') === 0) {
+          Classroom.Courses.CourseWork.remove(course.id, w.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: Client Guide assignment sweep — %s', cohort, (e.message || '').slice(0, 60)); }
     // find or create the 'Client Guide' topic
     var topicId_ = null;
     ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
@@ -1500,17 +1512,21 @@ function postClientGuide() {
         Logger.log('%s: could not create Client Guide topic — %s', cohort, (e.message || '').slice(0, 60));
       }
     }
-    createMaterialWithRetry({
-      title: matTitle,
-      description: matDesc,
+    Classroom.Courses.CourseWork.create({
+      title: asgTitle,
+      description: asgDesc,
+      workType: 'ASSIGNMENT',
       materials: [
-        { driveFile: { driveFile: { id: CLIENT_GUIDE.playbook   }, shareMode: 'VIEW' } },
+        // per-student auto-named copy: '<Student Name> - The_Client_Presentation_Guide'
+        { driveFile: { driveFile: { id: CLIENT_GUIDE.guide      }, shareMode: 'STUDENT_COPY' } },
         { driveFile: { driveFile: { id: CLIENT_GUIDE.sprintDeck }, shareMode: 'VIEW' } }
       ],
       topicId: topicId_ || undefined,
-      state: 'PUBLISHED'
-    }, course.id, matTitle);
-    Logger.log('%s: Client Guide posted (2 attachments)', cohort);
+      state: 'PUBLISHED',
+      dueDate: { year: 2026, month: 7, day: 30 },
+      dueTime: { hours: 13, minutes: 15 }   // 9:15 AM AST (UTC-4) = 13:15 UTC · Thu 30 Jul
+    }, course.id);
+    Logger.log('%s: Client Guide assignment posted (STUDENT_COPY guide + view-only sprint deck)', cohort);
   });
   Logger.log('Client Guide done.');
 }
