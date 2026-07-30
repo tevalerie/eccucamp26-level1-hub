@@ -1456,6 +1456,65 @@ function postPromptLibrary() {
   Logger.log('Prompt Library done.');
 }
 
+/**
+ * CLIENT GUIDE — creates a dedicated 'Client Guide' topic in each class and
+ * posts the Client Guide (Day 13 Student Playbook) + the 24hr Client Prep
+ * Sprint Deck as a single, prominent material. Same files as Day 13, but
+ * lifted into their own topic so campers can't miss them. Re-run safe.
+ */
+var CLIENT_GUIDE = {
+  playbook:   '1IQHkNnMsfkj5i-y-r_noliO7z2zXTXGE',   // Day13_Student_Playbook.pdf (the Client Guide)
+  sprintDeck: '15_cN1dmqKW6pyIlB7TvoNH4UJ1iROUdN-hMs97_K62U'   // The_24hr_Client_Prep_Sprint_Deck (Google Slides)
+};
+
+function postClientGuide() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+  var matTitle = 'Client Guide + Sprint Deck — everything you need to face the client';
+  var matDesc = 'Two documents you cannot ship without.\n\n'
+    + '  • Client Guide (Day 13 Student Playbook): the step-by-step playbook for the 24-hour client prep sprint. Read cover-to-cover before your pod’s showcase.\n'
+    + '  • The 24hr Client Prep Sprint Deck: the slides your facilitator walks through with you. Use them to rehearse.\n\n'
+    + 'Both files are also attached to DAY 13 RESOURCES under Week 3 — this topic just lifts them out on their own so nobody misses them.';
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) return;
+    // sweep any previous Client Guide materials — safe to re-run
+    try {
+      var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
+      ((page && page.courseWorkMaterial) || []).forEach(function (m) {
+        if (m.title && m.title.indexOf('Client Guide') === 0) {
+          Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: Client Guide sweep — %s', cohort, (e.message || '').slice(0, 60)); }
+    // find or create the 'Client Guide' topic
+    var topicId_ = null;
+    ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
+      if (t.name === 'Client Guide') topicId_ = t.topicId;
+    });
+    if (!topicId_) {
+      try {
+        topicId_ = Classroom.Courses.Topics.create({ name: 'Client Guide' }, course.id).topicId;
+        Logger.log('%s: created \'Client Guide\' topic', cohort);
+      } catch (e) {
+        Logger.log('%s: could not create Client Guide topic — %s', cohort, (e.message || '').slice(0, 60));
+      }
+    }
+    createMaterialWithRetry({
+      title: matTitle,
+      description: matDesc,
+      materials: [
+        { driveFile: { driveFile: { id: CLIENT_GUIDE.playbook   }, shareMode: 'VIEW' } },
+        { driveFile: { driveFile: { id: CLIENT_GUIDE.sprintDeck }, shareMode: 'VIEW' } }
+      ],
+      topicId: topicId_ || undefined,
+      state: 'PUBLISHED'
+    }, course.id, matTitle);
+    Logger.log('%s: Client Guide posted (2 attachments)', cohort);
+  });
+  Logger.log('Client Guide done.');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
