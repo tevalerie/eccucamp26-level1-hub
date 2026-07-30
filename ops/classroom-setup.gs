@@ -1472,13 +1472,13 @@ function postClientGuide() {
   var courses = res.courses || [];
   var asgTitle = 'Client Guide + 24hr Sprint Deck — prep for the client';
   var asgDesc = 'INDIVIDUAL SUBMISSION — every camper turns in their OWN completed Client Presentation Guide.\n'
-    + 'Due Thursday 30 July, 9:15 AM.\n\n'
+    + 'Due Friday 31 July, 9:15 AM.\n\n'
     + 'YOUR OWN COPY OF THE CLIENT GUIDE\n'
     + 'Classroom has already made you your OWN copy of the Client Presentation Guide — named for you and sitting under this assignment. No copy-and-rename step. Just open your copy and fill it in.\n\n'
     + 'REFERENCE (view-only, no submission required)\n'
     + '  • The 24hr Client Prep Sprint Deck — the slides your facilitator walks through with you. Use them to rehearse.\n\n'
     + 'TURN IN\n'
-    + 'When your Client Presentation Guide is complete, come back here and hit Turn In. Due 9:15 AM Thursday 30 July — the morning of the client showcase.';
+    + 'When your Client Presentation Guide is complete, come back here and hit Turn In. Due 9:15 AM Friday 31 July — the morning of the client showcase.';
   COHORTS.forEach(function (cohort) {
     var course = findCourse(courses, cohort);
     if (!course) return;
@@ -1523,8 +1523,8 @@ function postClientGuide() {
       ],
       topicId: topicId_ || undefined,
       state: 'PUBLISHED',
-      dueDate: { year: 2026, month: 7, day: 30 },
-      dueTime: { hours: 13, minutes: 15 }   // 9:15 AM AST (UTC-4) = 13:15 UTC · Thu 30 Jul
+      dueDate: { year: 2026, month: 7, day: 31 },
+      dueTime: { hours: 13, minutes: 15 }   // 9:15 AM AST (UTC-4) = 13:15 UTC · Fri 31 Jul
     }, course.id);
     Logger.log('%s: Client Guide assignment posted (STUDENT_COPY guide + view-only sprint deck)', cohort);
   });
