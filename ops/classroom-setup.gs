@@ -1531,6 +1531,83 @@ function postClientGuide() {
   Logger.log('Client Guide done.');
 }
 
+/**
+ * PITCH PREP — creates a dedicated 'Pitch Prep' topic in each class and posts
+ * the showcase pitch pack: the playbook/worksheet as a per-student copy, the
+ * teaching deck (via the hub click-through page so the Classroom preview shows
+ * a readable title), and the study-reference pitch video. Re-run safe.
+ */
+var PITCH_PREP = {
+  worksheet: '1HnaLto8-rXhVTnx9AGcc0uN8sPfr4v_wPTlY9N00u6Q',   // The_6Minute_Showcase_Pitch_Playbook_and_Worksheet
+  deckUrl:   'https://eccuaicamp2026.netlify.app/decks/showcase?v=1',
+  videoUrl:  'https://www.youtube.com/watch?v=VCVRgpSPSVQ'
+};
+
+function postPitchPrep() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+  var asgTitle = 'Pitch Prep — The 6-Minute Showcase';
+  var asgDesc = 'Everything you need to pitch the bot you built.\n\n'
+    + 'YOUR OWN COPY OF THE WORKSHEET\n'
+    + 'Classroom has already made you your OWN copy of the Pitch Playbook & Worksheet — named for you, sitting under this assignment. No copy-and-rename step. Draft your own hook in it; your pod then agrees on ONE version for the actual pitch.\n\n'
+    + 'ALSO ATTACHED\n'
+    + '  • The 6-Minute Showcase (deck) — the full teaching deck: how the six beats work, the 360-second map, and the Hook Lab with five timed exercises.\n'
+    + '  • Willy Green\'s "Party on Demand" pitch (video) — the study reference. Three minutes. Watch it once for the feeling, then again with the deck open and name each of the six beats as they pass.\n\n'
+    + 'THE ONE THING TO GET RIGHT\n'
+    + 'Your first 45 seconds decide whether the next five minutes land. Do not open with "customer service is inefficient" — nobody has ever felt anything about that sentence. Open with ONE person, ONE day, and what it actually cost them. The worksheet walks you through it.\n\n'
+    + 'TURN IN\n'
+    + 'When your hook is drafted and timed at 45 seconds read aloud, turn in your copy.';
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) return;
+    // sweep any prior Pitch Prep posts (material OR assignment) — safe to re-run
+    try {
+      var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
+      ((page && page.courseWorkMaterial) || []).forEach(function (m) {
+        if (m.title && m.title.indexOf('Pitch Prep') === 0) {
+          Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: Pitch Prep material sweep — %s', cohort, (e.message || '').slice(0, 60)); }
+    try {
+      var cw = Classroom.Courses.CourseWork.list(course.id, { pageSize: 30 });
+      ((cw && cw.courseWork) || []).forEach(function (w) {
+        if (w.title && w.title.indexOf('Pitch Prep') === 0) {
+          Classroom.Courses.CourseWork.remove(course.id, w.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: Pitch Prep assignment sweep — %s', cohort, (e.message || '').slice(0, 60)); }
+    // find or create the 'Pitch Prep' topic
+    var topicId_ = null;
+    ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
+      if (t.name === 'Pitch Prep') topicId_ = t.topicId;
+    });
+    if (!topicId_) {
+      try {
+        topicId_ = Classroom.Courses.Topics.create({ name: 'Pitch Prep' }, course.id).topicId;
+        Logger.log('%s: created \'Pitch Prep\' topic', cohort);
+      } catch (e) {
+        Logger.log('%s: could not create Pitch Prep topic — %s', cohort, (e.message || '').slice(0, 60));
+      }
+    }
+    Classroom.Courses.CourseWork.create({
+      title: asgTitle,
+      description: asgDesc,
+      workType: 'ASSIGNMENT',
+      materials: [
+        // per-student auto-named copy: '<Student Name> - The_6Minute_Showcase_Pitch_Playbook_and_Worksheet'
+        { driveFile: { driveFile: { id: PITCH_PREP.worksheet }, shareMode: 'STUDENT_COPY' } },
+        { link: { url: PITCH_PREP.deckUrl,  title: 'The 6-Minute Showcase — how to pitch the bot you built (deck)' } },
+        { link: { url: PITCH_PREP.videoUrl, title: 'Willy Green · "Party on Demand" pitch — the study reference (3 min)' } }
+      ],
+      topicId: topicId_ || undefined,
+      state: 'PUBLISHED'
+    }, course.id);
+    Logger.log('%s: Pitch Prep posted (worksheet STUDENT_COPY + deck + video)', cohort);
+  });
+  Logger.log('Pitch Prep done.');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
