@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tariq's Digital Crew — Agentic Workflow Simulator</title>
+<meta name="description" content="A loan application handled by a crew of AI agents. Pick a scenario, step the crew, and watch the conditional edge loop back to Maya.">
+<meta property="og:title" content="Tariq's Digital Crew — Agentic Workflow Simulator">
+<meta property="og:description" content="Grace → Marcus → Ava → Daniel → Maya → Theo → Zara. Scenarios: smooth · missing document · blurry ID.">
+<style>
+  :root{
+    --indigo:#3730A3; --grape:#6A2C91; --navy:#0B3B66; --green:#1E6B3A; --teal:#028090;
+    --coral:#E4572E; --gold:#B8860B; --purple:#5B2A86; --red:#8C2B2B; --slate:#51606E;
+    --blue:#1D4E89; --hotp:#C2185B; --ink:#12203a; --paper:#f4f6fb; --line:#d7deea;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--paper);color:var(--ink)}
+  header{background:linear-gradient(120deg,var(--indigo),var(--grape));color:#fff;padding:22px 26px}
+  header h1{margin:0;font-size:26px}
+  header p{margin:6px 0 0;color:#e7e6fa;font-size:15px}
+  .wrap{max-width:1120px;margin:0 auto;padding:18px 20px 60px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:16px;box-shadow:0 1px 3px rgba(20,30,60,.05)}
+  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .lbl{font-weight:700;color:var(--grape);margin-right:4px}
+  button{font-family:inherit;font-size:14px;font-weight:700;border:0;border-radius:10px;padding:10px 14px;cursor:pointer;transition:.15s;color:#fff}
+  button:disabled{opacity:.4;cursor:not-allowed}
+  .scn{background:#eef;color:var(--indigo);border:2px solid var(--indigo)}
+  .scn.active{background:var(--indigo);color:#fff}
+  .go{background:var(--green)} .auto{background:var(--teal)} .rst{background:var(--slate)}
+  .go:hover,.auto:hover{filter:brightness(1.08)}
+  /* pipeline */
+  .pipe{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;justify-content:center;margin-top:6px}
+  .agent{position:relative;width:118px;border-radius:12px;border:2px solid var(--line);background:#fff;padding:10px 6px;text-align:center;opacity:.55;transition:.25s}
+  .agent .emo{font-size:26px;line-height:1}
+  .agent .nm{font-weight:800;font-size:13px;margin-top:2px}
+  .agent .rl{font-size:10.5px;color:#556;line-height:1.15;margin-top:2px}
+  .agent.done{opacity:1;border-color:var(--green)}
+  .agent.active{opacity:1;transform:translateY(-4px) scale(1.05);box-shadow:0 6px 18px rgba(55,48,163,.28);border-color:var(--indigo);border-width:3px}
+  .arrow{align-self:center;color:#9aa3ad;font-size:20px;font-weight:900}
+  .badge{position:absolute;top:-9px;right:-9px;background:var(--green);color:#fff;border-radius:50%;width:20px;height:20px;font-size:12px;line-height:20px;display:none}
+  .agent.done .badge{display:block}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.cols{grid-template-columns:1fr}}
+  h3{margin:0 0 10px;font-size:15px;letter-spacing:.3px}
+  .log{height:300px;overflow:auto;font-size:13.5px;line-height:1.5}
+  .log .li{padding:7px 10px;border-radius:8px;margin-bottom:6px;background:#f6f7fb;border-left:4px solid var(--slate)}
+  .log .li b{color:var(--ink)}
+  .clip{font-size:13px}
+  .row{display:flex;justify-content:space-between;gap:10px;padding:6px 8px;border-radius:7px;border-bottom:1px dashed var(--line)}
+  .row .k{color:#667;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
+  .row .v{font-weight:700;text-align:right}
+  .row.empty .v{color:#aab2bd;font-weight:400}
+  .row.flash{animation:fl 1s}
+  @keyframes fl{0%{background:#fff6cf}100%{background:transparent}}
+  .callout{display:none;margin-top:12px;padding:12px 14px;border-radius:10px;background:#fff4e5;border:2px solid var(--gold);color:#5a3d00;font-weight:700;font-size:14px}
+  .callout.loop{background:#fdecea;border-color:var(--red);color:#7a1f1f}
+  .final{display:none;margin-top:12px;padding:14px 16px;border-radius:10px;background:#eaf7ee;border:2px solid var(--green);color:#14502e;font-weight:800;font-size:16px}
+  .hint{font-size:12.5px;color:#667;margin-top:10px}
+  .pill{display:inline-block;background:var(--grape);color:#fff;border-radius:20px;padding:2px 10px;font-size:12px;font-weight:700}
+</style>
+</head>
+<body>
+<header>
+  <h1>🤖 Tariq's Digital Crew — Agentic Workflow Simulator</h1>
+  <p>Pick a scenario, step the crew, and watch the shared clipboard fill — and the conditional edge loop back when something's wrong.</p>
+</header>
+<div class="wrap">
+
+  <div class="card">
+    <div class="controls">
+      <span class="lbl">1 · Pick a scenario:</span>
+      <button class="scn active" data-s="smooth" onclick="pick('smooth')">✅ Smooth application</button>
+      <button class="scn" data-s="missing" onclick="pick('missing')">📎 Missing document</button>
+      <button class="scn" data-s="blurry" onclick="pick('blurry')">🪪 Blurry ID</button>
+    </div>
+    <div class="controls" style="margin-top:12px">
+      <span class="lbl">2 · Run it:</span>
+      <button class="go" id="next" onclick="step()">▶ Next step</button>
+      <button class="auto" id="auto" onclick="toggleAuto()">⏩ Auto-run</button>
+      <button class="rst" onclick="reset()">↺ Reset</button>
+      <span class="pill" id="msg"></span>
+    </div>
+    <div class="hint" id="hint">Customer message will appear here when you pick a scenario.</div>
+  </div>
+
+  <div class="card">
+    <h3>THE CREW — one agent = one node</h3>
+    <div class="pipe" id="pipe"></div>
+    <div class="callout" id="callout"></div>
+    <div class="final" id="final"></div>
+  </div>
+
+  <div class="cols">
+    <div class="card">
+      <h3>📣 ACTIVITY LOG — who did what</h3>
+      <div class="log" id="log"></div>
+    </div>
+    <div class="card">
+      <h3>📋 SHARED CLIPBOARD (State)</h3>
+      <div class="clip" id="clip"></div>
+    </div>
+  </div>
+
+  <p class="hint">This is a teaching simulator — the routing mirrors real LangGraph: <b>grace → marcus → ava → daniel → (maya 🔁) → theo → zara → END</b>. Missing/failed checks trigger a <b>conditional edge</b> that loops back to Maya.</p>
+</div>
+
+<script>
+const AGENTS = [
+  {id:'grace',  emo:'👤', nm:'Grace',  rl:'Greeter',            c:'#1E6B3A'},
+  {id:'marcus', emo:'🧭', nm:'Marcus', rl:'Profiler',           c:'#1D4E89'},
+  {id:'ava',    emo:'📚', nm:'Ava',    rl:'Knowledge (RAG)',    c:'#5B2A86'},
+  {id:'daniel', emo:'🛡️', nm:'Daniel', rl:'Compliance',         c:'#8C2B2B'},
+  {id:'maya',   emo:'💬', nm:'Maya',   rl:'Interviewer',        c:'#E4572E'},
+  {id:'theo',   emo:'🔍', nm:'Theo',   rl:'Inspector',          c:'#51606E'},
+  {id:'zara',   emo:'⭐', nm:'Zara',   rl:'Experience',         c:'#B8860B'},
+];
+const FIELDS = [
+  ['customer_name','Customer'],['customer_message','Message'],['intent','intent'],
+  ['loan_type','loan_type'],['required_documents','required_documents'],['lending_criteria','lending_criteria'],
+  ['missing_items','missing_items'],['compliance_status','compliance_status'],['collected_documents','collected_documents'],
+  ['verification_status','verification_status'],['final_decision','final_decision'],['account_number','account_number'],
+];
+const SCEN = {
+  smooth:  {msg:'"Hi, I want to apply for a small business loan."', missing:false, blurry:false},
+  missing: {msg:'"I\'d like to apply for a small business loan."',  missing:true,  blurry:false, item:'6-month bank statements'},
+  blurry:  {msg:'"Applying for a small business loan — docs attached."', missing:false, blurry:true},
+};
+
+let scen='smooth', cur=null, state={}, dPass=0, tPass=0, autoT=null, done=[];
+
+function pick(s){ scen=s; document.querySelectorAll('.scn').forEach(b=>b.classList.toggle('active',b.dataset.s===s)); reset(); }
+
+function reset(){
+  clearInterval(autoT); autoT=null; document.getElementById('auto').textContent='⏩ Auto-run';
+  cur='grace'; dPass=0; tPass=0; done=[];
+  state={ customer_name:'Tariq', customer_message:SCEN[scen].msg };
+  document.getElementById('log').innerHTML='';
+  document.getElementById('callout').style.display='none';
+  document.getElementById('final').style.display='none';
+  document.getElementById('msg').textContent='ready';
+  document.getElementById('hint').innerHTML='<b>Customer:</b> Tariq &nbsp;·&nbsp; <b>Says:</b> '+SCEN[scen].msg;
+  document.getElementById('next').disabled=false;
+  renderPipe(); renderClip(null);
+}
+
+function renderPipe(){
+  const p=document.getElementById('pipe'); p.innerHTML='';
+  AGENTS.forEach((a,i)=>{
+    const d=document.createElement('div'); d.className='agent'+(done.includes(a.id)?' done':'')+(cur===a.id?' active':'');
+    d.style.setProperty('border-color', (cur===a.id?a.c:(done.includes(a.id)?'#1E6B3A':'')) );
+    d.innerHTML='<div class="badge">✓</div><div class="emo">'+a.emo+'</div><div class="nm" style="color:'+a.c+'">'+a.nm+'</div><div class="rl">'+a.rl+'</div>';
+    p.appendChild(d);
+    if(i<AGENTS.length-1){ const ar=document.createElement('div'); ar.className='arrow'; ar.textContent='→'; p.appendChild(ar); }
+  });
+}
+
+function renderClip(flash){
+  const c=document.getElementById('clip'); c.innerHTML='';
+  FIELDS.forEach(([k,lbl])=>{
+    const has = state[k]!==undefined && state[k]!=='' && !(Array.isArray(state[k])&&state[k].length===0);
+    let v = has ? (Array.isArray(state[k])? state[k].join(', ') : (typeof state[k]==='object'? JSON.stringify(state[k]) : state[k])) : '—';
+    const r=document.createElement('div'); r.className='row'+(has?'':' empty')+(flash===k?' flash':'');
+    r.innerHTML='<span class="k">'+lbl+'</span><span class="v">'+v+'</span>';
+    c.appendChild(r);
+  });
+}
+
+function log(a,txt){
+  const l=document.getElementById('log');
+  const d=document.createElement('div'); d.className='li';
+  d.style.borderLeftColor=a.c;
+  d.innerHTML='<b>'+a.emo+' '+a.nm+'</b> — '+txt;
+  l.appendChild(d); l.scrollTop=l.scrollHeight;
+}
+const AG = id => AGENTS.find(a=>a.id===id);
+
+function act(id){
+  const a=AG(id); let wrote=null;
+  if(id==='grace'){ state.intent='apply_for_loan'; wrote='intent'; log(a,'read the message → intent: <b>apply_for_loan</b>'); }
+  else if(id==='marcus'){ state.loan_type='small_business'; wrote='loan_type'; log(a,'classified it → loan_type: <b>small_business</b>'); }
+  else if(id==='ava'){ state.required_documents=['ID','6-month bank statements','business plan']; state.lending_criteria={min_credit:600}; wrote='required_documents'; log(a,'pulled the rules from Pinecone → required: <b>ID, bank statements, business plan</b>'); }
+  else if(id==='daniel'){ dPass++;
+     if(SCEN[scen].missing && dPass===1){ state.missing_items=[SCEN[scen].item]; state.compliance_status='incomplete'; wrote='compliance_status'; log(a,'checked docs → <b>incomplete</b>. Missing: '+SCEN[scen].item); }
+     else { state.missing_items=[]; state.compliance_status='complete'; wrote='compliance_status'; log(a,'checked docs → <b>complete</b>. Nothing missing.'); } }
+  else if(id==='maya'){ state.collected_documents=(state.collected_documents||[]).concat( SCEN[scen].blurry&&tPass>=1 ? ['ID (re-scanned, clear)'] : [SCEN[scen].item||'requested docs'] ); wrote='collected_documents'; log(a,'asked the customer + got the item → <b>documents received</b>'); }
+  else if(id==='theo'){ tPass++;
+     if(SCEN[scen].blurry && tPass===1){ state.verification_status='failed'; wrote='verification_status'; log(a,'inspected the ID → <b>failed</b> (photo too blurry).'); }
+     else { state.verification_status='verified'; wrote='verification_status'; log(a,'inspected the docs → <b>verified</b>. All good.'); } }
+  else if(id==='zara'){ state.final_decision='approved'; state.account_number='SB-4471'; wrote='final_decision'; log(a,'onboarded Tariq 🎉 → decision: <b>approved</b> · account SB-4471'); }
+  renderClip(wrote);
+}
+
+function nextNode(id){
+  if(id==='grace')return'marcus'; if(id==='marcus')return'ava'; if(id==='ava')return'daniel';
+  if(id==='daniel')return state.compliance_status==='incomplete' ? 'maya' : 'theo';
+  if(id==='maya')return'daniel';
+  if(id==='theo')return state.verification_status==='failed' ? 'maya' : 'zara';
+  if(id==='zara')return'END';
+}
+
+function showLoop(from){
+  const co=document.getElementById('callout'); co.className='callout loop'; co.style.display='block';
+  co.innerHTML='🔁 <b>CONDITIONAL EDGE!</b> '+(from==='daniel'?'Docs are <b>incomplete</b>':'Verification <b>failed</b>')+' → the case loops BACK to 💬 Maya. <i>The system chose its own path.</i>';
+}
+function hideLoop(){ document.getElementById('callout').style.display='none'; }
+
+function step(){
+  if(!cur||cur==='END')return;
+  const id=cur; act(id);
+  if(!done.includes(id))done.push(id);
+  const nxt=nextNode(id);
+  if((id==='daniel'&&nxt==='maya')||(id==='theo'&&nxt==='maya')) showLoop(id); else hideLoop();
+  cur=nxt; renderPipe();
+  document.getElementById('msg').textContent = cur==='END'?'done ✓':'running…';
+  if(cur==='END'){ finish(); }
+}
+
+function finish(){
+  clearInterval(autoT); autoT=null; document.getElementById('auto').textContent='⏩ Auto-run';
+  document.getElementById('next').disabled=true;
+  const f=document.getElementById('final'); f.style.display='block';
+  f.innerHTML='🏆 <b>Workflow complete!</b> Tariq\'s loan was <b>APPROVED</b> (account SB-4471). '+
+    'The crew passed one clipboard hand-to-hand'+((SCEN[scen].missing||SCEN[scen].blurry)?', looping back through Maya to fix the problem':'')+' — that\'s an agentic workflow. 🤖';
+}
+
+function toggleAuto(){
+  if(autoT){ clearInterval(autoT); autoT=null; document.getElementById('auto').textContent='⏩ Auto-run'; return; }
+  document.getElementById('auto').textContent='⏸ Pause';
+  autoT=setInterval(()=>{ if(cur==='END'||!cur){clearInterval(autoT);autoT=null;document.getElementById('auto').textContent='⏩ Auto-run';return;} step(); }, 1300);
+}
+
+reset();
+</script>
+</body>
+</html>
