@@ -1739,6 +1739,76 @@ function postAIAgentOrg() {
   Logger.log('AI Agent Organisation done.');
 }
 
+// ── WEEK 4 · AGENTIC WORKFLOW SIMULATORS ────────────────────────────────────
+// Hosted on the camp site (/simulators/). Posted as LINKS, never as .html
+// attachments — Drive previews raw HTML as source code, not as a running page.
+var SIMULATORS = {
+  landing:  'https://eccuaicamp2026.netlify.app/simulators/',
+  tariq:    'https://eccuaicamp2026.netlify.app/simulators/tariq-crew-simulator',
+  festpass: 'https://eccuaicamp2026.netlify.app/simulators/festpass-ai-simulator'
+};
+
+/**
+ * Posts the two agentic workflow simulators as a material inside the existing
+ * 'Creating Your AI Agent Organisation' topic. Idempotent — sweeps its own
+ * previous post first, so it is safe to re-run.
+ */
+function postSimulators() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+
+  var title = 'The Agentic Workflow Simulators — watch the crew run';
+  var desc = 'You have designed your agent organisation on paper. Now watch one actually run.\n\n'
+    + 'WHAT THIS IS\n'
+    + 'Two interactive simulators. Pick a scenario, press Next step, and the crew works the job in front of you — Grace reads the message, Marcus classifies it, Ava pulls the rules, Daniel checks what is missing, Maya goes back to the customer, Theo inspects, Zara closes it out. The shared clipboard fills in on the right as each agent writes to it.\n\n'
+    + 'THE THING TO WATCH FOR\n'
+    + 'Run a broken scenario — the missing document, the blurry ID, the failed payment. The workflow does NOT stop and it does NOT crash. It turns around and loops back to Maya to fix the problem, then carries on. Nobody wrote "if this happens, go to line 40" — the system chose its own path from the state on the clipboard. That is a CONDITIONAL EDGE, and it is the whole difference between a chatbot and an agent.\n\n'
+    + 'HOW TO USE IT\n'
+    + '1. Open Tariq\'s Digital Crew. Run the smooth scenario first, one step at a time, and read the activity log as you go.\n'
+    + '2. Run it again with a broken scenario. Find the exact moment the path changes.\n'
+    + '3. Open FestPass AI — same crew, completely different business. Notice that the ARCHITECTURE did not change, only the job did.\n'
+    + '4. Now look at your own AI Architect Workbook. Where is YOUR conditional edge? Which agent catches the problem, and where does it loop back to?\n\n'
+    + 'THE MAPPING — simulator to real code\n'
+    + '  • an employee  = a node (one agent)\n'
+    + '  • the clipboard = shared state\n'
+    + '  • a handoff    = an edge\n'
+    + '  • the loop-back = a conditional edge\n\n'
+    + 'No sign-in, no API key, no install. Works on a Chromebook. Once the page has loaded it keeps running even if the wifi drops.\n\n'
+    + 'FACILITATOR NOTE: project the landing page and run one broken scenario together as a whole class before pods open it themselves — the loop-back moment lands much harder when everyone sees it at once.';
+
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) return;
+
+    // sweep prior post — safe to re-run
+    try {
+      var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
+      ((page && page.courseWorkMaterial) || []).forEach(function (m) {
+        if (m.title && m.title.indexOf('The Agentic Workflow Simulators') === 0) {
+          Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: simulator sweep — %s', cohort, (e.message || '').slice(0, 60)); }
+
+    var tId = topicId(course.id, AI_ORG_TOPIC);
+
+    createMaterialWithRetry({
+      title: title,
+      description: desc,
+      materials: [
+        { link: { url: SIMULATORS.landing,  title: 'Start here — both simulators' } },
+        { link: { url: SIMULATORS.tariq,    title: 'Tariq\'s Digital Crew — a loan application' } },
+        { link: { url: SIMULATORS.festpass, title: 'FestPass AI — issuing a festival pass' } }
+      ],
+      topicId: tId || undefined,
+      state: 'PUBLISHED'
+    }, course.id, title);
+
+    Logger.log('%s: agentic workflow simulators posted', cohort);
+  });
+  Logger.log('Simulators done.');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
