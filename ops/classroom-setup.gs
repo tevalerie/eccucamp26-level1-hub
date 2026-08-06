@@ -1616,10 +1616,12 @@ function postPitchPrep() {
  * Re-run safe.
  */
 var AI_ORG = {
-  workbook:  '1Rbk1IOSCe_FU6aSs7q9pmX8xVhPHRS5yrvj9ODA3VOo',   // The_AI_Architect_Workbook (GDoc)
-  tariqDeck: '1mTh8N5EqgOJgnY3V-lMGWl5C9Y2VErYY',              // Tariq_and_the_Digital_Crew_DECK.pdf
-  botMemory: '1mYjlevFqjEQ3BWUbopUlyEMWigabBnu4',              // Building Bot Memory.pdf
-  videoUrl:  'https://youtu.be/1zl0fdKrxlA'
+  workbook:   '1Rbk1IOSCe_FU6aSs7q9pmX8xVhPHRS5yrvj9ODA3VOo',   // The_AI_Architect_Workbook (GDoc)
+  tariqDeck:  '1mTh8N5EqgOJgnY3V-lMGWl5C9Y2VErYY',              // Tariq_and_the_Digital_Crew_DECK.pdf
+  botMemory:  '1mYjlevFqjEQ3BWUbopUlyEMWigabBnu4',              // Building Bot Memory.pdf
+  agentCards: '1lwvU0ncnetHF3nwzIHMKBVLyqpY_CnkW',              // The_Agent_Cards.pdf (print & cut)
+  edgeCards:  '1mC6nskpRlcfrO4pm0C3v13xtPWUZaMMvL_DbDyIptG0',   // The_Edge_Case_Cards (GDoc, print & cut)
+  videoUrl:   'https://youtu.be/1zl0fdKrxlA'
 };
 
 var AI_ORG_TOPIC = 'Creating Your AI Agent Organisation';
@@ -1645,6 +1647,19 @@ function postAIAgentOrg() {
     + '  • Tariq and the Digital Crew — the worked example: a crew of agents, each with one job, handing work between them.\n'
     + '  • Building Bot Memory — how an agent remembers between steps, and why memory is what separates a chain of prompts from an actual organisation.';
 
+  var cardsTitle = 'The Agentic Design Kit — printable cards';
+  var cardsDesc = 'Two decks of cards to design with. Print, cut, and play — these are meant to be on the table, not on a screen.\n\n'
+    + 'THE AGENT CARDS (8 cards · 2 per page)\n'
+    + 'One card per member of the Digital Crew: Tariq, Grace, Marcus, Ava, Daniel, Maya, Theo and Zara. Each carries their portrait, their ONE JOB, the clipboard field they fill in, and their superpower. Lay them out and you are looking at an organisation chart.\n\n'
+    + 'THE EDGE-CASE CARDS (10 cards)\n'
+    + 'The "what if…?" deck: Blurry ID · Missing Document · Expired Doc · Name Mismatch · Unknown Rule · Language Switch · Frustrated Customer · Double Submit · Empty Search · Timeout.\n\n'
+    + 'HOW TO PLAY\n'
+    + '1. Deal an edge-case card to the pod.\n'
+    + '2. Design the loop — using your Agent Cards, answer the three prompts on the card: WHICH AGENT catches it · WHERE it loops back to · WHAT you tell the customer.\n'
+    + '3. Demo it — walk another pod through your answer.\n'
+    + '4. Bonus points for the KINDEST customer message. A correct answer delivered coldly is only half an answer.\n\n'
+    + 'FACILITATOR NOTE: print both decks before the session. The Agent Cards are laid out two per page for cutting.';
+
   COHORTS.forEach(function (cohort) {
     var course = findCourse(courses, cohort);
     if (!course) return;
@@ -1653,7 +1668,8 @@ function postAIAgentOrg() {
     try {
       var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
       ((page && page.courseWorkMaterial) || []).forEach(function (m) {
-        if (m.title && m.title.indexOf('Resources — Creating Your AI Agent') === 0) {
+        if (m.title && (m.title.indexOf('Resources — Creating Your AI Agent') === 0
+                     || m.title.indexOf('The Agentic Design Kit') === 0)) {
           Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
         }
       });
@@ -1681,7 +1697,19 @@ function postAIAgentOrg() {
       }
     }
 
-    // 1) resources material first, so the assignment lands on top
+    // 1) printable cards first (posted oldest-first so the assignment lands on top)
+    createMaterialWithRetry({
+      title: cardsTitle,
+      description: cardsDesc,
+      materials: [
+        { driveFile: { driveFile: { id: AI_ORG.agentCards }, shareMode: 'VIEW' } },
+        { driveFile: { driveFile: { id: AI_ORG.edgeCards  }, shareMode: 'VIEW' } }
+      ],
+      topicId: topicId_ || undefined,
+      state: 'PUBLISHED'
+    }, course.id, cardsTitle);
+
+    // 2) resources material
     createMaterialWithRetry({
       title: matTitle,
       description: matDesc,
@@ -1694,7 +1722,7 @@ function postAIAgentOrg() {
       state: 'PUBLISHED'
     }, course.id, matTitle);
 
-    // 2) the Day 17 assignment — workbook as a per-student copy
+    // 3) the Day 17 assignment — workbook as a per-student copy
     Classroom.Courses.CourseWork.create({
       title: asgTitle,
       description: asgDesc,
@@ -1706,7 +1734,7 @@ function postAIAgentOrg() {
       state: 'PUBLISHED'
     }, course.id);
 
-    Logger.log('%s: AI Agent Organisation posted (Day 17 assignment + 3 resources)', cohort);
+    Logger.log('%s: AI Agent Organisation posted (Day 17 assignment + resources + printable cards)', cohort);
   });
   Logger.log('AI Agent Organisation done.');
 }
