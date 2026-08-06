@@ -1538,7 +1538,7 @@ function postClientGuide() {
  * a readable title), and the study-reference pitch video. Re-run safe.
  */
 var PITCH_PREP = {
-  worksheet: '1HnaLto8-rXhVTnx9AGcc0uN8sPfr4v_wPTlY9N00u6Q',   // The_6Minute_Showcase_Pitch_Playbook_and_Worksheet
+  worksheet: '1SsRVGV5PLwWWFF-su-Hnth_HVy6RsqFJ2syj35N7mkE',   // The_6Minute_Showcase_Pitch_Playbook_and_Worksheet (v2 · replaced 6 Aug)
   deckUrl:   'https://eccuaicamp2026.netlify.app/decks/showcase?v=1',
   videoUrl:  'https://www.youtube.com/watch?v=VCVRgpSPSVQ'
 };
