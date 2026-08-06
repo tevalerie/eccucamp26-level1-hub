@@ -1608,6 +1608,109 @@ function postPitchPrep() {
   Logger.log('Pitch Prep done.');
 }
 
+/**
+ * AI AGENT ORGANISATION — creates a dedicated 'Creating Your AI Agent
+ * Organisation' topic in each class holding:
+ *   - the Day 17 assignment: The AI Architect Workbook (per-student copy)
+ *   - a resources material: the video, the Tariq deck, and Building Bot Memory
+ * Re-run safe.
+ */
+var AI_ORG = {
+  workbook:  '1Rbk1IOSCe_FU6aSs7q9pmX8xVhPHRS5yrvj9ODA3VOo',   // The_AI_Architect_Workbook (GDoc)
+  tariqDeck: '1mTh8N5EqgOJgnY3V-lMGWl5C9Y2VErYY',              // Tariq_and_the_Digital_Crew_DECK.pdf
+  botMemory: '1mYjlevFqjEQ3BWUbopUlyEMWigabBnu4',              // Building Bot Memory.pdf
+  videoUrl:  'https://youtu.be/1zl0fdKrxlA'
+};
+
+var AI_ORG_TOPIC = 'Creating Your AI Agent Organisation';
+
+function postAIAgentOrg() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+
+  var asgTitle = 'Day 17 · The AI Architect Workbook';
+  var asgDesc = 'Stop building ONE bot that does everything. Start designing an ORGANISATION of agents — each with a job, a boundary, and someone it reports to.\n\n'
+    + 'YOUR OWN COPY\n'
+    + 'Classroom has already made you your OWN copy of the AI Architect Workbook — named for you, sitting under this assignment. No copy-and-rename step. Open it and work straight into it.\n\n'
+    + 'WHAT YOU ARE DESIGNING\n'
+    + 'Think of it the way a real organisation works. One person on a front desk cannot also do the accounting, the filing and the security. They specialise, they hand off, and somebody supervises. Your agents work the same way: each one has a narrow job it does well, a clear rule about what it must never do, and a defined handoff to the next agent — or to a human.\n\n'
+    + 'RESOURCES\n'
+    + 'The three resources posted alongside this assignment are there to be used, not just read. Watch the video first, then work the Tariq deck and Building Bot Memory as you fill the workbook in.\n\n'
+    + 'TURN IN\n'
+    + 'When your agent organisation is mapped — every agent named, every job written, every boundary set, every handoff drawn — turn in your copy.';
+
+  var matTitle = 'Resources — Creating Your AI Agent Organisation';
+  var matDesc = 'Three resources for the AI Architect Workbook. Use them while you build, not after.\n\n'
+    + '  • Video (watch first) — the concept in motion before you start designing.\n'
+    + '  • Tariq and the Digital Crew — the worked example: a crew of agents, each with one job, handing work between them.\n'
+    + '  • Building Bot Memory — how an agent remembers between steps, and why memory is what separates a chain of prompts from an actual organisation.';
+
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) return;
+
+    // sweep prior posts in this topic — safe to re-run
+    try {
+      var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
+      ((page && page.courseWorkMaterial) || []).forEach(function (m) {
+        if (m.title && m.title.indexOf('Resources — Creating Your AI Agent') === 0) {
+          Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: AI Org material sweep — %s', cohort, (e.message || '').slice(0, 60)); }
+    try {
+      var cw = Classroom.Courses.CourseWork.list(course.id, { pageSize: 30 });
+      ((cw && cw.courseWork) || []).forEach(function (w) {
+        if (w.title && w.title.indexOf('Day 17 · The AI Architect') === 0) {
+          Classroom.Courses.CourseWork.remove(course.id, w.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: AI Org assignment sweep — %s', cohort, (e.message || '').slice(0, 60)); }
+
+    // find or create the topic
+    var topicId_ = null;
+    ((Classroom.Courses.Topics.list(course.id).topic) || []).forEach(function (t) {
+      if (t.name === AI_ORG_TOPIC) topicId_ = t.topicId;
+    });
+    if (!topicId_) {
+      try {
+        topicId_ = Classroom.Courses.Topics.create({ name: AI_ORG_TOPIC }, course.id).topicId;
+        Logger.log('%s: created \'%s\' topic', cohort, AI_ORG_TOPIC);
+      } catch (e) {
+        Logger.log('%s: could not create topic — %s', cohort, (e.message || '').slice(0, 60));
+      }
+    }
+
+    // 1) resources material first, so the assignment lands on top
+    createMaterialWithRetry({
+      title: matTitle,
+      description: matDesc,
+      materials: [
+        { link:      { url: AI_ORG.videoUrl, title: 'Creating your AI agent organisation — watch this first' } },
+        { driveFile: { driveFile: { id: AI_ORG.tariqDeck }, shareMode: 'VIEW' } },
+        { driveFile: { driveFile: { id: AI_ORG.botMemory }, shareMode: 'VIEW' } }
+      ],
+      topicId: topicId_ || undefined,
+      state: 'PUBLISHED'
+    }, course.id, matTitle);
+
+    // 2) the Day 17 assignment — workbook as a per-student copy
+    Classroom.Courses.CourseWork.create({
+      title: asgTitle,
+      description: asgDesc,
+      workType: 'ASSIGNMENT',
+      materials: [
+        { driveFile: { driveFile: { id: AI_ORG.workbook }, shareMode: 'STUDENT_COPY' } }
+      ],
+      topicId: topicId_ || undefined,
+      state: 'PUBLISHED'
+    }, course.id);
+
+    Logger.log('%s: AI Agent Organisation posted (Day 17 assignment + 3 resources)', cohort);
+  });
+  Logger.log('AI Agent Organisation done.');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
