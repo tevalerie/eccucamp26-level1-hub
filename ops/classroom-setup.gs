@@ -1739,74 +1739,117 @@ function postAIAgentOrg() {
   Logger.log('AI Agent Organisation done.');
 }
 
-// ── WEEK 4 · AGENTIC WORKFLOW SIMULATORS ────────────────────────────────────
-// Hosted on the camp site (/simulators/). Posted as LINKS, never as .html
-// attachments — Drive previews raw HTML as source code, not as a running page.
+// ── WEEK 4 · CODE DECONSTRUCTED + AGENTIC WORKFLOW SIMULATORS ───────────────
+// Each lesson doc is paired with the simulator it explains: see it run, then
+// read the code that makes it run. Simulators live on the camp site and are
+// posted as LINKS, never as .html attachments — Drive previews raw HTML as
+// source code, not as a running page.
 var SIMULATORS = {
   landing:  'https://eccuaicamp2026.netlify.app/simulators/',
   tariq:    'https://eccuaicamp2026.netlify.app/simulators/tariq-crew-simulator',
   festpass: 'https://eccuaicamp2026.netlify.app/simulators/festpass-ai-simulator'
 };
+var LESSONS = {
+  tariq:    '1xX1brup2BwZsBypYEw8FvO7AHE77T_WIhsObUz0ekKA',  // Code_Deconstructed_Tariqs_Crew_LESSON
+  festpass: '1ypYWmyDm_Nkrs-6DoGM2mMayIOsWSX23j2tdfpOVbhg'   // FestPass_AI_Code_Deconstructed_LESSON
+};
+
+// Shared closing text — the same architecture lesson under both storylines.
+var CD_MAPPING = 'THE MAPPING — simulator to real code\n'
+  + '  • an employee   = a node (one agent)\n'
+  + '  • the clipboard = shared state\n'
+  + '  • a handoff     = an edge\n'
+  + '  • the loop-back = a conditional edge\n\n'
+  + 'The simulator needs no sign-in, no API key and no install. It works on a Chromebook, and once the page has loaded it keeps running even if the wifi drops.';
 
 /**
- * Posts the two agentic workflow simulators as a material inside the existing
- * 'Creating Your AI Agent Organisation' topic. Idempotent — sweeps its own
- * previous post first, so it is safe to re-run.
+ * Posts the two Code Deconstructed lessons, each paired with the simulator it
+ * explains, into the existing 'Creating Your AI Agent Organisation' topic.
+ * Idempotent — sweeps its own previous posts (and the earlier simulators-only
+ * material, if it was ever posted) before republishing.
  */
-function postSimulators() {
+function postCodeDeconstructed() {
   var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
   var courses = res.courses || [];
 
-  var title = 'The Agentic Workflow Simulators — watch the crew run';
-  var desc = 'You have designed your agent organisation on paper. Now watch one actually run.\n\n'
-    + 'WHAT THIS IS\n'
-    + 'Two interactive simulators. Pick a scenario, press Next step, and the crew works the job in front of you — Grace reads the message, Marcus classifies it, Ava pulls the rules, Daniel checks what is missing, Maya goes back to the customer, Theo inspects, Zara closes it out. The shared clipboard fills in on the right as each agent writes to it.\n\n'
-    + 'THE THING TO WATCH FOR\n'
-    + 'Run a broken scenario — the missing document, the blurry ID, the failed payment. The workflow does NOT stop and it does NOT crash. It turns around and loops back to Maya to fix the problem, then carries on. Nobody wrote "if this happens, go to line 40" — the system chose its own path from the state on the clipboard. That is a CONDITIONAL EDGE, and it is the whole difference between a chatbot and an agent.\n\n'
-    + 'HOW TO USE IT\n'
-    + '1. Open Tariq\'s Digital Crew. Run the smooth scenario first, one step at a time, and read the activity log as you go.\n'
-    + '2. Run it again with a broken scenario. Find the exact moment the path changes.\n'
-    + '3. Open FestPass AI — same crew, completely different business. Notice that the ARCHITECTURE did not change, only the job did.\n'
-    + '4. Now look at your own AI Architect Workbook. Where is YOUR conditional edge? Which agent catches the problem, and where does it loop back to?\n\n'
-    + 'THE MAPPING — simulator to real code\n'
-    + '  • an employee  = a node (one agent)\n'
-    + '  • the clipboard = shared state\n'
-    + '  • a handoff    = an edge\n'
-    + '  • the loop-back = a conditional edge\n\n'
-    + 'No sign-in, no API key, no install. Works on a Chromebook. Once the page has loaded it keeps running even if the wifi drops.\n\n'
-    + 'FACILITATOR NOTE: project the landing page and run one broken scenario together as a whole class before pods open it themselves — the loop-back moment lands much harder when everyone sees it at once.';
+  var tariqTitle = 'Code Deconstructed — Tariq\'s Crew (the loan application)';
+  var tariqDesc = 'You have designed an agent organisation on paper. Now watch one run — then open it up and read the code that makes it run.\n\n'
+    + 'DO IT IN THIS ORDER\n'
+    + '1. Open the simulator. Run the SMOOTH scenario one step at a time and read the activity log as you go. Watch the shared clipboard fill in on the right — every agent writes exactly one thing to it.\n'
+    + '2. Run it again with MISSING DOCUMENT or BLURRY ID. The workflow does not stop and it does not crash. It turns around, loops back to Maya to fix the problem, and carries on. Find the exact moment the path changes.\n'
+    + '3. Now open the lesson and read how that was built.\n\n'
+    + 'THE BIG IDEA\n'
+    + 'You code the rules. The LLM brings the brains. Nobody wrote "if this happens, jump to line 40" — the system chose its own path by reading the state on the clipboard. That is a CONDITIONAL EDGE, and it is the whole difference between a chatbot and an agent.\n\n'
+    + 'WHAT THE LESSON COVERS\n'
+    + '  • the state — what the clipboard actually is in code\n'
+    + '  • Grace\'s node, in four moves — one agent, start to finish\n'
+    + '  • wiring the graph, and adding the conditional edge\n'
+    + '  • YOUR TURN: design Riley the Risk Assessor and drop them into the crew\n'
+    + '  • the big picture, plus a mastery checklist to test yourself\n\n'
+    + CD_MAPPING + '\n\n'
+    + 'FACILITATOR NOTE: project the simulator and run one broken scenario together as a whole class before pods open the lesson themselves. The loop-back moment lands much harder when everyone sees it at once.';
+
+  var festTitle = 'Code Deconstructed — FestPass AI (the festival pass)';
+  var festDesc = 'The same lesson, same crew, completely different business — issuing a festival pass instead of approving a loan.\n\n'
+    + 'WHY BOTH VERSIONS EXIST\n'
+    + 'Read this one after Tariq\'s and look for what did NOT change. The agents are the same. The clipboard works the same way. The loop-back fires in the same place. Only the JOB changed — pass types instead of loan types, festival rules instead of lending criteria, an age check instead of a credit check.\n\n'
+    + 'That is the point. You are not learning one workflow. You are learning a shape you can drop onto any business your pod is building for.\n\n'
+    + 'DO IT IN THIS ORDER\n'
+    + '1. Open the simulator and run the SMOOTH PASS scenario a step at a time.\n'
+    + '2. Run MISSING AGE PROOF and PAYMENT FAILED. Notice that the two broken scenarios fail at different agents — Daniel catches one, Theo catches the other — and both loop back to Maya.\n'
+    + '3. Open the lesson and read how it was built.\n\n'
+    + 'WHAT THE LESSON COVERS\n'
+    + '  • the state, the nodes, the edges — rebuilt around a festival pass\n'
+    + '  • the pass-type, ID, age and payment checks in code\n'
+    + '  • YOUR TURN: design Cara the Capacity Checker — what happens when the festival sells out?\n'
+    + '  • the mastery checklist\n\n'
+    + CD_MAPPING + '\n\n'
+    + 'FACILITATOR NOTE: this is the version to use with pods building on FestPass. Tariq\'s is the better first read — it introduces the ideas; this one proves they travel.';
 
   COHORTS.forEach(function (cohort) {
     var course = findCourse(courses, cohort);
     if (!course) return;
 
-    // sweep prior post — safe to re-run
+    // sweep prior posts — safe to re-run
     try {
       var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
       ((page && page.courseWorkMaterial) || []).forEach(function (m) {
-        if (m.title && m.title.indexOf('The Agentic Workflow Simulators') === 0) {
+        if (m.title && (m.title.indexOf('Code Deconstructed —') === 0
+                     || m.title.indexOf('The Agentic Workflow Simulators') === 0)) {
           Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
         }
       });
-    } catch (e) { Logger.log('%s: simulator sweep — %s', cohort, (e.message || '').slice(0, 60)); }
+    } catch (e) { Logger.log('%s: Code Deconstructed sweep — %s', cohort, (e.message || '').slice(0, 60)); }
 
     var tId = topicId(course.id, AI_ORG_TOPIC);
 
+    // FestPass posted first so Tariq's — the better first read — lands on top
     createMaterialWithRetry({
-      title: title,
-      description: desc,
+      title: festTitle,
+      description: festDesc,
       materials: [
-        { link: { url: SIMULATORS.landing,  title: 'Start here — both simulators' } },
-        { link: { url: SIMULATORS.tariq,    title: 'Tariq\'s Digital Crew — a loan application' } },
-        { link: { url: SIMULATORS.festpass, title: 'FestPass AI — issuing a festival pass' } }
+        { link:      { url: SIMULATORS.festpass, title: 'Run it first — the FestPass AI simulator' } },
+        { driveFile: { driveFile: { id: LESSONS.festpass }, shareMode: 'VIEW' } }
       ],
       topicId: tId || undefined,
       state: 'PUBLISHED'
-    }, course.id, title);
+    }, course.id, festTitle);
 
-    Logger.log('%s: agentic workflow simulators posted', cohort);
+    createMaterialWithRetry({
+      title: tariqTitle,
+      description: tariqDesc,
+      materials: [
+        { link:      { url: SIMULATORS.tariq,   title: 'Run it first — Tariq\'s Digital Crew simulator' } },
+        { driveFile: { driveFile: { id: LESSONS.tariq }, shareMode: 'VIEW' } },
+        { link:      { url: SIMULATORS.landing, title: 'Both simulators in one place' } }
+      ],
+      topicId: tId || undefined,
+      state: 'PUBLISHED'
+    }, course.id, tariqTitle);
+
+    Logger.log('%s: Code Deconstructed posted (Tariq + FestPass, each with its simulator)', cohort);
   });
-  Logger.log('Simulators done.');
+  Logger.log('Code Deconstructed done.');
 }
 
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
