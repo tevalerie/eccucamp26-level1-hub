@@ -1852,6 +1852,74 @@ function postCodeDeconstructed() {
   Logger.log('Code Deconstructed done.');
 }
 
+// ── WEEK 4 · PINECONE ───────────────────────────────────────────────────────
+var RAG_TOPIC = 'Agentic RAG with LangGraph and Pinecone';
+var PINECONE_DOC = '1JdO69_8UDxtYDVN8nsEa413j3dbrf53MR2FS7sJBK0U';  // TechSetup_Pinecone
+var DAY18_TITLE = 'Day 18 · Harden — Accessibility & Resilience';
+
+/**
+ * Posts the Pinecone setup guide twice: on its own in a new RAG topic, and as
+ * a Day 18 companion under Week 4. Idempotent — sweeps both prior posts first.
+ */
+function postPinecone() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+
+  var title = 'Pinecone — your bot\'s knowledge memory';
+  var desc = 'Your bot has a personality and a Golden Record. What it does NOT have yet is a memory it can search. That is what Pinecone gives it.\n\n'
+    + 'THE IDEA IN ONE BREATH\n'
+    + 'A normal database finds things by exact match — you ask for "festival pass" and it finds the row that literally says "festival pass". A VECTOR database finds things by MEANING. Ask it about "tickets for the show" and it still finds the festival pass rules, because it understands the two are about the same thing. That is the difference, and it is the reason your bot can answer a question nobody predicted.\n\n'
+    + 'WHAT YOU WILL DO IN THIS GUIDE\n'
+    + '  • create your Pinecone account and your first index\n'
+    + '  • choose an embedding model, and understand why the dimensions must match\n'
+    + '  • get your API key and store it safely\n'
+    + '  • load your first records and run your first search\n\n'
+    + 'STAY ON THE STARTER PLAN\n'
+    + 'It is free and it is more than enough for what we are building. If a screen ever asks for a card, stop and ask a facilitator — you should not need one at any point in this camp.\n\n'
+    + 'ABOUT YOUR API KEY — read this twice\n'
+    + 'Your API key is a password. It goes in the environment panel of Deepnote, Colab or Render — never typed into your code, never pasted into a chat, never pushed to GitHub. A key committed to a public repo is found by bots within minutes. If you ever think you have exposed one, tell a facilitator and we will rotate it. Nobody is in trouble for saying so.\n\n'
+    + 'WHERE THIS FITS\n'
+    + 'This is the KNOWLEDGE half of your agent organisation. Ava is the agent who reaches into it. SQLite remembers what happened; Pinecone knows what the organisation knows.';
+
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) return;
+
+    // sweep prior posts — safe to re-run
+    try {
+      var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
+      ((page && page.courseWorkMaterial) || []).forEach(function (m) {
+        if (m.title && (m.title === title || m.title === DAY18_TITLE + ' · Pinecone')) {
+          Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: Pinecone sweep — %s', cohort, (e.message || '').slice(0, 60)); }
+
+    // 1) on its own, in the new RAG topic
+    var ragId = topicId(course.id, RAG_TOPIC);
+    createMaterialWithRetry({
+      title: title,
+      description: desc,
+      materials: [ { driveFile: { driveFile: { id: PINECONE_DOC }, shareMode: 'VIEW' } } ],
+      topicId: ragId || undefined,
+      state: 'PUBLISHED'
+    }, course.id, title);
+
+    // 2) again alongside Day 18, under Week 4
+    var wk4 = topicId(course.id, 'Week 4');
+    createMaterialWithRetry({
+      title: DAY18_TITLE + ' · Pinecone',
+      description: 'The Pinecone setup guide, posted here so it sits with Day 18. Same document as the one in ‘' + RAG_TOPIC + '’ — you only need to work through it once.\n\n' + desc,
+      materials: [ { driveFile: { driveFile: { id: PINECONE_DOC }, shareMode: 'VIEW' } } ],
+      topicId: wk4 || undefined,
+      state: 'PUBLISHED'
+    }, course.id, DAY18_TITLE + ' · Pinecone');
+
+    Logger.log('%s: Pinecone posted (own topic + Day 18)', cohort);
+  });
+  Logger.log('Pinecone done.');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
