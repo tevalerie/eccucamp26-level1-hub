@@ -1855,7 +1855,8 @@ function postCodeDeconstructed() {
 // ── WEEK 4 · PINECONE ───────────────────────────────────────────────────────
 var RAG_TOPIC = 'Agentic RAG with LangGraph and Pinecone';
 var PINECONE_DOC = '1JdO69_8UDxtYDVN8nsEa413j3dbrf53MR2FS7sJBK0U';  // TechSetup_Pinecone
-var DAY18_TITLE = 'Day 18 · Harden — Accessibility & Resilience';
+// Sits beside 'Day 18 · Harden — Accessibility & Resilience' under Week 4.
+var DAY18_TITLE = 'Day 18 · Pinecone — your bot\'s knowledge memory';
 
 /**
  * Posts the Pinecone setup guide twice: on its own in a new RAG topic, and as
@@ -1889,7 +1890,7 @@ function postPinecone() {
     try {
       var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
       ((page && page.courseWorkMaterial) || []).forEach(function (m) {
-        if (m.title && (m.title === title || m.title === DAY18_TITLE + ' · Pinecone')) {
+        if (m.title && (m.title === title || m.title === DAY18_TITLE)) {
           Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
         }
       });
@@ -1908,12 +1909,12 @@ function postPinecone() {
     // 2) again alongside Day 18, under Week 4
     var wk4 = topicId(course.id, 'Week 4');
     createMaterialWithRetry({
-      title: DAY18_TITLE + ' · Pinecone',
+      title: DAY18_TITLE,
       description: 'The Pinecone setup guide, posted here so it sits with Day 18. Same document as the one in ‘' + RAG_TOPIC + '’ — you only need to work through it once.\n\n' + desc,
       materials: [ { driveFile: { driveFile: { id: PINECONE_DOC }, shareMode: 'VIEW' } } ],
       topicId: wk4 || undefined,
       state: 'PUBLISHED'
-    }, course.id, DAY18_TITLE + ' · Pinecone');
+    }, course.id, DAY18_TITLE);
 
     Logger.log('%s: Pinecone posted (own topic + Day 18)', cohort);
   });
