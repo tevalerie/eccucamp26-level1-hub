@@ -94,7 +94,13 @@ details.alt summary{cursor:pointer;color:var(--mute);font-size:14.5px}
 details.alt[open] summary{margin-bottom:12px}
 /* two-up */
 .two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:16px}
+/* grid items default to min-width:auto, which lets a wide <pre> blow the
+   column out instead of scrolling inside it. min-width:0 restores scrolling. */
+.two>*,.two .codewrap{min-width:0;max-width:100%}
 @media(max-width:760px){.two{grid-template-columns:1fr}}
+/* code side by side is unreadable in half a column — stack it much earlier */
+.two.code2{grid-template-columns:1fr}
+.two.code2>div+div{margin-top:4px}
 .two h4{color:var(--grape);margin-bottom:8px}
 .pick{background:#f6f7fb;border:1px solid var(--line);border-radius:12px;padding:15px 18px}
 .pick ul{margin:0;padding-left:20px;font-size:14.3px}
@@ -711,7 +717,7 @@ access?"</i> works without you re-explaining what "one" refers to. The state car
 
 <p>The same job, written both ways. The difference is small on the page and large in behaviour.</p>
 
-<div class="two">
+<div class="two code2">
   <div>
     <h4>Basic RAG</h4>
     <div class="codewrap"><button class="copy" type="button">Copy</button><pre class="code" data-lang="python"><code>def retrieve(state):
@@ -1162,7 +1168,7 @@ print(result["messages"][-1].content)</code></pre></div>
 </div>
 
 <footer>
-  <p>ECCU × ECCB Generative AI &amp; Python Summer Camp 2026 · Week 4 · Agentic RAG with LangGraph and Pinecone.
+  <p>ECCU Generative AI &amp; Python Summer Camp 2026 · Week 4 · Agentic RAG with LangGraph and Pinecone.
   Companion to the <a href="/simulators/">agentic workflow simulators</a>.</p>
   <p>The Bot is the GPS. The Human is the Driver.</p>
 </footer>
