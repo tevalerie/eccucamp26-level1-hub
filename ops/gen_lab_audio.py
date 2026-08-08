@@ -13,6 +13,24 @@ re-run only spends credits on lines that actually changed.
     python3 ops/gen_lab_audio.py --voice <id>    # use a specific voice
     python3 ops/gen_lab_audio.py --model <id>    # default is multilingual v2
 
+Writing narration the voice can actually say — learned by transcribing the
+clips back with Scribe and diffing against source:
+
+    temperature=0     -> "temperature duro"     say "temperature zero"
+    grade_documents   -> "great documents"      say "the grading function"
+    GradeDocuments    -> "gray document"        write "Grade-Documents"
+
+Compound names fail through LIAISON, not vowels: the "d" of Grade is
+swallowed by the "D" of Documents. Respelling phonetically does NOT help
+("Grayde Documents" still came out "gray document"). A hyphen or comma
+between the words does, because it forces a break.
+
+Avoid raw identifiers in spoken lines where you can — the code is on screen
+beside the caption, so the narration rarely needs to say them.
+
+Also watch homophones against the step title: "Right - Write the answer"
+transcribed as "Write, write the answer".
+
 Model choice: latency does not matter here, because every clip is generated
 once and served as a static file. Pay for quality, not speed.
 
