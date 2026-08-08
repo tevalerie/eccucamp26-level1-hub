@@ -39,7 +39,7 @@ KEYFILE = pathlib.Path.home() / ".elevenlabs-api-key"
 
 API = "https://api.elevenlabs.io/v1"
 MODEL = "eleven_multilingual_v2"
-DEFAULT_VOICE = "21m00Tcm4TlvDq8ikWAM"      # Rachel — warm, clear, neutral
+DEFAULT_VOICE = "Hx7SBPuH2w11Pf8ETM84"      # chosen for the camp lab
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/126 Safari/537.36")
 
