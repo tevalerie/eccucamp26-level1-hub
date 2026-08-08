@@ -141,6 +141,8 @@ pre.code code{background:none;padding:0;color:inherit;font-size:inherit}
  background:#fff;color:var(--mute);border-radius:8px;padding:5px 11px;cursor:pointer}
 .typectl button:hover{border-color:var(--indigo);color:var(--indigo)}
 .typectl button.on{background:var(--indigo);color:#fff;border-color:var(--indigo)}
+.typectl button[hidden]{display:none}
+#audio.on{background:var(--hotp);color:#fff;border-color:var(--hotp)}
 /* bench */
 .assess{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 28px;
  margin-top:20px;box-shadow:0 1px 3px rgba(20,30,60,.05)}
@@ -580,6 +582,7 @@ def rewrite_question_with_counter(state):
     <div class="say"><span class="who">T</span><span class="txt on" id="saytxt">We'll build FestPass together — then you adapt it. Ready?</span></div>
     <div class="filebody" id="filebody"></div>
     <div class="typectl">
+      <button id="audio" hidden>🔇 Voice off</button>
       <button id="replay">↻ Replay</button>
       <button id="skip">⏭ Skip to end</button>
       <span style="margin-left:6px">Speed</span>
@@ -685,7 +688,10 @@ function say(t){
 }
 function checkBeats(){
   for(var i=0;i<beats.length;i++){
-    if(!fired[i]&&typed.indexOf(beats[i][0])>=0){fired[i]=1;say(beats[i][1]);}
+    if(!fired[i]&&typed.indexOf(beats[i][0])>=0){
+      fired[i]=1;say(beats[i][1]);
+      playClip("beat-"+String(cur-1).padStart(2,"0")+"-"+i);
+    }
   }
 }
 function stopTyping(){if(typing){clearInterval(typing);typing=null;}}
@@ -697,6 +703,7 @@ function finishTyping(){
 function startTyping(pfx,tgt,bts,intro){
   stopTyping();prefix=pfx;target=tgt;beats=bts||[];fired={};typed="";
   say(intro||"Right — let's write this bit.");
+  playClip("intro-"+String(cur-1).padStart(2,"0"));
   if(speed==="instant"){finishTyping();return;}
   var cps=SPEEDS[speed];
   typing=setInterval(function(){
@@ -706,6 +713,33 @@ function startTyping(pfx,tgt,bts,intro){
     checkBeats();paint();
   },40);
   paint();
+}
+
+// ── narration audio (optional; absent unless clips have been generated) ───
+var AUD={on:false, clips:null, el:new Audio()};
+try{AUD.on=localStorage.getItem("ragLabVoice")==="1";}catch(e){}
+var audioBtn=document.getElementById("audio");
+function audioLabel(){audioBtn.textContent=AUD.on?"\ud83d\udd0a Voice on":"\ud83d\udd07 Voice off";
+  audioBtn.classList.toggle("on",AUD.on);}
+fetch("/labs/audio/manifest.json").then(function(r){
+  if(!r.ok)throw 0; return r.json();
+}).then(function(m){
+  AUD.clips={};
+  m.clips.forEach(function(c){AUD.clips[c.id]=c.file;});
+  audioBtn.hidden=false; audioLabel();
+}).catch(function(){ /* no audio generated yet — control stays hidden */ });
+audioBtn.addEventListener("click",function(){
+  AUD.on=!AUD.on;
+  try{localStorage.setItem("ragLabVoice",AUD.on?"1":"0");}catch(e){}
+  if(!AUD.on){AUD.el.pause();}
+  audioLabel();
+});
+function playClip(id){
+  if(!AUD.on||!AUD.clips||!AUD.clips[id])return;
+  try{AUD.el.pause();AUD.el.currentTime=0;}catch(e){}
+  AUD.el.src="/labs/audio/"+AUD.clips[id];
+  // browsers block audio until the user has interacted; ignore that rejection
+  var pr=AUD.el.play(); if(pr&&pr.catch)pr.catch(function(){});
 }
 
 // ── steps ─────────────────────────────────────────────────────────────────
