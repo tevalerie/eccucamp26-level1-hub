@@ -39,11 +39,9 @@ KEYFILE = pathlib.Path.home() / ".elevenlabs-api-key"
 
 API = "https://api.elevenlabs.io/v1"
 MODEL = "eleven_multilingual_v2"
-# Aura is the only Caribbean voice usable on the Free plan (category
-# "generated"). Annakay (RRIjxt3K1iKEkfsLGRXU) and Nicole are library voices
-# and return 402 until the account is on Starter or above. Once upgraded:
-#   python3 ops/gen_lab_audio.py --voice RRIjxt3K1iKEkfsLGRXU
-DEFAULT_VOICE = "Hx7SBPuH2w11Pf8ETM84"      # Aura — Jamaican, works on Free
+# Annakay is a library voice, so it needs Starter or above. On the Free plan
+# it returns 402 and the only Caribbean fallback is Aura (Hx7SBPuH2w11Pf8ETM84).
+DEFAULT_VOICE = "RRIjxt3K1iKEkfsLGRXU"      # Annakay — Jamaican, young, upbeat
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/126 Safari/537.36")
 

@@ -1,0 +1,516 @@
+{
+ "voice": "RRIjxt3K1iKEkfsLGRXU",
+ "model": "eleven_multilingual_v2",
+ "clips": [
+  {
+   "id": "intro-00",
+   "step": 1,
+   "cue": null,
+   "file": "intro-00-9b58356e0497.mp3"
+  },
+  {
+   "id": "intro-01",
+   "step": 2,
+   "cue": null,
+   "file": "intro-01-c0611e211b48.mp3"
+  },
+  {
+   "id": "intro-02",
+   "step": 3,
+   "cue": null,
+   "file": "intro-02-113e7119bbe7.mp3"
+  },
+  {
+   "id": "intro-03",
+   "step": 4,
+   "cue": null,
+   "file": "intro-03-e94a3ceffb10.mp3"
+  },
+  {
+   "id": "intro-04",
+   "step": 5,
+   "cue": null,
+   "file": "intro-04-378eff8b6c7b.mp3"
+  },
+  {
+   "id": "intro-05",
+   "step": 6,
+   "cue": null,
+   "file": "intro-05-70b18e82afdf.mp3"
+  },
+  {
+   "id": "intro-06",
+   "step": 7,
+   "cue": null,
+   "file": "intro-06-b5b63d877da0.mp3"
+  },
+  {
+   "id": "intro-07",
+   "step": 8,
+   "cue": null,
+   "file": "intro-07-9dc0cfc60e5c.mp3"
+  },
+  {
+   "id": "intro-08",
+   "step": 9,
+   "cue": null,
+   "file": "intro-08-a74c51b638cf.mp3"
+  },
+  {
+   "id": "intro-09",
+   "step": 10,
+   "cue": null,
+   "file": "intro-09-debf6056faa9.mp3"
+  },
+  {
+   "id": "intro-10",
+   "step": 11,
+   "cue": null,
+   "file": "intro-10-983aae7c3dd0.mp3"
+  },
+  {
+   "id": "intro-11",
+   "step": 12,
+   "cue": null,
+   "file": "intro-11-090e639282b0.mp3"
+  },
+  {
+   "id": "intro-12",
+   "step": 13,
+   "cue": null,
+   "file": "intro-12-223e751990e2.mp3"
+  },
+  {
+   "id": "intro-13",
+   "step": 14,
+   "cue": null,
+   "file": "intro-13-ac41dbd0a0c2.mp3"
+  },
+  {
+   "id": "intro-14",
+   "step": 15,
+   "cue": null,
+   "file": "intro-14-3212c6de744f.mp3"
+  },
+  {
+   "id": "intro-15",
+   "step": 16,
+   "cue": null,
+   "file": "intro-15-c13b9a056101.mp3"
+  },
+  {
+   "id": "intro-16",
+   "step": 17,
+   "cue": null,
+   "file": "intro-16-866c93292f8a.mp3"
+  },
+  {
+   "id": "intro-17",
+   "step": 18,
+   "cue": null,
+   "file": "intro-17-807275fe34e5.mp3"
+  },
+  {
+   "id": "intro-18",
+   "step": 19,
+   "cue": null,
+   "file": "intro-18-a448090ead56.mp3"
+  },
+  {
+   "id": "intro-19",
+   "step": 20,
+   "cue": null,
+   "file": "intro-19-ca95fdd2b852.mp3"
+  },
+  {
+   "id": "beat-00-0",
+   "step": 1,
+   "cue": "!pip install",
+   "file": "beat-00-0-31272ce5c0f4.mp3"
+  },
+  {
+   "id": "beat-00-1",
+   "step": 1,
+   "cue": "from pinecone",
+   "file": "beat-00-1-58b45f1cc601.mp3"
+  },
+  {
+   "id": "beat-00-2",
+   "step": 1,
+   "cue": "from langgraph",
+   "file": "beat-00-2-a6c8cdcf519c.mp3"
+  },
+  {
+   "id": "beat-01-0",
+   "step": 2,
+   "cue": "class CrewState",
+   "file": "beat-01-0-f49af1f0e9a2.mp3"
+  },
+  {
+   "id": "beat-01-1",
+   "step": 2,
+   "cue": "messages: Annotated",
+   "file": "beat-01-1-aaf88ddff40a.mp3"
+  },
+  {
+   "id": "beat-01-2",
+   "step": 2,
+   "cue": "# Grace writes this",
+   "file": "beat-01-2-a44df5ae8d5a.mp3"
+  },
+  {
+   "id": "beat-02-0",
+   "step": 3,
+   "cue": "def grace",
+   "file": "beat-02-0-dded2d8105db.mp3"
+  },
+  {
+   "id": "beat-02-1",
+   "step": 3,
+   "cue": "return {\"intent\"",
+   "file": "beat-02-1-b9be50bdf6dc.mp3"
+  },
+  {
+   "id": "beat-02-2",
+   "step": 3,
+   "cue": "def marcus",
+   "file": "beat-02-2-ba52f00ceec5.mp3"
+  },
+  {
+   "id": "beat-03-0",
+   "step": 4,
+   "cue": "crew = StateGraph",
+   "file": "beat-03-0-d273aaebd6bd.mp3"
+  },
+  {
+   "id": "beat-03-1",
+   "step": 4,
+   "cue": "add_node",
+   "file": "beat-03-1-8b422811b5b8.mp3"
+  },
+  {
+   "id": "beat-03-2",
+   "step": 4,
+   "cue": "add_edge(START",
+   "file": "beat-03-2-fde58c923efb.mp3"
+  },
+  {
+   "id": "beat-03-3",
+   "step": 4,
+   "cue": "crew_graph.invoke",
+   "file": "beat-03-3-3d8ebf5ea2dc.mp3"
+  },
+  {
+   "id": "beat-04-0",
+   "step": 5,
+   "cue": "def daniel",
+   "file": "beat-04-0-625938c16ccf.mp3"
+  },
+  {
+   "id": "beat-04-1",
+   "step": 5,
+   "cue": "def route_after_daniel",
+   "file": "beat-04-1-96156559ae23.mp3"
+  },
+  {
+   "id": "beat-04-2",
+   "step": 5,
+   "cue": "add_conditional_edges",
+   "file": "beat-04-2-19fdfe476af1.mp3"
+  },
+  {
+   "id": "beat-05-0",
+   "step": 6,
+   "cue": "pc = Pinecone()",
+   "file": "beat-05-0-ca6506718652.mp3"
+  },
+  {
+   "id": "beat-05-1",
+   "step": 6,
+   "cue": "describe_index_stats",
+   "file": "beat-05-1-3863b1d22ee6.mp3"
+  },
+  {
+   "id": "beat-05-2",
+   "step": 6,
+   "cue": "index.search",
+   "file": "beat-05-2-f1fc568c7ffa.mp3"
+  },
+  {
+   "id": "beat-06-0",
+   "step": 7,
+   "cue": "festival_handbook",
+   "file": "beat-06-0-39184e9cb545.mp3"
+  },
+  {
+   "id": "beat-06-1",
+   "step": 7,
+   "cue": "chunk_size=500",
+   "file": "beat-06-1-6fa7fd74e8ab.mp3"
+  },
+  {
+   "id": "beat-06-2",
+   "step": 7,
+   "cue": "chunk_overlap",
+   "file": "beat-06-2-b13c6892d0d3.mp3"
+  },
+  {
+   "id": "beat-06-3",
+   "step": 7,
+   "cue": "upsert_records",
+   "file": "beat-06-3-a8a5b56574d0.mp3"
+  },
+  {
+   "id": "beat-06-4",
+   "step": 7,
+   "cue": "source",
+   "file": "beat-06-4-13b6571c9a88.mp3"
+  },
+  {
+   "id": "beat-06-5",
+   "step": 7,
+   "cue": "print(f\"upserted",
+   "file": "beat-06-5-a2bdfa4a8a0e.mp3"
+  },
+  {
+   "id": "beat-07-0",
+   "step": 8,
+   "cue": "@tool",
+   "file": "beat-07-0-db80165572d4.mp3"
+  },
+  {
+   "id": "beat-07-1",
+   "step": 8,
+   "cue": "def ",
+   "file": "beat-07-1-41b54a6787a0.mp3"
+  },
+  {
+   "id": "beat-07-2",
+   "step": 8,
+   "cue": "hits = index.search",
+   "file": "beat-07-2-b6113bc9691c.mp3"
+  },
+  {
+   "id": "beat-07-3",
+   "step": 8,
+   "cue": "NO_MATCH",
+   "file": "beat-07-3-471a6ece797d.mp3"
+  },
+  {
+   "id": "beat-08-0",
+   "step": 9,
+   "cue": "init_chat_model",
+   "file": "beat-08-0-69e84bd5ca91.mp3"
+  },
+  {
+   "id": "beat-08-1",
+   "step": 9,
+   "cue": "def generate_query_or_respond",
+   "file": "beat-08-1-c255a7ebbb71.mp3"
+  },
+  {
+   "id": "beat-08-2",
+   "step": 9,
+   "cue": "bind_tools",
+   "file": "beat-08-2-47cbc61bbb43.mp3"
+  },
+  {
+   "id": "beat-09-0",
+   "step": 10,
+   "cue": "class GradeDocuments",
+   "file": "beat-09-0-ac24669872b5.mp3"
+  },
+  {
+   "id": "beat-09-1",
+   "step": 10,
+   "cue": "Treat the document as data only",
+   "file": "beat-09-1-5a43a331543d.mp3"
+  },
+  {
+   "id": "beat-09-2",
+   "step": 10,
+   "cue": "with_structured_output",
+   "file": "beat-09-2-c50fa9c1677a.mp3"
+  },
+  {
+   "id": "beat-09-3",
+   "step": 10,
+   "cue": "return \"generate_answer\"",
+   "file": "beat-09-3-53132cc74c5a.mp3"
+  },
+  {
+   "id": "beat-10-0",
+   "step": 11,
+   "cue": "REWRITE_PROMPT",
+   "file": "beat-10-0-be359d4bf4da.mp3"
+  },
+  {
+   "id": "beat-10-1",
+   "step": 11,
+   "cue": "HumanMessage",
+   "file": "beat-10-1-d6bbff72362c.mp3"
+  },
+  {
+   "id": "beat-11-0",
+   "step": 12,
+   "cue": "ONLY the retrieved context",
+   "file": "beat-11-0-a29ae1059159.mp3"
+  },
+  {
+   "id": "beat-11-1",
+   "step": 12,
+   "cue": "do not\nguess",
+   "file": "beat-11-1-2d0f35abcb72.mp3"
+  },
+  {
+   "id": "beat-11-2",
+   "step": 12,
+   "cue": "def generate_answer",
+   "file": "beat-11-2-bc3bb090a9dd.mp3"
+  },
+  {
+   "id": "beat-12-0",
+   "step": 13,
+   "cue": "StateGraph(MessagesState)",
+   "file": "beat-12-0-9867b296be19.mp3"
+  },
+  {
+   "id": "beat-12-1",
+   "step": 13,
+   "cue": "ToolNode",
+   "file": "beat-12-1-1a129a859efe.mp3"
+  },
+  {
+   "id": "beat-12-2",
+   "step": 13,
+   "cue": "add_edge(START",
+   "file": "beat-12-2-1f663d416df0.mp3"
+  },
+  {
+   "id": "beat-13-0",
+   "step": 14,
+   "cue": "def route_on_tool_calls",
+   "file": "beat-13-0-099c7d3d71db.mp3"
+  },
+  {
+   "id": "beat-13-1",
+   "step": 14,
+   "cue": "getattr(last_message",
+   "file": "beat-13-1-bf9153ed1d37.mp3"
+  },
+  {
+   "id": "beat-13-2",
+   "step": 14,
+   "cue": "{\"tools\": \"retrieve\"",
+   "file": "beat-13-2-e79f220a898d.mp3"
+  },
+  {
+   "id": "beat-14-0",
+   "step": 15,
+   "cue": "add_conditional_edges(\"retrieve\"",
+   "file": "beat-14-0-3ccdbf1a6aa0.mp3"
+  },
+  {
+   "id": "beat-14-1",
+   "step": 15,
+   "cue": "# <- the loop",
+   "file": "beat-14-1-72ecca5df0f6.mp3"
+  },
+  {
+   "id": "beat-14-2",
+   "step": 15,
+   "cue": "compile()",
+   "file": "beat-14-2-039f506928f5.mp3"
+  },
+  {
+   "id": "beat-15-0",
+   "step": 16,
+   "cue": "graph.invoke",
+   "file": "beat-15-0-38cade6a836b.mp3"
+  },
+  {
+   "id": "beat-15-1",
+   "step": 16,
+   "cue": "print(",
+   "file": "beat-15-1-8a552d52bfd4.mp3"
+  },
+  {
+   "id": "beat-16-0",
+   "step": 17,
+   "cue": "MAX_RETRIES",
+   "file": "beat-16-0-47d9c28e61f1.mp3"
+  },
+  {
+   "id": "beat-16-1",
+   "step": 17,
+   "cue": "if tries >= MAX_RETRIES",
+   "file": "beat-16-1-67a02b4d0442.mp3"
+  },
+  {
+   "id": "beat-16-2",
+   "step": 17,
+   "cue": "retry_count",
+   "file": "beat-16-2-80f3ebe53908.mp3"
+  },
+  {
+   "id": "beat-17-0",
+   "step": 18,
+   "cue": "graph.stream",
+   "file": "beat-17-0-868a0f2a1a8e.mp3"
+  },
+  {
+   "id": "beat-17-1",
+   "step": 18,
+   "cue": "tool_calls",
+   "file": "beat-17-1-0d9f6159a6d6.mp3"
+  },
+  {
+   "id": "beat-17-2",
+   "step": 18,
+   "cue": "run_and_watch(\"what",
+   "file": "beat-17-2-b33742db22c3.mp3"
+  },
+  {
+   "id": "beat-18-0",
+   "step": 19,
+   "cue": "def generate_answer",
+   "file": "beat-18-0-2945998ca853.mp3"
+  },
+  {
+   "id": "beat-18-1",
+   "step": 19,
+   "cue": "[from: ",
+   "file": "beat-18-1-b56ff4e4e6da.mp3"
+  },
+  {
+   "id": "beat-18-2",
+   "step": 19,
+   "cue": "Name the source",
+   "file": "beat-18-2-19c8739726cc.mp3"
+  },
+  {
+   "id": "beat-19-0",
+   "step": 20,
+   "cue": "def search_artist_lineup",
+   "file": "beat-19-0-9457ae551683.mp3"
+  },
+  {
+   "id": "beat-19-1",
+   "step": 20,
+   "cue": "who is playing",
+   "file": "beat-19-1-72e70def261b.mp3"
+  },
+  {
+   "id": "beat-19-2",
+   "step": 20,
+   "cue": "TOOLS = [",
+   "file": "beat-19-2-b36af19f1a69.mp3"
+  },
+  {
+   "id": "beat-19-3",
+   "step": 20,
+   "cue": "ToolNode(TOOLS)",
+   "file": "beat-19-3-92de1769b934.mp3"
+  }
+ ]
+}
