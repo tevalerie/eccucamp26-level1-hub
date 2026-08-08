@@ -132,13 +132,13 @@
    "id": "beat-00-1",
    "step": 1,
    "cue": "from pinecone",
-   "file": "beat-00-1-58b45f1cc601.mp3"
+   "file": "beat-00-1-5a253c8cf2a9.mp3"
   },
   {
    "id": "beat-00-2",
    "step": 1,
    "cue": "from langgraph",
-   "file": "beat-00-2-a6c8cdcf519c.mp3"
+   "file": "beat-00-2-1e79843d5c5c.mp3"
   },
   {
    "id": "beat-01-0",
@@ -288,7 +288,7 @@
    "id": "beat-07-2",
    "step": 8,
    "cue": "hits = index.search",
-   "file": "beat-07-2-b6113bc9691c.mp3"
+   "file": "beat-07-2-4e0c3bf78a4e.mp3"
   },
   {
    "id": "beat-07-3",
