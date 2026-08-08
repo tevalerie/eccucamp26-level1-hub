@@ -39,7 +39,11 @@ KEYFILE = pathlib.Path.home() / ".elevenlabs-api-key"
 
 API = "https://api.elevenlabs.io/v1"
 MODEL = "eleven_multilingual_v2"
-DEFAULT_VOICE = "Hx7SBPuH2w11Pf8ETM84"      # chosen for the camp lab
+# Aura is the only Caribbean voice usable on the Free plan (category
+# "generated"). Annakay (RRIjxt3K1iKEkfsLGRXU) and Nicole are library voices
+# and return 402 until the account is on Starter or above. Once upgraded:
+#   python3 ops/gen_lab_audio.py --voice RRIjxt3K1iKEkfsLGRXU
+DEFAULT_VOICE = "Hx7SBPuH2w11Pf8ETM84"      # Aura — Jamaican, works on Free
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/126 Safari/537.36")
 
@@ -68,6 +72,8 @@ def api(path, data=None, raw=False):
     except urllib.error.HTTPError as e:
         body = e.read().decode(errors="replace")[:300]
         if e.code == 401:
+            if "user_read" in body or "models_read" in body:
+                raise PermissionError(body)
             sys.exit("401 Unauthorized — the key in ~/.elevenlabs-api-key was rejected.")
         if e.code == 429:
             sys.exit("429 — out of credits, or rate limited. Check your quota.")
@@ -103,7 +109,15 @@ def main():
         model = args[args.index("--model") + 1]
 
     if "--balance" in args:
-        sub = api("/user/subscription")
+        try:
+            sub = api("/user/subscription")
+        except PermissionError:
+            need = sum(len(l["text"]) for l in narration())
+            print("This key cannot read your quota (no 'user_read' permission).")
+            print("That is fine \u2014 it only blocks this check, not generation.\n")
+            print("this job : %s characters" % format(need, ","))
+            print("Check the balance in the ElevenLabs dashboard, or just run --dry-run.")
+            return
         used = sub.get("character_count", 0)
         cap = sub.get("character_limit", 0)
         left = max(0, cap - used)
