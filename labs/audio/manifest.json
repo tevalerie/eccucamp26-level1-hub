@@ -215,8 +215,14 @@
   {
    "id": "beat-04-2",
    "step": 5,
+   "cue": "crew.add_node(\"maya\"",
+   "file": "beat-04-2-07d3e8aae4f8.mp3"
+  },
+  {
+   "id": "beat-04-3",
+   "step": 5,
    "cue": "add_conditional_edges",
-   "file": "beat-04-2-19fdfe476af1.mp3"
+   "file": "beat-04-3-19fdfe476af1.mp3"
   },
   {
    "id": "beat-05-0",
