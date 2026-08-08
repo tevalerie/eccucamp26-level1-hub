@@ -671,7 +671,10 @@ function paintClient(){
 var body=document.getElementById("filebody"),
     sayTxt=document.getElementById("saytxt"),
     fileName=document.getElementById("filename");
-var SPEEDS={slow:9,normal:26,fast:70,instant:100000};
+// chars/sec for typing, and the rate the narration plays back at.
+// Slow used to collapse into Normal because the old maths rounded to zero.
+var SPEEDS={slow:{cps:10,rate:0.85}, normal:{cps:22,rate:1},
+            fast:{cps:55,rate:1.1}, instant:{cps:1e9,rate:1.1}};
 var speed="normal";
 try{var sp=localStorage.getItem("ragLabSpeed"); if(sp&&SPEEDS[sp])speed=sp;}catch(e){}
 var typing=null, typed="", target="", prefix="", beats=[], fired={};
@@ -696,19 +699,26 @@ function checkBeats(){
 }
 function stopTyping(){if(typing){clearInterval(typing);typing=null;}}
 function finishTyping(){
-  stopTyping();typed=target;fired={};checkBeats();
+  stopTyping();clearAudio();typed=target;fired={};checkBeats();
   if(beats.length)say(beats[beats.length-1][1]);
   paint();
 }
 function startTyping(pfx,tgt,bts,intro){
-  stopTyping();prefix=pfx;target=tgt;beats=bts||[];fired={};typed="";
+  stopTyping();clearAudio();
+  prefix=pfx;target=tgt;beats=bts||[];fired={};typed="";
   say(intro||"Right — let's write this bit.");
   playClip("intro-"+String(cur-1).padStart(2,"0"));
-  if(speed==="instant"){finishTyping();return;}
-  var cps=SPEEDS[speed];
+  if(speed==="instant"){typed=target;fired={};checkBeats();paint();return;}
+  var cps=SPEEDS[speed].cps, acc=0;
   typing=setInterval(function(){
+    // With the voice on, wait for the tutor to finish the sentence before
+    // typing on. That is what keeps audio and code in step at every speed.
+    if(AUD.on&&voiceHold)return;
     if(typed.length>=target.length){stopTyping();paint();return;}
-    var take=Math.max(1,Math.round(cps/24));
+    acc+=cps/25;
+    var take=Math.floor(acc);
+    if(take<1)return;
+    acc-=take;
     typed=target.slice(0,typed.length+take);
     checkBeats();paint();
   },40);
@@ -716,7 +726,8 @@ function startTyping(pfx,tgt,bts,intro){
 }
 
 // ── narration audio (optional; absent unless clips have been generated) ───
-var AUD={on:false, clips:null, el:new Audio()};
+var AUD={on:false, clips:null, el:new Audio(), queue:[], playing:false};
+var voiceHold=false, holdTimer=null;
 try{AUD.on=localStorage.getItem("ragLabVoice")==="1";}catch(e){}
 var audioBtn=document.getElementById("audio");
 function audioLabel(){audioBtn.textContent=AUD.on?"\ud83d\udd0a Voice on":"\ud83d\udd07 Voice off";
@@ -724,23 +735,46 @@ function audioLabel(){audioBtn.textContent=AUD.on?"\ud83d\udd0a Voice on":"\ud83
 fetch("/labs/audio/manifest.json").then(function(r){
   if(!r.ok)throw 0; return r.json();
 }).then(function(m){
-  AUD.clips={};
-  m.clips.forEach(function(c){AUD.clips[c.id]=c.file;});
+  AUD.clips={}; m.clips.forEach(function(c){AUD.clips[c.id]=c.file;});
   audioBtn.hidden=false; audioLabel();
 }).catch(function(){ /* no audio generated yet — control stays hidden */ });
+
+function releaseHold(){clearTimeout(holdTimer);holdTimer=null;AUD.playing=false;voiceHold=false;}
+function clearAudio(){AUD.queue.length=0;try{AUD.el.pause();}catch(e){}releaseHold();}
+
+// Queue clips. NEVER cut one off to start the next — that is how narration
+// used to get skipped whenever two cues landed close together.
+function playClip(id){
+  if(!AUD.on||!AUD.clips||!AUD.clips[id])return;
+  AUD.queue.push(id);
+  if(!AUD.playing)nextClip();
+}
+function nextClip(){
+  var id=AUD.queue.shift();
+  if(!id){releaseHold();return;}
+  AUD.playing=true; voiceHold=true;
+  AUD.el.src="/labs/audio/"+AUD.clips[id];
+  AUD.el.playbackRate=(SPEEDS[speed]||{}).rate||1;
+  // safety net: if a clip never fires "ended" (bad file, offline, blocked
+  // autoplay) typing must not freeze. Release after a generous ceiling.
+  clearTimeout(holdTimer);
+  holdTimer=setTimeout(function(){if(AUD.playing)nextClip();},20000);
+  var pr=AUD.el.play();
+  if(pr&&pr.catch)pr.catch(function(){releaseHold();});
+}
+AUD.el.addEventListener("ended",nextClip);
+AUD.el.addEventListener("error",function(){nextClip();});
+AUD.el.addEventListener("loadedmetadata",function(){
+  clearTimeout(holdTimer);
+  var ms=(AUD.el.duration/(AUD.el.playbackRate||1))*1000+2500;
+  holdTimer=setTimeout(function(){if(AUD.playing)nextClip();},isFinite(ms)?ms:20000);
+});
 audioBtn.addEventListener("click",function(){
   AUD.on=!AUD.on;
   try{localStorage.setItem("ragLabVoice",AUD.on?"1":"0");}catch(e){}
-  if(!AUD.on){AUD.el.pause();}
+  if(!AUD.on)clearAudio();
   audioLabel();
 });
-function playClip(id){
-  if(!AUD.on||!AUD.clips||!AUD.clips[id])return;
-  try{AUD.el.pause();AUD.el.currentTime=0;}catch(e){}
-  AUD.el.src="/labs/audio/"+AUD.clips[id];
-  // browsers block audio until the user has interacted; ignore that rejection
-  var pr=AUD.el.play(); if(pr&&pr.catch)pr.catch(function(){});
-}
 
 // ── steps ─────────────────────────────────────────────────────────────────
 var TOTAL=CODE.length, cur=1;
@@ -771,7 +805,7 @@ function show(n,retype){
   nextB.onclick=done?function(){show(1,true);window.scrollTo({top:0,behavior:"smooth"});}
                     :function(){show(cur+1,true);window.scrollTo({top:0,behavior:"smooth"});};
   prog.textContent=done?"Build complete":("Step "+cur+" of "+TOTAL);
-  if(done){stopTyping();prefix=priorCode(TOTAL+1);typed="";target="";paint();
+  if(done){stopTyping();clearAudio();prefix=priorCode(TOTAL+1);typed="";target="";paint();
     say("That is the whole file. Now go and run it.");return;}
   if(retype!==false)startTyping(priorCode(cur),stepCode(cur-1),STEP_BEATS[cur-1],STEP_INTRO[cur-1]);
   else{stopTyping();prefix=priorCode(cur);typed=stepCode(cur-1);paint();}
