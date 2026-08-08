@@ -91,6 +91,11 @@ table.clip th{background:transparent;color:#8a7a4e;font-size:11.5px;letter-spaci
 table.clip td{padding:6px 8px;border-bottom:1px dashed #ece3cc;vertical-align:top}
 table.clip td:last-child{font-weight:700;color:var(--grape);width:34%}
 table.clip tr:last-child td{border-bottom:0}
+.shapes{background:#eef;border:1px solid #c9c9ee;border-radius:12px;padding:14px 17px;margin:14px 0 0}
+.shapes h4{color:var(--indigo);margin-bottom:7px}
+.shapes ul{margin-bottom:9px}
+.shapes p{margin-bottom:9px}
+.pnote2{font-size:13px;color:#44506b;font-style:italic;margin:0}
 .arrows{font-size:14.5px;line-height:2;color:var(--ink)}
 .arrows b{color:var(--grape)}
 .pnote{font-size:12.4px;color:#8a7a4e;font-style:italic;margin-top:9px}
@@ -323,6 +328,29 @@ footer a{color:var(--indigo)}
  </div>
  <p>Then compile and run it. Two agents, one handoff, and your organisation is alive.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Follows your arrows in order, with no scheduling code from you.</li><li>Passes the clipboard between agents automatically.</li><li>Stops cleanly when it reaches <code>END</code>.</li></ul></div></div><div class="gotcha"><h4>Watch out — A node name that does not match the edge</h4><p><code>add_node("grace", ...)</code> and <code>add_edge("grace", "marcus")</code> must use exactly the same strings. A typo here gives an error about an unknown node, which reads more confusingly than it is.</p></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>Copy your arrows across, one line each.</b> Look at your
  <span class="c-name">FestPass</span> diagram and work left to right.</p>
+
+ <div class="shapes">
+   <h4>Your workflow will not look like this one — that is fine</h4>
+   <p>The crew shown here is six agents in a straight line. Yours almost certainly differs. The
+   pattern does not change:</p>
+   <ul>
+     <li><b>Fewer agents?</b> Fewer nodes, fewer edges. A three-agent org is a perfectly good org
+         — three functions and two arrows.</li>
+     <li><b>Different order?</b> Only your <code>add_edge</code> lines change. Write them in the
+         order your diagram reads.</li>
+     <li><b>One agent doing several jobs?</b> Split it. If a function returns three unrelated
+         fields you have merged three agents and lost what made the org work.</li>
+     <li><b>Two agents that could work at the same time?</b> LangGraph can run branches in
+         parallel, but do not start there. Put them one after the other, get it working, then
+         split later if you actually need the speed.</li>
+     <li><b>More than one loop?</b> Add one conditional edge per Edge-Case Card. Build the first
+         loop, run it, then add the next — never all at once.</li>
+     <li><b>No agent that looks things up?</b> Then Part 2 does not apply to your bot, and that is
+         a legitimate design. Finish Part 1 and go help a pod that does.</li>
+   </ul>
+   <p class="pnote2">If your diagram and your code stop matching, fix the diagram too. The two
+   drifting apart is how a pod ends up unable to explain its own bot at the showcase.</p>
+ </div>
  <ul>
    <li>Which agent receives the work first? That is your <code>START</code> edge.</li>
    <li>Which agent finishes the job? That one goes to <code>END</code>.</li>
@@ -1082,7 +1110,7 @@ paintClient();
 sel.addEventListener("change",function(){
   CLIENTS.forEach(function(c){if(c.id===sel.value)client=c;});
   try{localStorage.setItem("ragLabClient",client.id);}catch(e){}
-  paintClient();
+  paintClient(true);
 });
 
 labelScenarios();
