@@ -420,7 +420,28 @@ footer a{color:var(--indigo)}
  <p>This step writes nothing. It only asks two questions: <b>is there anything in my index?</b> and
  <b>does a search actually find it?</b></p>
  <p>Do this before you write a single line of graph code. An empty shelf is the most common reason
- a bot answers nothing, and from the outside it looks exactly like broken code.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Pinecone turns your search text into a vector for you and finds the closest records.</li><li>The score tells you how close each hit was — higher is closer.</li></ul></div></div><div class="gotcha"><h4>Watch out — An empty index looks like broken code</h4><p>If your searches return nothing, campers usually start rewriting Python. The problem is almost never the Python. Check <code>describe_index_stats</code> first, then check you are searching the same <b>namespace</b> you upserted into.</p></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>Point this at your own index.</b> Change two things:</p>
+ a bot answers nothing, and from the outside it looks exactly like broken code.</p>
+
+ <div class="shapes">
+   <h4>Do I type this, or can I just click Search in Pinecone?</h4>
+   <p>Both work — they answer different questions.</p>
+   <p>The <b>Pinecone console has a search box</b>, and for "is there anything in there at all"
+   that is quicker. Open your index, type a question, look at what comes back. Use it any time you
+   want a fast sanity check.</p>
+   <p><b>Type the code as well, once.</b> Not because the console is wrong, but because of what the
+   printout teaches you. Look at what you reach through to get the text:</p>
+   <ul>
+     <li><code>hits</code> → <code>"result"</code> → <code>"hits"</code> → each
+         <code>h["fields"]["content"]</code></li>
+     <li>plus <code>h["_score"]</code>, which is how close the match was</li>
+   </ul>
+   <p>That is <em>exactly</em> the unpacking your tool does in step 8. If you have never seen the
+   shape, that line looks like magic you have to take on trust. If you have printed it once, it is
+   obvious — and you can debug it when it returns nothing.</p>
+   <p class="pnote2">On the scores: closer to 1 is a better match. If your best score is low and
+   the text has nothing to do with the question, the search is handing you the least-bad thing in a
+   nearly empty index. Go back and load more.</p>
+ </div></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Pinecone turns your search text into a vector for you and finds the closest records.</li><li>The score tells you how close each hit was — higher is closer.</li></ul></div></div><div class="gotcha"><h4>Watch out — An empty index looks like broken code</h4><p>If your searches return nothing, campers usually start rewriting Python. The problem is almost never the Python. Check <code>describe_index_stats</code> first, then check you are searching the same <b>namespace</b> you upserted into.</p></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>Point this at your own index.</b> Change two things:</p>
  <ul>
    <li><code>pc.Index("<span class="c-index">festival-knowledge</span>")</code> — the index your pod
        made in the setup card.</li>
