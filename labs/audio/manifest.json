@@ -240,13 +240,13 @@
    "id": "beat-05-2",
    "step": 6,
    "cue": "index.search",
-   "file": "beat-05-2-f1fc568c7ffa.mp3"
+   "file": "beat-05-2-1d755d3c78cf.mp3"
   },
   {
    "id": "beat-06-0",
    "step": 7,
    "cue": "festival_handbook",
-   "file": "beat-06-0-39184e9cb545.mp3"
+   "file": "beat-06-0-a9c0fe1896c8.mp3"
   },
   {
    "id": "beat-06-1",
@@ -276,7 +276,7 @@
    "id": "beat-06-5",
    "step": 7,
    "cue": "print(f\"upserted",
-   "file": "beat-06-5-a2bdfa4a8a0e.mp3"
+   "file": "beat-06-5-8a6588829712.mp3"
   },
   {
    "id": "beat-07-0",
