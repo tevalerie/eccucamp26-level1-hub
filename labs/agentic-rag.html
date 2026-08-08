@@ -83,10 +83,25 @@ pre.code code{background:none;padding:0;color:inherit;font-size:inherit}
 .yours ul{margin-bottom:10px}
 .ylab{font-size:10.6px;letter-spacing:.1em;text-transform:uppercase;color:var(--grape);
  font-weight:800;margin-bottom:7px}
+.paper{background:#fffdf5;border:1px solid #e6dcc0;border-radius:12px;padding:14px 17px;margin:0 0 14px}
+.plab{font-size:10.6px;letter-spacing:.1em;text-transform:uppercase;color:#8a7a4e;font-weight:800;margin-bottom:9px}
+table.clip{width:100%;border-collapse:collapse;font-size:14px;display:table;margin:0}
+table.clip th{background:transparent;color:#8a7a4e;font-size:11.5px;letter-spacing:.05em;
+ text-transform:uppercase;padding:4px 8px;border-bottom:1px solid #e6dcc0;text-align:left}
+table.clip td{padding:6px 8px;border-bottom:1px dashed #ece3cc;vertical-align:top}
+table.clip td:last-child{font-weight:700;color:var(--grape);width:34%}
+table.clip tr:last-child td{border-bottom:0}
+.arrows{font-size:14.5px;line-height:2;color:var(--ink)}
+.arrows b{color:var(--grape)}
+.pnote{font-size:12.4px;color:#8a7a4e;font-style:italic;margin-top:9px}
 .pivot{background:#eef;border:2px solid var(--indigo);border-radius:12px;padding:14px 17px;
  margin:0 0 14px;font-size:14px;line-height:1.55}
 .pivot .c-agent{color:var(--hotp);font-weight:800}
 .yours .c-agent{color:var(--hotp);font-weight:800}
+.ylab .c-name{color:#fff;background:var(--grape);border-radius:5px;padding:1px 7px}
+.swap{animation:swap 1.1s ease}
+@keyframes swap{0%{background:#ffe98a;box-shadow:0 0 0 3px #ffe98a}
+                100%{background:transparent;box-shadow:none}}
 .yours .c-name,.yours .c-index,.yours .c-ns,.yours .c-fn,.yours .c-topic,.yours .c-rule,.yours .c-q{
  color:var(--grape);font-weight:700}
 .check{background:#f6f7fb;border:1px solid var(--line);border-radius:13px;padding:15px 18px;margin-top:16px}
@@ -235,16 +250,35 @@ footer a{color:var(--indigo)}
 <article class="panel" data-step="1"><div class="ptag">Step 1 of 20 · Imports</div><h2>Set up your workbench</h2><div class="cols2"><div class="youwrite"><div class="lab you">You write this</div><p>Every build starts the same way — bring in the tools before you use them. Nothing
  clever happens here, but a missing import produces an error four steps later that points at
  completely the wrong line.</p>
- <p>The <code>!</code> tells a Deepnote or Colab cell "this is a terminal command, not Python."</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Nothing yet — you are only loading the parts.</li><li><code>MessagesState</code> arrives already able to store and update a conversation.</li></ul></div></div><div class="yours"><div class="ylab">Your turn — in your client's bot</div><p><b>Nothing changes here.</b> Same imports for every client and every organisation.</p>
+ <p>The <code>!</code> tells a Deepnote or Colab cell "this is a terminal command, not Python."</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Nothing yet — you are only loading the parts.</li><li><code>MessagesState</code> arrives already able to store and update a conversation.</li></ul></div></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>Nothing changes here.</b> Same imports whether you are building for
+ <span class="c-name">FestPass</span> or anyone else.</p>
  <p>But before you go on, <b>open your AI Architect Workbook</b> and find the agent whose job was to
  look things up. Type its name in the box at the top of this page. Everything below will call it by
  that name, because everything below <em>is</em> that agent.</p></div><div class="check" data-correct="0"><div class="qlab">Check yourself</div><p class="q">You run the install and immediately get <code>ModuleNotFoundError</code> on the next cell. What is most likely wrong?</p><div class="opts"><button class="opt" data-i="0">The install cell was never run, or the kernel needs restarting</button><button class="opt" data-i="1">LangGraph does not work on Chromebooks</button><button class="opt" data-i="2">You need to install Python first</button></div><div class="why"><b>Right —</b> Notebooks run cells in whatever order you click them. An install written but never run — or run after the imports — is far and away the most common cause. Run the install, restart the kernel, then import.</div><div class="nope">Not quite. Look again at the step above, then try another.</div></div></article>
 <article class="panel" data-step="2"><div class="ptag">Step 2 of 20 · Your org 1/4</div><h2>Your clipboard becomes the state</h2><div class="cols2"><div class="youwrite"><div class="lab you">You write this</div><p>In the workbook you drew a clipboard that gets passed around, and you wrote down which
  field each agent fills in. That clipboard has a name in code: <b>the state</b>.</p>
- <p>Write it out as a class. One line per field on your clipboard, with the agent who owns it in the
- comment. This is a direct copy of what is already on your paper.</p>
+
+ <div class="paper">
+   <div class="plab">What you already wrote in the workbook</div>
+   <table class="clip">
+     <tr><th>What goes on the clipboard</th><th>Who fills it in</th></tr>
+     <tr><td>What the customer is asking for</td><td>Grace</td></tr>
+     <tr><td>Which kind of pass they want</td><td>Marcus</td></tr>
+     <tr><td>What they need to bring</td><td><span class="c-agent">Ava</span></td></tr>
+     <tr><td>Anything still missing</td><td>Daniel</td></tr>
+     <tr><td>Whether the checks passed</td><td>Theo</td></tr>
+     <tr><td>The final decision</td><td>Zara</td></tr>
+   </table>
+   <div class="pnote">Yours will have different names and different rows — that is the point.</div>
+ </div>
+
+ <p><b>Now read that table across into code.</b> Each row becomes one line: a short name, the kind
+ of thing it holds, and the agent who owns it in a comment. Left column becomes the name, right
+ column becomes the comment.</p>
+ <p>So <em>"What the customer is asking for — Grace"</em> becomes
+ <code>intent: str &nbsp;# Grace writes this</code>. That is the whole translation.</p>
  <p><code>messages</code> is the one field you did not draw — it holds the conversation itself,
- and <code>add_messages</code> tells LangGraph to keep adding to it rather than overwriting.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Creates and carries this state through every node for you.</li><li>Merges what each node returns into it — you never pass it around by hand.</li><li><code>add_messages</code> handles appending to the conversation.</li></ul></div></div><div class="gotcha"><h4>Watch out — Two agents writing the same field</h4><p>Give every agent its own field. If two nodes both write <code>status</code>, the second quietly wipes the first and you will never see an error — just a wrong answer.</p></div><div class="yours"><div class="ylab">Your turn — in your client's bot</div><p><b>Type out your own clipboard.</b> Open the workbook at the page where you listed the fields,
+ and <code>add_messages</code> tells LangGraph to keep adding to it rather than overwriting.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Creates and carries this state through every node for you.</li><li>Merges what each node returns into it — you never pass it around by hand.</li><li><code>add_messages</code> handles appending to the conversation.</li></ul></div></div><div class="gotcha"><h4>Watch out — Two agents writing the same field</h4><p>Give every agent its own field. If two nodes both write <code>status</code>, the second quietly wipes the first and you will never see an error — just a wrong answer.</p></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>Type out your own clipboard.</b> Open the workbook at the page where you listed the fields,
  and write one line per field with the owning agent in the comment.</p>
  <p>Keep <code>messages</code> — every organisation needs the conversation itself. Everything
  else is yours.</p>
@@ -254,7 +288,23 @@ footer a{color:var(--indigo)}
  function</b>. Nothing more complicated than that.</p>
  <p>Each function takes the state, does its one job, and returns just the field it owns. It does not
  return the whole clipboard — only its own part.</p>
- <p>Two agents are shown here. Write the rest of yours the same way, straight off your org chart.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Calls each function in the order your edges say.</li><li>Merges the field you return into the shared state.</li><li>Hands the updated state to whichever node comes next.</li></ul></div></div><div class="gotcha"><h4>Watch out — An agent that does two jobs</h4><p>If a function returns three different fields, you have merged three agents into one and lost the thing that made your organisation work. Split it back out. One job each, exactly as you designed it.</p></div><div class="yours"><div class="ylab">Your turn — in your client's bot</div><p><b>Write one function per agent on your chart.</b> Two are shown; you may have five or eight.</p>
+
+ <div class="paper">
+   <div class="plab">The Agent Card you already filled in</div>
+   <table class="clip">
+     <tr><td>Agent</td><td>Grace</td></tr>
+     <tr><td>ONE JOB</td><td>Work out what the customer wants</td></tr>
+     <tr><td>Writes on the clipboard</td><td>what the customer is asking for</td></tr>
+     <tr><td>Must never</td><td>decide anything, or answer the customer</td></tr>
+   </table>
+   <div class="pnote">Every agent in your crew has one of these.</div>
+ </div>
+
+ <p><b>The card maps straight onto the function.</b> ONE JOB becomes the docstring. "Writes on the
+ clipboard" becomes what you return. "Must never" is the line you do not cross — Grace reads and
+ labels, she does not decide.</p>
+ <p>Two agents are shown here. Write the rest of yours the same way, straight off your org chart.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Calls each function in the order your edges say.</li><li>Merges the field you return into the shared state.</li><li>Hands the updated state to whichever node comes next.</li></ul></div></div><div class="gotcha"><h4>Watch out — An agent that does two jobs</h4><p>If a function returns three different fields, you have merged three agents into one and lost the thing that made your organisation work. Split it back out. One job each, exactly as you designed it.</p></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>Write one function per agent on your chart</b> — the agents you designed for
+ <span class="c-name">FestPass</span>. Two are shown here; you may have five or eight.</p>
  <p>For each one, copy the ONE JOB from its card into the docstring, and return only the field that
  agent owns.</p>
  <p><b>Do not start with the hard ones.</b> Write the two simplest agents first, run them, and see
@@ -263,7 +313,16 @@ footer a{color:var(--indigo)}
  write them one line at a time.</p>
  <p><code>START</code> is where the work comes in, <code>END</code> is where it leaves. Everything
  between is your arrows, copied across.</p>
- <p>Then compile and run it. Two agents, one handoff, and your organisation is alive.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Follows your arrows in order, with no scheduling code from you.</li><li>Passes the clipboard between agents automatically.</li><li>Stops cleanly when it reaches <code>END</code>.</li></ul></div></div><div class="gotcha"><h4>Watch out — A node name that does not match the edge</h4><p><code>add_node("grace", ...)</code> and <code>add_edge("grace", "marcus")</code> must use exactly the same strings. A typo here gives an error about an unknown node, which reads more confusingly than it is.</p></div><div class="yours"><div class="ylab">Your turn — in your client's bot</div><p><b>Copy your arrows across, one line each.</b> Look at your diagram and work left to right.</p>
+
+ <div class="paper">
+   <div class="plab">The arrows you drew</div>
+   <div class="arrows">work comes in <b>&rarr;</b> Grace <b>&rarr;</b> Marcus <b>&rarr;</b>
+     <span class="c-agent">Ava</span> <b>&rarr;</b> Daniel <b>&rarr;</b> Theo <b>&rarr;</b> Zara
+     <b>&rarr;</b> done</div>
+   <div class="pnote">One arrow on paper = one <code>add_edge</code> line in code.</div>
+ </div>
+ <p>Then compile and run it. Two agents, one handoff, and your organisation is alive.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Follows your arrows in order, with no scheduling code from you.</li><li>Passes the clipboard between agents automatically.</li><li>Stops cleanly when it reaches <code>END</code>.</li></ul></div></div><div class="gotcha"><h4>Watch out — A node name that does not match the edge</h4><p><code>add_node("grace", ...)</code> and <code>add_edge("grace", "marcus")</code> must use exactly the same strings. A typo here gives an error about an unknown node, which reads more confusingly than it is.</p></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>Copy your arrows across, one line each.</b> Look at your
+ <span class="c-name">FestPass</span> diagram and work left to right.</p>
  <ul>
    <li>Which agent receives the work first? That is your <code>START</code> edge.</li>
    <li>Which agent finishes the job? That one goes to <code>END</code>.</li>
@@ -273,12 +332,26 @@ footer a{color:var(--indigo)}
  organisation works</b> — everything after this is detail.</p></div><div class="check" data-correct="0"><div class="qlab">Check yourself</div><p class="q">What is an edge, in terms of your workbook?</p><div class="opts"><button class="opt" data-i="0">An arrow — one agent handing work to the next</button><button class="opt" data-i="1">An agent</button><button class="opt" data-i="2">A field on the clipboard</button><button class="opt" data-i="3">The final answer</button></div><div class="why"><b>Right —</b> Arrows on paper, edges in code. Your diagram is already the wiring plan; you are just typing it out.</div><div class="nope">Not quite. Look again at the step above, then try another.</div></div></article>
 <article class="panel" data-step="5"><div class="ptag">Step 5 of 20 · Your org 4/4</div><h2>Your edge-case cards become conditional edges</h2><div class="cols2"><div class="youwrite"><div class="lab you">You write this</div><p>A plain edge always goes to the same place. But your Edge-Case Cards were all about
  the times when it should <em>not</em>.</p>
- <p>Missing Doc. Unknown Rule. Expired Doc. On each card you wrote <b>which agent catches it</b>,
- <b>where it loops back to</b>, and <b>what we tell the customer</b>. Those three answers are a
- conditional edge.</p>
+ <p>Missing Doc. Unknown Rule. Expired Doc. On each card you wrote three answers — and those
+ three answers <em>are</em> a conditional edge.</p>
+
+ <div class="paper">
+   <div class="plab">The Edge-Case Card you dealt</div>
+   <table class="clip">
+     <tr><td>Edge case</td><td>Missing Document</td></tr>
+     <tr><td>Which agent catches it?</td><td>Daniel</td></tr>
+     <tr><td>Where does it loop back to?</td><td>Maya</td></tr>
+     <tr><td>What do we tell the customer?</td><td>"We still need your proof of age — can you send it?"</td></tr>
+   </table>
+   <div class="pnote">Answer one, then the next. Each card is one loop.</div>
+ </div>
+
+ <p><b>Read it across:</b> the agent who catches it is the node you attach the edge to. Where it
+ loops back to is the mapping. What you tell the customer goes in the agent it loops back to.</p>
  <p>The routing function returns a label; the mapping turns the label into an agent. That is the
- whole mechanism, and it is the thing that makes your organisation agentic rather than a queue.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Calls your routing function after that node runs, every time.</li><li>Sends the work to whichever agent your label maps to.</li><li>Handles the loop back without any extra code from you.</li></ul></div></div><div class="yours"><div class="ylab">Your turn — in your client's bot</div><p><b>Take out your Edge-Case Cards and do them one at a time.</b> Each card becomes one routing
- function and one mapping.</p>
+ whole mechanism, and it is the thing that makes your organisation agentic rather than a queue.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Calls your routing function after that node runs, every time.</li><li>Sends the work to whichever agent your label maps to.</li><li>Handles the loop back without any extra code from you.</li></ul></div></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>Take out your Edge-Case Cards and do them one at a time.</b> Each card becomes one routing
+ function and one mapping — and each one is a real thing that will happen to a
+ <span class="c-name">FestPass</span> customer.</p>
  <ul>
    <li><em>Which agent catches it</em> → the node you attach the conditional edge to.</li>
    <li><em>Where it loops back to</em> → the mapping.</li>
@@ -299,7 +372,7 @@ footer a{color:var(--indigo)}
  <p>This step writes nothing. It only asks two questions: <b>is there anything in my index?</b> and
  <b>does a search actually find it?</b></p>
  <p>Do this before you write a single line of graph code. An empty shelf is the most common reason
- a bot answers nothing, and from the outside it looks exactly like broken code.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Pinecone turns your search text into a vector for you and finds the closest records.</li><li>The score tells you how close each hit was — higher is closer.</li></ul></div></div><div class="gotcha"><h4>Watch out — An empty index looks like broken code</h4><p>If your searches return nothing, campers usually start rewriting Python. The problem is almost never the Python. Check <code>describe_index_stats</code> first, then check you are searching the same <b>namespace</b> you upserted into.</p></div><div class="yours"><div class="ylab">Your turn — in your client's bot</div><p><b>Point this at your own index.</b> Change two things:</p>
+ a bot answers nothing, and from the outside it looks exactly like broken code.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Pinecone turns your search text into a vector for you and finds the closest records.</li><li>The score tells you how close each hit was — higher is closer.</li></ul></div></div><div class="gotcha"><h4>Watch out — An empty index looks like broken code</h4><p>If your searches return nothing, campers usually start rewriting Python. The problem is almost never the Python. Check <code>describe_index_stats</code> first, then check you are searching the same <b>namespace</b> you upserted into.</p></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>Point this at your own index.</b> Change two things:</p>
  <ul>
    <li><code>pc.Index("<span class="c-index">festival-knowledge</span>")</code> — the index your pod
        made in the setup card.</li>
@@ -316,7 +389,8 @@ footer a{color:var(--indigo)}
  document as one lump, because then a search returns the <em>whole thing</em> — and "here is all 40
  pages" is not an answer.</p>
  <p>So you cut it up first. That is called <b>chunking</b>. Each piece becomes one record, and a
- search returns the piece that answers the question.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Turns every chunk into a vector for you — no embedding model to pick.</li><li>Stores and indexes them all, and keeps them searchable.</li><li>Splits on sensible boundaries, so it does not cut in the middle of a word.</li></ul></div></div><div class="gotcha"><h4>Watch out — Chunks that are too big or too small</h4><p>Too small (say 50 tokens) and you get back scraps too short to answer from. Too big (say 3,000) and the one useful sentence is buried in noise the model has to wade through. 500 with 50 overlap is a good starting point — adjust once you see real results.</p></div><div class="yours"><div class="ylab">Your turn — in your client's bot</div><p><b>This is where your Golden Record becomes your bot's memory.</b></p>
+ search returns the piece that answers the question.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Turns every chunk into a vector for you — no embedding model to pick.</li><li>Stores and indexes them all, and keeps them searchable.</li><li>Splits on sensible boundaries, so it does not cut in the middle of a word.</li></ul></div></div><div class="gotcha"><h4>Watch out — Chunks that are too big or too small</h4><p>Too small (say 50 tokens) and you get back scraps too short to answer from. Too big (say 3,000) and the one useful sentence is buried in noise the model has to wade through. 500 with 50 overlap is a good starting point — adjust once you see real results.</p></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>This is where the <span class="c-name">FestPass</span> Golden Record becomes your bot's
+ memory.</b></p>
  <p>Replace the handbook text with your client's real documents. Your pod already collected them —
  the policies, the FAQs, the rules. Paste them in, or read them from a file.</p>
  <ul>
@@ -335,7 +409,7 @@ footer a{color:var(--indigo)}
  whether to use it.</p>
  <p>Read that docstring carefully. It is not a comment. <code>@tool</code> hands it to the model as
  the tool's description, and it is the entire basis on which the model decides to call this or
- not. It is the sign on the shop door.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Reads your function signature and builds a tool schema from it.</li><li>Hands your docstring to the model as the description.</li><li>Runs the function when the model asks — and only then.</li><li>Wraps whatever you return into a tool message on the conversation.</li></ul></div></div><div class="gotcha"><h4>Watch out — The tool does not run every turn</h4><p>This is the number one misunderstanding. Adding a tool does not mean it fires on every question — it fires when the model asks for it. Type "hello" and it should never run. If it does, your docstring is too broad.</p></div><div class="yours"><div class="ylab">Your turn — in your client's bot</div><p><b>This is the most important edit you will make.</b> Two parts:</p>
+ not. It is the sign on the shop door.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Reads your function signature and builds a tool schema from it.</li><li>Hands your docstring to the model as the description.</li><li>Runs the function when the model asks — and only then.</li><li>Wraps whatever you return into a tool message on the conversation.</li></ul></div></div><div class="gotcha"><h4>Watch out — The tool does not run every turn</h4><p>This is the number one misunderstanding. Adding a tool does not mean it fires on every question — it fires when the model asks for it. Type "hello" and it should never run. If it does, your docstring is too broad.</p></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>This is the most important edit you will make.</b> Two parts:</p>
  <ul>
    <li>Rename the function for your client's domain —
        <code><span class="c-fn">search_festival_rules</span></code>.</li>
@@ -357,7 +431,7 @@ footer a{color:var(--indigo)}
 <article class="panel" data-step="9"><div class="ptag">Step 9 of 20 · The RAG agent 4/12</div><h2>The agent decides</h2><div class="cols2"><div class="youwrite"><div class="lab you">You write this</div><p>Your first node. It reads the conversation so far and either answers straight back,
  or asks for the tool.</p>
  <p><b>The model never runs the tool.</b> It only asks. Your graph does the running — which is
- exactly why you can always see what it wanted to do before it did it.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Appends the message you returned to the shared state.</li><li>Notices whether the model attached a <code>tool_calls</code> request.</li><li>Carries the whole conversation history into the next node for you.</li></ul></div></div><div class="yours"><div class="ylab">Your turn — in your client's bot</div><p><b>One edit:</b> the tool name inside <code>bind_tools([...])</code>.</p>
+ exactly why you can always see what it wanted to do before it did it.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Appends the message you returned to the shared state.</li><li>Notices whether the model attached a <code>tool_calls</code> request.</li><li>Carries the whole conversation history into the next node for you.</li></ul></div></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>One edit:</b> the tool name inside <code>bind_tools([...])</code>.</p>
  <p>Look at your workflow diagram. <b>Which agent hands work to <span class="c-agent">Ava</span>?</b> That agent is
  this node — the one that decides whether <span class="c-agent">Ava</span> is needed at all.</p>
  <p>If your organisation has <b>more than one</b> agent that looks things up, pass them all:
@@ -368,7 +442,7 @@ footer a{color:var(--indigo)}
  all three are useless. It is the fish stall — the vendor hands you the three nearest fish in the
  box, and nearest is not the same as right. You look before you pay.</p>
  <p>Notice what this returns: <b>not data, but the name of the next node</b>. That is what makes it
- a routing function.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Reads your returned string and jumps to the node with that name.</li><li><code>with_structured_output</code> forces the model into your shape — you never parse text.</li><li>Keeps the full conversation intact across the jump.</li></ul></div></div><div class="gotcha"><h4>Watch out — Node functions and routing functions are different animals</h4><p>A <b>node</b> function returns state: <code>return {"messages": [...]}</code>. A <b>routing</b> function returns a node name: <code>return "generate_answer"</code>. Mixing them up is the error you will hit most often, and the traceback rarely says so plainly.</p></div><div class="yours"><div class="ylab">Your turn — in your client's bot</div><p><b>No code change needed.</b> This grader works as written for any client.</p>
+ a routing function.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Reads your returned string and jumps to the node with that name.</li><li><code>with_structured_output</code> forces the model into your shape — you never parse text.</li><li>Keeps the full conversation intact across the jump.</li></ul></div></div><div class="gotcha"><h4>Watch out — Node functions and routing functions are different animals</h4><p>A <b>node</b> function returns state: <code>return {"messages": [...]}</code>. A <b>routing</b> function returns a node name: <code>return "generate_answer"</code>. Mixing them up is the error you will hit most often, and the traceback rarely says so plainly.</p></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>No code change needed.</b> This grader works as written for any client.</p>
  <p>But look at your org chart: if you named a <b>checker</b> agent, this node is where that agent
  lives. Rename the function to their name so your pod can read the file against the diagram.</p>
  <p><b>Remember the Edge-Case Cards.</b> Missing Doc, Unknown Rule, Empty Search — the cards your pod
@@ -379,7 +453,7 @@ footer a{color:var(--indigo)}
  will reject more, loop more, and invent less.</p></div><div class="check" data-correct="0"><div class="qlab">Check yourself</div><p class="q">Why does <code>grade_documents</code> return a string instead of returning messages?</p><div class="opts"><button class="opt" data-i="0">Because it is a routing function — the string names the next node to run</button><button class="opt" data-i="1">Because the answer is not ready yet</button><button class="opt" data-i="2">Because strings are faster</button></div><div class="why"><b>Right —</b> Routing functions steer. LangGraph takes the returned string and jumps to the node with that name. That is the whole mechanism behind a conditional edge.</div><div class="nope">Not quite. Look again at the step above, then try another.</div></div></article>
 <article class="panel" data-step="11"><div class="ptag">Step 11 of 20 · The RAG agent 6/12</div><h2>Ask a better question</h2><div class="cols2"><div class="youwrite"><div class="lab you">You write this</div><p>The documents came back irrelevant. Very often retrieval was fine and the
  <em>question</em> was the problem — "where is the thing?" gives a search engine nothing to work
- with. "Where is the blue folder with my exam slip?" gets an answer in ten seconds.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Appends your new question to the conversation.</li><li>Follows the edge you draw in step 10 back to the agent.</li><li>Keeps every earlier message, so nothing is lost on the retry.</li></ul></div></div><div class="gotcha"><h4>Watch out — This loop has no brakes yet</h4><p>If the answer genuinely is not in your index, this will rewrite → retrieve → fail → rewrite forever, spending real money on every pass. The ferry turns back for the next run — but a ferry that turns back forever never docks. You add the cap in the debrief.</p></div><div class="yours"><div class="ylab">Your turn — in your client's bot</div><p><b>No code change needed.</b></p>
+ with. "Where is the blue folder with my exam slip?" gets an answer in ten seconds.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Appends your new question to the conversation.</li><li>Follows the edge you draw in step 10 back to the agent.</li><li>Keeps every earlier message, so nothing is lost on the retry.</li></ul></div></div><div class="gotcha"><h4>Watch out — This loop has no brakes yet</h4><p>If the answer genuinely is not in your index, this will rewrite → retrieve → fail → rewrite forever, spending real money on every pass. The ferry turns back for the next run — but a ferry that turns back forever never docks. You add the cap in the debrief.</p></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>No code change needed.</b></p>
  <p>In your workflow this is whichever agent you made responsible for <b>going back and asking
  again</b>. On your Edge-Case Cards you wrote "where it loops back to" — this node is that answer,
  and the edge in step 12 is the arrow you drew.</p>
@@ -388,7 +462,7 @@ footer a{color:var(--indigo)}
 <article class="panel" data-step="12"><div class="ptag">Step 12 of 20 · The RAG agent 7/12</div><h2>Write the answer</h2><div class="cols2"><div class="youwrite"><div class="lab you">You write this</div><p>Documents graded good. Now answer from them — and <em>only</em> from them.</p>
  <p>The line that matters most is the one telling it to admit when it does not know. Without it,
  the model's default is to produce something plausible. Same rule as your Golden Record: a bot that
- says "I don't have that" is worth far more than one that invents a policy.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Adds the answer to the conversation.</li><li>Follows your edge to <code>END</code> and hands the whole conversation back to you.</li></ul></div></div><div class="yours"><div class="ylab">Your turn — in your client's bot</div><p><b>Change the voice.</b> The structure of this prompt stays; the register does not.</p>
+ says "I don't have that" is worth far more than one that invents a policy.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Adds the answer to the conversation.</li><li>Follows your edge to <code>END</code> and hands the whole conversation back to you.</li></ul></div></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>Change the voice.</b> The structure of this prompt stays; the register does not.</p>
  <p>Your pod already wrote a master prompt for <span class="c-name">FestPass</span> with an
  authority statement, a personality and a tone. Paste that voice in here so the answers sound like
  your client and not like a generic assistant.</p>
@@ -398,7 +472,7 @@ footer a{color:var(--indigo)}
 <article class="panel" data-step="13"><div class="ptag">Step 13 of 20 · The RAG agent 8/12</div><h2>Lay out the blueprint</h2><div class="cols2"><div class="youwrite"><div class="lab you">You write this</div><p>You have written four functions and none of them are connected. This is where you tell
  LangGraph what exists.</p>
  <p>Notice <code>ToolNode</code> — you never write the code that runs a tool call, extracts the
- arguments and formats the result. Hand it your tool list and it does all of that.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Builds the execution framework around your nodes.</li><li><code>ToolNode</code> reads the tool call, pulls out the arguments, runs the right tool and formats the result — all of it.</li><li>Sets the entry point, so a run always begins in the same place.</li></ul></div></div><div class="yours"><div class="ylab">Your turn — in your client's bot</div><p><b>One edit:</b> your tool name inside <code>ToolNode([...])</code>.</p>
+ arguments and formats the result. Hand it your tool list and it does all of that.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Builds the execution framework around your nodes.</li><li><code>ToolNode</code> reads the tool call, pulls out the arguments, runs the right tool and formats the result — all of it.</li><li>Sets the entry point, so a run always begins in the same place.</li></ul></div></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>One edit:</b> your tool name inside <code>ToolNode([...])</code>.</p>
  <p><b>Rename the nodes to your agents.</b> If your organisation has <span class="c-agent">Ava</span> and a checker and
  someone who asks again, use those names here. LangGraph does not care what you call them, as long
  as your edges use the same names.</p>
@@ -408,13 +482,13 @@ footer a{color:var(--indigo)}
 <article class="panel" data-step="14"><div class="ptag">Step 14 of 20 · The RAG agent 9/12</div><h2>The first fork in the road</h2><div class="cols2"><div class="youwrite"><div class="lab you">You write this</div><p>Your first conditional edge. After the agent speaks, something has to decide: was that
  a plain answer, or a request for the tool?</p>
  <p>This is the bell on the minibus. The conductor does not stop at every stop — he stops when
- somebody rings.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Calls your routing function every time the agent finishes.</li><li>Looks your return value up in the mapping and jumps there.</li><li>Ends the run cleanly when the route is <code>END</code>.</li></ul></div></div><div class="yours"><div class="ylab">Your turn — in your client's bot</div><p><b>No change.</b> This fork works the same for every client.</p>
+ somebody rings.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Calls your routing function every time the agent finishes.</li><li>Looks your return value up in the mapping and jumps there.</li><li>Ends the run cleanly when the route is <code>END</code>.</li></ul></div></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>No change.</b> This fork works the same for every client.</p>
  <p>Worth knowing for your showcase: this is the exact point where your bot stops being a chatbot.
  Everything before it is a straight line. From here the path is chosen at runtime.</p></div><div class="check" data-correct="0"><div class="qlab">Check yourself</div><p class="q">What is the mapping dictionary for?</p><div class="opts"><button class="opt" data-i="0">It translates what your function returns into the node to jump to</button><button class="opt" data-i="1">It lists every node in the graph</button><button class="opt" data-i="2">It sets the order nodes run in</button></div><div class="why"><b>Right —</b> Your function returns the label "tools"; the mapping says that label means the node named "retrieve". When a routing function already returns real node names you can leave the mapping out — which is exactly what happens next.</div><div class="nope">Not quite. Look again at the step above, then try another.</div></div></article>
 <article class="panel" data-step="15"><div class="ptag">Step 15 of 20 · The RAG agent 10/12</div><h2>Close the loop</h2><div class="cols2"><div class="youwrite"><div class="lab you">You write this</div><p>Three edges left, and one of them is the whole point of this lab.</p>
  <p><code>grade_documents</code> already returns real node names, so this conditional edge needs no
  mapping. And the last edge is the loop.</p>
- <p>Then <code>compile()</code>. Until you call it, you have a blueprint — not a graph.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Checks your wiring and complains now, rather than halfway through a run.</li><li>Works out every path through the graph before anything executes.</li><li>Hands you a finished object you can call <code>.invoke()</code> on.</li></ul></div></div><div class="gotcha"><h4>Watch out — Forgetting <code>compile()</code></h4><p><code>workflow</code> is the blueprint; <code>graph</code> is the built thing. Calling <code>workflow.invoke(...)</code> fails. If your error says the object has no attribute <code>invoke</code>, this is why.</p></div><div class="yours"><div class="ylab">Your turn — in your client's bot</div><p><b>No change to the wiring</b> — but this is where your retry cap goes, and you should add it
+ <p>Then <code>compile()</code>. Until you call it, you have a blueprint — not a graph.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Checks your wiring and complains now, rather than halfway through a run.</li><li>Works out every path through the graph before anything executes.</li><li>Hands you a finished object you can call <code>.invoke()</code> on.</li></ul></div></div><div class="gotcha"><h4>Watch out — Forgetting <code>compile()</code></h4><p><code>workflow</code> is the blueprint; <code>graph</code> is the built thing. Calling <code>workflow.invoke(...)</code> fails. If your error says the object has no attribute <code>invoke</code>, this is why.</p></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>No change to the wiring</b> — but this is where your retry cap goes, and you should add it
  before you demo. The pattern is in the debrief at the end.</p>
  <p>If your org chart has an escalation path — an agent whose job is to hand off to a human — that
  belongs here too. Instead of looping forever, route to it: "I could not find that in
@@ -423,7 +497,7 @@ footer a{color:var(--indigo)}
  <p>Then test three ways — and the three tests matter more than the code, because they are how you
  prove to yourself the routing is real.</p>
  <p>Three routes through one graph. When you can show all three and say what happened in each, you
- are finished. Try it on the bench below.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Runs your nodes in the order your edges dictate.</li><li>Threads the state through every node without you passing it by hand.</li><li>Executes tool calls, follows your routing, handles the loop.</li><li>Returns the full conversation when it reaches <code>END</code>.</li></ul></div></div><div class="yours"><div class="ylab">Your turn — in your client's bot</div><p><b>Swap the test question</b> for one a real customer of your client would actually type.
+ are finished. Try it on the bench below.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Runs your nodes in the order your edges dictate.</li><li>Threads the state through every node without you passing it by hand.</li><li>Executes tool calls, follows your routing, handles the loop.</li><li>Returns the full conversation when it reaches <code>END</code>.</li></ul></div></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>Swap the test question</b> for one a real customer of your client would actually type.
  Something like: <em>"<span class="c-q">Can a 16 year old get in?</span>"</em></p>
  <p>Then run your three tests, and write down what happened in each — that is your showcase demo:</p>
  <ul>
@@ -436,7 +510,7 @@ footer a{color:var(--indigo)}
  it will rewrite, search, fail, rewrite — round and round, and every lap costs real money.</p>
  <p>The ferry turns back for the next run. Good. But a ferry that turns back forever never docks.</p>
  <p>So you count the laps and stop at three. And when you stop, you answer honestly instead of
- pretending.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Carries your <code>retry_count</code> along with the messages, automatically.</li><li>Merges what you return into the state — you never manage the counter by hand.</li></ul></div></div><div class="gotcha"><h4>Watch out — Counting in the wrong place</h4><p>The counter has to go up in <code>rewrite_question</code>, because that is the node that causes another lap. If you increment it in the grader instead, it climbs on every check — including the successful ones — and your bot gives up on questions it was about to answer.</p></div><div class="yours"><div class="ylab">Your turn — in your client's bot</div><p><b>No change needed</b> — but do not skip this step for your client bot.</p>
+ pretending.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Carries your <code>retry_count</code> along with the messages, automatically.</li><li>Merges what you return into the state — you never manage the counter by hand.</li></ul></div></div><div class="gotcha"><h4>Watch out — Counting in the wrong place</h4><p>The counter has to go up in <code>rewrite_question</code>, because that is the node that causes another lap. If you increment it in the grader instead, it climbs on every check — including the successful ones — and your bot gives up on questions it was about to answer.</p></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>No change needed</b> — but do not skip this step for your client bot.</p>
  <p>Three is a sensible cap. Lower it to two if each lap is slow.</p>
  <p><b>Then write the giving-up message in your client's voice.</b> Do not let it just answer from
  whatever junk it has. Something like: <em>"I could not find that in
@@ -448,7 +522,7 @@ footer a{color:var(--indigo)}
  <p>So make the path visible. <code>graph.stream()</code> hands you every step as it happens instead
  of only the final answer.</p>
  <p>Run this on the vague question and watch it go round the loop. Being able to point at the exact
- step where it changed direction is what you will be asked to do in the showcase.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Hands you each step as the graph runs, without you instrumenting anything.</li><li>Keeps the full state at every step, so you can inspect any of it.</li></ul></div></div><div class="yours"><div class="ylab">Your turn — in your client's bot</div><p><b>No change needed.</b> Run it on your own three test questions and screenshot what comes
+ step where it changed direction is what you will be asked to do in the showcase.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Hands you each step as the graph runs, without you instrumenting anything.</li><li>Keeps the full state at every step, so you can inspect any of it.</li></ul></div></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>No change needed.</b> Run it on your own three test questions and screenshot what comes
  out — that is evidence for your showcase, and it is far more convincing than saying "it works".</p>
  <p>Watch specifically for the search query your agent writes for itself. If it is searching for
  something odd, your tool docstring is pointing it the wrong way.</p></div><div class="check" data-correct="0"><div class="qlab">Check yourself</div><p class="q">Your bot gives a confident but wrong answer. What does streaming help you find?</p><div class="opts"><button class="opt" data-i="0">Which node made the wrong decision — usually the grader passing junk</button><button class="opt" data-i="1">Whether Pinecone is down</button><button class="opt" data-i="2">Whether your API key expired</button></div><div class="why"><b>Right —</b> Nothing crashed, so there is no traceback to read. Streaming shows you the path: what was retrieved, how it was graded, and what got answered from. A confident wrong answer nearly always means the grader said yes to something it should have rejected.</div><div class="nope">Not quite. Look again at the step above, then try another.</div></div></article>
@@ -456,7 +530,7 @@ footer a{color:var(--indigo)}
  <p>Remember the <code>source</code> field you added when you loaded the documents? This is what it
  was for. Put it in front of the model and ask it to name where each fact came from.</p>
  <p>For a real client this is not a nice extra. If your bot tells someone a refund rule, somebody
- will eventually ask "says who?" — and your bot should be able to answer that.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Nothing new — this is your own code doing the work.</li><li>The <code>source</code> you saved at load time is just sitting there in the record, waiting.</li></ul></div></div><div class="yours"><div class="ylab">Your turn — in your client's bot</div><p><b>Use your own source names.</b> When you loaded your documents you set
+ will eventually ask "says who?" — and your bot should be able to answer that.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Nothing new — this is your own code doing the work.</li><li>The <code>source</code> you saved at load time is just sitting there in the record, waiting.</li></ul></div></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>Use your own source names.</b> When you loaded your documents you set
  <code>"source"</code> — make sure it says something a real person would recognise, like
  <em>"<span class="c-name">FestPass</span> customer handbook"</em>, not <code>doc1.pdf</code>.</p>
  <p><b>Put this in your showcase.</b> A bot that says where its answer came from reads as
@@ -465,7 +539,7 @@ footer a{color:var(--indigo)}
  also has a lineup: who plays, which stage, what time. Those are different questions.</p>
  <p>You do not need a second graph. You add a second tool, and the agent picks.</p>
  <p>This is your AI Agent Organisation showing up in real code. Two knowledge agents, each with one
- job, and the model choosing which to ask.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Works out which of your tools the model asked for, and runs that one.</li><li>Handles any number of tools with the same <code>ToolNode</code>.</li></ul></div></div><div class="gotcha"><h4>Watch out — Two docstrings that overlap</h4><p>If both say something vague like “search festival information”, the model has no way to choose and will pick badly. Each docstring must draw a clear line: one covers rules and refunds, the other covers who is playing and when.</p></div><div class="yours"><div class="ylab">Your turn — in your client's bot</div><p><b>Only do this if your client genuinely has two different kinds of knowledge.</b> Do not add
+ job, and the model choosing which to ask.</p></div><div class="autoside"><div class="lab auto">LangGraph does this for you</div><ul><li>Works out which of your tools the model asked for, and runs that one.</li><li>Handles any number of tools with the same <code>ToolNode</code>.</li></ul></div></div><div class="gotcha"><h4>Watch out — Two docstrings that overlap</h4><p>If both say something vague like “search festival information”, the model has no way to choose and will pick badly. Each docstring must draw a clear line: one covers rules and refunds, the other covers who is playing and when.</p></div><div class="yours"><div class="ylab">Your turn — in your <span class="c-name">FestPass</span> bot</div><p><b>Only do this if your client genuinely has two different kinds of knowledge.</b> Do not add
  a second tool just to look clever — one good tool beats two vague ones.</p>
  <p>Go back to your org chart and count the agents whose job was looking something up. If there is
  more than one — <span class="c-agent">Ava</span> plus another — <b>those are your tools</b>, one function each.
@@ -658,12 +732,15 @@ try{var sv=localStorage.getItem("ragLabClient");
 function stepCode(i){return CODE[i];}
 var agentName="Ava";
 try{var an=localStorage.getItem("ragLabAgent"); if(an)agentName=an;}catch(e){}
-function paintClient(){
+function paintClient(flash){
   var map={"c-name":client.name,"c-index":client.index,"c-ns":client.ns,
            "c-fn":client.fn,"c-topic":client.topic,"c-rule":client.rule,"c-q":client.q,
            "c-agent":agentName};
   Object.keys(map).forEach(function(k){
-    document.querySelectorAll("."+k).forEach(function(e){e.textContent=map[k];});
+    document.querySelectorAll("."+k).forEach(function(e){
+      e.textContent=map[k];
+      if(flash){e.classList.remove("swap");void e.offsetWidth;e.classList.add("swap");}
+    });
   });
 }
 
@@ -999,7 +1076,7 @@ agIn.value=(agentName==="Ava")?"":agentName;
 agIn.addEventListener("input",function(){
   agentName=agIn.value.trim()||"Ava";
   try{localStorage.setItem("ragLabAgent",agentName);}catch(e){}
-  paintClient();
+  paintClient(true);
 });
 paintClient();
 sel.addEventListener("change",function(){
