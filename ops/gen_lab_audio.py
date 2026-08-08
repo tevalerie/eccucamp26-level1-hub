@@ -6,10 +6,18 @@ Reads the narration lines straight out of labs/agentic-rag.html, so the audio
 can never drift from the text on screen. Each line is content-hashed, so a
 re-run only spends credits on lines that actually changed.
 
+    python3 ops/gen_lab_audio.py --balance       # characters left this month
     python3 ops/gen_lab_audio.py --list          # show available voices
     python3 ops/gen_lab_audio.py --dry-run       # cost estimate, spends nothing
     python3 ops/gen_lab_audio.py                 # generate what is missing
     python3 ops/gen_lab_audio.py --voice <id>    # use a specific voice
+    python3 ops/gen_lab_audio.py --model <id>    # default is multilingual v2
+
+Model choice: latency does not matter here, because every clip is generated
+once and served as a static file. Pay for quality, not speed.
+
+    eleven_multilingual_v2   $0.10 / 1K chars   <- default, best quality
+    eleven_flash_v2_5        $0.05 / 1K chars   half price, slightly thinner
 
 The API key lives in ~/.elevenlabs-api-key (chmod 600). It is never printed
 and never written into the repo.
@@ -90,6 +98,31 @@ def main():
     voice = DEFAULT_VOICE
     if "--voice" in args:
         voice = args[args.index("--voice") + 1]
+    model = MODEL
+    if "--model" in args:
+        model = args[args.index("--model") + 1]
+
+    if "--balance" in args:
+        sub = api("/user/subscription")
+        used = sub.get("character_count", 0)
+        cap = sub.get("character_limit", 0)
+        left = max(0, cap - used)
+        need = sum(len(l["text"]) for l in narration())
+        print("tier      : %s" % sub.get("tier", "?"))
+        print("used      : %s of %s characters" % (format(used, ","), format(cap, ",")))
+        print("remaining : %s characters" % format(left, ","))
+        print("this job  : %s characters" % format(need, ","))
+        print()
+        if left >= need:
+            print("ENOUGH — you can generate the whole lab without topping up.")
+        else:
+            print("SHORT by %s characters. Top up, or wait for the monthly reset."
+                  % format(need - left, ","))
+        if sub.get("next_character_count_reset_unix"):
+            import datetime
+            r = datetime.datetime.fromtimestamp(sub["next_character_count_reset_unix"])
+            print("allowance resets: %s" % r.strftime("%d %b %Y"))
+        return
 
     if "--list" in args:
         for v in api("/voices")["voices"]:
@@ -107,8 +140,10 @@ def main():
 
     print("clips total   : %d" % len(lines))
     print("already built : %d" % (len(lines) - len(todo)))
-    print("to generate   : %d  (%s characters ~= %s credits)"
-          % (len(todo), format(chars, ","), format(chars, ",")))
+    rate = 0.05 if "flash" in model or "turbo" in model else 0.10
+    print("model         : %s" % model)
+    print("to generate   : %d  (%s characters ~= $%.2f)"
+          % (len(todo), format(chars, ","), chars / 1000 * rate))
 
     if "--dry-run" in args:
         print("\ndry run — nothing spent, nothing written.")
@@ -116,10 +151,10 @@ def main():
     if not todo:
         print("\nnothing to do; writing manifest only.")
     else:
-        print("\nvoice: %s\n" % voice)
+        print("\nvoice: %s | model: %s\n" % (voice, model))
         for n, ln in enumerate(todo, 1):
             audio = api("/text-to-speech/%s" % voice,
-                        {"text": ln["text"], "model_id": MODEL,
+                        {"text": ln["text"], "model_id": model,
                          "voice_settings": {"stability": 0.45,
                                             "similarity_boost": 0.75,
                                             "style": 0.0,
@@ -130,7 +165,7 @@ def main():
                   % (n, len(todo), ln["file"][:22], len(audio), ln["text"][:44]))
 
     MANIFEST.write_text(json.dumps(
-        {"voice": voice, "model": MODEL,
+        {"voice": voice, "model": model,
          "clips": [{"id": l["id"], "step": l["step"], "cue": l["cue"],
                     "file": l["file"]} for l in lines]},
         indent=1))
