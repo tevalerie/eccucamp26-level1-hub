@@ -1921,6 +1921,89 @@ function postPinecone() {
   Logger.log('Pinecone done.');
 }
 
+// ── CHATBOT SHOWCASE ────────────────────────────────────────────────────────
+var SHOWCASE_TOPIC = 'Chatbot Showcase';
+var SHOWCASE = {
+  criteria:   '1_-NONFE0p_ZULx_hbNkKhEuc-HGYt3L5',  // Chatbot Showcase Judging Criteria
+  judgeTeen:  '14Vlw6kryGdK_Q3Lf_l7J0UciWpsCY6zR',  // Meet_Your_Judge_Allan_Daisley_TEEN
+  speakerBio: '1e1YCjoGHCEeJ6ThhYpExvjn9l3CouDEl'   // Guest_Speaker_Bio_Allan_Daisley
+};
+
+/**
+ * Posts the showcase judging criteria and the judge's bios into a
+ * 'Chatbot Showcase' topic. Idempotent — sweeps its own prior posts first.
+ */
+function postShowcase() {
+  var res = Classroom.Courses.list({ teacherId: 'me', courseStates: ['ACTIVE'] });
+  var courses = res.courses || [];
+
+  var judgeTitle = 'Meet your judge — Allan Daisley';
+  var judgeDesc = 'The person who will be scoring your bot, and the person speaking to you on the day.\n\n'
+    + 'Two documents here. The first is written for you: who he is, what he has built, and what he tends to look for. The second is his full professional bio.\n\n'
+    + 'READ THIS BEFORE YOU PITCH, NOT AFTER\n'
+    + 'Knowing who is in the room changes how you present. Someone who has built and backed real businesses will listen hardest to the part where you explain who your bot is FOR and why they would use it. That is not a reason to change what you built — it is a reason to be ready to say clearly why it matters.\n\n'
+    + 'AND COME WITH A QUESTION\n'
+    + 'You are getting time with someone who does this for a living. Have one real question ready. Not "any advice?" — something you actually want to know. The pods who ask good questions are the ones people remember.';
+
+  var critTitle = 'How you will be judged — the six criteria';
+  var critDesc = 'This is the actual scoresheet. Read it now, not the night before.\n\n'
+    + 'SIX AREAS, SCORED 1 TO 3 EACH. MAXIMUM 18.\n'
+    + '  1. Creativity & Uniqueness — is the idea original, or is it the same bot everyone built?\n'
+    + '  2. Functionality & Technical Proficiency — does it actually work, without errors?\n'
+    + '  3. User Experience — is it easy to use, does the conversation flow, is it tailored to different users?\n'
+    + '  4. Potential for Real-world Application — would your client genuinely use this?\n'
+    + '  5. Clarity & Effectiveness of Pitch — can you explain the value in six minutes?\n'
+    + '  6. Code Integrity Review — is the code clean, commented, and structured well?\n\n'
+    + 'WHAT THIS LIST IS TELLING YOU\n'
+    + 'Look at how the marks are spread. Only ONE of the six is about your code working. The other five are about whether the idea is worth building, whether a real person could use it, and whether you can explain it. A perfect bot with a confusing pitch and messy code scores the same as a modest bot presented well.\n\n'
+    + 'Note that Code Integrity is judged too — comments, structure, error handling. So tidy it up before the day and do not leave your keys in the file.\n\n'
+    + 'USE IT AS A CHECKLIST\n'
+    + 'Go through the six areas with your pod and mark yourselves honestly out of 3. Whatever you score lowest is what you work on this week. That is the whole point of getting the criteria in advance.';
+
+  COHORTS.forEach(function (cohort) {
+    var course = findCourse(courses, cohort);
+    if (!course) return;
+
+    // sweep prior posts — safe to re-run
+    try {
+      var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
+      ((page && page.courseWorkMaterial) || []).forEach(function (m) {
+        if (m.title && (m.title.indexOf('Meet your judge') === 0
+                     || m.title.indexOf('How you will be judged') === 0)) {
+          Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
+        }
+      });
+    } catch (e) { Logger.log('%s: showcase sweep — %s', cohort, (e.message || '').slice(0, 60)); }
+
+    var tId = topicId(course.id, SHOWCASE_TOPIC);
+
+    // judge bios first, so the criteria land on top
+    createMaterialWithRetry({
+      title: judgeTitle,
+      description: judgeDesc,
+      materials: [
+        { driveFile: { driveFile: { id: SHOWCASE.judgeTeen  }, shareMode: 'VIEW' } },
+        { driveFile: { driveFile: { id: SHOWCASE.speakerBio }, shareMode: 'VIEW' } }
+      ],
+      topicId: tId || undefined,
+      state: 'PUBLISHED'
+    }, course.id, judgeTitle);
+
+    createMaterialWithRetry({
+      title: critTitle,
+      description: critDesc,
+      materials: [
+        { driveFile: { driveFile: { id: SHOWCASE.criteria }, shareMode: 'VIEW' } }
+      ],
+      topicId: tId || undefined,
+      state: 'PUBLISHED'
+    }, course.id, critTitle);
+
+    Logger.log('%s: showcase posted (judging criteria + judge bios)', cohort);
+  });
+  Logger.log('Chatbot Showcase done.');
+}
+
 function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
 /**
