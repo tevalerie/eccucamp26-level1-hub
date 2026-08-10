@@ -1926,7 +1926,8 @@ var SHOWCASE_TOPIC = 'Chatbot Showcase';
 var SHOWCASE = {
   criteria:   '1_-NONFE0p_ZULx_hbNkKhEuc-HGYt3L5',  // Chatbot Showcase Judging Criteria
   judgeTeen:  '14Vlw6kryGdK_Q3Lf_l7J0UciWpsCY6zR',  // Meet_Your_Judge_Allan_Daisley_TEEN
-  speakerBio: '1e1YCjoGHCEeJ6ThhYpExvjn9l3CouDEl'   // Guest_Speaker_Bio_Allan_Daisley
+  speakerBio: '1e1YCjoGHCEeJ6ThhYpExvjn9l3CouDEl',  // Guest_Speaker_Bio_Allan_Daisley
+  running:    '1SdwjSpFXp_GsELNqykL-jXMOGqrkVm7bYXmwnNPMytU'  // Running_Order_Day19
 };
 
 /**
@@ -1960,6 +1961,29 @@ function postShowcase() {
     + 'USE IT AS A CHECKLIST\n'
     + 'Go through the six areas with your pod and mark yourselves honestly out of 3. Whatever you score lowest is what you work on this week. That is the whole point of getting the criteria in advance.';
 
+  var runTitle = 'Day 19 · Showcase running order — find your slot';
+  var runDesc = 'Monday afternoon. Eight teams, six minutes each. This is the order you go in.\n\n'
+    + 'THE ORDER IS FIXED. THE CLOCK IS NOT.\n'
+    + '  1. SCASPA\n'
+    + '  2. CUB — Caribbean Union Bank\n'
+    + '  3. IRD Anguilla\n'
+    + '  4. NAWASA 1\n'
+    + '  5. ACB Caribbean\n'
+    + '  6. IRD Grenada\n'
+    + '  7. NAWASA 2\n'
+    + '  8. ASPIRE\n\n'
+    + 'The times in the document are a guide and will slide on the day. The order will not. Find your number and work out who is in front of you — that is the team you follow, whatever the clock says.\n\n'
+    + 'BE READY ONE TEAM EARLY\n'
+    + 'While the judge is giving feedback to the team before you, you are setting up. That is the on-deck rule and it is what keeps the afternoon moving. If you are still opening tabs when your name is called, you are burning your own six minutes.\n\n'
+    + 'BEFORE YOU ARE CALLED, HAVE BOTH READY\n'
+    + '  • your live link, already open in a tab\n'
+    + '  • a backup — a screen recording or screenshots\n'
+    + 'The backup is not pessimism. Wifi fails, a free-tier server sleeps, an API rate-limits. A team that switches to a recording without breaking stride looks prepared. A team that stands there refreshing does not.\n\n'
+    + 'WHAT THE SIX MINUTES LOOK LIKE\n'
+    + 'Six minutes of pitch, then about three minutes of questions from the judge while the next team sets up. There will be a visible timer and a one-minute hand signal.\n\n'
+    + 'Your shape, the same one from the Pitch Prep playbook: HOOK, then THE HUMAN, then THE DEMO — conversation, the agentic reveal, run it — then UNDER THE HOOD, then THE WIN AND THE ASK.\n\n'
+    + 'Practise it standing up, out loud, with the timer running. Six minutes is shorter than it sounds, and the first time you find that out should not be in front of the judge.';
+
   COHORTS.forEach(function (cohort) {
     var course = findCourse(courses, cohort);
     if (!course) return;
@@ -1969,7 +1993,8 @@ function postShowcase() {
       var page = Classroom.Courses.CourseWorkMaterials.list(course.id, { pageSize: 60 });
       ((page && page.courseWorkMaterial) || []).forEach(function (m) {
         if (m.title && (m.title.indexOf('Meet your judge') === 0
-                     || m.title.indexOf('How you will be judged') === 0)) {
+                     || m.title.indexOf('How you will be judged') === 0
+                     || m.title.indexOf('Day 19 · Showcase running order') === 0)) {
           Classroom.Courses.CourseWorkMaterials.remove(course.id, m.id);
         }
       });
@@ -1999,7 +2024,18 @@ function postShowcase() {
       state: 'PUBLISHED'
     }, course.id, critTitle);
 
-    Logger.log('%s: showcase posted (judging criteria + judge bios)', cohort);
+    // running order last, so it sits on top — it is the most time-critical
+    createMaterialWithRetry({
+      title: runTitle,
+      description: runDesc,
+      materials: [
+        { driveFile: { driveFile: { id: SHOWCASE.running }, shareMode: 'VIEW' } }
+      ],
+      topicId: tId || undefined,
+      state: 'PUBLISHED'
+    }, course.id, runTitle);
+
+    Logger.log('%s: showcase posted (running order + criteria + judge bios)', cohort);
   });
   Logger.log('Chatbot Showcase done.');
 }
