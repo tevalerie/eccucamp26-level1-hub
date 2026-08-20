@@ -50,7 +50,8 @@ def main():
 
     for c in cfg["clients"]:
         payload = {k: c.get(k, "") for k in
-                   ("bot", "repo", "profile", "podcast", "podcastTitle", "video")}
+                   ("bot", "repo", "profile", "podcast", "podcastTitle",
+                    "video", "slides", "slidesNote")}
         for k in ("bot", "repo"):
             if not payload[k]:
                 missing.append("%s: %s" % (c["name"], k))
@@ -278,6 +279,11 @@ function render(card, data) {
   h += data.repo
     ? '<a href="' + data.repo + '" target="_blank" rel="noopener"><span class="ic">&#128187;</span>View the code on GitHub</a>'
     : '<span class="soon"><span class="ic">&#128187;</span>Code link coming</span>';
+  if (data.slides)
+    h += '<a href="' + data.slides + '" target="_blank" rel="noopener">'
+       + '<span class="ic">&#128202;</span><span>Pitch deck'
+       + (data.slidesNote ? '<span class="sub">' + data.slidesNote + '</span>' : '')
+       + '</span></a>';
   if (data.video)
     h += '<a href="' + data.video + '" target="_blank" rel="noopener"><span class="ic">&#9654;</span>Demo video</a>';
   if (data.profile)
