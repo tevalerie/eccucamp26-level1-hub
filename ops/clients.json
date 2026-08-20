@@ -1,0 +1,60 @@
+{
+  "_note": "Config for the client portal. Run ops/build_client_portal.py after editing.",
+  "_todo": "bot and repo URLs are blank until the teams hand them over; blank renders as 'coming soon' rather than a dead link.",
+  "title": "Client Portal",
+  "subtitle": "ECCU GenAI &amp; Python Camp 2026 — Chatbot Division",
+  "clients": [
+    {
+      "id": "acb",
+      "name": "ACB Caribbean",
+      "team": "Team ACBAI",
+      "territory": "Antigua &amp; Grenada",
+      "sector": "Banking",
+      "accent": "#2E9E7B",
+      "password": "acb-2026-review",
+      "bot": "",
+      "repo": "",
+      "profile": "1fPTAy0flzm-ZY7PPtzGol7y3c6445tBk",
+      "podcast": "1JUME8tJjJYtZ0cUZPVMUENVXO3JfzeCl"
+    },
+    {
+      "id": "aspire",
+      "name": "ASPIRE",
+      "team": "Team ASPIRE",
+      "territory": "St Kitts &amp; Nevis",
+      "sector": "Government Youth Finance",
+      "accent": "#7C6CF0",
+      "password": "aspire-2026-review",
+      "bot": "",
+      "repo": "",
+      "profile": "1Lc_vVTVHgGMgnF6nUi-nhi2BsUHxvAjf",
+      "podcast": "12kVgE66FGihiR1gkx7Y39wdFlUFF6U7l"
+    },
+    {
+      "id": "cub",
+      "name": "Caribbean Union Bank",
+      "team": "Team AI DOMinators",
+      "territory": "Antigua &amp; Barbuda",
+      "sector": "Banking",
+      "accent": "#3FA9E0",
+      "password": "cub-2026-review",
+      "bot": "",
+      "repo": "",
+      "profile": "1AmFaLwVI8RfVXUkJgHzdG80C658dd9Xc",
+      "podcast": "1Sc9fNFaS6JP-PSxgEteDbv49VFPoquUI"
+    },
+    {
+      "id": "scaspa",
+      "name": "SCASPA",
+      "team": "Team SCASPA",
+      "territory": "St Kitts &amp; Nevis",
+      "sector": "Air &amp; Sea Ports Authority",
+      "accent": "#E0913F",
+      "password": "scaspa-2026-review",
+      "bot": "",
+      "repo": "",
+      "profile": "1HPpNGx1XWCrprHcZ12LMSXfdP8CEUisC",
+      "podcast": "1YcnRg3ePezeSucX2gG-myKqTiKKO1vSB"
+    }
+  ]
+}
