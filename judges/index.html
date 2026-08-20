@@ -1,142 +1,10 @@
-#!/usr/bin/env python3
-"""
-Build the password-gated client portal from ops/clients.json.
-
-Each client's links (bot, repo, profile PDF, podcast) are encrypted with
-AES-GCM under a key derived from that client's password. Without the
-password the links are not present in the page in any recoverable form —
-this is a real lock, not a hidden div.
-
-    python3 ops/build_client_portal.py
-
-Writes clients/index.html. Re-run after editing ops/clients.json.
-
-What this protects, and what it does not
-----------------------------------------
-Protects: someone who finds the URL cannot see any client's links.
-Does NOT protect: once a client has their own links, those Drive files are
-"anyone with the link" and can be forwarded. Nor does it stop a client who
-knows one password from seeing that one card. Both are fine for a review
-portal; neither makes this a vault.
-"""
-import base64
-import html
-import json
-import os
-import pathlib
-import secrets
-
-from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-import hashlib
-
-import sys
-
-ROOT = pathlib.Path(__file__).resolve().parent.parent
-ITERATIONS = 200_000
-
-# python3 ops/build_client_portal.py [config.json] [out/index.html]
-_a = sys.argv[1:]
-CFG = ROOT / (_a[0] if len(_a) > 0 else "ops/clients.json")
-OUT = ROOT / (_a[1] if len(_a) > 1 else "clients/index.html")
-
-
-def encrypt(payload: dict, password: str):
-    salt = secrets.token_bytes(16)
-    iv = secrets.token_bytes(12)
-    key = hashlib.pbkdf2_hmac("sha256", password.encode(), salt, ITERATIONS, 32)
-    ct = AESGCM(key).encrypt(iv, json.dumps(payload).encode(), None)
-    b64 = lambda b: base64.b64encode(b).decode()
-    return {"salt": b64(salt), "iv": b64(iv), "ct": b64(ct)}
-
-
-def main():
-    cfg = json.loads(CFG.read_text(encoding="utf-8"))
-    cards, blobs, missing = [], {}, []
-
-    for c in cfg["clients"]:
-        fields = cfg.get("fields", ["bot", "repo", "profile", "podcast",
-                                    "podcastTitle", "video", "deck"])
-        payload = {k: c.get(k, "") for k in fields if k in c or k in ("bot", "repo")}
-        for k in ("bot", "repo"):
-            if k in payload and not payload[k]:
-                missing.append("%s: %s" % (c["name"], k))
-        blobs[c["id"]] = encrypt(payload, c["password"])
-
-        base = cfg.get("assetBase", "")
-        thumb = ROOT / "clients" / "thumbs" / ("%s.png" % c["id"])
-        if thumb.exists():
-            art = '<img src="%sthumbs/%s.png" alt="">' % (base, c["id"])
-        elif c.get("logo"):
-            art = '<span class="placeholder"><img src="%s%s" alt=""></span>' % (base, c["logo"])
-        else:
-            art = ('<span class="init">%s</span>'
-                   % "".join(w[0] for w in html.unescape(c["name"]).split()[:2]).upper())
-        badge = ('<span class="logo"><img src="%s%s" alt="%s logo"></span>'
-                 % (base, c["logo"], html.unescape(c["name"]))) if c.get("logo") else ""
-
-        cards.append(
-            '<article class="card locked" data-id="%s" style="--accent:%s">'
-            '  <button class="shot" aria-label="Unlock %s">%s'
-            '    <span class="veil"><span class="lockicon">&#128274;</span>'
-            '    <span class="lockword">Locked</span></span>'
-            '  </button>'
-            '  <div class="meta">'
-            '    <div class="namerow">%s<h3>%s</h3></div>'
-            '    <p class="by">Built by <b>%s</b></p>'
-            '    <p class="terr">%s &middot; %s</p>'
-            '    <button class="unlock">Unlock</button>'
-            '    <form class="pw" hidden>'
-            '      <label>Password'
-            '        <input type="password" autocomplete="off" spellcheck="false" required>'
-            '      </label>'
-            '      <button type="submit">Open</button>'
-            '      <p class="err" hidden>That password did not work. Check with the camp team.</p>'
-            '    </form>'
-            '    <div class="links" hidden></div>'
-            '  </div>'
-            '</article>'
-            % (c["id"], c["accent"], html.unescape(c["name"]), art,
-               badge, c["name"], c["team"], c["territory"], c["sector"])
-        )
-
-    page = TEMPLATE.replace("__HEADING__", cfg.get("heading", "See what your team built")) \
-                   .replace("__LEDE__", cfg.get("lede",
-                       "Each organisation below has a chatbot built for it by a team at the "
-                       "ECCU GenAI &amp; Python Camp 2026. Your bot, its code, your profile "
-                       "and your podcast are locked until you enter your password.")) \
-                   .replace("__STEP3__", cfg.get("step3", "Use the password the camp team sent you.")) \
-                   .replace("__NOTE__", cfg.get("note",
-                       "<b>A note on the lock.</b> Each card's links are encrypted with its own "
-                       "password. Nothing exists on this page until the correct password is "
-                       "entered, so a stray visitor sees nothing.")) \
-                   .replace("__TITLE__", cfg["title"]) \
-                   .replace("__SUBTITLE__", cfg["subtitle"]) \
-                   .replace("__CARDS__", "\n".join(cards)) \
-                   .replace("__BLOBS__", json.dumps(blobs)) \
-                   .replace("__ITER__", str(ITERATIONS))
-
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    (OUT.parent / "thumbs").mkdir(exist_ok=True)
-    OUT.write_text(page, encoding="utf-8")
-
-    print("wrote %s (%d bytes, %d clients)"
-          % (OUT.relative_to(ROOT), len(page.encode()), len(cfg["clients"])))
-    print("\npasswords — send each client only their own:")
-    for c in cfg["clients"]:
-        print("  %-24s %s" % (html.unescape(c["name"]), c["password"]))
-    if missing:
-        print("\nstill blank (renders as 'coming soon', not a dead link):")
-        for m in missing:
-            print("  -", m)
-
-
-TEMPLATE = r"""<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow, noarchive">
-<title>__TITLE__ — ECCU GenAI &amp; Python Camp 2026</title>
+<title>Judging Portal — ECCU GenAI &amp; Python Camp 2026</title>
 <style>
 :root{--bg:#0d1420;--panel:#141d2e;--line:#243149;--ink:#e8eef8;--mute:#8fa0bd;
  --teal:#2fb5a8;--accent:#7C6CF0}
@@ -234,13 +102,13 @@ footer .fine{font-size:11.8px;opacity:.75}
 <body>
 <header><div class="in">
   <div class="badge">EC</div>
-  <div><h1>__TITLE__</h1><p>__SUBTITLE__</p></div>
+  <div><h1>Judging Portal</h1><p>ECCU GenAI &amp; Python Camp 2026 — Chatbot Division &middot; Client Judging</p></div>
 </div></header>
 
 <div class="wrap">
   <span class="lock-pill">&#128274; Private — password required</span>
-  <h2>__HEADING__</h2>
-  <p class="lede">__LEDE__</p>
+  <h2>The four submissions</h2>
+  <p class="lede">Four chatbots, each built for a real Eastern Caribbean organisation by a camper team. Open a card to review the working bot, the client profile, the pitch deck and the team&rsquo;s podcast. Each card opens with its own password.</p>
 
   <div class="steps">
     <div class="step"><div class="n">1</div><h4>Find your organisation</h4>
@@ -248,22 +116,25 @@ footer .fine{font-size:11.8px;opacity:.75}
     <div class="step"><div class="n">2</div><h4>Click the card</h4>
       <p>Click the image, or the Unlock button.</p></div>
     <div class="step"><div class="n">3</div><h4>Enter your password</h4>
-      <p>__STEP3__</p></div>
+      <p>Use the password sent to the panel.</p></div>
   </div>
 
   <div class="rule">Click your organisation to unlock</div>
   <div class="grid">
-__CARDS__
+<article class="card locked" data-id="acb" style="--accent:#2E9E7B">  <button class="shot" aria-label="Unlock ACB Caribbean"><img src="/clients/thumbs/acb.png" alt="">    <span class="veil"><span class="lockicon">&#128274;</span>    <span class="lockword">Locked</span></span>  </button>  <div class="meta">    <div class="namerow"><span class="logo"><img src="/clients/logos/acb.jpg" alt="ACB Caribbean logo"></span><h3>ACB Caribbean</h3></div>    <p class="by">Built by <b>Team ACBAI</b></p>    <p class="terr">Antigua &amp; Grenada &middot; Banking</p>    <button class="unlock">Unlock</button>    <form class="pw" hidden>      <label>Password        <input type="password" autocomplete="off" spellcheck="false" required>      </label>      <button type="submit">Open</button>      <p class="err" hidden>That password did not work. Check with the camp team.</p>    </form>    <div class="links" hidden></div>  </div></article>
+<article class="card locked" data-id="aspire" style="--accent:#7C6CF0">  <button class="shot" aria-label="Unlock ASPIRE"><img src="/clients/thumbs/aspire.png" alt="">    <span class="veil"><span class="lockicon">&#128274;</span>    <span class="lockword">Locked</span></span>  </button>  <div class="meta">    <div class="namerow"><span class="logo"><img src="/clients/logos/aspire.png" alt="ASPIRE logo"></span><h3>ASPIRE</h3></div>    <p class="by">Built by <b>Team ASPIRE</b></p>    <p class="terr">St Kitts &amp; Nevis &middot; Government Youth Finance</p>    <button class="unlock">Unlock</button>    <form class="pw" hidden>      <label>Password        <input type="password" autocomplete="off" spellcheck="false" required>      </label>      <button type="submit">Open</button>      <p class="err" hidden>That password did not work. Check with the camp team.</p>    </form>    <div class="links" hidden></div>  </div></article>
+<article class="card locked" data-id="cub" style="--accent:#3FA9E0">  <button class="shot" aria-label="Unlock Caribbean Union Bank"><img src="/clients/thumbs/cub.png" alt="">    <span class="veil"><span class="lockicon">&#128274;</span>    <span class="lockword">Locked</span></span>  </button>  <div class="meta">    <div class="namerow"><span class="logo"><img src="/clients/logos/cub.png" alt="Caribbean Union Bank logo"></span><h3>Caribbean Union Bank</h3></div>    <p class="by">Built by <b>Team AI DOMinators</b></p>    <p class="terr">Antigua &amp; Barbuda &middot; Banking</p>    <button class="unlock">Unlock</button>    <form class="pw" hidden>      <label>Password        <input type="password" autocomplete="off" spellcheck="false" required>      </label>      <button type="submit">Open</button>      <p class="err" hidden>That password did not work. Check with the camp team.</p>    </form>    <div class="links" hidden></div>  </div></article>
+<article class="card locked" data-id="scaspa" style="--accent:#E0913F">  <button class="shot" aria-label="Unlock SCASPA"><span class="placeholder"><img src="/clients/logos/scaspa.png" alt=""></span>    <span class="veil"><span class="lockicon">&#128274;</span>    <span class="lockword">Locked</span></span>  </button>  <div class="meta">    <div class="namerow"><span class="logo"><img src="/clients/logos/scaspa.png" alt="SCASPA logo"></span><h3>SCASPA</h3></div>    <p class="by">Built by <b>Team SCASPA</b></p>    <p class="terr">St Kitts &amp; Nevis &middot; Air &amp; Sea Ports Authority</p>    <button class="unlock">Unlock</button>    <form class="pw" hidden>      <label>Password        <input type="password" autocomplete="off" spellcheck="false" required>      </label>      <button type="submit">Open</button>      <p class="err" hidden>That password did not work. Check with the camp team.</p>    </form>    <div class="links" hidden></div>  </div></article>
   </div>
 
-  <div class="note">__NOTE__</div>
+  <div class="note"><b>What is included.</b> Each card holds the live chatbot, the client profile, the pitch deck where one was submitted, and the team&rsquo;s podcast. Source code is not published here and is assessed separately.</div>
 </div>
 
 <footer>ECCU GenAI Camp 2026 &middot; Kittivisianwood AI Studio<br>
 <span class="fine">Chatbot Division &middot; this page is unlisted and not indexed by search engines.</span></footer>
 
 <script>
-var BLOBS = __BLOBS__, ITER = __ITER__;
+var BLOBS = {"acb": {"salt": "Lb5xoy5ito+n6cSF1pyJJg==", "iv": "4vRUtKrU5LcgCTXB", "ct": "LkIfLGyNbn93CnPmRsGpDW/r0aH7TQFXkGjpgRasQcsC1pp5yi1f/+R1ms6gkK2fRZ2StnFzCtDEhmJ7TrXgPsGJILfgeKw+lDaX1IMxObOJOlfrcv8knRWoqoYE0wHNgJRfWELZMeCgaG+O2Rd+MBot3BQghVW1OwvLxUL/6VSWmQtFtiIQbT9DM5U/o9rtCAsPv2q29IosT8u1uMLZVTSIV5zXmtwly538PNNPLib9Tlct60k/MzMim8WVG1qHBD9Lo9SHwIQvHaI="}, "aspire": {"salt": "oKbgGoI3UZe2qm4lvz//9w==", "iv": "q9cFpgf/sEKJStjs", "ct": "0kidG2aE35VZ8oo5KEU1VaqBrRnSvD+sNPI2SUlXKUBSzBbogUK1YQCALqyBWtgHY5cswJZNV5rrBIUCy/iqnAD9/I2bv5PABl8nrAfqgPWl4JbLp5Q9mgSE7r4PJjaQ9ngc4vkLAljabJxootnrKQ8UwCKQUWofIS1mFqtBuBcjs+4aFFD33jzEy/uKXLfRDJYgj4tcdLCrP1Eo66VeyCoaah7NPAORyt1KrsgPFlieV2t1d8OcqNnCaYKUCS+tNY2Apv6oZ9Yxls9p0a+lTg=="}, "cub": {"salt": "xaT5y6lUbUNmZD2VlkMAYw==", "iv": "NywUBLfOVTyVHdK7", "ct": "q8BCtM5KEIBOYjk2C1qtLaEh1upvDot0fFqwtotl43MKH1Yjze7Pu/HJHFIRMqWF24dsIbk18yZRInqazcOJrJSCImjerSOE0tMnartuk9JIwWjiKqvy6PnUVihYQpaH2ebDTB2u3rLnpHv8TvZB7kCY2OCvUoxXuiRm6Hv8kwd7OyHKi0Umdp8veBUj1jcOr9C3ovV0OCsQ1qTVESOouhZkxtTFhseh8J0Kuf+USFo20VuSH7FupDkg/7A4j6SKbGw6+F28ydrrboHNTuHrOzgA5sWLEPV+PIAMGokxI+3fM0WnEG9ShhfHXihFu7lHYkHSzcxqTTYB2JrI4YYMVBc="}, "scaspa": {"salt": "XR346fAoEq3806goowIvZg==", "iv": "q19N9DxWFdA9BVTS", "ct": "4anR+HNknwa9UYx2N5wcE10gAXu2yBHpdTjzQeCjcj454nnq0OJFvjUWXegLqM4LXOh7S67Jgvrw+xJZpkZK/dxIWhECGDv/YarDy7Ix8yfzxqgbDfYv2KCzhmW/hz+2jfNtBbopIGUnJYE9mbRT51rBk80DaAWe7Zto4Zph9ADb4EJcQVqsPW2PmRikdPMFBlKe2FBaf/hY/1XyT7yDwEMHiReFXB/hGUrArjUMT34XP8Yn6nNvNPBMAS+bsRT8rXI/hcK1gkfcva/ecC4ZDfAi7M+CfAaPr5bDhVUjlH91iENcwe2RjRihLFEB/qVHW7AFnr+xUaxE4WW8/mKPFzDClph0XkVe7UbW8C9ImSXumASNfcvDuP+8vfWid62Ospngkgcr+0N6iw=="}}, ITER = 200000;
 var b642buf = function (s) {
   var raw = atob(s), a = new Uint8Array(raw.length);
   for (var i = 0; i < raw.length; i++) a[i] = raw.charCodeAt(i);
@@ -350,7 +221,3 @@ document.querySelectorAll(".card").forEach(function (card) {
 </script>
 </body>
 </html>
-"""
-
-if __name__ == "__main__":
-    main()

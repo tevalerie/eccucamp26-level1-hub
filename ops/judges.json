@@ -1,0 +1,80 @@
+{
+  "_note": "JUDGES portal. Deliberately has NO repo field — external judges must not reach the code. Build: python3 ops/build_client_portal.py ops/judges.json judges/index.html",
+  "_todo": "Profile PDFs are the same files the clients see. Swap the ids here for versions that do not reference the code before sending this link out.",
+  "title": "Judging Portal",
+  "subtitle": "ECCU GenAI &amp; Python Camp 2026 — Chatbot Division &middot; Client Judging",
+  "heading": "The four submissions",
+  "lede": "Four chatbots, each built for a real Eastern Caribbean organisation by a camper team. Open a card to review the working bot, the client profile, the pitch deck and the team&rsquo;s podcast. Each card opens with its own password.",
+  "step3": "Use the password sent to the panel.",
+  "note": "<b>What is included.</b> Each card holds the live chatbot, the client profile, the pitch deck where one was submitted, and the team&rsquo;s podcast. Source code is not published here and is assessed separately.",
+  "assetBase": "/clients/",
+  "fields": [
+    "bot",
+    "profile",
+    "podcast",
+    "podcastTitle",
+    "video",
+    "deck"
+  ],
+  "clients": [
+    {
+      "id": "acb",
+      "name": "ACB Caribbean",
+      "team": "Team ACBAI",
+      "territory": "Antigua &amp; Grenada",
+      "sector": "Banking",
+      "accent": "#2E9E7B",
+      "password": "judge-acb-6z3s",
+      "bot": "https://acb-1.onrender.com",
+      "profile": "1fPTAy0flzm-ZY7PPtzGol7y3c6445tBk",
+      "podcast": "1JUME8tJjJYtZ0cUZPVMUENVXO3JfzeCl",
+      "podcastTitle": "ACBAssit kills the bank phone tree",
+      "logo": "logos/acb.jpg"
+    },
+    {
+      "id": "aspire",
+      "name": "ASPIRE",
+      "team": "Team ASPIRE",
+      "territory": "St Kitts &amp; Nevis",
+      "sector": "Government Youth Finance",
+      "accent": "#7C6CF0",
+      "password": "judge-aspire-fidz",
+      "bot": "https://aspire.eccugenai.app",
+      "profile": "1Lc_vVTVHgGMgnF6nUi-nhi2BsUHxvAjf",
+      "podcast": "12kVgE66FGihiR1gkx7Y39wdFlUFF6U7l",
+      "podcastTitle": "The AI behind St. Kitts' ASPIRE grant",
+      "logo": "logos/aspire.png"
+    },
+    {
+      "id": "cub",
+      "name": "Caribbean Union Bank",
+      "team": "Team AI DOMinators",
+      "territory": "Antigua &amp; Barbuda",
+      "sector": "Banking",
+      "accent": "#3FA9E0",
+      "password": "judge-cub-ngyz",
+      "bot": "https://cub-ava.onrender.com/",
+      "profile": "1AmFaLwVI8RfVXUkJgHzdG80C658dd9Xc",
+      "podcast": "1Sc9fNFaS6JP-PSxgEteDbv49VFPoquUI",
+      "podcastTitle": "CUB Ava fixes Caribbean banking friction",
+      "logo": "logos/cub.png",
+      "deck": "1g8VSBylsCS2pv_kKk8g7yMKu5HpcQnLm"
+    },
+    {
+      "id": "scaspa",
+      "name": "SCASPA",
+      "team": "Team SCASPA",
+      "territory": "St Kitts &amp; Nevis",
+      "sector": "Air &amp; Sea Ports Authority",
+      "accent": "#E0913F",
+      "password": "judge-scaspa-6dmt",
+      "bot": "https://scaspa.eccugenai.app",
+      "profile": "1b7kUvoumYkecOq_Ox4eMXnG89gA0GW5c",
+      "podcast": "1YcnRg3ePezeSucX2gG-myKqTiKKO1vSB",
+      "podcastTitle": "The Scaspa Pilot chatbot refuses to guess",
+      "logo": "logos/scaspa.png",
+      "video": "https://youtu.be/AqLLF0MxVI8",
+      "deck": "1Tm61h2yC_f85VHmZejMVbYXhhZPO9Rcr"
+    }
+  ]
+}
