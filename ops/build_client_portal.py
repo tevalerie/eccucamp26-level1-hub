@@ -148,16 +148,20 @@ h2{margin:16px 0 8px;font-size:31px;line-height:1.2}
  border-top:3px solid var(--accent)}
 .shot{display:block;width:100%;height:190px;border:0;padding:0;cursor:pointer;position:relative;
  background:linear-gradient(140deg,color-mix(in srgb,var(--accent) 34%,#0d1420),#0d1420)}
-.shot img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(.6) brightness(.5)}
+.shot img{width:100%;height:100%;object-fit:cover;display:block;
+ filter:grayscale(1) brightness(.38) blur(3px);transform:scale(1.04);transition:filter .45s,transform .45s}
 .shot .init{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
- font-size:52px;font-weight:800;color:color-mix(in srgb,var(--accent) 55%,#ffffff);opacity:.32}
+ font-size:52px;font-weight:800;color:color-mix(in srgb,var(--accent) 55%,#ffffff);opacity:.22;
+ filter:blur(2px);transition:filter .45s,opacity .45s}
+.card.open .shot .init{filter:none;opacity:.4}
 .veil{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
- justify-content:center;gap:8px;background:rgba(8,14,26,.45)}
+ justify-content:center;gap:8px;
+ background:linear-gradient(180deg,rgba(8,14,26,.55),rgba(8,14,26,.78))}
 .lockicon{width:52px;height:52px;border-radius:50%;border:2px solid var(--teal);
  display:flex;align-items:center;justify-content:center;font-size:22px;background:rgba(17,48,46,.75)}
 .lockword{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:#cfe}
 .card.open .veil{display:none}
-.card.open .shot img{filter:none}
+.card.open .shot img{filter:none;transform:none}
 .meta{padding:16px 18px 18px}
 .meta h3{margin:0;font-size:19px;color:var(--accent)}
 .by{margin:4px 0 0;font-size:14px;color:var(--ink)}

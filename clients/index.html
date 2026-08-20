@@ -40,16 +40,20 @@ h2{margin:16px 0 8px;font-size:31px;line-height:1.2}
  border-top:3px solid var(--accent)}
 .shot{display:block;width:100%;height:190px;border:0;padding:0;cursor:pointer;position:relative;
  background:linear-gradient(140deg,color-mix(in srgb,var(--accent) 34%,#0d1420),#0d1420)}
-.shot img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(.6) brightness(.5)}
+.shot img{width:100%;height:100%;object-fit:cover;display:block;
+ filter:grayscale(1) brightness(.38) blur(3px);transform:scale(1.04);transition:filter .45s,transform .45s}
 .shot .init{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
- font-size:52px;font-weight:800;color:color-mix(in srgb,var(--accent) 55%,#ffffff);opacity:.32}
+ font-size:52px;font-weight:800;color:color-mix(in srgb,var(--accent) 55%,#ffffff);opacity:.22;
+ filter:blur(2px);transition:filter .45s,opacity .45s}
+.card.open .shot .init{filter:none;opacity:.4}
 .veil{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
- justify-content:center;gap:8px;background:rgba(8,14,26,.45)}
+ justify-content:center;gap:8px;
+ background:linear-gradient(180deg,rgba(8,14,26,.55),rgba(8,14,26,.78))}
 .lockicon{width:52px;height:52px;border-radius:50%;border:2px solid var(--teal);
  display:flex;align-items:center;justify-content:center;font-size:22px;background:rgba(17,48,46,.75)}
 .lockword{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:#cfe}
 .card.open .veil{display:none}
-.card.open .shot img{filter:none}
+.card.open .shot img{filter:none;transform:none}
 .meta{padding:16px 18px 18px}
 .meta h3{margin:0;font-size:19px;color:var(--accent)}
 .by{margin:4px 0 0;font-size:14px;color:var(--ink)}
@@ -124,7 +128,7 @@ footer .fine{font-size:11.8px;opacity:.75}
 <span class="fine">Chatbot Division &middot; this page is unlisted and not indexed by search engines.</span></footer>
 
 <script>
-var BLOBS = {"acb": {"salt": "EnVqGXqfmaKMvoIYbNkMIw==", "iv": "F5WJczpnxaYb7S+j", "ct": "5lXcd3AN1NeL0EqPJy2hapztB14XbNMqxcMegwwGvZIwT275yDAxKQxj7i1rUfbQt12c76qv6fYFPr2vWx51awHwAAhPYVN2Yp+0IYM7y6UHTgQYpbdwxloar1owd1WikyN8IAqEGDkC//DtAyL9YhrtrujnFRnwYlgPLjgcl+mt0awfX66j"}, "aspire": {"salt": "7EuATiMQc1Ot6S4lSzE0HA==", "iv": "ul2MHRqfg8zlsr2S", "ct": "mFC1gX7R1pujh0ffIuZOVV4/KRJJoKEbYdBDVMGgdP1MBP+wqG/Fq8H/RcdnMX9KhDyttpcuVWaOq3xGyUo8CnEEurWsU/MqSUg1Jcxqo9RZ1cAHagtbwf+t+S0FNwTn7hK0cK+yN1afMgHUxNa3tQc7iJ+Twxpuo68vw9YZxYnIm6/ZVWws"}, "cub": {"salt": "b4QLA0BUuHvccKZ7z/fWqw==", "iv": "EHlkWA+AkIO2jjTK", "ct": "cH2YM6ICG8WfuZHzjqOG4MAoWJzNZGISQoX+lhqY0Tei26Z/972h+De0ro4okUoJccYrAGlTBL4orAFgJPrgP/HMR4ujM0pSCVLPVQUjTI6Gnbox2T453t8ECQykTTz6EeSvMxDy0V9YHAwKvDI9HUvu0Fg11I9nsTqK4FpyDAncPG5FZ3uJ"}, "scaspa": {"salt": "oWxP9srH/jGZi/tBf2Rr6A==", "iv": "M97RNIkyBXIonRTD", "ct": "R21hxQd2L3y0xHp0Idn/7AwSAJ/y7RL4JlO5vhT8rI1jCjA4t3cWeoaPCvt3FC0TT5LuvWFu5jJN8Yq3JpExhUN8KORhjUYlA2Hq8KIhekfzcd0fGflp3jQQnbNTwEgxjcQ2eAtqOyiwemN9+9NVFVpB75uOEXth1NTytLF1qwYBdeMq4opu"}}, ITER = 200000;
+var BLOBS = {"acb": {"salt": "IBW97TWrw6M9zX5hnkuFvQ==", "iv": "gn89IbSNuNJFeWAE", "ct": "gkx+tkuR2kTF2WeOqPg1X3AIg5tLk0tDdRLxA9xak8wx4l5/sa5v+b6A1qiPzOnMJcriCCt9Iltnq39zUyBl4L9FTnGnidnm2uFqEy+RdncBZ0zPOiYjvPIBYWo8jHbNmVuWhTPltuJFsTXYBUkvF0qDXrRoUFUffuegklKUC3mLlkBBV8o1"}, "aspire": {"salt": "LXzIsmW+BMvswr0ME71l3Q==", "iv": "zMWkbbZDo3UzX4/r", "ct": "WjUbRXb5jp4qcEF8kfc/t7mrTVm274Ojfh6B3+OePAkF+LVd/RmG4p5j1Baylh6tX/QogpKBOaMgL8T9jxNpUP14NAP2+6YucU+UgA8oVGlGAqty72NwpRhKyklJa6dBoJqHq/GMzUpNi/0HWIkRE4KVartsaEDwaXkjH7tSOuSlXl3kKMZl"}, "cub": {"salt": "QwQHapqxHtaofm8ufHqpCw==", "iv": "QFgiN84Ky33OT9YR", "ct": "FzUZ6tCTSKYxOVq4/AtXdmdNx52dv9OAXsBEM5hmnR6lv4Wa8ukA5JlUGi6kPFDToXYNkQHARmUZNYCki9PUGvOjH9uomhFVwa4Fm5NTlFVCbYiOmQmcpxEujz5erif7C6XzNMIGvFksqkljWZzEXqilv5zbfn3nK/9COw8VtCJAq6uwdomw"}, "scaspa": {"salt": "/SPO7r+eHca4svK0P/cfLg==", "iv": "89uLq2kb3T5Kw5Ip", "ct": "KsBJlgfepvK6TOu66W+aERqWggTvKDKcPTs3OEZleUe892Zs3YIA0L7IeGfCIntx/E51fhahjHXlImzRDPryfOrbQxl94xGf6YqUhl7ilzjmG0+3HC9UiPS/uAJHWHHBm2MMd71mDurSY9BgFxJfDqSUu7RjsouolvlYtOKUaMYY54tU6T8c"}}, ITER = 200000;
 var b642buf = function (s) {
   var raw = atob(s), a = new Uint8Array(raw.length);
   for (var i = 0; i < raw.length; i++) a[i] = raw.charCodeAt(i);
