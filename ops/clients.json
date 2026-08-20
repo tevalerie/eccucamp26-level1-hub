@@ -47,7 +47,8 @@
       "profile": "1AmFaLwVI8RfVXUkJgHzdG80C658dd9Xc",
       "podcast": "1Sc9fNFaS6JP-PSxgEteDbv49VFPoquUI",
       "podcastTitle": "CUB Ava fixes Caribbean banking friction",
-      "logo": "logos/cub.png"
+      "logo": "logos/cub.png",
+      "deck": "1g8VSBylsCS2pv_kKk8g7yMKu5HpcQnLm"
     },
     {
       "id": "scaspa",
@@ -59,11 +60,12 @@
       "password": "scaspa-2026-review",
       "bot": "https://scaspa.eccugenai.app",
       "repo": "https://github.com/Lahkin/scaspa-chatbot",
-      "profile": "1HPpNGx1XWCrprHcZ12LMSXfdP8CEUisC",
+      "profile": "1b7kUvoumYkecOq_Ox4eMXnG89gA0GW5c",
       "podcast": "1YcnRg3ePezeSucX2gG-myKqTiKKO1vSB",
       "podcastTitle": "The Scaspa Pilot chatbot refuses to guess",
       "logo": "logos/scaspa.png",
-      "video": "https://youtu.be/AqLLF0MxVI8"
+      "video": "https://youtu.be/AqLLF0MxVI8",
+      "deck": "1Tm61h2yC_f85VHmZejMVbYXhhZPO9Rcr"
     }
   ]
 }
