@@ -1,6 +1,6 @@
 {
   "_note": "Config for the client portal. Run ops/build_client_portal.py after editing.",
-  "_todo": "bot and repo URLs are blank until the teams hand them over; blank renders as 'coming soon' rather than a dead link.",
+  "_todo": "SCASPA bot DNS not resolving yet and its repo currently 404s — both links are in place and start working the moment those are fixed. Thumbnails: drop a PNG at clients/thumbs/<id>.png and rebuild to use a real bot screenshot.",
   "title": "Client Portal",
   "subtitle": "ECCU GenAI &amp; Python Camp 2026 — Chatbot Division &middot; Countries of focus: Dominica and St Kitts &amp; Nevis",
   "clients": [
@@ -12,11 +12,12 @@
       "sector": "Banking",
       "accent": "#2E9E7B",
       "password": "acb-2026-review",
-      "bot": "",
-      "repo": "",
+      "bot": "https://acb-1.onrender.com",
+      "repo": "https://github.com/shanickjohnson/ACB",
       "profile": "1fPTAy0flzm-ZY7PPtzGol7y3c6445tBk",
       "podcast": "1JUME8tJjJYtZ0cUZPVMUENVXO3JfzeCl",
-      "podcastTitle": "ACBAssit kills the bank phone tree"
+      "podcastTitle": "ACBAssit kills the bank phone tree",
+      "logo": "logos/acb.jpg"
     },
     {
       "id": "aspire",
@@ -26,11 +27,12 @@
       "sector": "Government Youth Finance",
       "accent": "#7C6CF0",
       "password": "aspire-2026-review",
-      "bot": "",
-      "repo": "",
+      "bot": "https://aspire.eccugenai.app",
+      "repo": "https://github.com/dre-mkr/aspire-chatbot",
       "profile": "1Lc_vVTVHgGMgnF6nUi-nhi2BsUHxvAjf",
       "podcast": "12kVgE66FGihiR1gkx7Y39wdFlUFF6U7l",
-      "podcastTitle": "The AI behind St. Kitts' ASPIRE grant"
+      "podcastTitle": "The AI behind St. Kitts' ASPIRE grant",
+      "logo": "logos/aspire.png"
     },
     {
       "id": "cub",
@@ -40,11 +42,12 @@
       "sector": "Banking",
       "accent": "#3FA9E0",
       "password": "cub-2026-review",
-      "bot": "",
-      "repo": "",
+      "bot": "https://cub-ava.onrender.com/",
+      "repo": "https://github.com/Exponential-Reality/CUB-Ava-MAIN",
       "profile": "1AmFaLwVI8RfVXUkJgHzdG80C658dd9Xc",
       "podcast": "1Sc9fNFaS6JP-PSxgEteDbv49VFPoquUI",
-      "podcastTitle": "CUB Ava fixes Caribbean banking friction"
+      "podcastTitle": "CUB Ava fixes Caribbean banking friction",
+      "logo": "logos/cub.png"
     },
     {
       "id": "scaspa",
@@ -54,11 +57,13 @@
       "sector": "Air &amp; Sea Ports Authority",
       "accent": "#E0913F",
       "password": "scaspa-2026-review",
-      "bot": "",
-      "repo": "",
+      "bot": "https://scaspa.eccugenai.app",
+      "repo": "https://github.com/Lahkin/scaspa-chatbot",
       "profile": "1HPpNGx1XWCrprHcZ12LMSXfdP8CEUisC",
       "podcast": "1YcnRg3ePezeSucX2gG-myKqTiKKO1vSB",
-      "podcastTitle": "The Scaspa Pilot chatbot refuses to guess"
+      "podcastTitle": "The Scaspa Pilot chatbot refuses to guess",
+      "logo": "logos/scaspa.png",
+      "video": "https://youtu.be/AqLLF0MxVI8"
     }
   ]
 }

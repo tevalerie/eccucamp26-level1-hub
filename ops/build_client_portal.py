@@ -50,16 +50,22 @@ def main():
 
     for c in cfg["clients"]:
         payload = {k: c.get(k, "") for k in
-                   ("bot", "repo", "profile", "podcast", "podcastTitle")}
+                   ("bot", "repo", "profile", "podcast", "podcastTitle", "video")}
         for k in ("bot", "repo"):
             if not payload[k]:
                 missing.append("%s: %s" % (c["name"], k))
         blobs[c["id"]] = encrypt(payload, c["password"])
 
-        initials = "".join(w[0] for w in html.unescape(c["name"]).split()[:2]).upper()
         thumb = ROOT / "clients" / "thumbs" / ("%s.png" % c["id"])
-        art = ('<img src="thumbs/%s.png" alt="">' % c["id"] if thumb.exists()
-               else '<span class="init">%s</span>' % initials)
+        if thumb.exists():
+            art = '<img src="thumbs/%s.png" alt="">' % c["id"]
+        elif c.get("logo"):
+            art = '<span class="placeholder"><img src="%s" alt=""></span>' % c["logo"]
+        else:
+            art = ('<span class="init">%s</span>'
+                   % "".join(w[0] for w in html.unescape(c["name"]).split()[:2]).upper())
+        badge = ('<span class="logo"><img src="%s" alt="%s logo"></span>'
+                 % (c["logo"], html.unescape(c["name"]))) if c.get("logo") else ""
 
         cards.append(
             '<article class="card locked" data-id="%s" style="--accent:%s">'
@@ -68,7 +74,7 @@ def main():
             '    <span class="lockword">Locked</span></span>'
             '  </button>'
             '  <div class="meta">'
-            '    <h3>%s</h3>'
+            '    <div class="namerow">%s<h3>%s</h3></div>'
             '    <p class="by">Built by <b>%s</b></p>'
             '    <p class="terr">%s &middot; %s</p>'
             '    <button class="unlock">Unlock</button>'
@@ -83,7 +89,7 @@ def main():
             '  </div>'
             '</article>'
             % (c["id"], c["accent"], html.unescape(c["name"]), art,
-               c["name"], c["team"], c["territory"], c["sector"])
+               badge, c["name"], c["team"], c["territory"], c["sector"])
         )
 
     page = TEMPLATE.replace("__TITLE__", cfg["title"]) \
@@ -164,7 +170,15 @@ h2{margin:16px 0 8px;font-size:31px;line-height:1.2}
 .card.open .veil{display:none}
 .card.open .shot img{filter:none;transform:none}
 .meta{padding:16px 18px 18px}
-.meta h3{margin:0;font-size:19px;color:var(--accent)}
+.namerow{display:flex;align-items:center;gap:11px;margin-bottom:2px}
+.logo{width:46px;height:46px;flex:none;border-radius:9px;background:#fff;
+ display:flex;align-items:center;justify-content:center;padding:5px;overflow:hidden}
+.logo img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.placeholder img{max-width:52%;max-height:52%;object-fit:contain;opacity:.85;
+ filter:blur(2px);transition:filter .45s}
+.card.open .placeholder img{filter:none}
+.meta h3{margin:0;font-size:19px;color:var(--accent);line-height:1.2}
 .by{margin:4px 0 0;font-size:14px;color:var(--ink)}
 .by b{color:var(--ink)}
 .terr{margin:2px 0 12px;font-size:13px;color:var(--mute)}
@@ -264,6 +278,8 @@ function render(card, data) {
   h += data.repo
     ? '<a href="' + data.repo + '" target="_blank" rel="noopener"><span class="ic">&#128187;</span>View the code on GitHub</a>'
     : '<span class="soon"><span class="ic">&#128187;</span>Code link coming</span>';
+  if (data.video)
+    h += '<a href="' + data.video + '" target="_blank" rel="noopener"><span class="ic">&#9654;</span>Demo video</a>';
   if (data.profile)
     h += '<a href="https://drive.google.com/file/d/' + data.profile + '/view" target="_blank" rel="noopener"><span class="ic">&#128196;</span>Client profile (PDF)</a>'
        + '<div class="media"><iframe src="https://drive.google.com/file/d/' + data.profile + '/preview" height="380" allow="autoplay"></iframe></div>';
