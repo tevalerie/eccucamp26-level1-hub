@@ -2,7 +2,7 @@
   "_note": "Config for the client portal. Run ops/build_client_portal.py after editing.",
   "_todo": "bot and repo URLs are blank until the teams hand them over; blank renders as 'coming soon' rather than a dead link.",
   "title": "Client Portal",
-  "subtitle": "ECCU GenAI &amp; Python Camp 2026 — Chatbot Division",
+  "subtitle": "ECCU GenAI &amp; Python Camp 2026 — Chatbot Division &middot; Countries of focus: Dominica and St Kitts &amp; Nevis",
   "clients": [
     {
       "id": "acb",
