@@ -15,7 +15,8 @@
       "bot": "",
       "repo": "",
       "profile": "1fPTAy0flzm-ZY7PPtzGol7y3c6445tBk",
-      "podcast": "1JUME8tJjJYtZ0cUZPVMUENVXO3JfzeCl"
+      "podcast": "1JUME8tJjJYtZ0cUZPVMUENVXO3JfzeCl",
+      "podcastTitle": "ACBAssit kills the bank phone tree"
     },
     {
       "id": "aspire",
@@ -28,7 +29,8 @@
       "bot": "",
       "repo": "",
       "profile": "1Lc_vVTVHgGMgnF6nUi-nhi2BsUHxvAjf",
-      "podcast": "12kVgE66FGihiR1gkx7Y39wdFlUFF6U7l"
+      "podcast": "12kVgE66FGihiR1gkx7Y39wdFlUFF6U7l",
+      "podcastTitle": "The AI behind St. Kitts' ASPIRE grant"
     },
     {
       "id": "cub",
@@ -41,7 +43,8 @@
       "bot": "",
       "repo": "",
       "profile": "1AmFaLwVI8RfVXUkJgHzdG80C658dd9Xc",
-      "podcast": "1Sc9fNFaS6JP-PSxgEteDbv49VFPoquUI"
+      "podcast": "1Sc9fNFaS6JP-PSxgEteDbv49VFPoquUI",
+      "podcastTitle": "CUB Ava fixes Caribbean banking friction"
     },
     {
       "id": "scaspa",
@@ -54,7 +57,8 @@
       "bot": "",
       "repo": "",
       "profile": "1HPpNGx1XWCrprHcZ12LMSXfdP8CEUisC",
-      "podcast": "1YcnRg3ePezeSucX2gG-myKqTiKKO1vSB"
+      "podcast": "1YcnRg3ePezeSucX2gG-myKqTiKKO1vSB",
+      "podcastTitle": "The Scaspa Pilot chatbot refuses to guess"
     }
   ]
 }

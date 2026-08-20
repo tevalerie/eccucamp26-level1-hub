@@ -77,7 +77,10 @@ button{font-family:inherit}
  color:var(--ink);font-size:14px;font-weight:600}
 .links a:hover{border-color:var(--accent)}
 .links .soon{color:var(--mute);font-weight:400;font-style:italic}
-.links .ic{width:26px;text-align:center;font-size:15px}
+.links .ic{width:26px;text-align:center;font-size:15px;flex:none}
+.links .sub{display:block;font-weight:400;font-size:12.8px;color:var(--mute);
+ font-style:italic;margin-top:2px;line-height:1.35}
+.links a{align-items:flex-start}
 .media{margin-top:11px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .media iframe{display:block;width:100%;border:0}
 .note{margin-top:30px;background:var(--panel);border:1px solid var(--line);border-radius:13px;
@@ -128,7 +131,7 @@ footer .fine{font-size:11.8px;opacity:.75}
 <span class="fine">Chatbot Division &middot; this page is unlisted and not indexed by search engines.</span></footer>
 
 <script>
-var BLOBS = {"acb": {"salt": "0nbqoz7+TPE/YaDLmFCFCQ==", "iv": "XBPbNW2ifkdxz3DO", "ct": "t8ejpigefblnPWSYdLc/cGFnFuv+zj+hHmPK8HhO3KXxn1vzjsgJiE9LWTRwow3D5FQV5tGVhWSompiXyET63g+JGx8jZ4+RsigXFgsgPmQ//06kO5sLjngYNSJmpcuaYkYGydQW53Bbsf6NZS6kmgY9xN4Z+OpRzt1YYCp3Jq2hR8rXc0NZ"}, "aspire": {"salt": "9gnmx3O32JR80piZACVGOQ==", "iv": "jCvvAyWux+eHOKqi", "ct": "ALS4zhZdPevUzEKZnRAPslTznMUtcWHv4eBXVGrCg/a7P2C0c8KCb0XwfsziYPuIdbceVl5PMWA0lL6B35Yc4XGUNFFkn3Y0WMcjt6v+gBHllvGfdvI4RGxqEZql0UFagExnx9qJtsDJgR1snZrgQDZp3KZaSDMEzgKjHxDuHMY96MOvq7zG"}, "cub": {"salt": "63EzaViX0y+XYdd3Om+FrA==", "iv": "TQEnuO9aS6Q/BYjH", "ct": "IgdK4tiCPKBJrjD0Eb07+5/MwJCKTAZ8o2zFLJT2RrctvcLLhYYkIFyRyMEVrnQJYAwPz3O2At1zW9kHWRA2aUrz9yD8NP4hqaNa3CeUZpIjoPFGyxEJ0oYg67AiX3g2lydgimYQgsVqETctkVmmcPThi1BETEAxJ5ckyQEK0tARcLzzg9Kx"}, "scaspa": {"salt": "8c4/QxSqTuDY6cXa+z8xsA==", "iv": "SJVV9VOVIFs7kbma", "ct": "Ef13TP7uRtw/PMTu/iDF+SMBRUmAVgcMglWOPjnmkCKwTVW4kvhluR+s0M18dx40MbTwyix9R1F3cKsS3DZnRLr487Jr1Y+7rVOl48XSO7r0mMj/Q6ic0+QGsWa9EZzPTzrJQ/OzWsG0ZIv5uKleXWt0ZaBbQjzPcEHrW9w4/6S27MtahDKM"}}, ITER = 200000;
+var BLOBS = {"acb": {"salt": "7en2wXVN6pTJHngHXIQD3A==", "iv": "2xnMVkgI4GtT+61K", "ct": "plChfaKAK5iffc0pXu8Uz07AsurNVF6vJlt7tQbsJMYcaXfjI+sMWzHEAEZwf95g3QPd4lrnXylo52sRBBimw2QnyD4ChPz+QE3iuQe8RYdrjc4uHERAW1j3ny2V2QZ4IbZe06Ep8H0fU2w3iN8SOxaTuQi/yppgozhN136kpoMcKMc0Mr80rdJrJRB/6QpKlXc+pvzu8RtCgKluAWZsGPA9x9TCh9Q+faGfR/xGVeptKXOzZhYiCHt/utuy"}, "aspire": {"salt": "4Wb1GLhr350uSh7KSME3aQ==", "iv": "aRFM2+T2jI0+xYNc", "ct": "dSblm2z1GEGoccwjvtTQCtQg4gcvJEGsi5IYarR5B73L6JexUmUEfyCxekcqA+n5bPrYYxaLoXdDItUs3SNnSImA5rnTwRuJ9LJbG0fSTtE1yC6lT2qJbg2+at4/xbc/OpEEa1L13J+boSVK/swLDIlne6ANQhy0W/XXk3gE6BEng/V3MesmyO0IF86Yw52wDqx3cjt4l4Qssw+FQW75t2M1HNGh8GfeVaQjf6F8rRXLCV8s0Q0iPvkvbr9AzBUO"}, "cub": {"salt": "7Mn2lrNR+TGu3lmaJugYrA==", "iv": "zDeyz8Eg/2q5vkp+", "ct": "k/GZ4ikiqKMy6kabntzniTFvjJpVgm8uMkjZsE2uPlIzsbODROeY9AMzpaWUShHDT8JZeVqmtMCWPoBWS/nDGsquSA9KQBEQOtI9SzVGWJgs2awPduuwXMcBiS4AZyVdbopT8tEhIDpLupuK70R9NvK6BlmUy1dU7UpSmas7RwQ8OfWaHWIPXsxZ5A/rCG3cL9T0AX/YJBBKJ2GSQm+MlDNncmndvt2E7CeVFnmuxMPnPTlwuB7Kqj4d1wNy9+wUXvCw"}, "scaspa": {"salt": "xt+UrozNyaYknAuhkMlxWw==", "iv": "1IeS3aGpE2mS930j", "ct": "BiIpVSmJ8p1ztr6+djotI5smWOL/sr4EZ6Pby0MoIYNYdDe1Rd1INEtFrHt110M+gS+9m6LP9QBjP9MGxYhkxVJpZuvVQR4X3WWK+Y9uWAmeyIpCABYSEcqNVKIorsdJpOf3Bk4T3SSCObmzU8BK1Ai1ktAd6SSFEXlgBUcWiW0nrB+8eileSzK15+hB/IUbZ6sxrAyXzbaLDE9yOrfiNUxyJm9zDOxM5c+r//qBNBehyKdxF9tY+JtiK+q2OoNNVeMgMQ=="}}, ITER = 200000;
 var b642buf = function (s) {
   var raw = atob(s), a = new Uint8Array(raw.length);
   for (var i = 0; i < raw.length; i++) a[i] = raw.charCodeAt(i);
@@ -159,7 +162,10 @@ function render(card, data) {
     h += '<a href="https://drive.google.com/file/d/' + data.profile + '/view" target="_blank" rel="noopener"><span class="ic">&#128196;</span>Client profile (PDF)</a>'
        + '<div class="media"><iframe src="https://drive.google.com/file/d/' + data.profile + '/preview" height="380" allow="autoplay"></iframe></div>';
   if (data.podcast)
-    h += '<a href="https://drive.google.com/file/d/' + data.podcast + '/view" target="_blank" rel="noopener"><span class="ic">&#127911;</span>Podcast (audio)</a>'
+    h += '<a href="https://drive.google.com/file/d/' + data.podcast + '/view" target="_blank" rel="noopener">'
+       + '<span class="ic">&#127911;</span><span>Podcast (audio)'
+       + (data.podcastTitle ? '<span class="sub">' + data.podcastTitle + '</span>' : '')
+       + '</span></a>'
        + '<div class="media"><iframe src="https://drive.google.com/file/d/' + data.podcast + '/preview" height="80" allow="autoplay"></iframe></div>';
   box.innerHTML = h;
   box.hidden = false;

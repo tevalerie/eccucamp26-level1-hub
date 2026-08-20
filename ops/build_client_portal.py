@@ -49,7 +49,8 @@ def main():
     cards, blobs, missing = [], {}, []
 
     for c in cfg["clients"]:
-        payload = {k: c.get(k, "") for k in ("bot", "repo", "profile", "podcast")}
+        payload = {k: c.get(k, "") for k in
+                   ("bot", "repo", "profile", "podcast", "podcastTitle")}
         for k in ("bot", "repo"):
             if not payload[k]:
                 missing.append("%s: %s" % (c["name"], k))
@@ -185,7 +186,10 @@ button{font-family:inherit}
  color:var(--ink);font-size:14px;font-weight:600}
 .links a:hover{border-color:var(--accent)}
 .links .soon{color:var(--mute);font-weight:400;font-style:italic}
-.links .ic{width:26px;text-align:center;font-size:15px}
+.links .ic{width:26px;text-align:center;font-size:15px;flex:none}
+.links .sub{display:block;font-weight:400;font-size:12.8px;color:var(--mute);
+ font-style:italic;margin-top:2px;line-height:1.35}
+.links a{align-items:flex-start}
 .media{margin-top:11px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .media iframe{display:block;width:100%;border:0}
 .note{margin-top:30px;background:var(--panel);border:1px solid var(--line);border-radius:13px;
@@ -264,7 +268,10 @@ function render(card, data) {
     h += '<a href="https://drive.google.com/file/d/' + data.profile + '/view" target="_blank" rel="noopener"><span class="ic">&#128196;</span>Client profile (PDF)</a>'
        + '<div class="media"><iframe src="https://drive.google.com/file/d/' + data.profile + '/preview" height="380" allow="autoplay"></iframe></div>';
   if (data.podcast)
-    h += '<a href="https://drive.google.com/file/d/' + data.podcast + '/view" target="_blank" rel="noopener"><span class="ic">&#127911;</span>Podcast (audio)</a>'
+    h += '<a href="https://drive.google.com/file/d/' + data.podcast + '/view" target="_blank" rel="noopener">'
+       + '<span class="ic">&#127911;</span><span>Podcast (audio)'
+       + (data.podcastTitle ? '<span class="sub">' + data.podcastTitle + '</span>' : '')
+       + '</span></a>'
        + '<div class="media"><iframe src="https://drive.google.com/file/d/' + data.podcast + '/preview" height="80" allow="autoplay"></iframe></div>';
   box.innerHTML = h;
   box.hidden = false;
