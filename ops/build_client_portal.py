@@ -55,7 +55,7 @@ def main():
 
     for c in cfg["clients"]:
         fields = cfg.get("fields", ["bot", "repo", "profile", "podcast",
-                                    "podcastTitle", "video", "deck"])
+                                    "podcastTitle", "video", "deck", "architecture"])
         payload = {k: c.get(k, "") for k in fields if k in c or k in ("bot", "repo")}
         for k in ("bot", "repo"):
             if k in payload and not payload[k]:
@@ -296,6 +296,8 @@ function render(card, data) {
   if (data.profile)
     h += '<a href="https://drive.google.com/file/d/' + data.profile + '/view" target="_blank" rel="noopener"><span class="ic">&#128196;</span>Client profile (PDF)</a>'
        + '<div class="media"><iframe src="https://drive.google.com/file/d/' + data.profile + '/preview" height="380" allow="autoplay"></iframe></div>';
+  if (data.architecture)
+    h += '<a href="' + data.architecture + '" target="_blank" rel="noopener"><span class="ic">&#129517;</span>AI architecture</a>';
   if (data.deck)
     h += '<a href="https://drive.google.com/file/d/' + data.deck + '/view" target="_blank" rel="noopener"><span class="ic">&#128202;</span>Pitch deck (PDF)</a>'
        + '<div class="media"><iframe src="https://drive.google.com/file/d/' + data.deck + '/preview" height="380" allow="autoplay"></iframe></div>';

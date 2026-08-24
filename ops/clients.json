@@ -32,7 +32,8 @@
       "profile": "1Lc_vVTVHgGMgnF6nUi-nhi2BsUHxvAjf",
       "podcast": "12kVgE66FGihiR1gkx7Y39wdFlUFF6U7l",
       "podcastTitle": "The AI behind St. Kitts' ASPIRE grant",
-      "logo": "logos/aspire.png"
+      "logo": "logos/aspire.png",
+      "architecture": "https://claude.ai/code/artifact/ba164877-78db-4590-bcaa-d439c0b9a211"
     },
     {
       "id": "cub",
