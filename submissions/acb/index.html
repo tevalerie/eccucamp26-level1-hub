@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>ACBAssist — submission draft</title>
+<style>
+:root{--ink:#12203a;--mute:#5d6b85;--line:#dfe5f0;--paper:#f6f8fc;
+ /* the pod's own brand colours, read out of their stylesheets */
+ --blue:#0b2168;--brand2:#d43a3a;--onbrand:#ffffff;
+ --red:#b3261e;--amber:#8a6100;--green:#1E6B3A;--fill:#fffaf0;--fillb:#e0b877}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+ background:var(--paper);color:var(--ink);line-height:1.55;font-size:15px}
+header{background:linear-gradient(120deg,var(--blue),var(--brand2));
+ color:var(--onbrand);padding:26px 24px}
+header .in,.bar .in{max-width:960px;margin:0 auto}
+.eyebrow{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+ opacity:.78;font-weight:800}
+header h1{margin:6px 0 2px;font-size:30px}
+header p{margin:0;opacity:.9}
+.bar{background:linear-gradient(180deg,#ffffff,#f8fafd);
+ border-bottom:1px solid var(--line);padding:10px 24px;
+ position:sticky;top:0;z-index:20}
+.bar .in{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.prog{font-size:13.5px;color:var(--mute)}
+.prog b{color:var(--blue)}
+.spacer{flex:1}
+.bar button{font-family:inherit;font-size:13px;font-weight:700;border:0;border-radius:8px;
+ padding:8px 14px;cursor:pointer;background:var(--blue);color:var(--onbrand)}
+.bar button.ghost{background:#fff;color:var(--mute);border:1px solid var(--line)}
+.bar button.danger:hover{color:var(--red);border-color:var(--red)}
+.wrap{max-width:960px;margin:0 auto;padding:24px 24px 60px}
+section{background:#fff;border:1px solid var(--line);border-radius:14px;
+ padding:20px 24px;margin-bottom:18px;position:relative;overflow:hidden;
+ box-shadow:0 1px 2px rgba(18,32,58,.04)}
+section:before{content:"";position:absolute;inset:0 0 auto 0;height:3px;
+ background:linear-gradient(90deg,var(--blue),var(--brand2))}
+h2{margin:0 0 10px;font-size:18px;color:var(--blue);display:flex;align-items:center;gap:9px}
+h2:before{content:"";width:4px;height:17px;border-radius:2px;flex:none;
+ background:linear-gradient(180deg,var(--blue),var(--brand2))}
+.lede{color:var(--mute);margin:0 0 12px}
+.how{border-left:5px solid var(--blue)}
+.how p{margin:0 0 10px}
+.warn-note{background:#fff4e5;border-radius:8px;padding:11px 14px;font-size:13.8px;color:#6b4a00}
+.stamp{font-size:12.5px;color:var(--mute);font-style:italic;margin:0 !important}
+.note{background:#f6f8fc;border-left:4px solid var(--blue);padding:11px 14px;
+ border-radius:8px;margin:12px 0 0;font-size:13.8px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{background:#eef2fb;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute)}
+table.kv th{width:34%;color:var(--mute);font-weight:600}
+table.sig td:last-child{width:78px;text-align:right}
+td.num{text-align:right;color:var(--mute)}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9em;background:#eef1f8;
+ padding:1px 5px;border-radius:4px;color:#28336b}
+.tag{display:inline-block;font-size:11.5px;font-weight:800;border-radius:20px;padding:2px 10px}
+.tag.y{background:#e6f5ec;color:var(--green)}
+.tag.n{background:#fdecea;color:var(--red)}
+.tag.q{background:#fff4e5;color:var(--amber)}
+.pick{font-family:inherit;font-size:11.5px;font-weight:800;border-radius:20px;
+ padding:3px 8px;border:1px solid transparent;cursor:pointer;appearance:none;
+ -webkit-appearance:none;text-align:center;min-width:74px}
+.pick.y{background:#e6f5ec;color:var(--green);border-color:#bfe3cd}
+.pick.n{background:#fdecea;color:var(--red);border-color:#f0c3bf}
+.pick.q{background:#fff4e5;color:var(--amber);border-color:#e8cfa4}
+.pick:focus{outline:none;box-shadow:0 0 0 3px rgba(55,48,163,.15)}
+.none{color:var(--mute);font-style:italic}
+.warn{color:var(--red);font-weight:600}
+.gap{background:linear-gradient(180deg,#fffdf6,#fff6e6);
+ border:1px dashed var(--fillb);border-radius:8px;
+ padding:7px 10px;min-height:36px;font-size:14px;outline:none;transition:.15s}
+.gap.big{min-height:66px}
+.b1-sec .gap{min-height:170px}
+.gap:focus{border-style:solid;border-color:var(--blue);background:#fff;
+ box-shadow:0 0 0 3px rgba(55,48,163,.12)}
+.gap:empty:before{content:attr(data-hint);color:#a9926a;font-style:italic}
+/* Once there is text in it, it should read as part of the document, not as a
+   form field. The dotted rule only returns on hover so it stays findable. */
+.gap.filled{background:transparent;border-color:transparent;padding-left:0;padding-right:0}
+.gap.filled:hover{background:#fbfcfe;border-color:#dfe5f0;padding-left:10px;padding-right:10px}
+.gap.filled:focus{background:#fff;border-color:var(--blue);padding-left:10px;padding-right:10px}
+body.nocoach .coach{display:none}
+.cbs{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;margin:8px 0 4px}
+.cb{display:flex;gap:8px;align-items:flex-start;font-size:14px;line-height:1.35;
+ padding:5px 8px;border:1px solid var(--line);border-radius:7px;background:#fcfdff;cursor:pointer}
+.cb:hover{border-color:var(--blue)}
+.cb input{margin:2px 0 0;accent-color:var(--blue);flex:0 0 auto}
+.cb input:checked+span{font-weight:600}
+ul.apis{margin:6px 0 0 18px;font-size:13.5px}
+ul.apis code{word-break:break-all}
+.pick.q{min-width:118px}
+.archbox.own{padding:10px}
+img.ownarch{display:block;max-width:100%;height:auto;margin:0 auto;border-radius:8px}
+.cap{font-size:12px;color:var(--mute);text-align:center;margin:4px 0 2px}
+.internal{outline:2px dashed #e2b07a;outline-offset:-2px;background:#fffdf7}
+.only{font:800 10px -apple-system,Segoe UI,sans-serif;letter-spacing:.1em;
+ background:#f5d9ae;color:#7a5518;padding:3px 8px;border-radius:9px;vertical-align:middle;
+ margin-left:8px;text-transform:uppercase}
+.cbs.one{grid-template-columns:1fr}
+.cont{font:700 11px -apple-system,Segoe UI,sans-serif;color:var(--mute);
+ letter-spacing:.05em;text-transform:none;margin-left:6px}
+.inf{font:400 11px ui-monospace,Menlo,monospace;color:var(--mute);margin-left:6px}
+.egflow{background:#f6f8fc;border:1px solid var(--line);border-radius:9px;padding:10px 13px;
+ font-size:13px;color:#4a5a76;line-height:1.6}
+.glab{font-weight:700;margin:14px 0 5px;font-size:14.5px}
+.sub{font-size:13.5px;color:var(--mute);margin:10px 0 4px}
+.flags{border-left:5px solid var(--red)}
+.flags h2{color:var(--red)}
+.flag{border-radius:9px;padding:11px 14px;margin-bottom:8px;font-size:14px}
+.flag.over{background:#fdecea;color:#7a1f1f}
+.flag.under{background:#fff4e5;color:#6b4a00}
+.flag.check{background:#eef2fb;color:#2b3a63}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.two>div{min-width:0}
+.two h2{font-size:16px}
+@media(max-width:720px){.two{grid-template-columns:1fr}}
+.archbox{background:linear-gradient(160deg,#fdfeff,#f4f7fd);
+ border:1px solid var(--line);border-radius:12px;padding:12px}
+svg.arch{width:100%;height:auto;display:block}
+footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
+ font-size:12.5px;text-align:center}
+@media print{
+ @page{size:A4;margin:14mm 12mm}
+ body{background:#fff;font-size:10pt}
+ .wrap{max-width:none;padding:0}
+ /* long function names, file paths and URLs must wrap rather than run off */
+ td,th{word-break:break-word;overflow-wrap:anywhere}
+ code{white-space:normal;overflow-wrap:anywhere}
+ table{table-layout:fixed;width:100%}
+ svg.arch{max-width:100%;height:auto}
+ .archbox{padding:0;border:0}
+ h2{break-after:avoid}
+ tr{break-inside:avoid}
+ .two{display:block}
+ .two>div{margin-bottom:14px}
+ .bar,.coach,.internal{display:none}
+ header{background:var(--blue) !important;color:var(--onbrand) !important;
+  padding:12px 16px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ header h1{font-size:20pt;margin:2px 0 1px}
+ header p{font-size:9.5pt}
+ .eyebrow{font-size:7.5pt}
+ section{padding:10px 14px}
+ h2{font-size:12.5pt;margin-bottom:6px}
+ /* keep the diagram whole, but not so tall it pushes itself to a fresh page */
+ svg.arch{max-height:330pt}
+ img.ownarch{max-height:300pt;object-fit:contain}
+ section{break-inside:auto;margin-bottom:10px;border-radius:8px;box-shadow:none}
+ section:before{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ h2:before{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .arch-sec,.two>div{break-inside:avoid}
+ /* B1 is real writing — give it a clean page rather than a footer scrap */
+ .b1-sec{break-before:page;break-inside:avoid}
+ .b1-sec .gap:empty{min-height:150pt}
+ header{break-after:avoid}
+ /* answered boxes print as plain document text - no shade, no border */
+ .gap{border:0;background:none;padding:2px 0;min-height:0;border-radius:0}
+ /* an unanswered box still shows, so nobody mistakes a blank for an answer */
+ .gap:empty{border:1px dashed #c2c2c2;background:#fafafa;padding:6px 8px;min-height:20px}
+ .gap:empty:before{content:"— left blank —";color:#999}
+ .cb input{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .cbs{break-inside:avoid}
+ .tag,.flag{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style></head><body>
+<header><div class="in"><div class="eyebrow">Your submission &middot; already half written</div><h1>ACBAssist</h1><p>Team ACBAI &middot; for ACB Caribbean</p></div></header>
+<div class="bar"><div class="in"><span class="prog"><b id="done">0</b> of <b id="total">0</b> boxes filled</span><span class="spacer"></span><button id="notes" class="ghost">Hide coaching notes</button><button id="save">Download my copy</button><button id="judge">Download judges’ copy</button><button id="print">Save as PDF</button><button id="copy" class="ghost">Copy all text</button><button id="clear" class="ghost danger">Clear my answers</button></div></div>
+<div class="wrap">
+<section class="how coach"><h2>How this works</h2><p>Your stack, your files, your functions and the diagrams are already filled in from your repository and your cover sheet. <b>You do not need to retype any of it.</b></p><p>The shaded boxes are the parts only you can answer. Click one and start typing. Your writing saves in this browser automatically, so you can close the tab and come back. When you are done, hit <b>Download my copy</b> or <b>Save as PDF</b>.</p><p class="warn-note">Two things to know. Your answers save on <b>this computer in this browser</b> only, so finish on the machine you started on and download a copy when you stop. And check every pre-filled line: anything wrong that you leave in, the judges read as your answer.</p><p class="warn-note">These blue notes are for you, not for the judges. Use the <b>Hide coaching notes</b> button to make every one of them disappear, and they are removed automatically from the PDF and from both downloads.</p><p class="stamp">Prepared 2026-08-24 21:24 UTC.</p></section>
+<section class="flags coach"><h2>Fix these first — they cost you marks</h2>
+<div class="flag check"><b>Worth a second look</b><br>Your cover sheet describes 1 agent, but we could not see tool or function calling in the code we read. If the agent is there, name the file in Section B1 so a judge can find it too.</div>
+<p class="note coach">Fix the paperwork or fix the code — but do not leave the two disagreeing. A judge who spots it will trust the rest of your answers less.</p>
+</section>
+<section><h2>Project Information</h2><table class="kv">
+<tr><th>Chatbot Name</th><td>ACBAssist</td></tr>
+<tr><th>Client Organisation</th><td>ACB Caribbean</td></tr>
+<tr><th>Camper Development Team</th><td>Team ACBAI</td></tr>
+<tr><th>Live Demo / Application Link</th><td>https://acb-1.onrender.com</td></tr>
+<tr><th>Team members</th><td>Emma Morris, Chèanna Browne, Kaija Delpleche, Ashaun Moore, Xiomara Titre</td></tr>
+</table></section>
+<section><h2>A &middot; Project Purpose and Technical Overview</h2>
+<div class="glab">A1 &middot; What problem does the chatbot solve?</div><p class="lede">A brief description of the client’s business problem or customer need.</p>
+<div class="gap big" contenteditable="true" data-k="a1" data-hint="the problem your client actually has" data-seed="1">It solves customer wait times, employee burnout from repetitive tasks, and a lack of management analytics by deploying an intelligent chatbot that automates routine banking, streamlines human handoffs, and delivers actionable operational insights</div>
+<div class="glab">A2 &middot; What are the chatbot’s primary functions?</div><p class="lede">List the main functions the application performs.</p>
+<div class="gap" contenteditable="true" data-k="a2-1" data-hint="function 1" data-seed="1">Quick links that lead straight to the ACB website; helps with accounts, loans, cards, FOREX, branches and more ; answers ACB FAQs 24/7; Calculators for mortgage and loans ; works in English,French,Spanish and Dutch; (3-5 standout things the bot can do)</div>
+<div class="gap" contenteditable="true" data-k="a2-2" data-hint="function 2"></div>
+<div class="gap" contenteditable="true" data-k="a2-3" data-hint="function 3"></div>
+<div class="gap" contenteditable="true" data-k="a2-4" data-hint="function 4"></div>
+<div class="gap" contenteditable="true" data-k="a2-5" data-hint="function 5"></div>
+<div class="glab">A3 &middot; Technology stack</div>
+<table><thead><tr><th style="width:30%">Technology / Tool</th><th style="width:34%">What you used</th><th>Purpose in the solution</th></tr></thead><tbody>
+<tr><td>Programming Language(s)</td><td><div class="gap" contenteditable="true" data-k="a3n-Programming Language(s)" data-hint="name it" data-seed="1">Python, HTML</div></td><td><div class="gap" contenteditable="true" data-k="a3-Programming Language(s)" data-hint="what it does in your solution"></div></td></tr>
+<tr><td>AI/LLM Model</td><td><div class="gap" contenteditable="true" data-k="a3n-AI / LLM model" data-hint="name it" data-seed="1">Google Gemini</div></td><td><div class="gap" contenteditable="true" data-k="a3-AI / LLM model" data-hint="what it does in your solution"></div></td></tr>
+<tr><td>Framework(s)</td><td><div class="gap" contenteditable="true" data-k="a3n-Framework(s)" data-hint="name it" data-seed="1">FastAPI, LangGraph, Uvicorn</div></td><td><div class="gap" contenteditable="true" data-k="a3-Framework(s)" data-hint="what it does in your solution"></div></td></tr>
+<tr><td>APIs</td><td><div class="gap" contenteditable="true" data-k="a3n-APIs" data-hint="name it" data-seed="1">Google Gemini API, ElevenLabs API, SQLite API</div></td><td><div class="gap" contenteditable="true" data-k="a3-APIs" data-hint="what it does in your solution"></div></td></tr>
+<tr><td>Database/Knowledge Base</td><td><div class="gap" contenteditable="true" data-k="a3n-Database / Knowledge Base" data-hint="name it" data-seed="1">SQLite</div></td><td><div class="gap" contenteditable="true" data-k="a3-Database / Knowledge Base" data-hint="what it does in your solution"></div></td></tr>
+<tr><td>Frontend/User Interface</td><td><div class="gap" contenteditable="true" data-k="a3n-Frontend/User Interface" data-hint="name it" data-seed="1">HTML/CSS/JS</div></td><td><div class="gap" contenteditable="true" data-k="a3-Frontend/User Interface" data-hint="what it does in your solution"></div></td></tr>
+<tr><td>Backend</td><td><div class="gap" contenteditable="true" data-k="a3n-Backend" data-hint="name it" data-seed="1">Python, FastAPI</div></td><td><div class="gap" contenteditable="true" data-k="a3-Backend" data-hint="what it does in your solution"></div></td></tr>
+<tr><td>Hosting/Deployment Platform</td><td><div class="gap" contenteditable="true" data-k="a3n-Hosting/Deployment Platform" data-hint="name it" data-seed="1">Render</div></td><td><div class="gap" contenteditable="true" data-k="a3-Hosting/Deployment Platform" data-hint="what it does in your solution"></div></td></tr>
+<tr><td>Avatar Technology</td><td><div class="gap" contenteditable="true" data-k="a3n-Avatar Technology" data-hint="name it"></div></td><td><div class="gap" contenteditable="true" data-k="a3-Avatar Technology" data-hint="what it does in your solution"></div></td></tr>
+<tr><td>Text-to-Speech/Voice Technology</td><td><div class="gap" contenteditable="true" data-k="a3n-Text-to-Speech / Voice" data-hint="name it" data-seed="1">ElevenLabs</div></td><td><div class="gap" contenteditable="true" data-k="a3-Text-to-Speech / Voice" data-hint="what it does in your solution"></div></td></tr>
+<tr><td>Other Tools/Libraries</td><td><div class="gap" contenteditable="true" data-k="a3n-Other Tools / Libraries" data-hint="name it" data-seed="1">requests, BeautifulSoup, PDF parsing</div></td><td><div class="gap" contenteditable="true" data-k="a3-Other Tools / Libraries" data-hint="what it does in your solution"></div></td></tr>
+</tbody></table></section>
+<section class="b1-sec"><h2>B &middot; High-Level System Architecture</h2><div class="glab">B1 &middot; Architecture flow</div><p class="lede">Describe how information moves through the chatbot from the moment a user submits a question until the final response is delivered.</p><p class="egflow"><b>Example</b><br>User Input &rarr; User Interface &rarr; Input Processing &rarr; Prompt Handling &rarr; AI/LLM &rarr; Knowledge Base/API Retrieval &rarr; Response Processing &rarr; Avatar/Text-to-Speech &rarr; User Output</p>
+<p class="lede coach">On your cover sheet you wrote: &ldquo;ACB helps ACB Caribbean deflect routine banking questions from live agents to a multi-agent AI assistant, so support teams handle fewer repetitive tickets and customers get answers 24/7.&quot;&rdquo; — that is the what. This is the how.</p>
+<div class="sub">Our chatbot architecture</div>
+<div class="gap big" contenteditable="true" data-k="b1" data-hint="Someone types a question on the page. Then…"></div>
+</section>
+<section class="arch-sec"><h2>B &middot; High-Level System Architecture <span class="cont">continued</span></h2><p class="lede">A simple diagram showing the main components of the system and how they connect.</p>
+<div class="archbox"><svg viewBox="0 0 940 612" xmlns="http://www.w3.org/2000/svg" class="arch" role="img" aria-label="System architecture diagram">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7b8aa8"/></marker><linearGradient id="band" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f7f9fd"/><stop offset="1" stop-color="#eef3fb"/></linearGradient><linearGradient id="g-grey" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".75"/><stop offset="1" stop-color="#eef2f9" stop-opacity="1"/></linearGradient><linearGradient id="g-blue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".75"/><stop offset="1" stop-color="#e8f4ff" stop-opacity="1"/></linearGradient><linearGradient id="g-green" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".75"/><stop offset="1" stop-color="#e9f7ef" stop-opacity="1"/></linearGradient><linearGradient id="g-purple" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".75"/><stop offset="1" stop-color="#f4eefc" stop-opacity="1"/></linearGradient><linearGradient id="g-amber" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".75"/><stop offset="1" stop-color="#fff6e5" stop-opacity="1"/></linearGradient><linearGradient id="g-pink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".75"/><stop offset="1" stop-color="#ffeef3" stop-opacity="1"/></linearGradient><linearGradient id="g-rose" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".75"/><stop offset="1" stop-color="#fff0f9" stop-opacity="1"/></linearGradient><linearGradient id="g-slate" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".75"/><stop offset="1" stop-color="#f1f2f7" stop-opacity="1"/></linearGradient></defs>
+<style>.bt{font:700 14.5px -apple-system,Segoe UI,Roboto,sans-serif;fill:#12203a}.bs{font:400 11.5px ui-monospace,Menlo,Consolas,monospace;fill:#5b6d8f}.al{font:600 10.5px -apple-system,Segoe UI,sans-serif;fill:#5b6d8f}.cap{font:800 10.5px -apple-system,Segoe UI,sans-serif;fill:#9aa8c0;letter-spacing:.14em}.ft{font:italic 11.5px -apple-system,Segoe UI,sans-serif;fill:#8a97ad}</style>
+<rect x="14" y="14" width="912" height="104" rx="14" fill="url(#band)" stroke="#e6ecf6"/>
+<text x="30" y="33" class="cap">1 · SOMEONE ASKS</text>
+<rect x="352.0" y="43" width="236" height="58" rx="12" fill="#0b1a33" opacity=".055"/>
+<rect x="352.0" y="40" width="236" height="58" rx="12" fill="url(#g-grey)" stroke="#c3cde0" stroke-width="2"/>
+<rect x="352.0" y="40" width="5" height="58" rx="2.5" fill="#8fa0bd"/>
+<text x="368.0" y="65" class="bt">A question for ACBAssist</text>
+<text x="368.0" y="84" class="bs">from a customer or staff</text>
+<rect x="14" y="128" width="912" height="100" rx="14" fill="url(#band)" stroke="#e6ecf6"/>
+<text x="30" y="147" class="cap">2 · ACBASSIST TAKES IT IN</text>
+<rect x="352.0" y="153" width="236" height="66" rx="12" fill="#0b1a33" opacity=".055"/>
+<rect x="352.0" y="150" width="236" height="66" rx="12" fill="url(#g-blue)" stroke="#9cc8ee" stroke-width="2"/>
+<rect x="352.0" y="150" width="5" height="66" rx="2.5" fill="#4a9ada"/>
+<text x="368.0" y="175" class="bt">ACBAssist’s web page</text>
+<text x="368.0" y="194" class="bs">HTML/CSS/JS</text>
+<line x1="470.0" y1="98" x2="470.0" y2="150" stroke="#7b8aa8" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="14" y="238" width="912" height="214" rx="14" fill="url(#band)" stroke="#e6ecf6"/>
+<text x="30" y="257" class="cap">3 · ACBASSIST WORKS OUT AN ANSWER</text>
+<rect x="352.0" y="279" width="236" height="66" rx="12" fill="#0b1a33" opacity=".055"/>
+<rect x="352.0" y="276" width="236" height="66" rx="12" fill="url(#g-green)" stroke="#93d3ac" stroke-width="2"/>
+<rect x="352.0" y="276" width="5" height="66" rx="2.5" fill="#2f9e63"/>
+<text x="368.0" y="301" class="bt">ACBAssist’s code</text>
+<text x="368.0" y="320" class="bs">Python, FastAPI</text>
+<text x="368.0" y="335" class="bs">running on Render</text>
+<line x1="470.0" y1="216" x2="470.0" y2="276" stroke="#7b8aa8" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="439.0" y="237.0" width="62" height="18" rx="9" fill="#fff" stroke="#e2e8f2"/>
+<text x="470.0" y="250.0" text-anchor="middle" class="al">sends it</text>
+<rect x="352.0" y="369" width="236" height="66" rx="12" fill="#0b1a33" opacity=".055"/>
+<rect x="352.0" y="366" width="236" height="66" rx="12" fill="url(#g-purple)" stroke="#c5abec" stroke-width="2"/>
+<rect x="352.0" y="366" width="5" height="66" rx="2.5" fill="#8a5fd0"/>
+<text x="368.0" y="391" class="bt">The AI model</text>
+<text x="368.0" y="410" class="bs">Google Gemini</text>
+<line x1="470.0" y1="342" x2="470.0" y2="366" stroke="#7b8aa8" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="451.0" y="345.0" width="38" height="18" rx="9" fill="#fff" stroke="#e2e8f2"/>
+<text x="470.0" y="358.0" text-anchor="middle" class="al">asks</text>
+<rect x="42" y="279" width="236" height="66" rx="12" fill="#0b1a33" opacity=".055"/>
+<rect x="42" y="276" width="236" height="66" rx="12" fill="url(#g-amber)" stroke="#ecca99" stroke-width="2"/>
+<rect x="42" y="276" width="5" height="66" rx="2.5" fill="#d19a2e"/>
+<text x="58" y="301" class="bt">ACBAssist’s knowledge base</text>
+<text x="58" y="320" class="bs">SQLite</text>
+<text x="58" y="335" class="bs">the facts it answers from</text>
+<line x1="352.0" y1="309" x2="278" y2="309" stroke="#7b8aa8" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="284.0" y="300.0" width="62" height="18" rx="9" fill="#fff" stroke="#e2e8f2"/>
+<text x="315.0" y="313.0" text-anchor="middle" class="al">looks up</text>
+<rect x="14" y="462" width="912" height="120" rx="14" fill="url(#band)" stroke="#e6ecf6"/>
+<text x="30" y="481" class="cap">4 · THEY GET A REPLY</text>
+<rect x="352.0" y="499" width="236" height="58" rx="12" fill="#0b1a33" opacity=".055"/>
+<rect x="352.0" y="496" width="236" height="58" rx="12" fill="url(#g-grey)" stroke="#c3cde0" stroke-width="2"/>
+<rect x="352.0" y="496" width="5" height="58" rx="2.5" fill="#8fa0bd"/>
+<text x="368.0" y="521" class="bt">ACBAssist’s reply</text>
+<text x="368.0" y="540" class="bs">back on their screen</text>
+<line x1="470.0" y1="432" x2="470.0" y2="496" stroke="#7b8aa8" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="662" y="499" width="236" height="58" rx="12" fill="#0b1a33" opacity=".055"/>
+<rect x="662" y="496" width="236" height="58" rx="12" fill="url(#g-rose)" stroke="#e0aad4" stroke-width="2"/>
+<rect x="662" y="496" width="5" height="58" rx="2.5" fill="#c563ac"/>
+<text x="678" y="521" class="bt">…and ACBAssist speaks</text>
+<text x="678" y="540" class="bs">ElevenLabs</text>
+<line x1="588.0" y1="525" x2="662" y2="525" stroke="#7b8aa8" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="591.0" y="516.0" width="68" height="18" rx="9" fill="#fff" stroke="#e2e8f2"/>
+<text x="625.0" y="529.0" text-anchor="middle" class="al">reads out</text>
+<rect x="42" y="499" width="236" height="58" rx="12" fill="#0b1a33" opacity=".055"/>
+<rect x="42" y="496" width="236" height="58" rx="12" fill="url(#g-slate)" stroke="#bcc0d2" stroke-width="2" stroke-dasharray="7 5"/>
+<rect x="42" y="496" width="5" height="58" rx="2.5" fill="#8b90a8"/>
+<text x="58" y="521" class="bt">ACBAssist remembers this</text>
+<text x="58" y="540" class="bs">for the next question</text>
+<line x1="352.0" y1="525" x2="278" y2="525" stroke="#7b8aa8" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="293.0" y="516.0" width="44" height="18" rx="9" fill="#fff" stroke="#e2e8f2"/>
+<text x="315.0" y="529.0" text-anchor="middle" class="al">saves</text>
+<text x="470.0" y="602" text-anchor="middle" class="ft">ACBAssist</text>
+</svg></div>
+<p class="note coach"><b>Your turn:</b> check every box. Add anything missing, delete what you did not build.</p>
+<div class="sub">Agent flow</div><p class="lede">Which agents exist, what each one does, and who handles a question when it arrives.</p>
+<div class="archbox"><svg viewBox="0 0 602 488" xmlns="http://www.w3.org/2000/svg" class="arch agents" role="img" aria-label="Agent crew diagram">
+<defs><linearGradient id="ag-hd" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0b2168"/><stop offset="1" stop-color="#d43a3a"/></linearGradient><linearGradient id="ag-bx" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#0b2168" stop-opacity=".13"/></linearGradient><marker id="agh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8494ad"/></marker></defs>
+<style>.an{font:700 14px -apple-system,Segoe UI,Roboto,sans-serif;fill:#12203a}.aw{font:400 11.5px -apple-system,Segoe UI,sans-serif;fill:#55647f}.ah{font:800 13px -apple-system,Segoe UI,sans-serif;fill:#fff}.ac{font:800 10px -apple-system,Segoe UI,sans-serif;fill:#9aa8c0;letter-spacing:.13em}.am{font:700 9.5px -apple-system,Segoe UI,sans-serif}.af{font:italic 11px -apple-system,Segoe UI,sans-serif;fill:#8a97ad}</style>
+<rect x="151.0" y="26" width="300" height="42" rx="21" fill="url(#ag-hd)"/>
+<text x="301.0" y="53" text-anchor="middle" class="ah">ACBAssist decides who handles it</text>
+<text x="301.0" y="16" text-anchor="middle" class="ac">A QUESTION COMES IN</text>
+<rect x="30" y="121" width="258" height="88" rx="12" fill="#0b1a33" opacity=".05"/>
+<rect x="30" y="118" width="258" height="88" rx="12" fill="url(#ag-bx)" stroke="#0b2168" stroke-width="2" stroke-opacity=".55"/>
+<rect x="30" y="118" width="5" height="88" rx="2.5" fill="#0b2168"/>
+<text x="46" y="143" class="an">Input Guardrail</text>
+<text x="46" y="163" class="aw">Runs before the router ever sees the</text>
+<text x="46" y="178" class="aw">message.</text>
+<rect x="164.8" y="182" width="111.19999999999999" height="17" rx="8.5" fill="#e9f7ef"/>
+<text x="220.4" y="194" text-anchor="middle" class="am" fill="#2f7d52">input_guardrail()</text>
+<path d="M159.0,88 L159.0,118" fill="none" stroke="#8494ad" stroke-width="1.7" marker-end="url(#agh)" opacity=".8"/>
+<rect x="314" y="121" width="258" height="88" rx="12" fill="#0b1a33" opacity=".05"/>
+<rect x="314" y="118" width="258" height="88" rx="12" fill="url(#ag-bx)" stroke="#0b2168" stroke-width="2" stroke-opacity=".55"/>
+<rect x="314" y="118" width="5" height="88" rx="2.5" fill="#0b2168"/>
+<text x="330" y="143" class="an">Supervisor</text>
+<rect x="476.8" y="182" width="83.19999999999999" height="17" rx="8.5" fill="#e9f7ef"/>
+<text x="518.4" y="194" text-anchor="middle" class="am" fill="#2f7d52">supervisor()</text>
+<path d="M443.0,88 L443.0,118" fill="none" stroke="#8494ad" stroke-width="1.7" marker-end="url(#agh)" opacity=".8"/>
+<rect x="30" y="231" width="258" height="88" rx="12" fill="#0b1a33" opacity=".05"/>
+<rect x="30" y="228" width="258" height="88" rx="12" fill="url(#ag-bx)" stroke="#0b2168" stroke-width="2" stroke-opacity=".55"/>
+<rect x="30" y="228" width="5" height="88" rx="2.5" fill="#0b2168"/>
+<text x="46" y="253" class="an">Escalation</text>
+<rect x="192.8" y="292" width="83.19999999999999" height="17" rx="8.5" fill="#e9f7ef"/>
+<text x="234.4" y="304" text-anchor="middle" class="am" fill="#2f7d52">escalation()</text>
+<path d="M159.0,198 L159.0,228" fill="none" stroke="#8494ad" stroke-width="1.7" marker-end="url(#agh)" opacity=".8"/>
+<rect x="314" y="231" width="258" height="88" rx="12" fill="#0b1a33" opacity=".05"/>
+<rect x="314" y="228" width="258" height="88" rx="12" fill="url(#ag-bx)" stroke="#0b2168" stroke-width="2" stroke-opacity=".55"/>
+<rect x="314" y="228" width="5" height="88" rx="2.5" fill="#0b2168"/>
+<text x="330" y="253" class="an">Output Guardrail</text>
+<text x="330" y="273" class="aw">Runs on every path (blocked, domain</text>
+<text x="330" y="288" class="aw">agent, or escalation) right before the…</text>
+<rect x="443.2" y="292" width="116.8" height="17" rx="8.5" fill="#e9f7ef"/>
+<text x="501.6" y="304" text-anchor="middle" class="am" fill="#2f7d52">output_guardrail()</text>
+<path d="M443.0,198 L443.0,228" fill="none" stroke="#8494ad" stroke-width="1.7" marker-end="url(#agh)" opacity=".8"/>
+<path d="M159.0,88 L443.0,88" stroke="#8494ad" stroke-width="1.7" opacity=".8" fill="none"/>
+<path d="M301.0,68 L301.0,88" stroke="#8494ad" stroke-width="1.7" opacity=".8" fill="none"/>
+<path d="M159.0,198 L443.0,198" stroke="#8494ad" stroke-width="1.7" opacity=".8" fill="none"/>
+<path d="M301.0,206 L301.0,198" stroke="#8494ad" stroke-width="1.7" opacity=".8" fill="none"/>
+<rect x="151.0" y="342" width="300" height="38" rx="19" fill="#f2f6fc" stroke="#d7e1f0"/>
+<text x="301.0" y="366" text-anchor="middle" class="an">One answer goes back to the user</text>
+<text x="30" y="404" class="ac">TOOLS AND NODES IN THE CODE</text>
+<rect x="30" y="414" width="144.4" height="26" rx="13" fill="#eef3fb" stroke="#dbe4f2"/>
+<text x="102.2" y="431" text-anchor="middle" class="aw" fill="#3c4c68">input_guardrail()</text>
+<rect x="182.4" y="414" width="108.4" height="26" rx="13" fill="#eef3fb" stroke="#dbe4f2"/>
+<text x="236.60000000000002" y="431" text-anchor="middle" class="aw" fill="#3c4c68">supervisor()</text>
+<rect x="298.8" y="414" width="108.4" height="26" rx="13" fill="#eef3fb" stroke="#dbe4f2"/>
+<text x="353.0" y="431" text-anchor="middle" class="aw" fill="#3c4c68">escalation()</text>
+<rect x="415.20000000000005" y="414" width="151.6" height="26" rx="13" fill="#eef3fb" stroke="#dbe4f2"/>
+<text x="491.00000000000006" y="431" text-anchor="middle" class="aw" fill="#3c4c68">output_guardrail()</text>
+<text x="301.0" y="448" text-anchor="middle" class="af">1 branching decision · 3 connections</text>
+</svg></div>
+<p class="note coach">Each agent you described is matched to the function in your code that appears to do it. Where it says <b>which tool is this?</b>, the tools are there but the names are too different for us to pair them — write the pairing into B1 yourself, because a judge will ask. Where it says <b>we could not find this</b>, we found nothing at all: either point us at the file, or take it off the sheet.</p>
+</section>
+<section><h2>C &middot; Code Structure and Organisation</h2><div class="glab">C1 &middot; How is the code organised?</div><p class="lede">Describe two or three major folders, files, modules or components.</p>
+<table><thead><tr><th style="width:44%">File / Folder / Module</th><th>Main purpose</th></tr></thead><tbody>
+<tr><td><b>Frontend / user interface</b><br><span class="inf">frontend/index.html, src/acb/agents/domain_agents.py, src/acb/rag.py, src/acb/scrape_site.py and 14 more</span></td><td><div class="gap big" contenteditable="true" data-k="c1-Frontend / user interface" data-hint="what this part of the system is for" data-seed="1">The pages a person sees and types into.</div></td></tr>
+<tr><td><b>Backend / application code</b><br><span class="inf">app.py</span></td><td><div class="gap big" contenteditable="true" data-k="c1-Backend / application code" data-hint="what this part of the system is for" data-seed="1">The server that takes questions in and sends replies back.</div></td></tr>
+<tr><td><b>Knowledge base and data</b><br><span class="inf">data/qa_data.csv, data/antigua_fees.json, data/grenada_fees.json, data/grenada_business_services.json and 5 more</span></td><td><div class="gap big" contenteditable="true" data-k="c1-Knowledge base and data" data-hint="what this part of the system is for" data-seed="1">The facts the bot answers from.</div></td></tr>
+<tr><td><b>Configuration and deployment</b><br><span class="inf">pyproject.toml</span></td><td><div class="gap big" contenteditable="true" data-k="c1-Configuration and deployment" data-hint="what this part of the system is for" data-seed="1">What the host needs in order to run it.</div></td></tr>
+<tr><td><b>Tests</b><br><span class="inf">tests/test_domain_agents.py, tests/test_supervisor.py, tests/test_tools.py, tests/test_guardrails.py and 1 more</span></td><td><div class="gap big" contenteditable="true" data-k="c1-Tests" data-hint="what this part of the system is for" data-seed="1">Checks that the code still works.</div></td></tr>
+<tr><td><b>Written notes and documentation</b><br><span class="inf">README.md</span></td><td><div class="gap big" contenteditable="true" data-k="c1-Written notes and documentation" data-hint="what this part of the system is for" data-seed="1">Notes the team wrote about the build.</div></td></tr>
+</tbody></table><p class="note coach">Keep the two or three that matter most and delete the rest — the template asks for two or three.</p>
+<div class="glab">C2 &middot; Key functions or components</div><p class="lede">Identify the two or three most important functions, classes or modules and explain what each does.</p><p class="lede">There are <b>87 functions</b> in your code. The boxes below start with your own docstrings — <b>rewrite them in plain words</b>, because a judge who cannot read your code can only go on this.</p>
+<table><thead><tr><th style="width:44%">Function / Class / Module</th><th>Purpose</th></tr></thead><tbody>
+<tr><td><code>_chunk_web_content()</code> <span class="inf">src/acb/rag.py</span></td><td><div class="gap big" contenteditable="true" data-k="c2-_chunk_web_content" data-hint="what this function does, in plain words" data-seed="1">Loads and chunks data/web_content.json (scrape_site.py&#x27;s output) if it exists. Each page is split into ~WEB_CHUNK_WORDS-word pieces rather than embedded as one</div></td></tr>
+<tr><td><code>_embed_texts()</code> <span class="inf">src/acb/rag.py</span></td><td><div class="gap big" contenteditable="true" data-k="c2-_embed_texts" data-hint="what this function does, in plain words" data-seed="1">Embeds a list of texts, batching to stay under API request limits.</div></td></tr>
+<tr><td><code>_raise_for_status_with_body()</code> <span class="inf">src/acb/api/voice.py</span></td><td><div class="gap big" contenteditable="true" data-k="c2-_raise_for_status_with_body" data-hint="what this function does, in plain words" data-seed="1">Like resp.raise_for_status(), but keeps ElevenLabs&#x27; response body (e.g. &#x27;invalid_api_key&#x27; vs &#x27;voice_not_found&#x27;) instead of just the status line.</div></td></tr>
+<tr><td><code>_source_hash()</code> <span class="inf">src/acb/rag.py</span></td><td><div class="gap big" contenteditable="true" data-k="c2-_source_hash" data-hint="what this function does, in plain words" data-seed="1">Hash of the source files&#x27; contents, so the cache invalidates itself whenever any of the JSON files change -- no manual cache-busting needed.</div></td></tr>
+<tr><td><code>amortize()</code> <span class="inf">src/acb/tools.py</span></td><td><div class="gap big" contenteditable="true" data-k="c2-amortize" data-hint="what this function does, in plain words" data-seed="1">Fixed-rate amortization: fixed monthly payment, computed from principal, annual interest rate (percent), and term in months.</div></td></tr>
+<tr><td><code>calculate_loan_from_message()</code> <span class="inf">src/acb/tools.py</span></td><td><div class="gap big" contenteditable="true" data-k="c2-calculate_loan_from_message" data-hint="what this function does, in plain words" data-seed="1">Deterministic calculate_loan/calculate_mortgage tool: extracts a dollar amount, an interest rate, and (optionally) a term directly from the customer&#x27;s own messa</div></td></tr>
+<tr><td><code>compliance_agent()</code> <span class="inf">src/acb/agents/domain_agents.py</span></td><td><div class="gap big" contenteditable="true" data-k="c2-compliance_agent" data-hint="what this function does, in plain words" data-seed="1">Terminal specialist: always finishes the turn (never defers or hops further) since it&#x27;s the most authoritative voice in the system.</div></td></tr>
+<tr><td><code>detect_jurisdiction()</code> <span class="inf">src/acb/rag.py</span></td><td><div class="gap big" contenteditable="true" data-k="c2-detect_jurisdiction" data-hint="what this function does, in plain words" data-seed="1">Very simple keyword check -- good enough to filter retrieval when the customer names a country, without adding another model call. Returns None (search everythi</div></td></tr>
+</tbody></table><p class="note coach"><b>Judges will ask you to explain one of these out loud.</b> Practise on the ones you keep — what goes in, what comes out, why it exists.</p>
+<div class="glab">C3 &middot; Code quality practices</div><p class="lede">Tick all the practices used by the development team.</p><div class="cbs">
+<label class="cb"><input type="checkbox" data-c="c3-Clear and meaningful variable names"><span>Clear and meaningful variable names</span></label>
+<label class="cb"><input type="checkbox" data-c="c3-Modular code structure" checked><span>Modular code structure</span></label>
+<label class="cb"><input type="checkbox" data-c="c3-Functions used to separate tasks" checked><span>Functions used to separate tasks</span></label>
+<label class="cb"><input type="checkbox" data-c="c3-Code comments" checked><span>Code comments</span></label>
+<label class="cb"><input type="checkbox" data-c="c3-Documentation / docstrings"><span>Documentation / docstrings</span></label>
+<label class="cb"><input type="checkbox" data-c="c3-Error handling" checked><span>Error handling</span></label>
+<label class="cb"><input type="checkbox" data-c="c3-Input validation" checked><span>Input validation</span></label>
+<label class="cb"><input type="checkbox" data-c="c3-Reusable code components" checked><span>Reusable code components</span></label>
+<label class="cb"><input type="checkbox" data-c="c3-Version control" checked><span>Version control</span></label>
+<label class="cb"><input type="checkbox" data-c="c3-Code testing" checked><span>Code testing</span></label>
+</div><div class="sub">Other</div><div class="gap" contenteditable="true" data-k="c3-other" data-hint="anything else you did"></div>
+<div class="glab">C4 &middot; One well-documented code component</div>
+<div class="sub">Component / function name</div><div class="gap" contenteditable="true" data-k="c4-name" data-hint="e.g. search_knowledge_base()"></div>
+<div class="sub">Purpose</div><div class="gap big" contenteditable="true" data-k="c4-purpose" data-hint="why it exists"></div>
+<div class="sub">Inputs</div><div class="gap big" contenteditable="true" data-k="c4-in" data-hint="what you pass it"></div>
+<div class="sub">Outputs</div><div class="gap big" contenteditable="true" data-k="c4-out" data-hint="what you get back"></div>
+<div class="sub">How it contributes to the chatbot</div><div class="gap big" contenteditable="true" data-k="c4-why" data-hint="what breaks without it"></div>
+</section>
+<section><h2>D &middot; Core Functionality</h2><p class="lede">For each major feature, explain how it works and name the part of your code that does it.</p><table><thead><tr><th style="width:26%">Feature</th><th style="width:20%">Built?</th><th>How it works</th><th style="width:22%">Which part of your code</th></tr></thead><tbody>
+<tr><td>Quick links that lead straight to the ACB website; helps with accounts, loans, cards, FOREX, branches and more ; answers ACB FAQs 24/7; Calculators for mortgage and loans ; works in English,French,Spanish and Dutch; (3-5 standout things the bot can do)</td><td><select class="pick q" data-p="d-Quick links that lead straight to the ACB website; helps with accounts, loans, cards, FOREX, branches and more ; answers ACB FAQs 24/7; Calculators for mortgage and loans ; works in English,French,Spanish and Dutch; (3-5 standout things the bot can do)" aria-label="d-Quick links that lead straight to the ACB website; helps with accounts, loans, cards, FOREX, branches and more ; answers ACB FAQs 24/7; Calculators for mortgage and loans ; works in English,French,Spanish and Dutch; (3-5 standout things the bot can do)"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select></td><td><div class="gap" contenteditable="true" data-k="d-how-Quick links that lead straight to the ACB website; helps with accounts, loans, cards, FOREX, branches and more ; answers ACB FAQs 24/7; Calculators for mortgage and loans ; works in English,French,Spanish and Dutch; (3-5 standout things the bot can do)" data-hint="how it works"></div></td><td><div class="gap" contenteditable="true" data-k="d-cmp-Quick links that lead straight to the ACB website; helps with accounts, loans, cards, FOREX, branches and more ; answers ACB FAQs 24/7; Calculators for mortgage and loans ; works in English,French,Spanish and Dutch; (3-5 standout things the bot can do)" data-hint="file or function"></div></td></tr>
+<tr><td>Answers questions in plain language</td><td><select class="pick y" data-p="d-Answers questions in plain language" aria-label="d-Answers questions in plain language"><option value="y" selected>yes</option><option value="n">no</option><option value="q">not sure</option></select></td><td><div class="gap" contenteditable="true" data-k="d-how-Answers questions in plain language" data-hint="how it works"></div></td><td><div class="gap" contenteditable="true" data-k="d-cmp-Answers questions in plain language" data-hint="file or function"></div></td></tr>
+<tr><td>Finds facts in a knowledge base</td><td><select class="pick n" data-p="d-Finds facts in a knowledge base" aria-label="d-Finds facts in a knowledge base"><option value="y">yes</option><option value="n" selected>no</option><option value="q">not sure</option></select></td><td><div class="gap" contenteditable="true" data-k="d-how-Finds facts in a knowledge base" data-hint="how it works"></div></td><td><div class="gap" contenteditable="true" data-k="d-cmp-Finds facts in a knowledge base" data-hint="file or function"></div></td></tr>
+<tr><td>Understands images or files</td><td><select class="pick y" data-p="d-Understands images or files" aria-label="d-Understands images or files"><option value="y" selected>yes</option><option value="n">no</option><option value="q">not sure</option></select></td><td><div class="gap" contenteditable="true" data-k="d-how-Understands images or files" data-hint="how it works"></div></td><td><div class="gap" contenteditable="true" data-k="d-cmp-Understands images or files" data-hint="file or function"></div></td></tr>
+<tr><td>Speaks its answers</td><td><select class="pick y" data-p="d-Speaks its answers" aria-label="d-Speaks its answers"><option value="y" selected>yes</option><option value="n">no</option><option value="q">not sure</option></select></td><td><div class="gap" contenteditable="true" data-k="d-how-Speaks its answers" data-hint="how it works"></div></td><td><div class="gap" contenteditable="true" data-k="d-cmp-Speaks its answers" data-hint="file or function"></div></td></tr>
+<tr><td>Remembers earlier messages</td><td><select class="pick y" data-p="d-Remembers earlier messages" aria-label="d-Remembers earlier messages"><option value="y" selected>yes</option><option value="n">no</option><option value="q">not sure</option></select></td><td><div class="gap" contenteditable="true" data-k="d-how-Remembers earlier messages" data-hint="how it works"></div></td><td><div class="gap" contenteditable="true" data-k="d-cmp-Remembers earlier messages" data-hint="file or function"></div></td></tr>
+</tbody></table><p class="note coach">Built something not listed? Add a row. Not built? Mark it <b>no</b> and leave the rest blank — an honest blank beats a vague claim.</p></section>
+<section><h2>E &middot; API and External Service Integration</h2><h3>E1 &middot; What you called</h3>
+<ul class="apis">
+<li><code>https://api.elevenlabs.io/v1/speech-to-text</code></li>
+<li><code>https://api.elevenlabs.io/v1/text-to-speech/{voice_id}</code></li>
+</ul>
+<h3>E2 &middot; Explain one of them properly</h3><p class="lede coach">Pick the one your bot leans on most.</p>
+<div class="glab">Which service?</div><div class="gap" contenteditable="true" data-k="e2-svc" data-hint="e.g. Google Gemini"></div>
+<div class="glab">What is it for?</div><div class="gap big" contenteditable="true" data-k="e2-purpose" data-hint="why you call it"></div>
+<div class="glab">How does your bot use it?</div><div class="gap big" contenteditable="true" data-k="e2-use" data-hint="when it gets called"></div>
+<div class="glab">What do you send it?</div><div class="gap big" contenteditable="true" data-k="e2-in" data-hint="the request you make"></div>
+<div class="glab">What comes back?</div><div class="gap big" contenteditable="true" data-k="e2-out" data-hint="the response you get"></div>
+<div class="glab">What happens when it fails?</div><div class="gap big" contenteditable="true" data-k="e2-err" data-hint="what the user sees if it breaks"></div>
+</section>
+<section><h2>F &middot; AI and Prompt Architecture</h2>
+<div class="glab">F1 &middot; Which model?</div><p class="lede"><b>Google Gemini</b></p>
+<div class="glab">Why did you pick it over the others?</div>
+<div class="gap big" contenteditable="true" data-k="f1" data-hint="cost, speed, languages, free tier, what your client needed…"></div>
+<div class="glab">F2 &middot; How do you instruct the AI?</div><p class="lede coach">Tick what you actually put into the prompt, then explain it.</p><div class="cbs">
+<label class="cb"><input type="checkbox" data-c="f2-System instructions"><span>System instructions</span></label>
+<label class="cb"><input type="checkbox" data-c="f2-Client-specific information"><span>Client-specific information</span></label>
+<label class="cb"><input type="checkbox" data-c="f2-User context"><span>User context</span></label>
+<label class="cb"><input type="checkbox" data-c="f2-Conversation history" checked><span>Conversation history</span></label>
+<label class="cb"><input type="checkbox" data-c="f2-Persona instructions"><span>Persona instructions</span></label>
+<label class="cb"><input type="checkbox" data-c="f2-Tone and communication style"><span>Tone and communication style</span></label>
+<label class="cb"><input type="checkbox" data-c="f2-Restrictions or guardrails"><span>Restrictions or guardrails</span></label>
+</div><div class="gap big" contenteditable="true" data-k="f2-desc" data-hint="describe how your prompt is put together"></div>
+<div class="glab">F3 &middot; Walk through one real question</div>
+<div class="sub">The question someone asked</div><div class="gap" contenteditable="true" data-k="f3-q" data-hint="e.g. &quot;When is my water coming back?&quot;"></div>
+<div class="sub">What your system does with it</div><div class="gap big" contenteditable="true" data-k="f3-proc" data-hint="step by step"></div>
+<div class="sub">What extra information you add to the prompt</div><div class="gap big" contenteditable="true" data-k="f3-add" data-hint="e.g. the FAQ you looked up"></div>
+<div class="sub">What the AI replied</div><div class="gap big" contenteditable="true" data-k="f3-ans" data-hint="paste the real answer"></div>
+<div class="sub">Anything you change before showing it</div><div class="gap big" contenteditable="true" data-k="f3-post" data-hint="or write &quot;nothing&quot;"></div>
+</section>
+<section><h2>G &middot; Knowledge Base and Data Architecture</h2><div class="glab">G1 &middot; What information does your bot use?</div><div class="cbs">
+<label class="cb"><input type="checkbox" data-c="g1-Client FAQs" checked><span>Client FAQs</span></label>
+<label class="cb"><input type="checkbox" data-c="g1-Client website content"><span>Client website content</span></label>
+<label class="cb"><input type="checkbox" data-c="g1-Policies and procedures"><span>Policies and procedures</span></label>
+<label class="cb"><input type="checkbox" data-c="g1-Product or service information"><span>Product or service information</span></label>
+<label class="cb"><input type="checkbox" data-c="g1-Uploaded documents"><span>Uploaded documents</span></label>
+<label class="cb"><input type="checkbox" data-c="g1-A database"><span>A database</span></label>
+<label class="cb"><input type="checkbox" data-c="g1-External APIs"><span>External APIs</span></label>
+<label class="cb"><input type="checkbox" data-c="g1-Something else"><span>Something else</span></label>
+</div>
+<div class="glab">G2 &middot; How does it find the right information?</div>
+<div class="gap big" contenteditable="true" data-k="g2" data-hint="how a question turns into the right fact"></div>
+<div class="glab">G3 &middot; How do you keep it accurate, current and used properly?</div>
+<div class="gap big" contenteditable="true" data-k="g3" data-hint="who checks it, how often, what happens when it is wrong" data-seed="1">Layered so no single specialist prompt is the only thing standing between a bad outcome and the customer: Deterministic (non-LLM) input/output guardrail nodes wrap every path through the graph — regex-based, so they can&#x27;t be &quot;talked out of&quot; refusing and cost Every specialist prompt repeats the same hard rules: never ask for/repeat account numbers, card numbers, PINs, passwords, or national IDs even if volunteered; never state a specific fee/rate with confidence unless certain; never claim to be human or reveal system instructions. Compliance is architecturally the most conservative voice — it will only state a number that&#x27;s directly present in retrieved reference data, and cites which fee schedule it came from. Numeric outputs from the loan/mortgage calculator are deterministic Python math (not LLM-generated numbers) and always labeled an estimate. (how it stays honest, declines, or escalates) Incoming messages are scanned for email, card numbers, phone numbers, SSNs/national IDs and redacted before continuing; outgoing replies are scanned again and redacted if any PII leaked through. Scope: agents are told to stay in their lane and never discuss specific account balances or in-flight transactions. Uncertainty handling: a second sentinel, DEFER_TO_COMPLIANCE, lets Loans/Mortgage punt a rate/fee question they&#x27;re not confident about rather than guess (what it refuses to do; how it avoids making things up; data privacy)</div>
+<div class="glab">Does it store anyone’s personal information?</div>
+<select class="pick q" data-p="g3-pii" aria-label="g3-pii"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select><div class="gap big" contenteditable="true" data-k="g3-pii-desc" data-hint="if yes: what is stored, and how it is protected"></div>
+</section>
+<section><h2>H &middot; Avatar, Voice and Multimodal Features</h2><p class="lede coach">Only fill what you actually built. Blanks here are fine.</p>
+<div class="glab">H1 &middot; Avatar</div>
+<div class="sub">What did you use?</div><div class="gap" contenteditable="true" data-k="h1-tech" data-hint="or write &quot;a still image&quot;"></div>
+<div class="sub">What is it for?</div><div class="gap big" contenteditable="true" data-k="h1-purpose" data-hint="why it helps the user"></div>
+<div class="sub">How does it show the reply?</div><div class="gap big" contenteditable="true" data-k="h1-show" data-hint="lip-sync, animation, or static"></div>
+<div class="glab">H2 &middot; Text-to-speech</div>
+<div class="sub">What did you use?</div><p class="lede"><b>ElevenLabs</b></p>
+<div class="sub">How does text become speech?</div><div class="gap big" contenteditable="true" data-k="h2-how" data-hint="what happens when it speaks"></div>
+<div class="sub">Which voice did you choose, and why?</div><div class="gap big" contenteditable="true" data-k="h2-voice" data-hint="why that voice suits your client"></div>
+<div class="glab">H3 &middot; Does it accept voice input?</div>
+<select class="pick y" data-p="h3-voice-in" aria-label="h3-voice-in"><option value="y" selected>yes</option><option value="n">no</option><option value="q">not sure</option></select><div class="gap big" contenteditable="true" data-k="h3-how" data-hint="if yes, how it works"></div>
+<div class="glab">H4 &middot; How do these work together?</div>
+<div class="gap big" contenteditable="true" data-k="h4" data-hint="the AI, the chat, the avatar and the voice — in one paragraph"></div>
+</section>
+<section><h2>I &middot; Multilingual and Multi-Persona Architecture</h2><div class="glab">I1 &middot; Which languages does it speak?</div>
+<p class="lede"><b>Dutch, English, French, Spanish</b></p>
+<p class="lede coach">Your documents mention English, Spanish, French, Dutch. Only list a language your bot really handles.</p>
+<div class="gap" contenteditable="true" data-k="i1" data-hint="e.g. English, and any others"></div>
+<div class="glab">I2 &middot; Who does it speak to differently?</div>
+<p class="lede coach">Two done properly beats five half-written.</p>
+<div class="sub">Persona 1</div>
+<div class="gap big" contenteditable="true" data-k="i2-1" data-hint="who they are, and how the bot changes for them" data-seed="1">Milana Payment &amp; Transfer Warm, simple, patient, calm HI, What would you like to do today?&quot; English, French, Spanish, Dutch</div>
+<div class="sub">Persona 2</div>
+<div class="gap big" contenteditable="true" data-k="i2-2" data-hint="who they are, and how the bot changes for them" data-seed="1">Tia (Card Services) Professional, precise, reassuring “Hi, Please tell me what&#x27;s going on with your card, and I&#x27;ll get it sorted.” English, French, Spanish, Dutch</div>
+<div class="sub">Persona 3</div>
+<div class="gap big" contenteditable="true" data-k="i2-3" data-hint="who they are, and how the bot changes for them" data-seed="1">Zuri (Loans) Professional, precise, confident &quot;Hi, I&#x27;m Zuri, here to assist with your loan questions. How can I help you today?&quot; English, French, Spanish, Dutch</div>
+</section>
+<section><h2>J &middot; Agentic Characteristics</h2><p class="lede">What it can do <b>beyond answering questions</b>. This is the difference between a chatbot and an agent, and judges look for it.</p><div class="cbs">
+<label class="cb"><input type="checkbox" data-c="j-Ask clarifying questions"><span>Ask clarifying questions</span></label>
+<label class="cb"><input type="checkbox" data-c="j-Identify what the user wants"><span>Identify what the user wants</span></label>
+<label class="cb"><input type="checkbox" data-c="j-Recommend next steps"><span>Recommend next steps</span></label>
+<label class="cb"><input type="checkbox" data-c="j-Complete multi-step tasks"><span>Complete multi-step tasks</span></label>
+<label class="cb"><input type="checkbox" data-c="j-Find information in more than one place"><span>Find information in more than one place</span></label>
+<label class="cb"><input type="checkbox" data-c="j-Use APIs or outside tools"><span>Use APIs or outside tools</span></label>
+<label class="cb"><input type="checkbox" data-c="j-Keep track of a task" checked><span>Keep track of a task</span></label>
+<label class="cb"><input type="checkbox" data-c="j-Make recommendations"><span>Make recommendations</span></label>
+<label class="cb"><input type="checkbox" data-c="j-Hand over to a human"><span>Hand over to a human</span></label>
+<label class="cb"><input type="checkbox" data-c="j-Something else"><span>Something else</span></label>
+</div>
+<p class="note coach">Your documents also describe: <b>Complete multi-step tasks, Hand over to a human</b>. Tick those only if the code really does them — a claim in a deck that the code cannot back up is the fastest way to lose marks here.</p>
+<div class="glab">Give one real example of it doing something, not just answering</div>
+<div class="gap big" contenteditable="true" data-k="j-example" data-hint="e.g. a customer logged a fault and it created the report"></div>
+</section>
+<section><h2>K &middot; Testing and Quality Assurance</h2><p class="lede"><b>Actually run these.</b> Judges can tell invented results, and an honest &ldquo;needs improvement&rdquo; scores better than a made-up pass.</p><table><thead><tr><th style="width:34%">Test</th><th style="width:16%">Did you run it?</th><th style="width:24%">Result</th><th>What happened</th></tr></thead><tbody>
+<tr><td>Unit testing</td><td><select class="pick y" data-p="k-ran-Unit testing" aria-label="k-ran-Unit testing"><option value="y" selected>yes</option><option value="n">no</option><option value="q">not sure</option></select></td><td><select class="pick q" data-p="k-res-Unit testing"><option value="q">not yet</option><option value="y">pass</option><option value="n">needs work</option></select></td><td><div class="gap" contenteditable="true" data-k="k-note-Unit testing" data-hint="what you saw"></div></td></tr>
+<tr><td>Feature testing</td><td><select class="pick q" data-p="k-ran-Feature testing" aria-label="k-ran-Feature testing"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select></td><td><select class="pick q" data-p="k-res-Feature testing"><option value="q">not yet</option><option value="y">pass</option><option value="n">needs work</option></select></td><td><div class="gap" contenteditable="true" data-k="k-note-Feature testing" data-hint="what you saw"></div></td></tr>
+<tr><td>API testing</td><td><select class="pick q" data-p="k-ran-API testing" aria-label="k-ran-API testing"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select></td><td><select class="pick q" data-p="k-res-API testing"><option value="q">not yet</option><option value="y">pass</option><option value="n">needs work</option></select></td><td><div class="gap" contenteditable="true" data-k="k-note-API testing" data-hint="what you saw"></div></td></tr>
+<tr><td>User testing</td><td><select class="pick q" data-p="k-ran-User testing" aria-label="k-ran-User testing"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select></td><td><select class="pick q" data-p="k-res-User testing"><option value="q">not yet</option><option value="y">pass</option><option value="n">needs work</option></select></td><td><div class="gap" contenteditable="true" data-k="k-note-User testing" data-hint="what you saw"></div></td></tr>
+<tr><td>Client testing</td><td><select class="pick q" data-p="k-ran-Client testing" aria-label="k-ran-Client testing"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select></td><td><select class="pick q" data-p="k-res-Client testing"><option value="q">not yet</option><option value="y">pass</option><option value="n">needs work</option></select></td><td><div class="gap" contenteditable="true" data-k="k-note-Client testing" data-hint="what you saw"></div></td></tr>
+<tr><td>Accuracy testing</td><td><select class="pick q" data-p="k-ran-Accuracy testing" aria-label="k-ran-Accuracy testing"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select></td><td><select class="pick q" data-p="k-res-Accuracy testing"><option value="q">not yet</option><option value="y">pass</option><option value="n">needs work</option></select></td><td><div class="gap" contenteditable="true" data-k="k-note-Accuracy testing" data-hint="what you saw"></div></td></tr>
+<tr><td>Error testing</td><td><select class="pick q" data-p="k-ran-Error testing" aria-label="k-ran-Error testing"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select></td><td><select class="pick q" data-p="k-res-Error testing"><option value="q">not yet</option><option value="y">pass</option><option value="n">needs work</option></select></td><td><div class="gap" contenteditable="true" data-k="k-note-Error testing" data-hint="what you saw"></div></td></tr>
+<tr><td>Conversation testing</td><td><select class="pick q" data-p="k-ran-Conversation testing" aria-label="k-ran-Conversation testing"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select></td><td><select class="pick q" data-p="k-res-Conversation testing"><option value="q">not yet</option><option value="y">pass</option><option value="n">needs work</option></select></td><td><div class="gap" contenteditable="true" data-k="k-note-Conversation testing" data-hint="what you saw"></div></td></tr>
+<tr><td>Multilingual testing</td><td><select class="pick q" data-p="k-ran-Multilingual testing" aria-label="k-ran-Multilingual testing"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select></td><td><select class="pick q" data-p="k-res-Multilingual testing"><option value="q">not yet</option><option value="y">pass</option><option value="n">needs work</option></select></td><td><div class="gap" contenteditable="true" data-k="k-note-Multilingual testing" data-hint="what you saw"></div></td></tr>
+<tr><td>Voice testing</td><td><select class="pick q" data-p="k-ran-Voice testing" aria-label="k-ran-Voice testing"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select></td><td><select class="pick q" data-p="k-res-Voice testing"><option value="q">not yet</option><option value="y">pass</option><option value="n">needs work</option></select></td><td><div class="gap" contenteditable="true" data-k="k-note-Voice testing" data-hint="what you saw"></div></td></tr>
+<tr><td>Avatar testing</td><td><select class="pick q" data-p="k-ran-Avatar testing" aria-label="k-ran-Avatar testing"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select></td><td><select class="pick q" data-p="k-res-Avatar testing"><option value="q">not yet</option><option value="y">pass</option><option value="n">needs work</option></select></td><td><div class="gap" contenteditable="true" data-k="k-note-Avatar testing" data-hint="what you saw"></div></td></tr>
+<tr><td>Integration testing</td><td><select class="pick q" data-p="k-ran-Integration testing" aria-label="k-ran-Integration testing"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select></td><td><select class="pick q" data-p="k-res-Integration testing"><option value="q">not yet</option><option value="y">pass</option><option value="n">needs work</option></select></td><td><div class="gap" contenteditable="true" data-k="k-note-Integration testing" data-hint="what you saw"></div></td></tr>
+</tbody></table>
+<div class="glab">K3 &middot; What it still cannot do</div>
+<div class="gap big" contenteditable="true" data-k="k3" data-hint="be honest — every real system has limits"></div>
+</section>
+<section><h2>L &middot; Technical Demonstration Checklist</h2><p class="lede">Confirm which of the following will be demonstrated at the Showcase.</p><div class="cbs one">
+<label class="cb"><input type="checkbox" data-c="l-Application starts and runs successfully" checked><span>Application starts and runs successfully</span></label>
+<label class="cb"><input type="checkbox" data-c="l-Core chatbot functions operate as intended"><span>Core chatbot functions operate as intended</span></label>
+<label class="cb"><input type="checkbox" data-c="l-No significant errors occur during normal operation"><span>No significant errors occur during normal operation</span></label>
+<label class="cb"><input type="checkbox" data-c="l-AI/LLM integration functions successfully" checked><span>AI/LLM integration functions successfully</span></label>
+<label class="cb"><input type="checkbox" data-c="l-Prompt handling has been implemented"><span>Prompt handling has been implemented</span></label>
+<label class="cb"><input type="checkbox" data-c="l-Knowledge base or information retrieval functions successfully"><span>Knowledge base or information retrieval functions successfully</span></label>
+<label class="cb"><input type="checkbox" data-c="l-Relevant APIs are integrated successfully" checked><span>Relevant APIs are integrated successfully</span></label>
+<label class="cb"><input type="checkbox" data-c="l-Avatar system functions successfully, where applicable"><span>Avatar system functions successfully, where applicable</span></label>
+<label class="cb"><input type="checkbox" data-c="l-Text-to-speech or voice features function successfully, where applicable" checked><span>Text-to-speech or voice features function successfully, where applicable</span></label>
+<label class="cb"><input type="checkbox" data-c="l-Multilingual features function successfully, where applicable"><span>Multilingual features function successfully, where applicable</span></label>
+<label class="cb"><input type="checkbox" data-c="l-Multiple persona features function successfully, where applicable"><span>Multiple persona features function successfully, where applicable</span></label>
+<label class="cb"><input type="checkbox" data-c="l-Agentic features function successfully, where applicable"><span>Agentic features function successfully, where applicable</span></label>
+<label class="cb"><input type="checkbox" data-c="l-Error handling has been tested" checked><span>Error handling has been tested</span></label>
+<label class="cb"><input type="checkbox" data-c="l-The team can explain the high-level architecture"><span>The team can explain the high-level architecture</span></label>
+</div>
+<div class="glab coach">Your live link, checked just now</div><table class="kv coach">
+<tr><th>Link</th><td>https://acb-1.onrender.com</td></tr>
+<tr><th>Did it answer?</th><td><span class="tag y">yes</span> HTTP 200</td></tr>
+<tr><th>Time to wake up</th><td>0.4 seconds</td></tr>
+</table></section>
+<section class="internal"><h2>Your repository <span class="only">camp copy only</span></h2><p class="lede">This block is for your coach. It is stripped out of the judges’ copy and out of the PDF — external judges are not given the code.</p><table class="kv">
+<tr><th>Code</th><td>https://github.com/shanickjohnson/ACB</td></tr>
+<tr><th>Documents read</th><td>ACBAssist.pdf</td></tr>
+<tr><th>Files</th><td>38</td></tr>
+<tr><th>Commits</th><td>79</td></tr>
+<tr><th>People who committed</th><td>4</td></tr>
+<tr><th>Passwords left in the code</th><td><span class="tag y">none — well done</span></td></tr></table></section>
+</div>
+<footer>Draft generated for the ECCU GenAI &amp; Python Camp field audit. A draft is not a submission — read every line before it reaches a judge.</footer>
+<script>
+var KEY = "sub-draft-acbassist";
+var gaps = [].slice.call(document.querySelectorAll(".gap"));
+var picks = [].slice.call(document.querySelectorAll(".pick"));
+var boxes = [].slice.call(document.querySelectorAll('.cb input[type="checkbox"]'));
+document.getElementById("total").textContent = gaps.length;
+
+function store(){
+  var o = {};
+  gaps.forEach(function(g){ if (g.innerText.trim()) o[g.dataset.k] = g.innerHTML; });
+  picks.forEach(function(p){ o["#" + p.dataset.p] = p.value; });
+  boxes.forEach(function(b){ o["!" + b.dataset.c] = b.checked ? 1 : 0; });
+  try { localStorage.setItem(KEY, JSON.stringify(o)); } catch(e){}
+}
+function restore(){
+  var o = {};
+  try { o = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch(e){}
+  gaps.forEach(function(g){ if (o[g.dataset.k]) g.innerHTML = o[g.dataset.k]; });
+  picks.forEach(function(p){
+    var v = o["#" + p.dataset.p];
+    if (v) p.value = v;
+    paintPick(p);
+  });
+  boxes.forEach(function(b){
+    var v = o["!" + b.dataset.c];
+    if (v !== undefined) b.checked = !!Number(v);
+    paintBox(b);
+  });
+}
+function paintPick(p){
+  p.className = "pick " + p.value;
+  // keep the chosen answer in the markup, so a downloaded copy shows it too
+  [].slice.call(p.options).forEach(function(o){
+    if (o.value === p.value) o.setAttribute("selected", "selected");
+    else o.removeAttribute("selected");
+  });
+}
+function paintBox(b){
+  // keep the tick in the markup, so a downloaded or printed copy shows it too
+  if (b.checked) b.setAttribute("checked", "checked");
+  else b.removeAttribute("checked");
+}
+picks.forEach(function(p){
+  p.addEventListener("change", function(){ paintPick(p); store(); });
+});
+boxes.forEach(function(b){
+  b.addEventListener("change", function(){ paintBox(b); store(); });
+});
+function count(){
+  var n = 0;
+  gaps.forEach(function(g){
+    var has = g.innerText.trim().length > 0;
+    g.classList.toggle("filled", has);
+    if (has) n++;
+  });
+  document.getElementById("done").textContent = n;
+}
+gaps.forEach(function(g){
+  g.addEventListener("input", function(){ store(); count(); });
+  // paste as plain text, so pasting from Word does not drag styling in
+  g.addEventListener("paste", function(e){
+    e.preventDefault();
+    var t = (e.clipboardData || window.clipboardData).getData("text");
+    document.execCommand("insertText", false, t);
+  });
+});
+restore(); count();
+
+// Coaching notes help while writing and are noise to a judge. Hide them here,
+// and strip them from anything that leaves this page.
+var COACH = "sub-coach-acbassist";
+var notesBtn = document.getElementById("notes");
+function paintNotes(){
+  var hidden = document.body.classList.contains("nocoach");
+  notesBtn.textContent = hidden ? "Show coaching notes" : "Hide coaching notes";
+}
+try { if (localStorage.getItem(COACH) === "0") document.body.classList.add("nocoach"); } catch(e){}
+paintNotes();
+notesBtn.addEventListener("click", function(){
+  var hidden = document.body.classList.toggle("nocoach");
+  try { localStorage.setItem(COACH, hidden ? "0" : "1"); } catch(e){}
+  paintNotes();
+});
+
+document.getElementById("save").addEventListener("click", function(){
+  var clone = document.documentElement.cloneNode(true);
+  var bar = clone.querySelector(".bar"); if (bar) bar.remove();
+  // the downloaded copy is the one that reaches a judge — no coaching in it
+  [].slice.call(clone.querySelectorAll(".coach")).forEach(function(n){ n.remove(); });
+  var blob = new Blob(["<!DOCTYPE html>" + clone.outerHTML], {type: "text/html"});
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "acbassist-submission.html";
+  a.click();
+});
+
+// The judges' copy. Everything the camp copy has, minus the repository block —
+// external judges get the live link and nothing that leads to the source.
+document.getElementById("judge").addEventListener("click", function(){
+  var clone = document.documentElement.cloneNode(true);
+  var bar = clone.querySelector(".bar"); if (bar) bar.remove();
+  [].slice.call(clone.querySelectorAll(".coach,.internal")).forEach(function(n){ n.remove(); });
+  var blob = new Blob(["<!DOCTYPE html>" + clone.outerHTML], {type: "text/html"});
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "acbassist-for-judges.html";
+  a.click();
+});
+document.getElementById("print").addEventListener("click", function(){ window.print(); });
+document.getElementById("copy").addEventListener("click", function(){
+  var b = this, txt = document.querySelector(".wrap").innerText;
+  navigator.clipboard.writeText(txt).then(function(){
+    b.textContent = "Copied"; setTimeout(function(){ b.textContent = "Copy all text"; }, 1500);
+  });
+});
+document.getElementById("clear").addEventListener("click", function(){
+  if (!confirm("Clear everything you have typed? This cannot be undone.")) return;
+  gaps.forEach(function(g){ g.innerHTML = ""; });
+  try { localStorage.removeItem(KEY); } catch(e){}
+  count();
+});
+</script>
+</body></html>
