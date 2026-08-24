@@ -147,7 +147,13 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
  section{break-inside:auto;margin-bottom:10px;border-radius:8px;box-shadow:none}
  section:before{-webkit-print-color-adjust:exact;print-color-adjust:exact}
  h2:before{-webkit-print-color-adjust:exact;print-color-adjust:exact}
- .arch-sec,.two>div{break-inside:avoid}
+ /* The architecture section holds two diagrams and can exceed a page. Let the
+    section break, but never split a diagram down the middle. */
+ .arch-sec{break-inside:auto}
+ .archbox,.two>div{break-inside:avoid}
+ .archbox+.note,.sub{break-after:avoid}
+ /* a page containing nothing but the footer line is wasted paper */
+ footer{display:none}
  /* B1 is real writing — give it a clean page rather than a footer scrap */
  .b1-sec{break-before:page;break-inside:avoid}
  .b1-sec .gap:empty{min-height:150pt}
@@ -165,7 +171,7 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <header><div class="in"><div class="eyebrow">Your submission &middot; already half written</div><h1>Pilot</h1><p>Team SCASPA &middot; for St Christopher Air &amp; Sea Ports Authority</p></div></header>
 <div class="bar"><div class="in"><span class="prog"><b id="done">0</b> of <b id="total">0</b> boxes filled</span><span class="spacer"></span><button id="notes" class="ghost">Hide coaching notes</button><button id="save">Download my copy</button><button id="judge">Download judges’ copy</button><button id="print">Save as PDF</button><button id="copy" class="ghost">Copy all text</button><button id="clear" class="ghost danger">Clear my answers</button></div></div>
 <div class="wrap">
-<section class="how coach"><h2>How this works</h2><p>Your stack, your files, your functions and the diagrams are already filled in from your repository and your cover sheet. <b>You do not need to retype any of it.</b></p><p>The shaded boxes are the parts only you can answer. Click one and start typing. Your writing saves in this browser automatically, so you can close the tab and come back. When you are done, hit <b>Download my copy</b> or <b>Save as PDF</b>.</p><p class="warn-note">Two things to know. Your answers save on <b>this computer in this browser</b> only, so finish on the machine you started on and download a copy when you stop. And check every pre-filled line: anything wrong that you leave in, the judges read as your answer.</p><p class="warn-note">These blue notes are for you, not for the judges. Use the <b>Hide coaching notes</b> button to make every one of them disappear, and they are removed automatically from the PDF and from both downloads.</p><p class="stamp">Prepared 2026-08-24 21:24 UTC.</p></section>
+<section class="how coach"><h2>How this works</h2><p>Your stack, your files, your functions and the diagrams are already filled in from your repository and your cover sheet. <b>You do not need to retype any of it.</b></p><p>The shaded boxes are the parts only you can answer. Click one and start typing. Your writing saves in this browser automatically, so you can close the tab and come back. When you are done, hit <b>Download my copy</b> or <b>Save as PDF</b>.</p><p class="warn-note">Two things to know. Your answers save on <b>this computer in this browser</b> only, so finish on the machine you started on and download a copy when you stop. And check every pre-filled line: anything wrong that you leave in, the judges read as your answer.</p><p class="warn-note">These blue notes are for you, not for the judges. Use the <b>Hide coaching notes</b> button to make every one of them disappear, and they are removed automatically from the PDF and from both downloads.</p><p class="stamp">Prepared 2026-08-24 21:35 UTC.</p></section>
 <section><h2>Project Information</h2><table class="kv">
 <tr><th>Chatbot Name</th><td>Pilot</td></tr>
 <tr><th>Client Organisation</th><td>St Christopher Air &amp; Sea Ports Authority</td></tr>
@@ -532,7 +538,7 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <div class="glab coach">Your live link, checked just now</div><table class="kv coach">
 <tr><th>Link</th><td>https://scaspa.eccugenai.app</td></tr>
 <tr><th>Did it answer?</th><td><span class="tag y">yes</span> HTTP 200</td></tr>
-<tr><th>Time to wake up</th><td>0.4 seconds</td></tr>
+<tr><th>Time to wake up</th><td>0.3 seconds</td></tr>
 </table></section>
 <section class="internal"><h2>Your repository <span class="only">camp copy only</span></h2><p class="lede">This block is for your coach. It is stripped out of the judges’ copy and out of the PDF — external judges are not given the code.</p><table class="kv">
 <tr><th>Code</th><td>https://github.com/Lahkin/scaspa-chatbot</td></tr>
@@ -542,7 +548,7 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <tr><th>People who committed</th><td>2</td></tr>
 <tr><th>Passwords left in the code</th><td><span class="tag y">none — well done</span></td></tr></table></section>
 </div>
-<footer>Draft generated for the ECCU GenAI &amp; Python Camp field audit. A draft is not a submission — read every line before it reaches a judge.</footer>
+<footer class="coach">Draft generated for the ECCU GenAI &amp; Python Camp field audit. A draft is not a submission — read every line before it reaches a judge.</footer>
 <script>
 var KEY = "sub-draft-pilot";
 var gaps = [].slice.call(document.querySelectorAll(".gap"));
