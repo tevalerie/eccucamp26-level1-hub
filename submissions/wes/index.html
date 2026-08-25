@@ -212,12 +212,11 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
  .tag,.flag{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 </style></head><body>
-<header><div class="in"><div class="eyebrow">Your submission &middot; already half written</div><h1>W.E.S.</h1><p>AquaCoders &middot; for NAWASA</p></div></header>
+<header><div class="in"><div class="eyebrow">Chatbot Code Development Architecture Overview</div><h1>W.E.S.</h1><p>AquaCoders &middot; for NAWASA</p></div></header>
 <div class="bar"><div class="in"><span class="prog"><b id="done">0</b> of <b id="total">0</b> boxes filled</span><span class="spacer"></span><button id="notes" class="ghost">Hide coaching notes</button><button id="save" title="Saves this page as an HTML file you can keep, email or reopen later. Your answers are inside it.">Download my copy</button><button id="judge" title="The same document with the coaching notes and the repository details taken out — this is the one a judge should see.">Download judges’ copy</button><button id="print" title="Opens your printer dialog. Choose Save as PDF as the destination.">Save as PDF</button><button id="copy" class="ghost">Copy all text</button><button id="clear" class="ghost danger">Clear my answers</button></div></div>
 <div class="wrap">
-<section class="how coach"><h2>How this works</h2><p>Your stack, your files, your functions and the diagrams are already filled in from your repository and your cover sheet. <b>You do not need to retype any of it.</b></p><p>The shaded boxes are the parts only you can answer. Click one and start typing. Your writing saves in this browser automatically, so you can close the tab and come back. When you are done, hit <b>Download my copy</b> or <b>Save as PDF</b>.</p><p class="warn-note">Two things to know. Your answers save on <b>this computer in this browser</b> only, so finish on the machine you started on and download a copy when you stop. And check every pre-filled line: anything wrong that you leave in, the judges read as your answer.</p><p class="warn-note">These blue notes are for you, not for the judges. Use the <b>Hide coaching notes</b> button to make every one of them disappear, and they are removed automatically from the PDF and from both downloads.</p><p class="stamp">Prepared 2026-08-25 00:17 UTC.</p></section>
+<section class="how coach"><h2>How this works</h2><p>Your stack, your files, your functions and the diagrams are already filled in from your repository and your cover sheet. <b>You do not need to retype any of it.</b></p><p>The shaded boxes are the parts only you can answer. Click one and start typing. Your writing saves in this browser automatically, so you can close the tab and come back. When you are done, hit <b>Download my copy</b> or <b>Save as PDF</b>.</p><p class="warn-note">Two things to know. Your answers save on <b>this computer in this browser</b> only, so finish on the machine you started on and download a copy when you stop. And check every pre-filled line: anything wrong that you leave in, the judges read as your answer.</p><p class="warn-note">These blue notes are for you, not for the judges. Use the <b>Hide coaching notes</b> button to make every one of them disappear, and they are removed automatically from the PDF and from both downloads.</p><p class="stamp">Prepared 2026-08-25 03:24 UTC.</p></section>
 <section class="flags coach"><h2>Fix these first — they cost you marks</h2>
-<div class="flag check"><b>Worth a second look</b><br>Your cover sheet lists a knowledge base, but we could not find it being used in the code. Show us the file that reads from it.</div>
 <div class="flag check"><b>Worth a second look</b><br>Your cover sheet describes 1 agent, but we could not see tool or function calling in the code we read. If the agent is there, name the file in Section B1 so a judge can find it too.</div>
 <p class="note coach">Fix the paperwork or fix the code — but do not leave the two disagreeing. A judge who spots it will trust the rest of your answers less.</p>
 </section>
@@ -318,27 +317,115 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <line x1="588.0" y1="525" x2="662" y2="525" stroke="#7b8aa8" stroke-width="2" marker-end="url(#ah)"/>
 <rect x="591.0" y="516.0" width="68" height="18" rx="9" fill="#fff" stroke="#e2e8f2"/>
 <text x="625.0" y="529.0" text-anchor="middle" class="al">reads out</text>
+<rect x="42" y="499" width="236" height="58" rx="12" fill="#0b1a33" opacity=".055"/>
+<rect x="42" y="496" width="236" height="58" rx="12" fill="url(#g-slate)" stroke="#bcc0d2" stroke-width="2" stroke-dasharray="7 5"/>
+<rect x="42" y="496" width="5" height="58" rx="2.5" fill="#8b90a8"/>
+<text x="58" y="521" class="bt">W.E.S. remembers this</text>
+<text x="58" y="540" class="bs">for the next question</text>
+<line x1="352.0" y1="525" x2="278" y2="525" stroke="#7b8aa8" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="293.0" y="516.0" width="44" height="18" rx="9" fill="#fff" stroke="#e2e8f2"/>
+<text x="315.0" y="529.0" text-anchor="middle" class="al">saves</text>
 <text x="470.0" y="602" text-anchor="middle" class="ft">W.E.S.</text>
 </svg></div>
 <p class="note coach"><b>Your turn:</b> check every box. Add anything missing, delete what you did not build.</p>
+<div class="sub">Agent flow</div><p class="lede">Which agents exist, what each one does, and who handles a question when it arrives.</p>
+<div class="archbox"><svg viewBox="0 0 886 488" xmlns="http://www.w3.org/2000/svg" class="arch agents" role="img" aria-label="Agent crew diagram">
+<defs><linearGradient id="ag-hd" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0b3d91"/><stop offset="1" stop-color="#00a3e0"/></linearGradient><linearGradient id="ag-bx" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#0b3d91" stop-opacity=".13"/></linearGradient><marker id="agh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8494ad"/></marker></defs>
+<style>.an{font:700 14px -apple-system,Segoe UI,Roboto,sans-serif;fill:#12203a}.aw{font:400 11.5px -apple-system,Segoe UI,sans-serif;fill:#55647f}.ah{font:800 13px -apple-system,Segoe UI,sans-serif;fill:#fff}.ac{font:800 10px -apple-system,Segoe UI,sans-serif;fill:#9aa8c0;letter-spacing:.13em}.am{font:700 9.5px -apple-system,Segoe UI,sans-serif}.af{font:italic 11px -apple-system,Segoe UI,sans-serif;fill:#8a97ad}</style>
+<rect x="293.0" y="26" width="300" height="42" rx="21" fill="url(#ag-hd)"/>
+<text x="443.0" y="53" text-anchor="middle" class="ah">W.E.S. decides who handles it</text>
+<text x="443.0" y="16" text-anchor="middle" class="ac">A QUESTION COMES IN</text>
+<rect x="30" y="121" width="258" height="88" rx="12" fill="#0b1a33" opacity=".05"/>
+<rect x="30" y="118" width="258" height="88" rx="12" fill="url(#ag-bx)" stroke="#0b3d91" stroke-width="2" stroke-opacity=".55"/>
+<rect x="30" y="118" width="5" height="88" rx="2.5" fill="#0b3d91"/>
+<text x="46" y="143" class="an">Classify Intent</text>
+<text x="46" y="163" class="aw">The router node. A photo present -&gt;</text>
+<text x="46" y="178" class="aw">vision; otherwise -&gt; faq. (An…</text>
+<rect x="164.8" y="182" width="111.19999999999999" height="17" rx="8.5" fill="#e9f7ef"/>
+<text x="220.4" y="194" text-anchor="middle" class="am" fill="#2f7d52">classify_intent()</text>
+<path d="M159.0,88 L159.0,118" fill="none" stroke="#8494ad" stroke-width="1.7" marker-end="url(#agh)" opacity=".8"/>
+<rect x="314" y="121" width="258" height="88" rx="12" fill="#0b1a33" opacity=".05"/>
+<rect x="314" y="118" width="258" height="88" rx="12" fill="url(#ag-bx)" stroke="#0b3d91" stroke-width="2" stroke-opacity=".55"/>
+<rect x="314" y="118" width="5" height="88" rx="2.5" fill="#0b3d91"/>
+<text x="330" y="143" class="an">Faq</text>
+<rect x="516.0" y="182" width="44.0" height="17" rx="8.5" fill="#e9f7ef"/>
+<text x="538.0" y="194" text-anchor="middle" class="am" fill="#2f7d52">faq()</text>
+<path d="M443.0,88 L443.0,118" fill="none" stroke="#8494ad" stroke-width="1.7" marker-end="url(#agh)" opacity=".8"/>
+<rect x="598" y="121" width="258" height="88" rx="12" fill="#0b1a33" opacity=".05"/>
+<rect x="598" y="118" width="258" height="88" rx="12" fill="url(#ag-bx)" stroke="#0b3d91" stroke-width="2" stroke-opacity=".55"/>
+<rect x="598" y="118" width="5" height="88" rx="2.5" fill="#0b3d91"/>
+<text x="614" y="143" class="an">Vision</text>
+<rect x="783.2" y="182" width="60.8" height="17" rx="8.5" fill="#e9f7ef"/>
+<text x="813.6" y="194" text-anchor="middle" class="am" fill="#2f7d52">vision()</text>
+<path d="M727.0,88 L727.0,118" fill="none" stroke="#8494ad" stroke-width="1.7" marker-end="url(#agh)" opacity=".8"/>
+<rect x="30" y="231" width="258" height="88" rx="12" fill="#0b1a33" opacity=".05"/>
+<rect x="30" y="228" width="258" height="88" rx="12" fill="url(#ag-bx)" stroke="#0b3d91" stroke-width="2" stroke-opacity=".55"/>
+<rect x="30" y="228" width="5" height="88" rx="2.5" fill="#0b3d91"/>
+<text x="46" y="253" class="an">Classify Sentiment</text>
+<rect x="148.0" y="292" width="128.0" height="17" rx="8.5" fill="#e9f7ef"/>
+<text x="212.0" y="304" text-anchor="middle" class="am" fill="#2f7d52">classify_sentiment()</text>
+<path d="M159.0,198 L159.0,228" fill="none" stroke="#8494ad" stroke-width="1.7" marker-end="url(#agh)" opacity=".8"/>
+<rect x="314" y="231" width="258" height="88" rx="12" fill="#0b1a33" opacity=".05"/>
+<rect x="314" y="228" width="258" height="88" rx="12" fill="url(#ag-bx)" stroke="#0b3d91" stroke-width="2" stroke-opacity=".55"/>
+<rect x="314" y="228" width="5" height="88" rx="2.5" fill="#0b3d91"/>
+<text x="330" y="253" class="an">Finalize Escalation</text>
+<text x="330" y="273" class="aw">Runs after faq_node and</text>
+<text x="330" y="288" class="aw">classify_sentiment, right before END…</text>
+<rect x="426.4" y="292" width="133.6" height="17" rx="8.5" fill="#e9f7ef"/>
+<text x="493.2" y="304" text-anchor="middle" class="am" fill="#2f7d52">finalize_escalation()</text>
+<path d="M443.0,198 L443.0,228" fill="none" stroke="#8494ad" stroke-width="1.7" marker-end="url(#agh)" opacity=".8"/>
+<path d="M159.0,88 L727.0,88" stroke="#8494ad" stroke-width="1.7" opacity=".8" fill="none"/>
+<path d="M443.0,68 L443.0,88" stroke="#8494ad" stroke-width="1.7" opacity=".8" fill="none"/>
+<path d="M159.0,198 L443.0,198" stroke="#8494ad" stroke-width="1.7" opacity=".8" fill="none"/>
+<path d="M443.0,206 L443.0,198" stroke="#8494ad" stroke-width="1.7" opacity=".8" fill="none"/>
+<rect x="293.0" y="342" width="300" height="38" rx="19" fill="#f2f6fc" stroke="#d7e1f0"/>
+<text x="443.0" y="366" text-anchor="middle" class="an">One answer goes back to the user</text>
+<text x="30" y="404" class="ac">TOOLS AND NODES IN THE CODE</text>
+<rect x="30" y="414" width="144.4" height="26" rx="13" fill="#fff8ec" stroke="#e6c48a"/>
+<text x="102.2" y="431" text-anchor="middle" class="aw" fill="#3c4c68">classify_intent()</text>
+<rect x="182.4" y="414" width="58.0" height="26" rx="13" fill="#fff8ec" stroke="#e6c48a"/>
+<text x="211.4" y="431" text-anchor="middle" class="aw" fill="#3c4c68">faq()</text>
+<rect x="248.4" y="414" width="79.6" height="26" rx="13" fill="#fff8ec" stroke="#e6c48a"/>
+<text x="288.2" y="431" text-anchor="middle" class="aw" fill="#3c4c68">vision()</text>
+<rect x="336.0" y="414" width="166.0" height="26" rx="13" fill="#fff8ec" stroke="#e6c48a"/>
+<text x="419.0" y="431" text-anchor="middle" class="aw" fill="#3c4c68">classify_sentiment()</text>
+<rect x="510.0" y="414" width="173.20000000000002" height="26" rx="13" fill="#fff8ec" stroke="#e6c48a"/>
+<text x="596.6" y="431" text-anchor="middle" class="aw" fill="#3c4c68">finalize_escalation()</text>
+<text x="443.0" y="448" text-anchor="middle" class="af">2 branching decisions · 5 connections</text>
+</svg></div>
+<p class="note coach">Each agent you described is matched to the function in your code that appears to do it. Where it says <b>which tool is this?</b>, the tools are there but the names are too different for us to pair them — write the pairing into B1 yourself, because a judge will ask. Where it says <b>we could not find this</b>, we found nothing at all: either point us at the file, or take it off the sheet.</p>
 </section>
 <section><h2>C &middot; Code Structure and Organisation</h2><div class="glab">C1 &middot; How is the code organised?</div><p class="lede">Describe two or three major folders, files, modules or components.</p>
 <table><thead><tr><th style="width:44%">File / Folder / Module</th><th>Main purpose</th></tr></thead><tbody>
+<tr><td data-label="File / Folder / Module"><div class="gap" contenteditable="true" data-k="c1n-Frontend / user interface" data-hint="name this part" data-seed="1">Frontend / user interface</div><div class="inf">frontend-html/style.css, frontend-html/index.html, frontend-html/account.html, frontend-html/admin.html and 1 more</div></td><td data-label="Main purpose"><div class="gap big" contenteditable="true" data-k="c1-Frontend / user interface" data-hint="what this part of the system is for" data-seed="1">The pages a person sees and types into.</div></td></tr>
+<tr><td data-label="File / Folder / Module"><div class="gap" contenteditable="true" data-k="c1n-AI and agent logic" data-hint="name this part" data-seed="1">AI and agent logic</div><div class="inf">graph.py, tools.py, prompts.py, rag.py</div></td><td data-label="Main purpose"><div class="gap big" contenteditable="true" data-k="c1-AI and agent logic" data-hint="what this part of the system is for" data-seed="1">Where a question is turned into an answer.</div></td></tr>
+<tr><td data-label="File / Folder / Module"><div class="gap" contenteditable="true" data-k="c1n-Backend / application code" data-hint="name this part" data-seed="1">Backend / application code</div><div class="inf">wes_api_backend_combined.py, main.py, forms_fill.py, telemetry.py and 7 more</div></td><td data-label="Main purpose"><div class="gap big" contenteditable="true" data-k="c1-Backend / application code" data-hint="what this part of the system is for" data-seed="1">The server that takes questions in and sends replies back.</div></td></tr>
+<tr><td data-label="File / Folder / Module"><div class="gap" contenteditable="true" data-k="c1n-Knowledge base and data" data-hint="name this part" data-seed="1">Knowledge base and data</div><div class="inf">data/forms/water_connection.pdf, data/golden_record.csv, data/forms/declaration-of-ownership.pdf, data/forms/permission-in-support-of-application.pdf and 643 more</div></td><td data-label="Main purpose"><div class="gap big" contenteditable="true" data-k="c1-Knowledge base and data" data-hint="what this part of the system is for" data-seed="1">The facts the bot answers from.</div></td></tr>
+<tr><td data-label="File / Folder / Module"><div class="gap" contenteditable="true" data-k="c1n-Configuration and deployment" data-hint="name this part" data-seed="1">Configuration and deployment</div><div class="inf">.env.example, archive/frontend-streamlit/.env.example, render.yaml</div></td><td data-label="Main purpose"><div class="gap big" contenteditable="true" data-k="c1-Configuration and deployment" data-hint="what this part of the system is for" data-seed="1">What the host needs in order to run it.</div></td></tr>
+<tr><td data-label="File / Folder / Module"><div class="gap" contenteditable="true" data-k="c1n-Tests" data-hint="name this part" data-seed="1">Tests</div><div class="inf">tests/test_graph.py, tests/test_api.py, tests/test_tools.py, tests/test_account.py and 10 more</div></td><td data-label="Main purpose"><div class="gap big" contenteditable="true" data-k="c1-Tests" data-hint="what this part of the system is for" data-seed="1">Checks that the code still works.</div></td></tr>
 </tbody></table><p class="note coach">Keep the two or three that matter most and delete the rest — the template asks for two or three.</p>
-<div class="glab">C2 &middot; Key functions or components</div><p class="lede">Identify the two or three most important functions, classes or modules and explain what each does.</p><p class="lede">There are <b>0 functions</b> in your code. The boxes below start with your own docstrings — <b>rewrite them in plain words</b>, because a judge who cannot read your code can only go on this.</p>
+<div class="glab">C2 &middot; Key functions or components</div><p class="lede">Identify the two or three most important functions, classes or modules and explain what each does.</p><p class="lede">There are <b>442 functions</b> in your code. The boxes below start with your own docstrings — <b>rewrite them in plain words</b>, because a judge who cannot read your code can only go on this.</p>
 <table><thead><tr><th style="width:44%">Function / Class / Module</th><th>Purpose</th></tr></thead><tbody>
+<tr><td data-label="Function / Class / Module"><code>analytics()</code> <span class="inf">main.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-analytics" data-hint="what this function does, in plain words" data-seed="1">Real, file-backed analytics (see telemetry.py) -- ships to Axiom too once AXIOM_TOKEN/AXIOM_DATASET are set, but works standalone without that account existing</div></td></tr>
+<tr><td data-label="Function / Class / Module"><code>analytics()</code> <span class="inf">wes_api_backend_combined.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-analytics" data-hint="what this function does, in plain words" data-seed="1">Real, file-backed analytics (see telemetry.py) -- ships to Axiom too once AXIOM_TOKEN/AXIOM_DATASET are set, but works standalone without that account existing</div></td></tr>
+<tr><td data-label="Function / Class / Module"><code>answer_faq()</code> <span class="inf">tools.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-answer_faq" data-hint="what this function does, in plain words" data-seed="1">TRUTH RULE enforcement point. Returns one of three shapes: - confident match: {&quot;matched&quot;: True, &quot;answer&quot;: ..., &quot;source&quot;: ..., &quot;owner&quot;: ..., &quot;confidence&quot;: ...} -</div></td></tr>
+<tr><td data-label="Function / Class / Module"><code>answer_faq()</code> <span class="inf">wes_api_backend_combined.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-answer_faq" data-hint="what this function does, in plain words" data-seed="1">TRUTH RULE enforcement point. Returns one of three shapes: - confident match: {&quot;matched&quot;: True, &quot;answer&quot;: ..., &quot;source&quot;: ..., &quot;owner&quot;: ..., &quot;confidence&quot;: ...} -</div></td></tr>
+<tr><td data-label="Function / Class / Module"><code>bill_lookup()</code> <span class="inf">main.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-bill_lookup" data-hint="what this function does, in plain words" data-seed="1">&quot;Quick Bill Lookup&quot; card -- deliberately NOT a plain account-number lookup (see tools.verify_customer&#x27;s docstring): an account number alone isn&#x27;t proof of ident</div></td></tr>
+<tr><td data-label="Function / Class / Module"><code>bill_lookup()</code> <span class="inf">wes_api_backend_combined.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-bill_lookup" data-hint="what this function does, in plain words" data-seed="1">&quot;Quick Bill Lookup&quot; card -- deliberately NOT a plain account-number lookup (see tools.verify_customer&#x27;s docstring): an account number alone isn&#x27;t proof of ident</div></td></tr>
+<tr><td data-label="Function / Class / Module"><code>check_usage_anomaly()</code> <span class="inf">tools.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-check_usage_anomaly" data-hint="what this function does, in plain words" data-seed="1">Returns an alert dict if the latest month&#x27;s water_use_gals is a meaningful jump above the customer&#x27;s own trailing average, else None. usage_history must be chro</div></td></tr>
+<tr><td data-label="Function / Class / Module"><code>classify_intent()</code> <span class="inf">graph.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-classify_intent" data-hint="what this function does, in plain words" data-seed="1">The router node. A photo present -&gt; vision; otherwise -&gt; faq. (An /analytics-triggering intent would be added here too, if that endpoint moves past being a stub</div></td></tr>
 </tbody></table><p class="note coach"><b>Judges will ask you to explain one of these out loud.</b> Practise on the ones you keep — what goes in, what comes out, why it exists.</p>
 <div class="glab">C3 &middot; Code quality practices</div><p class="lede">Tick all the practices used by the development team.</p><div class="cbs">
 <label class="cb"><input type="checkbox" data-c="c3-Clear and meaningful variable names"><span>Clear and meaningful variable names</span></label>
-<label class="cb"><input type="checkbox" data-c="c3-Modular code structure"><span>Modular code structure</span></label>
-<label class="cb"><input type="checkbox" data-c="c3-Functions used to separate tasks"><span>Functions used to separate tasks</span></label>
-<label class="cb"><input type="checkbox" data-c="c3-Code comments"><span>Code comments</span></label>
+<label class="cb"><input type="checkbox" data-c="c3-Modular code structure" checked><span>Modular code structure</span></label>
+<label class="cb"><input type="checkbox" data-c="c3-Functions used to separate tasks" checked><span>Functions used to separate tasks</span></label>
+<label class="cb"><input type="checkbox" data-c="c3-Code comments" checked><span>Code comments</span></label>
 <label class="cb"><input type="checkbox" data-c="c3-Documentation / docstrings"><span>Documentation / docstrings</span></label>
-<label class="cb"><input type="checkbox" data-c="c3-Error handling"><span>Error handling</span></label>
-<label class="cb"><input type="checkbox" data-c="c3-Input validation"><span>Input validation</span></label>
-<label class="cb"><input type="checkbox" data-c="c3-Reusable code components"><span>Reusable code components</span></label>
+<label class="cb"><input type="checkbox" data-c="c3-Error handling" checked><span>Error handling</span></label>
+<label class="cb"><input type="checkbox" data-c="c3-Input validation" checked><span>Input validation</span></label>
+<label class="cb"><input type="checkbox" data-c="c3-Reusable code components" checked><span>Reusable code components</span></label>
 <label class="cb"><input type="checkbox" data-c="c3-Version control" checked><span>Version control</span></label>
-<label class="cb"><input type="checkbox" data-c="c3-Code testing"><span>Code testing</span></label>
+<label class="cb"><input type="checkbox" data-c="c3-Code testing" checked><span>Code testing</span></label>
 </div><div class="sub">Other</div><div class="gap" contenteditable="true" data-k="c3-other" data-hint="anything else you did"></div>
 <div class="glab">C4 &middot; One well-documented code component</div>
 <div class="sub">Component / function name</div><div class="gap" contenteditable="true" data-k="c4-name" data-hint="e.g. search_knowledge_base()"></div>
@@ -351,12 +438,31 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <tr><td data-label="Feature"><div class="gap" contenteditable="true" data-k="d-name-nswers grounded in a 571-row sourced fact base; 6 customer personas; 5 languages plus Grenadian dialect; meter/tank photo reading; voice input and output; guided in-chat form filling; Quick Bill Lookup; a community update feed; urgent-issue capture with reference codes for follow-up" data-hint="name the feature" data-seed="1">nswers grounded in a 571-row sourced fact base; 6 customer personas; 5 languages plus Grenadian dialect; meter/tank photo reading; voice input and output; guided in-chat form filling; Quick Bill Lookup; a community update feed; urgent-issue capture with reference codes for follow-up</div></td><td data-label="Built?"><select class="pick q" data-p="d-nswers grounded in a 571-row sourced fact base; 6 customer personas; 5 languages plus Grenadian dialect; meter/tank photo reading; voice input and output; guided in-chat form filling; Quick Bill Lookup; a community update feed; urgent-issue capture with reference codes for follow-up" aria-label="d-nswers grounded in a 571-row sourced fact base; 6 customer personas; 5 languages plus Grenadian dialect; meter/tank photo reading; voice input and output; guided in-chat form filling; Quick Bill Lookup; a community update feed; urgent-issue capture with reference codes for follow-up"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select></td><td data-label="How it works"><div class="gap" contenteditable="true" data-k="d-how-nswers grounded in a 571-row sourced fact base; 6 customer personas; 5 languages plus Grenadian dialect; meter/tank photo reading; voice input and output; guided in-chat form filling; Quick Bill Lookup; a community update feed; urgent-issue capture with reference codes for follow-up" data-hint="how it works"></div></td><td data-label="Which part of your code"><div class="gap" contenteditable="true" data-k="d-cmp-nswers grounded in a 571-row sourced fact base; 6 customer personas; 5 languages plus Grenadian dialect; meter/tank photo reading; voice input and output; guided in-chat form filling; Quick Bill Lookup; a community update feed; urgent-issue capture with reference codes for follow-up" data-hint="file or function"></div></td></tr>
 <tr><td data-label="Feature"><div class="gap" contenteditable="true" data-k="d-name-Answers questions in plain language" data-hint="name the feature" data-seed="1">Answers questions in plain language</div></td><td data-label="Built?"><select class="pick y" data-p="d-Answers questions in plain language" aria-label="d-Answers questions in plain language"><option value="y" selected>yes</option><option value="n">no</option><option value="q">not sure</option></select></td><td data-label="How it works"><div class="gap" contenteditable="true" data-k="d-how-Answers questions in plain language" data-hint="how it works"></div></td><td data-label="Which part of your code"><div class="gap" contenteditable="true" data-k="d-cmp-Answers questions in plain language" data-hint="file or function"></div></td></tr>
 <tr><td data-label="Feature"><div class="gap" contenteditable="true" data-k="d-name-Finds facts in a knowledge base" data-hint="name the feature" data-seed="1">Finds facts in a knowledge base</div></td><td data-label="Built?"><select class="pick n" data-p="d-Finds facts in a knowledge base" aria-label="d-Finds facts in a knowledge base"><option value="y">yes</option><option value="n" selected>no</option><option value="q">not sure</option></select></td><td data-label="How it works"><div class="gap" contenteditable="true" data-k="d-how-Finds facts in a knowledge base" data-hint="how it works"></div></td><td data-label="Which part of your code"><div class="gap" contenteditable="true" data-k="d-cmp-Finds facts in a knowledge base" data-hint="file or function"></div></td></tr>
-<tr><td data-label="Feature"><div class="gap" contenteditable="true" data-k="d-name-Understands images or files" data-hint="name the feature" data-seed="1">Understands images or files</div></td><td data-label="Built?"><select class="pick n" data-p="d-Understands images or files" aria-label="d-Understands images or files"><option value="y">yes</option><option value="n" selected>no</option><option value="q">not sure</option></select></td><td data-label="How it works"><div class="gap" contenteditable="true" data-k="d-how-Understands images or files" data-hint="how it works"></div></td><td data-label="Which part of your code"><div class="gap" contenteditable="true" data-k="d-cmp-Understands images or files" data-hint="file or function"></div></td></tr>
-<tr><td data-label="Feature"><div class="gap" contenteditable="true" data-k="d-name-Speaks its answers" data-hint="name the feature" data-seed="1">Speaks its answers</div></td><td data-label="Built?"><select class="pick n" data-p="d-Speaks its answers" aria-label="d-Speaks its answers"><option value="y">yes</option><option value="n" selected>no</option><option value="q">not sure</option></select></td><td data-label="How it works"><div class="gap" contenteditable="true" data-k="d-how-Speaks its answers" data-hint="how it works"></div></td><td data-label="Which part of your code"><div class="gap" contenteditable="true" data-k="d-cmp-Speaks its answers" data-hint="file or function"></div></td></tr>
-<tr><td data-label="Feature"><div class="gap" contenteditable="true" data-k="d-name-Remembers earlier messages" data-hint="name the feature" data-seed="1">Remembers earlier messages</div></td><td data-label="Built?"><select class="pick n" data-p="d-Remembers earlier messages" aria-label="d-Remembers earlier messages"><option value="y">yes</option><option value="n" selected>no</option><option value="q">not sure</option></select></td><td data-label="How it works"><div class="gap" contenteditable="true" data-k="d-how-Remembers earlier messages" data-hint="how it works"></div></td><td data-label="Which part of your code"><div class="gap" contenteditable="true" data-k="d-cmp-Remembers earlier messages" data-hint="file or function"></div></td></tr>
+<tr><td data-label="Feature"><div class="gap" contenteditable="true" data-k="d-name-Understands images or files" data-hint="name the feature" data-seed="1">Understands images or files</div></td><td data-label="Built?"><select class="pick y" data-p="d-Understands images or files" aria-label="d-Understands images or files"><option value="y" selected>yes</option><option value="n">no</option><option value="q">not sure</option></select></td><td data-label="How it works"><div class="gap" contenteditable="true" data-k="d-how-Understands images or files" data-hint="how it works"></div></td><td data-label="Which part of your code"><div class="gap" contenteditable="true" data-k="d-cmp-Understands images or files" data-hint="file or function"></div></td></tr>
+<tr><td data-label="Feature"><div class="gap" contenteditable="true" data-k="d-name-Speaks its answers" data-hint="name the feature" data-seed="1">Speaks its answers</div></td><td data-label="Built?"><select class="pick y" data-p="d-Speaks its answers" aria-label="d-Speaks its answers"><option value="y" selected>yes</option><option value="n">no</option><option value="q">not sure</option></select></td><td data-label="How it works"><div class="gap" contenteditable="true" data-k="d-how-Speaks its answers" data-hint="how it works"></div></td><td data-label="Which part of your code"><div class="gap" contenteditable="true" data-k="d-cmp-Speaks its answers" data-hint="file or function"></div></td></tr>
+<tr><td data-label="Feature"><div class="gap" contenteditable="true" data-k="d-name-Remembers earlier messages" data-hint="name the feature" data-seed="1">Remembers earlier messages</div></td><td data-label="Built?"><select class="pick y" data-p="d-Remembers earlier messages" aria-label="d-Remembers earlier messages"><option value="y" selected>yes</option><option value="n">no</option><option value="q">not sure</option></select></td><td data-label="How it works"><div class="gap" contenteditable="true" data-k="d-how-Remembers earlier messages" data-hint="how it works"></div></td><td data-label="Which part of your code"><div class="gap" contenteditable="true" data-k="d-cmp-Remembers earlier messages" data-hint="file or function"></div></td></tr>
 </tbody></table><p class="note coach">Built something not listed? Add a row. Not built? Mark it <b>no</b> and leave the rest blank — an honest blank beats a vague claim.</p></section>
 <section><h2>E &middot; API and External Service Integration</h2><h3>E1 &middot; What you called</h3>
-<div class="gap big" contenteditable="true" data-k="e1" data-hint="list the outside services your bot calls"></div>
+<ul class="apis">
+<li><code>https://api.axiom.co/v1/datasets/{AXIOM_DATASET}/ingest</code></li>
+<li><code>https://api.cloudinary.com/v1_1/{CLOUDINARY_CLOUD_NAME}/image/upload</code></li>
+<li><code>https://api.elevenlabs.io/v1/text-to-speech/{ELEVENLABS_VOICE_ID}</code></li>
+<li><code>https://api.openweathermap.org/data/2.5/weather</code></li>
+<li><code>https://doc.evolution-api.com</code></li>
+<li><code>https://fonts.googleapis.com</code></li>
+<li><code>https://fonts.googleapis.com/css2</code></li>
+<li><code>https://wes-api-pqtp.onrender.com/ui/</code></li>
+<li><code>https://wes-api.onrender.com</code></li>
+<li><code>https://wes-api.onrender.com/ui/</code></li>
+<li><code>https://wes-api.onrender.com/ui/widget-loader.js</code></li>
+<li><code>https://www.google.com/maps/dir/</code></li>
+<li><code>https://wes-api.onrender.com/chat</code></li>
+<li><code>https://wes-api.onrender.com/tts</code></li>
+<li><code>https://wes-api.onrender.com/complaints</code></li>
+<li><code>https://wes-api.onrender.com/analytics</code></li>
+<li><code>https://wes-api.onrender.com/forms/water-connection/fill</code></li>
+<li><code>https://wes-api.onrender.com/webhook/whatsapp</code></li>
+</ul>
 <h3>E2 &middot; Explain one of them properly</h3><p class="lede coach">Pick the one your bot leans on most.</p>
 <div class="glab">Which service?</div><div class="gap" contenteditable="true" data-k="e2-svc" data-hint="e.g. Google Gemini"></div>
 <div class="glab">What is it for?</div><div class="gap big" contenteditable="true" data-k="e2-purpose" data-hint="why you call it"></div>
@@ -373,7 +479,7 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <label class="cb"><input type="checkbox" data-c="f2-System instructions"><span>System instructions</span></label>
 <label class="cb"><input type="checkbox" data-c="f2-Client-specific information"><span>Client-specific information</span></label>
 <label class="cb"><input type="checkbox" data-c="f2-User context"><span>User context</span></label>
-<label class="cb"><input type="checkbox" data-c="f2-Conversation history"><span>Conversation history</span></label>
+<label class="cb"><input type="checkbox" data-c="f2-Conversation history" checked><span>Conversation history</span></label>
 <label class="cb"><input type="checkbox" data-c="f2-Persona instructions"><span>Persona instructions</span></label>
 <label class="cb"><input type="checkbox" data-c="f2-Tone and communication style"><span>Tone and communication style</span></label>
 <label class="cb"><input type="checkbox" data-c="f2-Restrictions or guardrails"><span>Restrictions or guardrails</span></label>
@@ -412,7 +518,7 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <div class="sub">How does text become speech?</div><div class="gap big" contenteditable="true" data-k="h2-how" data-hint="what happens when it speaks"></div>
 <div class="sub">Which voice did you choose, and why?</div><div class="gap big" contenteditable="true" data-k="h2-voice" data-hint="why that voice suits your client"></div>
 <div class="glab">H3 &middot; Does it accept voice input?</div>
-<select class="pick n" data-p="h3-voice-in" aria-label="h3-voice-in"><option value="y">yes</option><option value="n" selected>no</option><option value="q">not sure</option></select><div class="gap big" contenteditable="true" data-k="h3-how" data-hint="if yes, how it works"></div>
+<select class="pick y" data-p="h3-voice-in" aria-label="h3-voice-in"><option value="y" selected>yes</option><option value="n">no</option><option value="q">not sure</option></select><div class="gap big" contenteditable="true" data-k="h3-how" data-hint="if yes, how it works"></div>
 <div class="glab">H4 &middot; How do these work together?</div>
 <div class="gap big" contenteditable="true" data-k="h4" data-hint="the AI, the chat, the avatar and the voice — in one paragraph"></div>
 </section>
@@ -436,7 +542,7 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <label class="cb"><input type="checkbox" data-c="j-Complete multi-step tasks"><span>Complete multi-step tasks</span></label>
 <label class="cb"><input type="checkbox" data-c="j-Find information in more than one place"><span>Find information in more than one place</span></label>
 <label class="cb"><input type="checkbox" data-c="j-Use APIs or outside tools"><span>Use APIs or outside tools</span></label>
-<label class="cb"><input type="checkbox" data-c="j-Keep track of a task"><span>Keep track of a task</span></label>
+<label class="cb"><input type="checkbox" data-c="j-Keep track of a task" checked><span>Keep track of a task</span></label>
 <label class="cb"><input type="checkbox" data-c="j-Make recommendations"><span>Make recommendations</span></label>
 <label class="cb"><input type="checkbox" data-c="j-Hand over to a human"><span>Hand over to a human</span></label>
 <label class="cb"><input type="checkbox" data-c="j-Something else"><span>Something else</span></label>
@@ -477,26 +583,26 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <label class="cb"><input type="checkbox" data-c="l-AI/LLM integration functions successfully" checked><span>AI/LLM integration functions successfully</span></label>
 <label class="cb"><input type="checkbox" data-c="l-Prompt handling has been implemented"><span>Prompt handling has been implemented</span></label>
 <label class="cb"><input type="checkbox" data-c="l-Knowledge base or information retrieval functions successfully"><span>Knowledge base or information retrieval functions successfully</span></label>
-<label class="cb"><input type="checkbox" data-c="l-Relevant APIs are integrated successfully"><span>Relevant APIs are integrated successfully</span></label>
+<label class="cb"><input type="checkbox" data-c="l-Relevant APIs are integrated successfully" checked><span>Relevant APIs are integrated successfully</span></label>
 <label class="cb"><input type="checkbox" data-c="l-Avatar system functions successfully, where applicable" checked><span>Avatar system functions successfully, where applicable</span></label>
 <label class="cb"><input type="checkbox" data-c="l-Text-to-speech or voice features function successfully, where applicable" checked><span>Text-to-speech or voice features function successfully, where applicable</span></label>
 <label class="cb"><input type="checkbox" data-c="l-Multilingual features function successfully, where applicable"><span>Multilingual features function successfully, where applicable</span></label>
 <label class="cb"><input type="checkbox" data-c="l-Multiple persona features function successfully, where applicable"><span>Multiple persona features function successfully, where applicable</span></label>
 <label class="cb"><input type="checkbox" data-c="l-Agentic features function successfully, where applicable"><span>Agentic features function successfully, where applicable</span></label>
-<label class="cb"><input type="checkbox" data-c="l-Error handling has been tested"><span>Error handling has been tested</span></label>
+<label class="cb"><input type="checkbox" data-c="l-Error handling has been tested" checked><span>Error handling has been tested</span></label>
 <label class="cb"><input type="checkbox" data-c="l-The team can explain the high-level architecture"><span>The team can explain the high-level architecture</span></label>
 </div>
 <div class="glab coach">Your live link, checked just now</div><table class="kv coach">
 <tr><th>Link</th><td>https://wes-api.onrender.com/ui/</td></tr>
 <tr><th>Did it answer?</th><td><span class="tag y">yes</span> HTTP 200</td></tr>
-<tr><th>Time to wake up</th><td>0.5 seconds</td></tr>
+<tr><th>Time to wake up</th><td>0.3 seconds</td></tr>
 </table></section>
 <section class="internal"><h2>Your repository <span class="only">camp copy only</span></h2><p class="lede">This block is for your coach. It is stripped out of the judges’ copy and out of the PDF — external judges are not given the code.</p><table class="kv">
 <tr><th>Code</th><td>https://github.com/shanoneliszabeth/Chabot-for-NAWASA_W.E.S</td></tr>
 <tr><th>Documents read</th><td>WES.pdf, WES_deck.pdf</td></tr>
-<tr><th>Files</th><td>0</td></tr>
-<tr><th>Commits</th><td>not readable</td></tr>
-<tr><th>People who committed</th><td>0</td></tr>
+<tr><th>Files</th><td>707</td></tr>
+<tr><th>Commits</th><td>100</td></tr>
+<tr><th>People who committed</th><td>1</td></tr>
 <tr><th>Passwords left in the code</th><td><span class="tag y">none — well done</span></td></tr></table></section>
 </div>
 <footer class="coach">Draft generated for the ECCU GenAI &amp; Python Camp field audit. A draft is not a submission — read every line before it reaches a judge.</footer>
