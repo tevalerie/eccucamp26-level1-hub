@@ -2,11 +2,11 @@
 <html lang="en"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow, noarchive">
-<title>Pilot — submission draft</title>
+<title>AquaAssist — submission draft</title>
 <style>
 :root{--ink:#12203a;--mute:#5d6b85;--line:#dfe5f0;--paper:#f6f8fc;
  /* the pod's own brand colours, read out of their stylesheets */
- --blue:#E0913F;--brand2:#12547a;--onbrand:#ffffff;
+ --blue:#0072BC;--brand2:#00B5E2;--onbrand:#ffffff;
  --red:#b3261e;--amber:#8a6100;--green:#1E6B3A;--fill:#fffaf0;--fillb:#e0b877}
 *{box-sizing:border-box}
 body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
@@ -212,41 +212,45 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
  .tag,.flag{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 </style></head><body>
-<header><div class="in"><div class="eyebrow">Your submission &middot; already half written</div><h1>Pilot</h1><p>Team SCASPA &middot; for St Christopher Air &amp; Sea Ports Authority</p></div></header>
+<header><div class="in"><div class="eyebrow">Your submission &middot; already half written</div><h1>AquaAssist</h1><p>Nawasa Sub Pod 1 / AquaVision &middot; for NAWASA</p></div></header>
 <div class="bar"><div class="in"><span class="prog"><b id="done">0</b> of <b id="total">0</b> boxes filled</span><span class="spacer"></span><button id="notes" class="ghost">Hide coaching notes</button><button id="save" title="Saves this page as an HTML file you can keep, email or reopen later. Your answers are inside it.">Download my copy</button><button id="judge" title="The same document with the coaching notes and the repository details taken out — this is the one a judge should see.">Download judges’ copy</button><button id="print" title="Opens your printer dialog. Choose Save as PDF as the destination.">Save as PDF</button><button id="copy" class="ghost">Copy all text</button><button id="clear" class="ghost danger">Clear my answers</button></div></div>
 <div class="wrap">
 <section class="how coach"><h2>How this works</h2><p>Your stack, your files, your functions and the diagrams are already filled in from your repository and your cover sheet. <b>You do not need to retype any of it.</b></p><p>The shaded boxes are the parts only you can answer. Click one and start typing. Your writing saves in this browser automatically, so you can close the tab and come back. When you are done, hit <b>Download my copy</b> or <b>Save as PDF</b>.</p><p class="warn-note">Two things to know. Your answers save on <b>this computer in this browser</b> only, so finish on the machine you started on and download a copy when you stop. And check every pre-filled line: anything wrong that you leave in, the judges read as your answer.</p><p class="warn-note">These blue notes are for you, not for the judges. Use the <b>Hide coaching notes</b> button to make every one of them disappear, and they are removed automatically from the PDF and from both downloads.</p><p class="stamp">Prepared 2026-08-25 00:00 UTC.</p></section>
+<section class="flags coach"><h2>Fix these first — they cost you marks</h2>
+<div class="flag check"><b>Worth a second look</b><br>Your cover sheet says you have no knowledge base, but your code imports Pinecone (vector store), PostgreSQL, SQLite. Either you are using it and the sheet undersells you, or it is leftover code you should delete before a judge asks about it.</div>
+<p class="note coach">Fix the paperwork or fix the code — but do not leave the two disagreeing. A judge who spots it will trust the rest of your answers less.</p>
+</section>
 <section><h2>Project Information</h2><table class="kv">
-<tr><th>Chatbot Name</th><td>Pilot</td></tr>
-<tr><th>Client Organisation</th><td>St Christopher Air &amp; Sea Ports Authority</td></tr>
-<tr><th>Live Demo / Application Link</th><td>https://scaspa.eccugenai.app</td></tr>
-<tr><th>Camper Development Team</th><td><div class="tname">Team SCASPA</div><ul class="team"><li><span class="mname">Josiah Benjamin</span><span class="mrole">Group Lead, Coder</span></li><li><span class="mname">Nahamani Carey</span><span class="mrole">Designer, Presenter</span></li><li><span class="mname">Jernyah Mills</span><span class="mrole">Presenter, Designer</span></li><li><span class="mname">Saidee Jack</span><span class="mrole">Coder, research</span></li><li><span class="mname">Rhae Jae William</span><span class="mrole">Researcher, Coder</span></li></ul></td></tr>
+<tr><th>Chatbot Name</th><td>AquaAssist</td></tr>
+<tr><th>Client Organisation</th><td>NAWASA</td></tr>
+<tr><th>Live Demo / Application Link</th><td>https://aquaassist-hdml.onrender.com/</td></tr>
+<tr><th>Camper Development Team</th><td><div class="tname">Nawasa Sub Pod 1 / AquaVision</div><ul class="team"><li><span class="mname">Simlet Pierre</span><span class="mrole">Pod leader and Client voice</span></li><li><span class="mname">Sage</span><span class="mrole">Client Voice</span></li><li><span class="mname">Gabriela</span><span class="mrole">Client Voice</span></li><li><span class="mname">Zephan</span><span class="mrole">Feelings Advocate</span></li><li><span class="mname">Mcleren</span><span class="mrole">Feelings Advocate</span></li><li><span class="mname">Jeriah</span><span class="mrole">Feelings Advocate</span></li><li><span class="mname">Judah</span><span class="mrole">Feelings Advocate</span></li><li><span class="mname">Chloe</span><span class="mrole">Path Clearer</span></li><li><span class="mname">Kaveisha</span><span class="mrole">Path Clearer</span></li><li><span class="mname">Dilonzo</span><span class="mrole">Path Clearer</span></li><li><span class="mname">Faith</span><span class="mrole">Builder</span></li><li><span class="mname">Leah</span><span class="mrole">Builder</span></li><li><span class="mname">maalik</span><span class="mrole">Builder</span></li></ul></td></tr>
 </table></section>
 <section><h2>A &middot; Project Purpose and Technical Overview</h2>
 <div class="glab">A1 &middot; What problem does the chatbot solve?</div><p class="lede">A brief description of the client’s business problem or customer need.</p>
-<div class="gap big" contenteditable="true" data-k="a1" data-hint="the problem your client actually has" data-seed="1">Port and airport information in St. Kitts is scattered across a website, PDF schedules and staff phone lines. So people telephone the Authority for things that are already published — which documents to bring, when the transit shed opens, who collects what — and SCASPA staff answer the same questions all day, with answers that vary depending on who picks up. A general-purpose AI chatbot can&#x27;t fill that gap. For a statutory authority, an invented answer is worse than no answer, because it carries the Authority&#x27;s name. This assistant is built so it can only repeat what SCASPA has actually published, shows its source every time, and admits when it doesn&#x27;t know</div>
+<div class="gap big" contenteditable="true" data-k="a1" data-hint="the problem your client actually has" data-seed="1">AquaAssist makes it easier for customers to get information and report water-service problems without having to search through multiple channels or explain everything manually</div>
 <div class="glab">A2 &middot; What are the chatbot’s primary functions?</div><p class="lede">List the main functions the application performs.</p>
-<div class="gap" contenteditable="true" data-k="a2-1" data-hint="function 1" data-seed="1">Cited answers — every response shows the exact source and the date it was verified Refuses rather than guesses — if it isn&#x27;t in SCASPA&#x27;s verified knowledge base, it says so and routes you to the right contact Covers all four facilities — sea cargo, air cargo, ferry, cruise, and airport enquiries in one place Privacy by design — never discusses individual</div>
-<div class="gap" contenteditable="true" data-k="a2-2" data-hint="function 2" data-seed="1">shipments, bookings or accounts, and never touches the payment portal Built-in escalation — hands off to a SCASPA contact with the question already captured, so nothing is repeated (3-5 standout things the bot can do)</div>
+<div class="gap" contenteditable="true" data-k="a2-1" data-hint="function 1" data-seed="1">AI Customer Support Report &amp; Track Issues Voice, Photo &amp; Video Smart Staff Portal Quick Actions &amp; Contact</div>
+<div class="gap" contenteditable="true" data-k="a2-2" data-hint="function 2"></div>
 <div class="gap" contenteditable="true" data-k="a2-3" data-hint="function 3"></div>
 <div class="gap" contenteditable="true" data-k="a2-4" data-hint="function 4"></div>
 <div class="gap" contenteditable="true" data-k="a2-5" data-hint="function 5"></div>
 <div class="glab">A3 &middot; Technology stack</div>
 <table><thead><tr><th style="width:30%">Technology / Tool</th><th style="width:34%">What you used</th><th>Purpose in the solution</th></tr></thead><tbody>
 <tr><td data-label="Technology / Tool">Programming Language(s)</td><td data-label="What you used"><div class="gap" contenteditable="true" data-k="a3n-Programming Language(s)" data-hint="name it" data-seed="1">Python, JavaScript, HTML, CSS</div></td><td data-label="Purpose in the solution"><div class="gap" contenteditable="true" data-k="a3-Programming Language(s)" data-hint="what it does in your solution"></div></td></tr>
-<tr><td data-label="Technology / Tool">AI/LLM Model</td><td data-label="What you used"><div class="gap" contenteditable="true" data-k="a3n-AI / LLM model" data-hint="name it" data-seed="1">OpenAI GPT</div></td><td data-label="Purpose in the solution"><div class="gap" contenteditable="true" data-k="a3-AI / LLM model" data-hint="what it does in your solution"></div></td></tr>
-<tr><td data-label="Technology / Tool">Framework(s)</td><td data-label="What you used"><div class="gap" contenteditable="true" data-k="a3n-Framework(s)" data-hint="name it" data-seed="1">FastAPI, LangGraph, LangChain, React</div></td><td data-label="Purpose in the solution"><div class="gap" contenteditable="true" data-k="a3-Framework(s)" data-hint="what it does in your solution"></div></td></tr>
-<tr><td data-label="Technology / Tool">APIs</td><td data-label="What you used"><div class="gap" contenteditable="true" data-k="a3n-APIs" data-hint="name it" data-seed="1">Chroma API</div></td><td data-label="Purpose in the solution"><div class="gap" contenteditable="true" data-k="a3-APIs" data-hint="what it does in your solution"></div></td></tr>
-<tr><td data-label="Technology / Tool">Database/Knowledge Base</td><td data-label="What you used"><div class="gap" contenteditable="true" data-k="a3n-Database / Knowledge Base" data-hint="name it" data-seed="1">Chroma (vector store)</div></td><td data-label="Purpose in the solution"><div class="gap" contenteditable="true" data-k="a3-Database / Knowledge Base" data-hint="what it does in your solution"></div></td></tr>
-<tr><td data-label="Technology / Tool">Frontend/User Interface</td><td data-label="What you used"><div class="gap" contenteditable="true" data-k="a3n-Frontend/User Interface" data-hint="name it" data-seed="1">React</div></td><td data-label="Purpose in the solution"><div class="gap" contenteditable="true" data-k="a3-Frontend/User Interface" data-hint="what it does in your solution"></div></td></tr>
-<tr><td data-label="Technology / Tool">Backend</td><td data-label="What you used"><div class="gap" contenteditable="true" data-k="a3n-Backend" data-hint="name it" data-seed="1">Python, FastAPI</div></td><td data-label="Purpose in the solution"><div class="gap" contenteditable="true" data-k="a3-Backend" data-hint="what it does in your solution"></div></td></tr>
+<tr><td data-label="Technology / Tool">AI/LLM Model</td><td data-label="What you used"><div class="gap" contenteditable="true" data-k="a3n-AI / LLM model" data-hint="name it" data-seed="1">Google Gemini</div></td><td data-label="Purpose in the solution"><div class="gap" contenteditable="true" data-k="a3-AI / LLM model" data-hint="what it does in your solution"></div></td></tr>
+<tr><td data-label="Technology / Tool">Framework(s)</td><td data-label="What you used"><div class="gap" contenteditable="true" data-k="a3n-Framework(s)" data-hint="name it" data-seed="1">Flask, LangGraph, LangChain</div></td><td data-label="Purpose in the solution"><div class="gap" contenteditable="true" data-k="a3-Framework(s)" data-hint="what it does in your solution"></div></td></tr>
+<tr><td data-label="Technology / Tool">APIs</td><td data-label="What you used"><div class="gap" contenteditable="true" data-k="a3n-APIs" data-hint="name it" data-seed="1">Google Gemini API, ElevenLabs API, Pinecone API</div></td><td data-label="Purpose in the solution"><div class="gap" contenteditable="true" data-k="a3-APIs" data-hint="what it does in your solution"></div></td></tr>
+<tr><td data-label="Technology / Tool">Database/Knowledge Base</td><td data-label="What you used"><div class="gap" contenteditable="true" data-k="a3n-Database / Knowledge Base" data-hint="name it" data-seed="1">Pinecone (vector store), PostgreSQL, SQLite</div></td><td data-label="Purpose in the solution"><div class="gap" contenteditable="true" data-k="a3-Database / Knowledge Base" data-hint="what it does in your solution"></div></td></tr>
+<tr><td data-label="Technology / Tool">Frontend/User Interface</td><td data-label="What you used"><div class="gap" contenteditable="true" data-k="a3n-Frontend/User Interface" data-hint="name it" data-seed="1">HTML/CSS/JS</div></td><td data-label="Purpose in the solution"><div class="gap" contenteditable="true" data-k="a3-Frontend/User Interface" data-hint="what it does in your solution"></div></td></tr>
+<tr><td data-label="Technology / Tool">Backend</td><td data-label="What you used"><div class="gap" contenteditable="true" data-k="a3n-Backend" data-hint="name it" data-seed="1">Python, Flask</div></td><td data-label="Purpose in the solution"><div class="gap" contenteditable="true" data-k="a3-Backend" data-hint="what it does in your solution"></div></td></tr>
 <tr><td data-label="Technology / Tool">Hosting/Deployment Platform</td><td data-label="What you used"><div class="gap" contenteditable="true" data-k="a3n-Hosting/Deployment Platform" data-hint="name it" data-seed="1">Render</div></td><td data-label="Purpose in the solution"><div class="gap" contenteditable="true" data-k="a3-Hosting/Deployment Platform" data-hint="what it does in your solution"></div></td></tr>
 <tr><td data-label="Technology / Tool">Avatar Technology</td><td data-label="What you used"><div class="gap" contenteditable="true" data-k="a3n-Avatar Technology" data-hint="name it"></div></td><td data-label="Purpose in the solution"><div class="gap" contenteditable="true" data-k="a3-Avatar Technology" data-hint="what it does in your solution"></div></td></tr>
-<tr><td data-label="Technology / Tool">Text-to-Speech/Voice Technology</td><td data-label="What you used"><div class="gap" contenteditable="true" data-k="a3n-Text-to-Speech / Voice" data-hint="name it"></div></td><td data-label="Purpose in the solution"><div class="gap" contenteditable="true" data-k="a3-Text-to-Speech / Voice" data-hint="what it does in your solution"></div></td></tr>
-<tr><td data-label="Technology / Tool">Other Tools/Libraries</td><td data-label="What you used"><div class="gap" contenteditable="true" data-k="a3n-Other Tools / Libraries" data-hint="name it" data-seed="1">BeautifulSoup, PDF parsing</div></td><td data-label="Purpose in the solution"><div class="gap" contenteditable="true" data-k="a3-Other Tools / Libraries" data-hint="what it does in your solution"></div></td></tr>
+<tr><td data-label="Technology / Tool">Text-to-Speech/Voice Technology</td><td data-label="What you used"><div class="gap" contenteditable="true" data-k="a3n-Text-to-Speech / Voice" data-hint="name it" data-seed="1">ElevenLabs</div></td><td data-label="Purpose in the solution"><div class="gap" contenteditable="true" data-k="a3-Text-to-Speech / Voice" data-hint="what it does in your solution"></div></td></tr>
+<tr><td data-label="Technology / Tool">Other Tools/Libraries</td><td data-label="What you used"><div class="gap" contenteditable="true" data-k="a3n-Other Tools / Libraries" data-hint="name it" data-seed="1">requests</div></td><td data-label="Purpose in the solution"><div class="gap" contenteditable="true" data-k="a3-Other Tools / Libraries" data-hint="what it does in your solution"></div></td></tr>
 </tbody></table></section>
 <section class="b1-sec"><h2>B &middot; High-Level System Architecture</h2><div class="glab">B1 &middot; Architecture flow</div><p class="lede">Describe how information moves through the chatbot from the moment a user submits a question until the final response is delivered.</p><p class="egflow"><b>Example</b><br>User Input &rarr; User Interface &rarr; Input Processing &rarr; Prompt Handling &rarr; AI/LLM &rarr; Knowledge Base/API Retrieval &rarr; Response Processing &rarr; Avatar/Text-to-Speech &rarr; User Output</p>
-<p class="lede coach">On your cover sheet you wrote: &ldquo;The SCASPA Virtual Assistant answers port and airport questions for St. Kitts and Nevis using only what the Authority has actually published — so importers and travellers get a cited answer in seconds instead of a phone call&rdquo; — that is the what. This is the how.</p>
+<p class="lede coach">On your cover sheet you wrote: &ldquo;AquaAssist helps NAWASA customers get fast, accessible support, report water issues, and track them—all in one AI-powered assistant&rdquo; — that is the what. This is the how.</p>
 <div class="sub">Our chatbot architecture</div>
 <div class="gap big" contenteditable="true" data-k="b1" data-hint="Someone types a question on the page. Then…"></div>
 </section>
@@ -259,23 +263,23 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <rect x="352.0" y="43" width="236" height="58" rx="12" fill="#0b1a33" opacity=".055"/>
 <rect x="352.0" y="40" width="236" height="58" rx="12" fill="url(#g-grey)" stroke="#c3cde0" stroke-width="2"/>
 <rect x="352.0" y="40" width="5" height="58" rx="2.5" fill="#8fa0bd"/>
-<text x="368.0" y="65" class="bt">A question for Pilot</text>
+<text x="368.0" y="65" class="bt">A question for AquaAssist</text>
 <text x="368.0" y="84" class="bs">from a customer or staff</text>
 <rect x="14" y="128" width="912" height="100" rx="14" fill="url(#band)" stroke="#e6ecf6"/>
-<text x="30" y="147" class="cap">2 · PILOT TAKES IT IN</text>
+<text x="30" y="147" class="cap">2 · AQUAASSIST TAKES IT IN</text>
 <rect x="352.0" y="153" width="236" height="66" rx="12" fill="#0b1a33" opacity=".055"/>
 <rect x="352.0" y="150" width="236" height="66" rx="12" fill="url(#g-blue)" stroke="#9cc8ee" stroke-width="2"/>
 <rect x="352.0" y="150" width="5" height="66" rx="2.5" fill="#4a9ada"/>
-<text x="368.0" y="175" class="bt">Pilot’s web page</text>
-<text x="368.0" y="194" class="bs">React</text>
+<text x="368.0" y="175" class="bt">AquaAssist’s web page</text>
+<text x="368.0" y="194" class="bs">HTML/CSS/JS</text>
 <line x1="470.0" y1="98" x2="470.0" y2="150" stroke="#7b8aa8" stroke-width="2" marker-end="url(#ah)"/>
 <rect x="14" y="238" width="912" height="214" rx="14" fill="url(#band)" stroke="#e6ecf6"/>
-<text x="30" y="257" class="cap">3 · PILOT WORKS OUT AN ANSWER</text>
+<text x="30" y="257" class="cap">3 · AQUAASSIST WORKS OUT AN ANSWER</text>
 <rect x="352.0" y="279" width="236" height="66" rx="12" fill="#0b1a33" opacity=".055"/>
 <rect x="352.0" y="276" width="236" height="66" rx="12" fill="url(#g-green)" stroke="#93d3ac" stroke-width="2"/>
 <rect x="352.0" y="276" width="5" height="66" rx="2.5" fill="#2f9e63"/>
-<text x="368.0" y="301" class="bt">Pilot’s code</text>
-<text x="368.0" y="320" class="bs">Python, FastAPI</text>
+<text x="368.0" y="301" class="bt">AquaAssist’s code</text>
+<text x="368.0" y="320" class="bs">Python, Flask</text>
 <text x="368.0" y="335" class="bs">running on Render</text>
 <line x1="470.0" y1="216" x2="470.0" y2="276" stroke="#7b8aa8" stroke-width="2" marker-end="url(#ah)"/>
 <rect x="439.0" y="237.0" width="62" height="18" rx="9" fill="#fff" stroke="#e2e8f2"/>
@@ -284,15 +288,15 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <rect x="352.0" y="366" width="236" height="66" rx="12" fill="url(#g-purple)" stroke="#c5abec" stroke-width="2"/>
 <rect x="352.0" y="366" width="5" height="66" rx="2.5" fill="#8a5fd0"/>
 <text x="368.0" y="391" class="bt">The AI model</text>
-<text x="368.0" y="410" class="bs">OpenAI GPT</text>
+<text x="368.0" y="410" class="bs">Google Gemini</text>
 <line x1="470.0" y1="342" x2="470.0" y2="366" stroke="#7b8aa8" stroke-width="2" marker-end="url(#ah)"/>
 <rect x="451.0" y="345.0" width="38" height="18" rx="9" fill="#fff" stroke="#e2e8f2"/>
 <text x="470.0" y="358.0" text-anchor="middle" class="al">asks</text>
 <rect x="42" y="279" width="236" height="66" rx="12" fill="#0b1a33" opacity=".055"/>
 <rect x="42" y="276" width="236" height="66" rx="12" fill="url(#g-amber)" stroke="#ecca99" stroke-width="2"/>
 <rect x="42" y="276" width="5" height="66" rx="2.5" fill="#d19a2e"/>
-<text x="58" y="301" class="bt">Pilot’s knowledge base</text>
-<text x="58" y="320" class="bs">Chroma (vector store)</text>
+<text x="58" y="301" class="bt">AquaAssist’s knowledge ba…</text>
+<text x="58" y="320" class="bs">Pinecone (vector store), Postgr…</text>
 <text x="58" y="335" class="bs">the facts it answers from</text>
 <line x1="352.0" y1="309" x2="278" y2="309" stroke="#7b8aa8" stroke-width="2" marker-end="url(#ah)"/>
 <rect x="284.0" y="300.0" width="62" height="18" rx="9" fill="#fff" stroke="#e2e8f2"/>
@@ -300,9 +304,9 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <rect x="662" y="279" width="236" height="66" rx="12" fill="#0b1a33" opacity=".055"/>
 <rect x="662" y="276" width="236" height="66" rx="12" fill="url(#g-pink)" stroke="#eaaabb" stroke-width="2"/>
 <rect x="662" y="276" width="5" height="66" rx="2.5" fill="#d4607f"/>
-<text x="678" y="301" class="bt">What Pilot can DO</text>
-<text x="678" y="320" class="bs">FakeLLM()</text>
-<text x="678" y="335" class="bs">and 404 more</text>
+<text x="678" y="301" class="bt">What AquaAssist can DO</text>
+<text x="678" y="320" class="bs">build_agent()</text>
+<text x="678" y="335" class="bs">and 7 more</text>
 <line x1="588.0" y1="309" x2="662" y2="309" stroke="#7b8aa8" stroke-width="2" marker-end="url(#ah)"/>
 <rect x="606.0" y="300.0" width="38" height="18" rx="9" fill="#fff" stroke="#e2e8f2"/>
 <text x="625.0" y="313.0" text-anchor="middle" class="al">runs</text>
@@ -311,121 +315,108 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <rect x="352.0" y="499" width="236" height="58" rx="12" fill="#0b1a33" opacity=".055"/>
 <rect x="352.0" y="496" width="236" height="58" rx="12" fill="url(#g-grey)" stroke="#c3cde0" stroke-width="2"/>
 <rect x="352.0" y="496" width="5" height="58" rx="2.5" fill="#8fa0bd"/>
-<text x="368.0" y="521" class="bt">Pilot’s reply</text>
+<text x="368.0" y="521" class="bt">AquaAssist’s reply</text>
 <text x="368.0" y="540" class="bs">back on their screen</text>
 <line x1="470.0" y1="432" x2="470.0" y2="496" stroke="#7b8aa8" stroke-width="2" marker-end="url(#ah)"/>
 <rect x="662" y="499" width="236" height="58" rx="12" fill="#0b1a33" opacity=".055"/>
 <rect x="662" y="496" width="236" height="58" rx="12" fill="url(#g-rose)" stroke="#e0aad4" stroke-width="2"/>
 <rect x="662" y="496" width="5" height="58" rx="2.5" fill="#c563ac"/>
-<text x="678" y="521" class="bt">…and Pilot speaks</text>
-<text x="678" y="540" class="bs">text-to-speech</text>
+<text x="678" y="521" class="bt">…and AquaAssist speaks</text>
+<text x="678" y="540" class="bs">ElevenLabs</text>
 <line x1="588.0" y1="525" x2="662" y2="525" stroke="#7b8aa8" stroke-width="2" marker-end="url(#ah)"/>
 <rect x="591.0" y="516.0" width="68" height="18" rx="9" fill="#fff" stroke="#e2e8f2"/>
 <text x="625.0" y="529.0" text-anchor="middle" class="al">reads out</text>
-<text x="470.0" y="602" text-anchor="middle" class="ft">Pilot</text>
+<rect x="42" y="499" width="236" height="58" rx="12" fill="#0b1a33" opacity=".055"/>
+<rect x="42" y="496" width="236" height="58" rx="12" fill="url(#g-slate)" stroke="#bcc0d2" stroke-width="2" stroke-dasharray="7 5"/>
+<rect x="42" y="496" width="5" height="58" rx="2.5" fill="#8b90a8"/>
+<text x="58" y="521" class="bt">AquaAssist remembers this</text>
+<text x="58" y="540" class="bs">for the next question</text>
+<line x1="352.0" y1="525" x2="278" y2="525" stroke="#7b8aa8" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="293.0" y="516.0" width="44" height="18" rx="9" fill="#fff" stroke="#e2e8f2"/>
+<text x="315.0" y="529.0" text-anchor="middle" class="al">saves</text>
+<text x="470.0" y="602" text-anchor="middle" class="ft">AquaAssist</text>
 </svg></div>
 <p class="note coach"><b>Your turn:</b> check every box. Add anything missing, delete what you did not build.</p>
 <div class="sub">Agent flow</div><p class="lede">Which agents exist, what each one does, and who handles a question when it arrives.</p>
-<div class="archbox"><svg viewBox="0 0 886 488" xmlns="http://www.w3.org/2000/svg" class="arch agents" role="img" aria-label="Agent crew diagram">
-<defs><linearGradient id="ag-hd" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E0913F"/><stop offset="1" stop-color="#12547a"/></linearGradient><linearGradient id="ag-bx" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#E0913F" stop-opacity=".13"/></linearGradient><marker id="agh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8494ad"/></marker></defs>
+<div class="archbox"><svg viewBox="0 0 602 488" xmlns="http://www.w3.org/2000/svg" class="arch agents" role="img" aria-label="Agent crew diagram">
+<defs><linearGradient id="ag-hd" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0072BC"/><stop offset="1" stop-color="#00B5E2"/></linearGradient><linearGradient id="ag-bx" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#0072BC" stop-opacity=".13"/></linearGradient><marker id="agh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8494ad"/></marker></defs>
 <style>.an{font:700 14px -apple-system,Segoe UI,Roboto,sans-serif;fill:#12203a}.aw{font:400 11.5px -apple-system,Segoe UI,sans-serif;fill:#55647f}.ah{font:800 13px -apple-system,Segoe UI,sans-serif;fill:#fff}.ac{font:800 10px -apple-system,Segoe UI,sans-serif;fill:#9aa8c0;letter-spacing:.13em}.am{font:700 9.5px -apple-system,Segoe UI,sans-serif}.af{font:italic 11px -apple-system,Segoe UI,sans-serif;fill:#8a97ad}</style>
-<rect x="293.0" y="26" width="300" height="42" rx="21" fill="url(#ag-hd)"/>
-<text x="443.0" y="53" text-anchor="middle" class="ah">Pilot’s agent picks the right tool</text>
-<text x="443.0" y="16" text-anchor="middle" class="ac">A QUESTION COMES IN</text>
+<rect x="151.0" y="26" width="300" height="42" rx="21" fill="url(#ag-hd)"/>
+<text x="301.0" y="53" text-anchor="middle" class="ah">AquaAssist’s agent picks the right tool</text>
+<text x="301.0" y="16" text-anchor="middle" class="ac">A QUESTION COMES IN</text>
 <rect x="30" y="121" width="258" height="88" rx="12" fill="#0b1a33" opacity=".05"/>
-<rect x="30" y="118" width="258" height="88" rx="12" fill="url(#ag-bx)" stroke="#E0913F" stroke-width="2" stroke-opacity=".55"/>
-<rect x="30" y="118" width="5" height="88" rx="2.5" fill="#E0913F"/>
-<text x="46" y="143" class="an">Search Scaspa Knowledge</text>
-<text x="46" y="163" class="aw">Search SCASPA&#x27;s verified knowledge base.</text>
-<text x="46" y="178" class="aw">START HERE for almost every factual…</text>
-<rect x="125.60000000000002" y="182" width="150.39999999999998" height="17" rx="8.5" fill="#e9f7ef"/>
-<text x="200.8" y="194" text-anchor="middle" class="am" fill="#2f7d52">search_scaspa_knowledge…</text>
+<rect x="30" y="118" width="258" height="88" rx="12" fill="url(#ag-bx)" stroke="#0072BC" stroke-width="2" stroke-opacity=".55"/>
+<rect x="30" y="118" width="5" height="88" rx="2.5" fill="#0072BC"/>
+<text x="46" y="143" class="an">Customer Support Agent</text>
+<text x="46" y="163" class="aw">Understands customer questions and</text>
+<text x="46" y="178" class="aw">provides NAWASA-related answers</text>
+<rect x="153.60000000000002" y="182" width="122.39999999999999" height="17" rx="8.5" fill="#f1f4f9"/>
+<text x="214.8" y="194" text-anchor="middle" class="am" fill="#5b6d8f">which tool is this?</text>
 <path d="M159.0,88 L159.0,118" fill="none" stroke="#8494ad" stroke-width="1.7" marker-end="url(#agh)" opacity=".8"/>
 <rect x="314" y="121" width="258" height="88" rx="12" fill="#0b1a33" opacity=".05"/>
-<rect x="314" y="118" width="258" height="88" rx="12" fill="url(#ag-bx)" stroke="#E0913F" stroke-width="2" stroke-opacity=".55"/>
-<rect x="314" y="118" width="5" height="88" rx="2.5" fill="#E0913F"/>
-<text x="330" y="143" class="an">Search Site Content</text>
-<text x="330" y="163" class="aw">Search material scraped from scaspa.com</text>
-<text x="330" y="178" class="aw">and its published PDF documents. Covers…</text>
-<rect x="426.4" y="182" width="133.6" height="17" rx="8.5" fill="#e9f7ef"/>
-<text x="493.2" y="194" text-anchor="middle" class="am" fill="#2f7d52">search_site_content()</text>
+<rect x="314" y="118" width="258" height="88" rx="12" fill="url(#ag-bx)" stroke="#0072BC" stroke-width="2" stroke-opacity=".55"/>
+<rect x="314" y="118" width="5" height="88" rx="2.5" fill="#0072BC"/>
+<text x="330" y="143" class="an">Report Agent</text>
+<text x="330" y="163" class="aw">Creates and submits water-service</text>
+<text x="330" y="178" class="aw">reports and generates a tracking number</text>
+<rect x="437.6" y="182" width="122.39999999999999" height="17" rx="8.5" fill="#f1f4f9"/>
+<text x="498.8" y="194" text-anchor="middle" class="am" fill="#5b6d8f">which tool is this?</text>
 <path d="M443.0,88 L443.0,118" fill="none" stroke="#8494ad" stroke-width="1.7" marker-end="url(#agh)" opacity=".8"/>
-<rect x="598" y="121" width="258" height="88" rx="12" fill="#0b1a33" opacity=".05"/>
-<rect x="598" y="118" width="258" height="88" rx="12" fill="url(#ag-bx)" stroke="#E0913F" stroke-width="2" stroke-opacity=".55"/>
-<rect x="598" y="118" width="5" height="88" rx="2.5" fill="#E0913F"/>
-<text x="614" y="143" class="an">Make Chart</text>
-<text x="614" y="163" class="aw">Describe a chart of SCASPA activity over</text>
-<text x="614" y="178" class="aw">time — passengers, vessel calls…</text>
-<rect x="760.8" y="182" width="83.19999999999999" height="17" rx="8.5" fill="#e9f7ef"/>
-<text x="802.4" y="194" text-anchor="middle" class="am" fill="#2f7d52">make_chart()</text>
-<path d="M727.0,88 L727.0,118" fill="none" stroke="#8494ad" stroke-width="1.7" marker-end="url(#agh)" opacity=".8"/>
 <rect x="30" y="231" width="258" height="88" rx="12" fill="#0b1a33" opacity=".05"/>
-<rect x="30" y="228" width="258" height="88" rx="12" fill="url(#ag-bx)" stroke="#E0913F" stroke-width="2" stroke-opacity=".55"/>
-<rect x="30" y="228" width="5" height="88" rx="2.5" fill="#E0913F"/>
-<text x="46" y="253" class="an">Calculate</text>
-<text x="46" y="273" class="aw">Do exact arithmetic on figures you have</text>
-<text x="46" y="288" class="aw">already retrieved — never guess at a…</text>
-<rect x="198.4" y="292" width="77.6" height="17" rx="8.5" fill="#e9f7ef"/>
-<text x="237.2" y="304" text-anchor="middle" class="am" fill="#2f7d52">calculate()</text>
+<rect x="30" y="228" width="258" height="88" rx="12" fill="url(#ag-bx)" stroke="#0072BC" stroke-width="2" stroke-opacity=".55"/>
+<rect x="30" y="228" width="5" height="88" rx="2.5" fill="#0072BC"/>
+<text x="46" y="253" class="an">Report Tracking Agent</text>
+<text x="46" y="273" class="aw">Checks the status of an existing report</text>
+<rect x="153.60000000000002" y="292" width="122.39999999999999" height="17" rx="8.5" fill="#f1f4f9"/>
+<text x="214.8" y="304" text-anchor="middle" class="am" fill="#5b6d8f">which tool is this?</text>
 <path d="M159.0,198 L159.0,228" fill="none" stroke="#8494ad" stroke-width="1.7" marker-end="url(#agh)" opacity=".8"/>
 <rect x="314" y="231" width="258" height="88" rx="12" fill="#0b1a33" opacity=".05"/>
-<rect x="314" y="228" width="258" height="88" rx="12" fill="url(#ag-bx)" stroke="#E0913F" stroke-width="2" stroke-opacity=".55"/>
-<rect x="314" y="228" width="5" height="88" rx="2.5" fill="#E0913F"/>
-<text x="330" y="253" class="an">Escalate To Human</text>
-<text x="330" y="273" class="aw">Hand the user to SCASPA staff. Call</text>
-<text x="330" y="288" class="aw">whenever you cannot safely answer…</text>
-<rect x="437.6" y="292" width="122.39999999999999" height="17" rx="8.5" fill="#e9f7ef"/>
-<text x="498.8" y="304" text-anchor="middle" class="am" fill="#2f7d52">escalate_to_human()</text>
+<rect x="314" y="228" width="258" height="88" rx="12" fill="url(#ag-bx)" stroke="#0072BC" stroke-width="2" stroke-opacity=".55"/>
+<rect x="314" y="228" width="5" height="88" rx="2.5" fill="#0072BC"/>
+<text x="330" y="253" class="an">Outage Agent</text>
+<text x="330" y="273" class="aw">Checks active water-service outages and</text>
+<text x="330" y="288" class="aw">provides the relevant information</text>
+<rect x="460.0" y="292" width="100.0" height="17" rx="8.5" fill="#e9f7ef"/>
+<text x="510.0" y="304" text-anchor="middle" class="am" fill="#2f7d52">check_outages()</text>
 <path d="M443.0,198 L443.0,228" fill="none" stroke="#8494ad" stroke-width="1.7" marker-end="url(#agh)" opacity=".8"/>
-<rect x="598" y="231" width="258" height="88" rx="12" fill="#0b1a33" opacity=".05"/>
-<rect x="598" y="228" width="258" height="88" rx="12" fill="url(#ag-bx)" stroke="#E0913F" stroke-width="2" stroke-opacity=".55"/>
-<rect x="598" y="228" width="5" height="88" rx="2.5" fill="#E0913F"/>
-<text x="614" y="253" class="an">Show Card</text>
-<text x="614" y="273" class="aw">Attach a card below your answer: an</text>
-<text x="614" y="288" class="aw">arrivals board, the fee calculator, or…</text>
-<rect x="766.4" y="292" width="77.6" height="17" rx="8.5" fill="#e9f7ef"/>
-<text x="805.2" y="304" text-anchor="middle" class="am" fill="#2f7d52">show_card()</text>
-<path d="M727.0,198 L727.0,228" fill="none" stroke="#8494ad" stroke-width="1.7" marker-end="url(#agh)" opacity=".8"/>
-<path d="M159.0,88 L727.0,88" stroke="#8494ad" stroke-width="1.7" opacity=".8" fill="none"/>
-<path d="M443.0,68 L443.0,88" stroke="#8494ad" stroke-width="1.7" opacity=".8" fill="none"/>
-<path d="M159.0,198 L727.0,198" stroke="#8494ad" stroke-width="1.7" opacity=".8" fill="none"/>
-<path d="M443.0,206 L443.0,198" stroke="#8494ad" stroke-width="1.7" opacity=".8" fill="none"/>
-<rect x="293.0" y="342" width="300" height="38" rx="19" fill="#f2f6fc" stroke="#d7e1f0"/>
-<text x="443.0" y="366" text-anchor="middle" class="an">One answer goes back to the user</text>
+<path d="M159.0,88 L443.0,88" stroke="#8494ad" stroke-width="1.7" opacity=".8" fill="none"/>
+<path d="M301.0,68 L301.0,88" stroke="#8494ad" stroke-width="1.7" opacity=".8" fill="none"/>
+<path d="M159.0,198 L443.0,198" stroke="#8494ad" stroke-width="1.7" opacity=".8" fill="none"/>
+<path d="M301.0,206 L301.0,198" stroke="#8494ad" stroke-width="1.7" opacity=".8" fill="none"/>
+<rect x="151.0" y="342" width="300" height="38" rx="19" fill="#f2f6fc" stroke="#d7e1f0"/>
+<text x="301.0" y="366" text-anchor="middle" class="an">One answer goes back to the user</text>
 <text x="30" y="404" class="ac">TOOLS AND NODES IN THE CODE</text>
-<rect x="30" y="414" width="202.0" height="26" rx="13" fill="#fff8ec" stroke="#e6c48a"/>
-<text x="131.0" y="431" text-anchor="middle" class="aw" fill="#3c4c68">search_scaspa_knowledge()</text>
-<rect x="240.0" y="414" width="173.20000000000002" height="26" rx="13" fill="#fff8ec" stroke="#e6c48a"/>
-<text x="326.6" y="431" text-anchor="middle" class="aw" fill="#3c4c68">search_site_content()</text>
-<rect x="421.20000000000005" y="414" width="108.4" height="26" rx="13" fill="#fff8ec" stroke="#e6c48a"/>
-<text x="475.40000000000003" y="431" text-anchor="middle" class="aw" fill="#3c4c68">make_chart()</text>
-<rect x="537.6" y="414" width="101.2" height="26" rx="13" fill="#fff8ec" stroke="#e6c48a"/>
-<text x="588.2" y="431" text-anchor="middle" class="aw" fill="#3c4c68">calculate()</text>
-<rect x="646.8000000000001" y="414" width="158.8" height="26" rx="13" fill="#fff8ec" stroke="#e6c48a"/>
-<text x="726.2" y="431" text-anchor="middle" class="aw" fill="#3c4c68">escalate_to_human()</text>
-<text x="443.0" y="448" text-anchor="middle" class="af">one agent, 8 tools</text>
+<rect x="30" y="414" width="187.6" height="26" rx="13" fill="#fff8ec" stroke="#e6c48a"/>
+<text x="123.8" y="431" text-anchor="middle" class="aw" fill="#3c4c68">search_knowledge_base()</text>
+<rect x="225.6" y="414" width="58.0" height="26" rx="13" fill="#fff8ec" stroke="#e6c48a"/>
+<text x="254.6" y="431" text-anchor="middle" class="aw" fill="#3c4c68">log()</text>
+<rect x="291.6" y="414" width="122.8" height="26" rx="13" fill="#fff8ec" stroke="#e6c48a"/>
+<text x="353.0" y="431" text-anchor="middle" class="aw" fill="#3c4c68">check_status()</text>
+<rect x="422.40000000000003" y="414" width="130.0" height="26" rx="13" fill="#fff8ec" stroke="#e6c48a"/>
+<text x="487.40000000000003" y="431" text-anchor="middle" class="aw" fill="#3c4c68">check_outages()</text>
+<text x="301.0" y="448" text-anchor="middle" class="af">one agent, 4 tools</text>
 </svg></div>
 <p class="note coach">Each agent you described is matched to the function in your code that appears to do it. Where it says <b>which tool is this?</b>, the tools are there but the names are too different for us to pair them — write the pairing into B1 yourself, because a judge will ask. Where it says <b>we could not find this</b>, we found nothing at all: either point us at the file, or take it off the sheet.</p>
 </section>
 <section><h2>C &middot; Code Structure and Organisation</h2><div class="glab">C1 &middot; How is the code organised?</div><p class="lede">Describe two or three major folders, files, modules or components.</p>
 <table><thead><tr><th style="width:44%">File / Folder / Module</th><th>Main purpose</th></tr></thead><tbody>
-<tr><td data-label="File / Folder / Module"><div class="gap" contenteditable="true" data-k="c1n-Frontend / user interface" data-hint="name this part" data-seed="1">Frontend / user interface</div><div class="inf">design/design-source/SCASPA Assistant Component Spec (standalone).html, design/design-source/SCASPA Assistant Component Spec.dc.html, frontend/src/styles/tokens.css, design/tokens.css and 1 more</div></td><td data-label="Main purpose"><div class="gap big" contenteditable="true" data-k="c1-Frontend / user interface" data-hint="what this part of the system is for" data-seed="1">The pages a person sees and types into.</div></td></tr>
-<tr><td data-label="File / Folder / Module"><div class="gap" contenteditable="true" data-k="c1n-AI and agent logic" data-hint="name this part" data-seed="1">AI and agent logic</div><div class="inf">backend/app/rag/answer.py, backend/app/agent/tools.py, backend/app/agent/prompts.py, backend/app/agent/graph.py and 13 more</div></td><td data-label="Main purpose"><div class="gap big" contenteditable="true" data-k="c1-AI and agent logic" data-hint="what this part of the system is for" data-seed="1">Where a question is turned into an answer.</div></td></tr>
-<tr><td data-label="File / Folder / Module"><div class="gap" contenteditable="true" data-k="c1n-Knowledge base and data" data-hint="name this part" data-seed="1">Knowledge base and data</div><div class="inf">frontend/docs/decisions.md, data/knowledge/scaspa_kb_2026-07-31.csv, docs/decisions.md, design/IMPLEMENTATION_PROGRESS.md and 35 more</div></td><td data-label="Main purpose"><div class="gap big" contenteditable="true" data-k="c1-Knowledge base and data" data-hint="what this part of the system is for" data-seed="1">The facts the bot answers from.</div></td></tr>
-<tr><td data-label="File / Folder / Module"><div class="gap" contenteditable="true" data-k="c1n-Configuration and deployment" data-hint="name this part" data-seed="1">Configuration and deployment</div><div class="inf">.env.example, Dockerfile, backend/pyproject.toml, frontend/package.json and 2 more</div></td><td data-label="Main purpose"><div class="gap big" contenteditable="true" data-k="c1-Configuration and deployment" data-hint="what this part of the system is for" data-seed="1">What the host needs in order to run it.</div></td></tr>
-<tr><td data-label="File / Folder / Module"><div class="gap" contenteditable="true" data-k="c1n-Tests" data-hint="name this part" data-seed="1">Tests</div><div class="inf">frontend/tests/operations.test.tsx, frontend/tests/contrast.test.ts, backend/tests/test_operations.py, frontend/tests/chat-rendering.test.tsx and 67 more</div></td><td data-label="Main purpose"><div class="gap big" contenteditable="true" data-k="c1-Tests" data-hint="what this part of the system is for" data-seed="1">Checks that the code still works.</div></td></tr>
-<tr><td data-label="File / Folder / Module"><div class="gap" contenteditable="true" data-k="c1n-Written notes and documentation" data-hint="name this part" data-seed="1">Written notes and documentation</div><div class="inf">design/README.md, README.md, frontend/public/fonts/README.md</div></td><td data-label="Main purpose"><div class="gap big" contenteditable="true" data-k="c1-Written notes and documentation" data-hint="what this part of the system is for" data-seed="1">Notes the team wrote about the build.</div></td></tr>
+<tr><td data-label="File / Folder / Module"><div class="gap" contenteditable="true" data-k="c1n-Frontend / user interface" data-hint="name this part" data-seed="1">Frontend / user interface</div><div class="inf">style.css, index.html</div></td><td data-label="Main purpose"><div class="gap big" contenteditable="true" data-k="c1-Frontend / user interface" data-hint="what this part of the system is for" data-seed="1">The pages a person sees and types into.</div></td></tr>
+<tr><td data-label="File / Folder / Module"><div class="gap" contenteditable="true" data-k="c1n-AI and agent logic" data-hint="name this part" data-seed="1">AI and agent logic</div><div class="inf">agent.py</div></td><td data-label="Main purpose"><div class="gap big" contenteditable="true" data-k="c1-AI and agent logic" data-hint="what this part of the system is for" data-seed="1">Where a question is turned into an answer.</div></td></tr>
+<tr><td data-label="File / Folder / Module"><div class="gap" contenteditable="true" data-k="c1n-Backend / application code" data-hint="name this part" data-seed="1">Backend / application code</div><div class="inf">app.js, app.py, db.py</div></td><td data-label="Main purpose"><div class="gap big" contenteditable="true" data-k="c1-Backend / application code" data-hint="what this part of the system is for" data-seed="1">The server that takes questions in and sends replies back.</div></td></tr>
+<tr><td data-label="File / Folder / Module"><div class="gap" contenteditable="true" data-k="c1n-Knowledge base and data" data-hint="name this part" data-seed="1">Knowledge base and data</div><div class="inf">requirements.txt</div></td><td data-label="Main purpose"><div class="gap big" contenteditable="true" data-k="c1-Knowledge base and data" data-hint="what this part of the system is for" data-seed="1">The facts the bot answers from.</div></td></tr>
+<tr><td data-label="File / Folder / Module"><div class="gap" contenteditable="true" data-k="c1n-Written notes and documentation" data-hint="name this part" data-seed="1">Written notes and documentation</div><div class="inf">README.md</div></td><td data-label="Main purpose"><div class="gap big" contenteditable="true" data-k="c1-Written notes and documentation" data-hint="what this part of the system is for" data-seed="1">Notes the team wrote about the build.</div></td></tr>
+<tr><td data-label="File / Folder / Module"><div class="gap" contenteditable="true" data-k="c1n-Everything else" data-hint="name this part" data-seed="1">Everything else</div><div class="inf">aquaassist_avatar.png.png, download, download (1), nawasa_logo.png.png and 2 more</div></td><td data-label="Main purpose"><div class="gap big" contenteditable="true" data-k="c1-Everything else" data-hint="what this part of the system is for"></div></td></tr>
 </tbody></table><p class="note coach">Keep the two or three that matter most and delete the rest — the template asks for two or three.</p>
-<div class="glab">C2 &middot; Key functions or components</div><p class="lede">Identify the two or three most important functions, classes or modules and explain what each does.</p><p class="lede">There are <b>843 functions</b> in your code. The boxes below start with your own docstrings — <b>rewrite them in plain words</b>, because a judge who cannot read your code can only go on this.</p>
+<div class="glab">C2 &middot; Key functions or components</div><p class="lede">Identify the two or three most important functions, classes or modules and explain what each does.</p><p class="lede">There are <b>58 functions</b> in your code. The boxes below start with your own docstrings — <b>rewrite them in plain words</b>, because a judge who cannot read your code can only go on this.</p>
 <table><thead><tr><th style="width:44%">Function / Class / Module</th><th>Purpose</th></tr></thead><tbody>
-<tr><td data-label="Function / Class / Module"><code>FakeLLM()</code> <span class="inf">backend/tests/test_api_chat.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-FakeLLM" data-hint="what this function does, in plain words" data-seed="1">A TestClient wired to a throwaway index, fake embeddings and a fake LLM.</div></td></tr>
-<tr><td data-label="Function / Class / Module"><code>_accumulate_usage()</code> <span class="inf">backend/app/agent/graph.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-_accumulate_usage" data-hint="what this function does, in plain words" data-seed="1">Add one model response&#x27;s token usage to the running totals.</div></td></tr>
-<tr><td data-label="Function / Class / Module"><code>_appears()</code> <span class="inf">backend/app/rag/grounding.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-_appears" data-hint="what this function does, in plain words" data-seed="1">Whether `value` occurs as a complete figure, not as a fragment.</div></td></tr>
-<tr><td data-label="Function / Class / Module"><code>_appears_verbatim()</code> <span class="inf">backend/app/rag/answer.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-_appears_verbatim" data-hint="what this function does, in plain words" data-seed="1">Whether `value` occurs in `haystack` as a complete figure. A plain substring test is not enough, and getting this wrong defeats the whole check: &quot;XCD 44&quot; is a s</div></td></tr>
-<tr><td data-label="Function / Class / Module"><code>_at()</code> <span class="inf">backend/app/ops/fixtures.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-_at" data-hint="what this function does, in plain words" data-seed="1">A timestamp `hours` from the current hour, at `minute` past it. Anchored to the **hour**, not to `now()`, and the minute is supplied by the caller. Deriving eve</div></td></tr>
-<tr><td data-label="Function / Class / Module"><code>_blank_means_unset()</code> <span class="inf">backend/app/config.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-_blank_means_unset" data-hint="what this function does, in plain words" data-seed="1">Treat an empty value as absent, whatever source it came from. The `.env` sources already filter their own blanks; this catches the same thing arriving from the</div></td></tr>
-<tr><td data-label="Function / Class / Module"><code>_blocked_host()</code> <span class="inf">backend/app/rag/ingest.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-_blocked_host" data-hint="what this function does, in plain words" data-seed="1">The blocklisted host this URL points at, or None. Subdomains match too: blocking `scaspa.com` would block `pay.scaspa.com`. Scheme, port, path and case are all</div></td></tr>
-<tr><td data-label="Function / Class / Module"><code>_build_where()</code> <span class="inf">backend/app/rag/retriever.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-_build_where" data-hint="what this function does, in plain words" data-seed="1">Build a Chroma metadata filter. Chroma needs an explicit `$and` for more than one condition; a bare two-key dict is not a valid filter.</div></td></tr>
+<tr><td data-label="Function / Class / Module"><code>_extract_reply_text()</code> <span class="inf">agent.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-_extract_reply_text" data-hint="what this function does, in plain words" data-seed="1">LangChain&#x27;s AIMessage.content is typed as str | list[str | dict], and for Gemini 3+ models specifically (confirmed directly against the installed langchain-goog</div></td></tr>
+<tr><td data-label="Function / Class / Module"><code>_get_or_create_agent()</code> <span class="inf">app.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-_get_or_create_agent" data-hint="what this function does, in plain words" data-seed="1">Returns a compiled LangGraph agent for this session, rebuilding it if the territory changed (the system prompt is territory-specific). Chat history itself is NO</div></td></tr>
+<tr><td data-label="Function / Class / Module"><code>_get_pinecone_index()</code> <span class="inf">agent.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-_get_pinecone_index" data-hint="what this function does, in plain words" data-seed="1">Lazily connects to (and creates, if missing) the Pinecone index. Returns None if PINECONE_API_KEY isn&#x27;t configured — callers must handle that by falling back to</div></td></tr>
+<tr><td data-label="Function / Class / Module"><code>build_agent()</code> <span class="inf">agent.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-build_agent" data-hint="what this function does, in plain words" data-seed="1">Compiles a fresh LangGraph agent graph bound to the given session- scoped tools and system prompt. The caller (app.py) is responsible for caching this per sessi</div></td></tr>
+<tr><td data-label="Function / Class / Module"><code>check_active_outages()</code> <span class="inf">app.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-check_active_outages" data-hint="what this function does, in plain words" data-seed="1">Looks up any currently active, staff-posted service notices (planned maintenance, outages, or interruptions) for a specific parish/territory, so the customer ge</div></td></tr>
+<tr><td data-label="Function / Class / Module"><code>check_report_status()</code> <span class="inf">app.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-check_report_status" data-hint="what this function does, in plain words" data-seed="1">Looks up the current status of a previously submitted water service report by its reference number, so the customer can be told exactly where things stand. Call</div></td></tr>
+<tr><td data-label="Function / Class / Module"><code>init_db()</code> <span class="inf">db.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-init_db" data-hint="what this function does, in plain words" data-seed="1">Creates all tables if they don&#x27;t exist yet, and seeds default tips / features on first run. Safe to call every time the app starts.</div></td></tr>
+<tr><td data-label="Function / Class / Module"><code>invoke_agent()</code> <span class="inf">agent.py</span></td><td data-label="Purpose"><div class="gap big" contenteditable="true" data-k="c2-invoke_agent" data-hint="what this function does, in plain words" data-seed="1">Runs one turn of the agent. content_blocks is a list of LangChain multimodal content blocks (text / image_url / file), already built by the caller. Returns the</div></td></tr>
 </tbody></table><p class="note coach"><b>Judges will ask you to explain one of these out loud.</b> Practise on the ones you keep — what goes in, what comes out, why it exists.</p>
 <div class="glab">C3 &middot; Code quality practices</div><p class="lede">Tick all the practices used by the development team.</p><div class="cbs">
 <label class="cb"><input type="checkbox" data-c="c3-Clear and meaningful variable names"><span>Clear and meaningful variable names</span></label>
@@ -437,7 +428,7 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <label class="cb"><input type="checkbox" data-c="c3-Input validation" checked><span>Input validation</span></label>
 <label class="cb"><input type="checkbox" data-c="c3-Reusable code components" checked><span>Reusable code components</span></label>
 <label class="cb"><input type="checkbox" data-c="c3-Version control" checked><span>Version control</span></label>
-<label class="cb"><input type="checkbox" data-c="c3-Code testing" checked><span>Code testing</span></label>
+<label class="cb"><input type="checkbox" data-c="c3-Code testing"><span>Code testing</span></label>
 </div><div class="sub">Other</div><div class="gap" contenteditable="true" data-k="c3-other" data-hint="anything else you did"></div>
 <div class="glab">C4 &middot; One well-documented code component</div>
 <div class="sub">Component / function name</div><div class="gap" contenteditable="true" data-k="c4-name" data-hint="e.g. search_knowledge_base()"></div>
@@ -447,16 +438,18 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <div class="sub">How it contributes to the chatbot</div><div class="gap big" contenteditable="true" data-k="c4-why" data-hint="what breaks without it"></div>
 </section>
 <section><h2>D &middot; Core Functionality</h2><p class="lede">For each major feature, explain how it works and name the part of your code that does it.</p><table><thead><tr><th style="width:26%">Feature</th><th style="width:20%">Built?</th><th>How it works</th><th style="width:22%">Which part of your code</th></tr></thead><tbody>
-<tr><td data-label="Feature"><div class="gap" contenteditable="true" data-k="d-name-Cited answers — every response shows the exact source and the date it was verified Refuses rather than guesses — if it isn&#x27;t in SCASPA&#x27;s verified knowledge base, it says so and routes you to the right contact Covers all four facilities — sea cargo, air cargo, ferry, cruise, and airport enquiries in one place Privacy by design — never discusses individual" data-hint="name the feature" data-seed="1">Cited answers — every response shows the exact source and the date it was verified Refuses rather than guesses — if it isn&#x27;t in SCASPA&#x27;s verified knowledge base, it says so and routes you to the right contact Covers all four facilities — sea cargo, air cargo, ferry, cruise, and airport enquiries in one place Privacy by design — never discusses individual</div></td><td data-label="Built?"><select class="pick q" data-p="d-Cited answers — every response shows the exact source and the date it was verified Refuses rather than guesses — if it isn&#x27;t in SCASPA&#x27;s verified knowledge base, it says so and routes you to the right contact Covers all four facilities — sea cargo, air cargo, ferry, cruise, and airport enquiries in one place Privacy by design — never discusses individual" aria-label="d-Cited answers — every response shows the exact source and the date it was verified Refuses rather than guesses — if it isn&#x27;t in SCASPA&#x27;s verified knowledge base, it says so and routes you to the right contact Covers all four facilities — sea cargo, air cargo, ferry, cruise, and airport enquiries in one place Privacy by design — never discusses individual"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select></td><td data-label="How it works"><div class="gap" contenteditable="true" data-k="d-how-Cited answers — every response shows the exact source and the date it was verified Refuses rather than guesses — if it isn&#x27;t in SCASPA&#x27;s verified knowledge base, it says so and routes you to the right contact Covers all four facilities — sea cargo, air cargo, ferry, cruise, and airport enquiries in one place Privacy by design — never discusses individual" data-hint="how it works"></div></td><td data-label="Which part of your code"><div class="gap" contenteditable="true" data-k="d-cmp-Cited answers — every response shows the exact source and the date it was verified Refuses rather than guesses — if it isn&#x27;t in SCASPA&#x27;s verified knowledge base, it says so and routes you to the right contact Covers all four facilities — sea cargo, air cargo, ferry, cruise, and airport enquiries in one place Privacy by design — never discusses individual" data-hint="file or function"></div></td></tr>
-<tr><td data-label="Feature"><div class="gap" contenteditable="true" data-k="d-name-shipments, bookings or accounts, and never touches the payment portal Built-in escalation — hands off to a SCASPA contact with the question already captured, so nothing is repeated (3-5 standout things the bot can do)" data-hint="name the feature" data-seed="1">shipments, bookings or accounts, and never touches the payment portal Built-in escalation — hands off to a SCASPA contact with the question already captured, so nothing is repeated (3-5 standout things the bot can do)</div></td><td data-label="Built?"><select class="pick q" data-p="d-shipments, bookings or accounts, and never touches the payment portal Built-in escalation — hands off to a SCASPA contact with the question already captured, so nothing is repeated (3-5 standout things the bot can do)" aria-label="d-shipments, bookings or accounts, and never touches the payment portal Built-in escalation — hands off to a SCASPA contact with the question already captured, so nothing is repeated (3-5 standout things the bot can do)"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select></td><td data-label="How it works"><div class="gap" contenteditable="true" data-k="d-how-shipments, bookings or accounts, and never touches the payment portal Built-in escalation — hands off to a SCASPA contact with the question already captured, so nothing is repeated (3-5 standout things the bot can do)" data-hint="how it works"></div></td><td data-label="Which part of your code"><div class="gap" contenteditable="true" data-k="d-cmp-shipments, bookings or accounts, and never touches the payment portal Built-in escalation — hands off to a SCASPA contact with the question already captured, so nothing is repeated (3-5 standout things the bot can do)" data-hint="file or function"></div></td></tr>
+<tr><td data-label="Feature"><div class="gap" contenteditable="true" data-k="d-name-AI Customer Support Report &amp; Track Issues Voice, Photo &amp; Video Smart Staff Portal Quick Actions &amp; Contact" data-hint="name the feature" data-seed="1">AI Customer Support Report &amp; Track Issues Voice, Photo &amp; Video Smart Staff Portal Quick Actions &amp; Contact</div></td><td data-label="Built?"><select class="pick q" data-p="d-AI Customer Support Report &amp; Track Issues Voice, Photo &amp; Video Smart Staff Portal Quick Actions &amp; Contact" aria-label="d-AI Customer Support Report &amp; Track Issues Voice, Photo &amp; Video Smart Staff Portal Quick Actions &amp; Contact"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select></td><td data-label="How it works"><div class="gap" contenteditable="true" data-k="d-how-AI Customer Support Report &amp; Track Issues Voice, Photo &amp; Video Smart Staff Portal Quick Actions &amp; Contact" data-hint="how it works"></div></td><td data-label="Which part of your code"><div class="gap" contenteditable="true" data-k="d-cmp-AI Customer Support Report &amp; Track Issues Voice, Photo &amp; Video Smart Staff Portal Quick Actions &amp; Contact" data-hint="file or function"></div></td></tr>
 <tr><td data-label="Feature"><div class="gap" contenteditable="true" data-k="d-name-Answers questions in plain language" data-hint="name the feature" data-seed="1">Answers questions in plain language</div></td><td data-label="Built?"><select class="pick y" data-p="d-Answers questions in plain language" aria-label="d-Answers questions in plain language"><option value="y" selected>yes</option><option value="n">no</option><option value="q">not sure</option></select></td><td data-label="How it works"><div class="gap" contenteditable="true" data-k="d-how-Answers questions in plain language" data-hint="how it works"></div></td><td data-label="Which part of your code"><div class="gap" contenteditable="true" data-k="d-cmp-Answers questions in plain language" data-hint="file or function"></div></td></tr>
 <tr><td data-label="Feature"><div class="gap" contenteditable="true" data-k="d-name-Finds facts in a knowledge base" data-hint="name the feature" data-seed="1">Finds facts in a knowledge base</div></td><td data-label="Built?"><select class="pick y" data-p="d-Finds facts in a knowledge base" aria-label="d-Finds facts in a knowledge base"><option value="y" selected>yes</option><option value="n">no</option><option value="q">not sure</option></select></td><td data-label="How it works"><div class="gap" contenteditable="true" data-k="d-how-Finds facts in a knowledge base" data-hint="how it works"></div></td><td data-label="Which part of your code"><div class="gap" contenteditable="true" data-k="d-cmp-Finds facts in a knowledge base" data-hint="file or function"></div></td></tr>
 <tr><td data-label="Feature"><div class="gap" contenteditable="true" data-k="d-name-Understands images or files" data-hint="name the feature" data-seed="1">Understands images or files</div></td><td data-label="Built?"><select class="pick y" data-p="d-Understands images or files" aria-label="d-Understands images or files"><option value="y" selected>yes</option><option value="n">no</option><option value="q">not sure</option></select></td><td data-label="How it works"><div class="gap" contenteditable="true" data-k="d-how-Understands images or files" data-hint="how it works"></div></td><td data-label="Which part of your code"><div class="gap" contenteditable="true" data-k="d-cmp-Understands images or files" data-hint="file or function"></div></td></tr>
 <tr><td data-label="Feature"><div class="gap" contenteditable="true" data-k="d-name-Speaks its answers" data-hint="name the feature" data-seed="1">Speaks its answers</div></td><td data-label="Built?"><select class="pick y" data-p="d-Speaks its answers" aria-label="d-Speaks its answers"><option value="y" selected>yes</option><option value="n">no</option><option value="q">not sure</option></select></td><td data-label="How it works"><div class="gap" contenteditable="true" data-k="d-how-Speaks its answers" data-hint="how it works"></div></td><td data-label="Which part of your code"><div class="gap" contenteditable="true" data-k="d-cmp-Speaks its answers" data-hint="file or function"></div></td></tr>
-<tr><td data-label="Feature"><div class="gap" contenteditable="true" data-k="d-name-Remembers earlier messages" data-hint="name the feature" data-seed="1">Remembers earlier messages</div></td><td data-label="Built?"><select class="pick n" data-p="d-Remembers earlier messages" aria-label="d-Remembers earlier messages"><option value="y">yes</option><option value="n" selected>no</option><option value="q">not sure</option></select></td><td data-label="How it works"><div class="gap" contenteditable="true" data-k="d-how-Remembers earlier messages" data-hint="how it works"></div></td><td data-label="Which part of your code"><div class="gap" contenteditable="true" data-k="d-cmp-Remembers earlier messages" data-hint="file or function"></div></td></tr>
+<tr><td data-label="Feature"><div class="gap" contenteditable="true" data-k="d-name-Remembers earlier messages" data-hint="name the feature" data-seed="1">Remembers earlier messages</div></td><td data-label="Built?"><select class="pick y" data-p="d-Remembers earlier messages" aria-label="d-Remembers earlier messages"><option value="y" selected>yes</option><option value="n">no</option><option value="q">not sure</option></select></td><td data-label="How it works"><div class="gap" contenteditable="true" data-k="d-how-Remembers earlier messages" data-hint="how it works"></div></td><td data-label="Which part of your code"><div class="gap" contenteditable="true" data-k="d-cmp-Remembers earlier messages" data-hint="file or function"></div></td></tr>
 </tbody></table><p class="note coach">Built something not listed? Add a row. Not built? Mark it <b>no</b> and leave the rest blank — an honest blank beats a vague claim.</p></section>
 <section><h2>E &middot; API and External Service Integration</h2><h3>E1 &middot; What you called</h3>
-<div class="gap big" contenteditable="true" data-k="e1" data-hint="list the outside services your bot calls"></div>
+<ul class="apis">
+<li><code>https://api.elevenlabs.io/v1/text-to-speech/{ELEVENLABS_VOICE_ID}</code></li>
+<li><code>https://fonts.googleapis.com/css2</code></li>
+</ul>
 <h3>E2 &middot; Explain one of them properly</h3><p class="lede coach">Pick the one your bot leans on most.</p>
 <div class="glab">Which service?</div><div class="gap" contenteditable="true" data-k="e2-svc" data-hint="e.g. Google Gemini"></div>
 <div class="glab">What is it for?</div><div class="gap big" contenteditable="true" data-k="e2-purpose" data-hint="why you call it"></div>
@@ -466,14 +459,14 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <div class="glab">What happens when it fails?</div><div class="gap big" contenteditable="true" data-k="e2-err" data-hint="what the user sees if it breaks"></div>
 </section>
 <section><h2>F &middot; AI and Prompt Architecture</h2>
-<div class="glab">F1 &middot; Which model?</div><p class="lede"><b>OpenAI GPT</b></p>
+<div class="glab">F1 &middot; Which model?</div><p class="lede"><b>Google Gemini</b></p>
 <div class="glab">Why did you pick it over the others?</div>
 <div class="gap big" contenteditable="true" data-k="f1" data-hint="cost, speed, languages, free tier, what your client needed…"></div>
 <div class="glab">F2 &middot; How do you instruct the AI?</div><p class="lede coach">Tick what you actually put into the prompt, then explain it.</p><div class="cbs">
 <label class="cb"><input type="checkbox" data-c="f2-System instructions"><span>System instructions</span></label>
 <label class="cb"><input type="checkbox" data-c="f2-Client-specific information"><span>Client-specific information</span></label>
 <label class="cb"><input type="checkbox" data-c="f2-User context"><span>User context</span></label>
-<label class="cb"><input type="checkbox" data-c="f2-Conversation history"><span>Conversation history</span></label>
+<label class="cb"><input type="checkbox" data-c="f2-Conversation history" checked><span>Conversation history</span></label>
 <label class="cb"><input type="checkbox" data-c="f2-Persona instructions"><span>Persona instructions</span></label>
 <label class="cb"><input type="checkbox" data-c="f2-Tone and communication style"><span>Tone and communication style</span></label>
 <label class="cb"><input type="checkbox" data-c="f2-Restrictions or guardrails"><span>Restrictions or guardrails</span></label>
@@ -498,7 +491,7 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <div class="glab">G2 &middot; How does it find the right information?</div>
 <div class="gap big" contenteditable="true" data-k="g2" data-hint="how a question turns into the right fact"></div>
 <div class="glab">G3 &middot; How do you keep it accurate, current and used properly?</div>
-<div class="gap big" contenteditable="true" data-k="g3" data-hint="who checks it, how often, what happens when it is wrong" data-seed="1">Retrieval-grounded, not generative. The model has no knowledge of SCASPA. It can only compose an answer from entries retrieved out of the verified knowledge base, so there is nothing to invent from. Citations are verified server-side. Every citation is checked against what was actually retrieved before the answer leaves the backend. A source the model invents fails the check, so it never reaches the user. Saying &quot;I don&#x27;t know&quot; is a designed path, not a failure. When retrieval confidence falls below threshold, the assistant states plainly that the information isn&#x27;t in SCASPA&#x27;s published record, rather than assembling a plausible-sounding answer from fragments. Every answer is dated. Users see the date each fact was verified and can judge its freshness themselves. Handoff is structured. Escalation routes to the correct SCASPA contact for the facility and topic, with the enquiry captured so the customer doesn&#x27;t repeat themselves. Measured, not assumed. A fixed evaluation set tracks retrieval accuracy and hallucination rate. A change that degrades either fails the build rather than shipping. (how it stays honest, declines, or escalates) It won&#x27;t discuss anything about an individual. No shipment status, no booking, no account balance, no &quot;is my father on that flight.&quot; These are refused before any retrieval happens, by a classifier that runs ahead of the model — so the question is never even processed against the knowledge base. It won&#x27;t touch the payment portal. Permanently blocklisted. Any source URL pointing there is stripped when the knowledge base loads, so it cannot surface even accidentally. It won&#x27;t quote a figure it hasn&#x27;t seen. Money and time values must appear verbatim in a retrieved entry. A number the model produces on its own is rejected, not printed. It won&#x27;t speak beyond SCASPA&#x27;s remit. Customs duties, immigration, ferry fares, airline bookings — the assistant states plainly that these aren&#x27;t SCASPA&#x27;s, and points to who owns them. It won&#x27;t present unverified information as fact. Only entries marked confirmed are searchable. Demonstration data is visibly marked as such, and the system refuses to run with demonstration data in production at all. On user data: the assistant asks for no personal information and needs none to be useful. It has no account access, no shipment lookup and no payment function — not as policy, but because those capabilities were never built. (what it refuses to do; how it avoids making things up; data privacy)</div>
+<div class="gap big" contenteditable="true" data-k="g3" data-hint="who checks it, how often, what happens when it is wrong" data-seed="1">The bot is grounded in approved client information and does not guess when an answer is unavailable. If it cannot confidently answer a question, it clearly says so and directs the user to the appropriate human support channel It only provides information within its approved knowledge base, avoids inventing facts or making unsupported claims, and does not expose private or sensitive user information. It will not provide advice outside its intended purpose and encourages users to contact a human when a situation requires human judgment</div>
 <div class="glab">Does it store anyone’s personal information?</div>
 <select class="pick q" data-p="g3-pii" aria-label="g3-pii"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select><div class="gap big" contenteditable="true" data-k="g3-pii-desc" data-hint="if yes: what is stored, and how it is protected"></div>
 </section>
@@ -508,7 +501,7 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <div class="sub">What is it for?</div><div class="gap big" contenteditable="true" data-k="h1-purpose" data-hint="why it helps the user"></div>
 <div class="sub">How does it show the reply?</div><div class="gap big" contenteditable="true" data-k="h1-show" data-hint="lip-sync, animation, or static"></div>
 <div class="glab">H2 &middot; Text-to-speech</div>
-<div class="sub">What did you use?</div><div class="gap" contenteditable="true" data-k="h2-tech" data-hint="e.g. ElevenLabs"></div>
+<div class="sub">What did you use?</div><p class="lede"><b>ElevenLabs</b></p>
 <div class="sub">How does text become speech?</div><div class="gap big" contenteditable="true" data-k="h2-how" data-hint="what happens when it speaks"></div>
 <div class="sub">Which voice did you choose, and why?</div><div class="gap big" contenteditable="true" data-k="h2-voice" data-hint="why that voice suits your client"></div>
 <div class="glab">H3 &middot; Does it accept voice input?</div>
@@ -517,17 +510,17 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <div class="gap big" contenteditable="true" data-k="h4" data-hint="the AI, the chat, the avatar and the voice — in one paragraph"></div>
 </section>
 <section><h2>I &middot; Multilingual and Multi-Persona Architecture</h2><div class="glab">I1 &middot; Which languages does it speak?</div>
-<p class="lede"><b>Creole, English, French, Spanish</b></p>
-<p class="lede coach">Your documents mention English, Spanish, French, Creole. Only list a language your bot really handles.</p>
+<p class="lede"><b>Creole, English</b></p>
+<p class="lede coach">Your documents mention English, Creole. Only list a language your bot really handles.</p>
 <div class="gap" contenteditable="true" data-k="i1" data-hint="e.g. English, and any others"></div>
 <div class="glab">I2 &middot; Who does it speak to differently?</div>
 <p class="lede coach">Two done properly beats five half-written.</p>
 <div class="sub">Persona 1</div>
-<div class="gap big" contenteditable="true" data-k="i2-1" data-hint="who they are, and how the bot changes for them" data-seed="1">Compass — Front Desk Guide. The default voice. Handles general enquiries, first-time visitors, and anyone who isn&#x27;t sure which part of SCASPA they need. Warm but institutional. Plain language, no jargon, patient with vague questions. Never chatty for its own sake — it&#x27;s representing a statutory authority, so it stays composed. Leads with the answer, then the detail. &quot;Good day. I can help with anything SCASPA publishes — the seaport, the ferry terminal or the airport. What are you trying to sort out?&quot; Style: short paragraphs, one clarifying question at a time, always ends with a next step rather than a full stop. English (primary). Understands Kittitian-Nevisian Creole input and replies in Standard English</div>
+<div class="gap big" contenteditable="true" data-k="i2-1" data-hint="who they are, and how the bot changes for them" data-seed="1">Everyday NAWASA Customer Friendly, patient and helpful Hi! How can I help you today? Understands English and Caribbean Creole; responds in standard English</div>
 <div class="sub">Persona 2</div>
-<div class="gap big" contenteditable="true" data-k="i2-2" data-hint="who they are, and how the bot changes for them" data-seed="1">Ledger — Cargo &amp; Trade Specialist. For importers, consignees, customs brokers and freight forwarders clearing sea or air cargo. Precise and procedural. Assumes the user knows the trade vocabulary — bill of lading, airway bill, consignee, transit shed — and doesn&#x27;t over-explain. Efficient, not curt. Treats a document checklist as the answer, not a preamble to one. Ledger here. Tell me what you&#x27;re collecting and whether it came by sea or air, and I&#x27;ll give you the documents and the location.&quot; Style: numbered document lists, states the sequence (carrier → customs → SCASPA release), always names what to bring. English (primary). Understands Kittitian-Nevisian Creole input; replies in Standard English for document accuracy</div>
+<div class="gap big" contenteditable="true" data-k="i2-2" data-hint="who they are, and how the bot changes for them" data-seed="1">Customer Reporting a Water Issue Concerned, direct and reassuring I can help you report the issue. Understands English and Caribbean Creole; responds in standard English</div>
 <div class="sub">Persona 3</div>
-<div class="gap big" contenteditable="true" data-k="i2-3" data-hint="who they are, and how the bot changes for them" data-seed="1">Beacon — Arrivals Guide. For cruise passengers at Port Zante, ferry passengers to and from Nevis, and travellers at R. L. Bradshaw International. Brief and orienting, with a note of hospitality. Someone standing on a dock with a phone in one hand doesn&#x27;t want three paragraphs. Friendly without being performative. &quot;Welcome to St. Kitts. I can help you find your way around Port Zante, the ferry terminal or the airport. Where are you headed?&quot; Style: shortest answers in the set, leads with location and time, English (primary). Spanish and French comprehension worth considering for cruise traffic from Guadeloupe, Martinique, Puerto Rico and the DR. flags plainly when SCASPA doesn&#x27;t set a schedule or fare</div>
+<div class="gap big" contenteditable="true" data-k="i2-3" data-hint="who they are, and how the bot changes for them"></div>
 </section>
 <section><h2>J &middot; Agentic Characteristics</h2><p class="lede">What it can do <b>beyond answering questions</b>. This is the difference between a chatbot and an agent, and judges look for it.</p><div class="cbs">
 <label class="cb"><input type="checkbox" data-c="j-Ask clarifying questions"><span>Ask clarifying questions</span></label>
@@ -536,17 +529,17 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <label class="cb"><input type="checkbox" data-c="j-Complete multi-step tasks" checked><span>Complete multi-step tasks</span></label>
 <label class="cb"><input type="checkbox" data-c="j-Find information in more than one place" checked><span>Find information in more than one place</span></label>
 <label class="cb"><input type="checkbox" data-c="j-Use APIs or outside tools" checked><span>Use APIs or outside tools</span></label>
-<label class="cb"><input type="checkbox" data-c="j-Keep track of a task"><span>Keep track of a task</span></label>
+<label class="cb"><input type="checkbox" data-c="j-Keep track of a task" checked><span>Keep track of a task</span></label>
 <label class="cb"><input type="checkbox" data-c="j-Make recommendations"><span>Make recommendations</span></label>
 <label class="cb"><input type="checkbox" data-c="j-Hand over to a human"><span>Hand over to a human</span></label>
 <label class="cb"><input type="checkbox" data-c="j-Something else"><span>Something else</span></label>
 </div>
-<p class="note coach">Your documents also describe: <b>Ask clarifying questions, Complete multi-step tasks, Hand over to a human</b>. Tick those only if the code really does them — a claim in a deck that the code cannot back up is the fastest way to lose marks here.</p>
+<p class="note coach">Your documents also describe: <b>Complete multi-step tasks</b>. Tick those only if the code really does them — a claim in a deck that the code cannot back up is the fastest way to lose marks here.</p>
 <div class="glab">Give one real example of it doing something, not just answering</div>
 <div class="gap big" contenteditable="true" data-k="j-example" data-hint="e.g. a customer logged a fault and it created the report"></div>
 </section>
 <section><h2>K &middot; Testing and Quality Assurance</h2><p class="lede"><b>Actually run these.</b> Judges can tell invented results, and an honest &ldquo;needs improvement&rdquo; scores better than a made-up pass.</p><table><thead><tr><th style="width:34%">Test</th><th style="width:16%">Did you run it?</th><th style="width:24%">Result</th><th>What happened</th></tr></thead><tbody>
-<tr><td data-label="Test"><div class="gap" contenteditable="true" data-k="k-name-Unit testing" data-hint="name the test" data-seed="1">Unit testing</div></td><td data-label="Did you run it?"><select class="pick y" data-p="k-ran-Unit testing" aria-label="k-ran-Unit testing"><option value="y" selected>yes</option><option value="n">no</option><option value="q">not sure</option></select></td><td data-label="Result"><select class="pick q q" data-p="k-res-Unit testing"><option value="q" selected>in progress</option><option value="y">pass</option><option value="n">needs work</option></select></td><td data-label="What happened"><div class="gap" contenteditable="true" data-k="k-note-Unit testing" data-hint="what you saw"></div></td></tr>
+<tr><td data-label="Test"><div class="gap" contenteditable="true" data-k="k-name-Unit testing" data-hint="name the test" data-seed="1">Unit testing</div></td><td data-label="Did you run it?"><select class="pick n" data-p="k-ran-Unit testing" aria-label="k-ran-Unit testing"><option value="y">yes</option><option value="n" selected>no</option><option value="q">not sure</option></select></td><td data-label="Result"><select class="pick q q" data-p="k-res-Unit testing"><option value="q" selected>in progress</option><option value="y">pass</option><option value="n">needs work</option></select></td><td data-label="What happened"><div class="gap" contenteditable="true" data-k="k-note-Unit testing" data-hint="what you saw"></div></td></tr>
 <tr><td data-label="Test"><div class="gap" contenteditable="true" data-k="k-name-Feature testing" data-hint="name the test" data-seed="1">Feature testing</div></td><td data-label="Did you run it?"><select class="pick q" data-p="k-ran-Feature testing" aria-label="k-ran-Feature testing"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select></td><td data-label="Result"><select class="pick q q" data-p="k-res-Feature testing"><option value="q" selected>in progress</option><option value="y">pass</option><option value="n">needs work</option></select></td><td data-label="What happened"><div class="gap" contenteditable="true" data-k="k-note-Feature testing" data-hint="what you saw"></div></td></tr>
 <tr><td data-label="Test"><div class="gap" contenteditable="true" data-k="k-name-API testing" data-hint="name the test" data-seed="1">API testing</div></td><td data-label="Did you run it?"><select class="pick q" data-p="k-ran-API testing" aria-label="k-ran-API testing"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select></td><td data-label="Result"><select class="pick q q" data-p="k-res-API testing"><option value="q" selected>in progress</option><option value="y">pass</option><option value="n">needs work</option></select></td><td data-label="What happened"><div class="gap" contenteditable="true" data-k="k-note-API testing" data-hint="what you saw"></div></td></tr>
 <tr><td data-label="Test"><div class="gap" contenteditable="true" data-k="k-name-User testing" data-hint="name the test" data-seed="1">User testing</div></td><td data-label="Did you run it?"><select class="pick q" data-p="k-ran-User testing" aria-label="k-ran-User testing"><option value="y">yes</option><option value="n">no</option><option value="q" selected>not sure</option></select></td><td data-label="Result"><select class="pick q q" data-p="k-res-User testing"><option value="q" selected>in progress</option><option value="y">pass</option><option value="n">needs work</option></select></td><td data-label="What happened"><div class="gap" contenteditable="true" data-k="k-note-User testing" data-hint="what you saw"></div></td></tr>
@@ -569,9 +562,9 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <label class="cb"><input type="checkbox" data-c="l-AI/LLM integration functions successfully" checked><span>AI/LLM integration functions successfully</span></label>
 <label class="cb"><input type="checkbox" data-c="l-Prompt handling has been implemented"><span>Prompt handling has been implemented</span></label>
 <label class="cb"><input type="checkbox" data-c="l-Knowledge base or information retrieval functions successfully" checked><span>Knowledge base or information retrieval functions successfully</span></label>
-<label class="cb"><input type="checkbox" data-c="l-Relevant APIs are integrated successfully"><span>Relevant APIs are integrated successfully</span></label>
+<label class="cb"><input type="checkbox" data-c="l-Relevant APIs are integrated successfully" checked><span>Relevant APIs are integrated successfully</span></label>
 <label class="cb"><input type="checkbox" data-c="l-Avatar system functions successfully, where applicable"><span>Avatar system functions successfully, where applicable</span></label>
-<label class="cb"><input type="checkbox" data-c="l-Text-to-speech or voice features function successfully, where applicable"><span>Text-to-speech or voice features function successfully, where applicable</span></label>
+<label class="cb"><input type="checkbox" data-c="l-Text-to-speech or voice features function successfully, where applicable" checked><span>Text-to-speech or voice features function successfully, where applicable</span></label>
 <label class="cb"><input type="checkbox" data-c="l-Multilingual features function successfully, where applicable"><span>Multilingual features function successfully, where applicable</span></label>
 <label class="cb"><input type="checkbox" data-c="l-Multiple persona features function successfully, where applicable"><span>Multiple persona features function successfully, where applicable</span></label>
 <label class="cb"><input type="checkbox" data-c="l-Agentic features function successfully, where applicable" checked><span>Agentic features function successfully, where applicable</span></label>
@@ -579,21 +572,21 @@ footer{max-width:960px;margin:0 auto;padding:0 24px 50px;color:var(--mute);
 <label class="cb"><input type="checkbox" data-c="l-The team can explain the high-level architecture"><span>The team can explain the high-level architecture</span></label>
 </div>
 <div class="glab coach">Your live link, checked just now</div><table class="kv coach">
-<tr><th>Link</th><td>https://scaspa.eccugenai.app</td></tr>
+<tr><th>Link</th><td>https://aquaassist-hdml.onrender.com/</td></tr>
 <tr><th>Did it answer?</th><td><span class="tag y">yes</span> HTTP 200</td></tr>
 <tr><th>Time to wake up</th><td>0.4 seconds</td></tr>
 </table></section>
 <section class="internal"><h2>Your repository <span class="only">camp copy only</span></h2><p class="lede">This block is for your coach. It is stripped out of the judges’ copy and out of the PDF — external judges are not given the code.</p><table class="kv">
-<tr><th>Code</th><td>https://github.com/Lahkin/scaspa-chatbot</td></tr>
-<tr><th>Documents read</th><td>SCASPA_Pilot.pdf</td></tr>
-<tr><th>Files</th><td>422</td></tr>
-<tr><th>Commits</th><td>73</td></tr>
-<tr><th>People who committed</th><td>2</td></tr>
+<tr><th>Code</th><td>https://github.com/simletpierreco-arch0/AquaAssist-Hdml</td></tr>
+<tr><th>Documents read</th><td>AquaAssist.pdf</td></tr>
+<tr><th>Files</th><td>14</td></tr>
+<tr><th>Commits</th><td>100</td></tr>
+<tr><th>People who committed</th><td>1</td></tr>
 <tr><th>Passwords left in the code</th><td><span class="tag y">none — well done</span></td></tr></table></section>
 </div>
 <footer class="coach">Draft generated for the ECCU GenAI &amp; Python Camp field audit. A draft is not a submission — read every line before it reaches a judge.</footer>
 <script>
-var KEY = "sub-draft-pilot";
+var KEY = "sub-draft-aquaassist";
 var gaps = [].slice.call(document.querySelectorAll(".gap"));
 var picks = [].slice.call(document.querySelectorAll(".pick"));
 var boxes = [].slice.call(document.querySelectorAll('.cb input[type="checkbox"]'));
@@ -662,7 +655,7 @@ restore(); count();
 
 // Coaching notes help while writing and are noise to a judge. Hide them here,
 // and strip them from anything that leaves this page.
-var COACH = "sub-coach-pilot";
+var COACH = "sub-coach-aquaassist";
 var notesBtn = document.getElementById("notes");
 function paintNotes(){
   var hidden = document.body.classList.contains("nocoach");
@@ -699,13 +692,13 @@ function saveCopy(strip, filename){
 
 // the downloaded copy is the one that reaches a judge — no coaching in it
 document.getElementById("save").addEventListener("click", function(){
-  saveCopy(".coach", "pilot-submission.html");
+  saveCopy(".coach", "aquaassist-submission.html");
 });
 
 // The judges' copy. Everything the camp copy has, minus the repository block —
 // external judges get the live link and nothing that leads to the source.
 document.getElementById("judge").addEventListener("click", function(){
-  saveCopy(".coach,.internal", "pilot-for-judges.html");
+  saveCopy(".coach,.internal", "aquaassist-for-judges.html");
 });
 document.getElementById("print").addEventListener("click", function(){ window.print(); });
 document.getElementById("copy").addEventListener("click", function(){
