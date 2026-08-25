@@ -4,17 +4,16 @@
   "title": "Judging Portal",
   "subtitle": "ECCU GenAI &amp; Python Camp 2026 — Chatbot Division &middot; Client Judging",
   "heading": "The four submissions",
-  "lede": "Four chatbots, each built for a real Eastern Caribbean organisation by a camper team. Open a card to review the working bot, the client profile, the pitch deck and the team&rsquo;s podcast. Each card opens with its own password.",
+  "lede": "Four chatbots, each built for a real Eastern Caribbean organisation by a camper team. Open a card to review the working bot, its profile document and the team&rsquo;s podcast. Each card opens with its own password.",
   "step3": "Use the password sent to the panel.",
-  "note": "<b>What is included.</b> Each card holds the live chatbot, the team&rsquo;s submission document, the pitch deck where one was submitted, and the team&rsquo;s podcast. Source code is not published here and is assessed separately.",
+  "note": "<b>What is included.</b> Each card holds the live chatbot, the team&rsquo;s Generative AI &amp; Agentic Chatbot Profile, a demo video where one was submitted, and the team&rsquo;s podcast. Source code is not published here and is assessed separately.",
   "assetBase": "/clients/",
   "fields": [
     "bot",
     "profile",
     "podcast",
     "podcastTitle",
-    "video",
-    "deck"
+    "video"
   ],
   "clients": [
     {
@@ -58,7 +57,8 @@
       "podcast": "1Sc9fNFaS6JP-PSxgEteDbv49VFPoquUI",
       "podcastTitle": "CUB Ava fixes Caribbean banking friction",
       "logo": "logos/cub.png",
-      "deck": "1g8VSBylsCS2pv_kKk8g7yMKu5HpcQnLm"
+      "deck": "1g8VSBylsCS2pv_kKk8g7yMKu5HpcQnLm",
+      "thumbFocus": "50% 6%"
     },
     {
       "id": "scaspa",

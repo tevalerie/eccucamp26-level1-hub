@@ -65,7 +65,13 @@ def main():
         base = cfg.get("assetBase", "")
         thumb = ROOT / "clients" / "thumbs" / ("%s.png" % c["id"])
         if thumb.exists():
-            art = '<img src="%sthumbs/%s.png" alt="">' % (base, c["id"])
+            # A 190px strip out of a full screenshot defaults to the middle of
+            # the image, which for a chat interface is the empty conversation
+            # area. thumbFocus moves the crop — "top" keeps the header and the
+            # first message in frame.
+            focus = c.get("thumbFocus", "")
+            style = ' style="object-position:%s"' % html.escape(focus) if focus else ""
+            art = '<img src="%sthumbs/%s.png" alt=""%s>' % (base, c["id"], style)
         elif c.get("logo"):
             art = '<span class="placeholder"><img src="%s%s" alt=""></span>' % (base, c["logo"])
         else:
@@ -284,6 +290,7 @@ async function unlock(id, password) {
 
 function render(card, data) {
   var box = card.querySelector(".links"), h = "";
+  var clientName = (card.querySelector("h3") || {}).textContent || "";
   h += data.bot
     ? '<a href="' + data.bot + '" target="_blank" rel="noopener"><span class="ic">&#128172;</span>Open the chatbot</a>'
     : '<span class="soon"><span class="ic">&#128172;</span>Chatbot link coming</span>';
@@ -294,7 +301,9 @@ function render(card, data) {
   if (data.video)
     h += '<a href="' + data.video + '" target="_blank" rel="noopener"><span class="ic">&#9654;</span>Demo video</a>';
   if (data.profile)
-    h += '<a href="https://drive.google.com/file/d/' + data.profile + '/view" target="_blank" rel="noopener"><span class="ic">&#128196;</span>Client profile (PDF)</a>'
+    h += '<a href="https://drive.google.com/file/d/' + data.profile + '/view" target="_blank" rel="noopener">'
+       + '<span class="ic">&#128196;</span><span>Generative AI &amp; Agentic Chatbot Profile (PDF)'
+       + '<span class="sub">designed for ' + clientName + '</span></span></a>'
        + '<div class="media"><iframe src="https://drive.google.com/file/d/' + data.profile + '/preview" height="380" allow="autoplay"></iframe></div>';
   if (data.architecture)
     h += '<a href="' + data.architecture + '" target="_blank" rel="noopener"><span class="ic">&#129517;</span>AI architecture</a>';
